@@ -264,65 +264,102 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────────────
-          CTA — dark full section
-      ───────────────────────────────────────────────────────────────────── */}
-      <section style={{ background: DARK, padding: "80px 48px" }}>
-        <div style={{ maxWidth: "1120px", margin: "0 auto", textAlign: "center" }}>
-          <ScrollReveal>
-            <p style={{
-              fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: TEXT3, marginBottom: "20px",
-            }}>
-              Hear it yourself
-            </p>
-            <h2 style={{
+      {/* ══════════════════════════════════════════════════════════════════════
+          FULL CTA — matches home page pattern
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
+        <ScrollReveal>
+          <h2
+            style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(28px, 4vw, 52px)",
+              fontSize: "clamp(36px, 4vw, 58px)",
               fontWeight: 600,
-              fontStyle: "italic",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
               color: "#f5f3ef",
-              margin: "0 auto 16px",
-              maxWidth: "640px",
-            }}>
-              Hear what intentional voice sounds like.
-            </h2>
-            <p style={{ fontSize: "15px", color: TEXT3, margin: "0 0 40px" }}>
-              All five voices are in the composer, ready to play.
-            </p>
-            <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-              <a
-                href="https://composer.lyricvoices.ai"
-                style={{
-                  padding: "12px 28px",
-                  borderRadius: "100px",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  background: "#f5f3ef",
-                  color: DARK,
-                }}
-              >
-                Open the composer
-              </a>
-              <Link
-                href="/editions"
-                style={{
-                  padding: "12px 28px",
-                  borderRadius: "100px",
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  background: "transparent",
-                  color: TEXT3,
-                  border: `1px solid rgba(229,223,213,0.2)`,
-                }}
-              >
-                Browse editions
-              </Link>
+              margin: "0 auto 20px",
+              lineHeight: 1.1,
+              letterSpacing: "-0.02em",
+              maxWidth: "720px",
+            }}
+          >
+            Ready to hear Lyric
+            <br />
+            in action?
+          </h2>
+        </ScrollReveal>
+
+        <ScrollReveal delay={80}>
+          <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.5, maxWidth: "380px", margin: "0 auto 36px" }}>
+            Try the composer and experience how Lyric voices perform in real moments.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={160}>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
+            <a
+              href="https://composer.lyricvoices.ai"
+              style={{
+                padding: "13px 26px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 500,
+                background: "#f5f3ef",
+                color: DARK,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Try the composer
+            </a>
+            <Link
+              href="/editions"
+              style={{
+                padding: "13px 26px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 400,
+                background: "rgba(245,243,239,0.07)",
+                color: "rgba(245,243,239,0.6)",
+                border: "1px solid rgba(245,243,239,0.12)",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Learn how Lyric works
+            </Link>
+          </div>
+        </ScrollReveal>
+
+        {/* Founder row */}
+        <ScrollReveal delay={240}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+            <div style={{ display: "flex" }}>
+              {[1, 2, 3, 4].map((n) => (
+                <div
+                  key={n}
+                  style={{
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    border: `2px solid ${DARK}`,
+                    marginLeft: n === 1 ? 0 : "-8px",
+                    background: "#d4c9bc",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Image
+                    src={`/images/founders_${n}.webp`}
+                    alt=""
+                    width={28}
+                    height={28}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              ))}
             </div>
-          </ScrollReveal>
-        </div>
+            <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(245,243,239,0.3)", margin: 0 }}>
+              ✦ Shaped by designers behind AI products at top brands.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
     </>
   )
