@@ -37,23 +37,21 @@ export default function AboutPage() {
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(36px, 5vw, 68px)",
                 fontWeight: 600,
-                fontStyle: "italic",
+                fontStyle: "normal",
                 letterSpacing: "-0.02em",
-                lineHeight: 1.05,
+                lineHeight: 1.0,
                 color: TEXT1,
                 margin: "0 auto 28px",
                 maxWidth: "760px",
               }}>
-                Voice is a design problem.
-                <br />We built the solution.
+                Lyric started with a simple{" "}
+                <em>frustration.</em>
               </h1>
               <p style={{
                 fontSize: "17px", color: TEXT2, lineHeight: 1.7,
                 maxWidth: "520px", margin: "0 auto",
               }}>
-                AI voices were getting more realistic, but less considered.
-                Everything sounded fine, yet nothing sounded intentional.
-                Lyric was created to change that.
+                AI voices were getting more realistic, but less considered. Everything sounded fine, yet nothing sounded intentional. Lyric was created to change that. We&apos;re building voice systems that respect performance, emotion, and restraint, because how something is said still matters.
               </p>
             </div>
           </ScrollReveal>
@@ -95,21 +93,16 @@ export default function AboutPage() {
             <ScrollReveal>
               <div>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  We didn&apos;t start Lyric because we wanted to build another voice
-                  company. We started it because we were frustrated by how voice was
-                  being treated in the industry. Reduced to output. Tuned for novelty.
-                  Optimized for speed, but disconnected from intent.
+                  We didn&apos;t start Lyric because we wanted to build another voice company. We started it because we were frustrated by how voice was being treated in the industry. Reduced to output. Tuned for novelty. Optimized for speed, but disconnected from intent. Voices cloned from data, then dropped into products without context, responsibility, or care.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Voices cloned from data, then dropped into products without context,
-                  responsibility, or care. It wasn&apos;t a technology problem. It was a
-                  design problem.
+                  It wasn&apos;t a technology problem. It was a design problem.
+                </p>
+                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
+                  Most voice tools today ask you to adapt to them. You test phrases in a composer. You adjust sliders. You listen, tweak, regenerate, repeat. You try to imagine how a voice might sound inside your product, brand, or experience. And somehow, the burden of authorship ends up on you.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: 0 }}>
-                  Most voice tools today ask you to adapt to them. You test phrases. You
-                  adjust sliders. You listen, tweak, regenerate, repeat. And somehow,
-                  the burden of authorship ends up on you. We believed there was another
-                  way.
+                  We believed there was another way.
                 </p>
               </div>
             </ScrollReveal>
@@ -117,19 +110,13 @@ export default function AboutPage() {
             <ScrollReveal delay={80}>
               <div>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Lyric is built around the idea that voices should be composed, not
-                  cloned. Designed with a point of view. Shaped for specific environments.
-                  Built for how they&apos;re meant to be used, not how fast they can be
-                  generated.
+                  Lyric is built around the idea that voices should be composed, not cloned. Designed with a point of view. Shaped for specific environments. Tuned for how they&apos;re meant to be used, not how fast they can be generated. Each Lyric Edition is crafted with intention. A voice that knows when to lead, when to soften, and when to stay out of the way.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Each Lyric Edition is crafted with intention. A voice that knows when
-                  to lead, when to soften, and when to stay out of the way.
+                  That&apos;s why we show our voices in their element. In motion. In context. In the moments they were designed for. Not as raw output, but as part of a living system. Because voice isn&apos;t something you test in isolation. It&apos;s something you experience.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 48px" }}>
-                  Lyric is for brands, creators, and teams who care about how they sound.
-                  Who believe voice is part of design, not an afterthought. If that&apos;s
-                  you, you&apos;re exactly where you&apos;re meant to be.
+                  Lyric is for brands, creators, and teams who care about how they sound. Who believe voice is part of design, not an afterthought. If that&apos;s you, you&apos;re exactly where you&apos;re meant to be.
                 </p>
 
                 {/* Signature */}
@@ -170,7 +157,7 @@ export default function AboutPage() {
                   alt="Location map"
                   width={420}
                   height={420}
-                  style={{ width: "100%", maxWidth: "420px", height: "auto", opacity: 0.5 }}
+                  style={{ width: "100%", maxWidth: "340px", height: "auto", opacity: 0.5 }}
                 />
               </div>
             </ScrollReveal>
@@ -276,7 +263,7 @@ export default function AboutPage() {
               fontWeight: 600,
               color: "#f5f3ef",
               margin: "0 auto 20px",
-              lineHeight: 1.1,
+              lineHeight: 1.0,
               letterSpacing: "-0.02em",
               maxWidth: "720px",
             }}

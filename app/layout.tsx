@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Pinyon_Script } from "next/font/google"
 import "./globals.css"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
+import SmoothScroll from "@/components/SmoothScroll"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${cormorant.variable} ${pinyon.variable}`}>
       <body>
+        <SmoothScroll />
         <Nav />
         <main style={{ paddingTop: "52px" }}>{children}</main>
         <Footer />
