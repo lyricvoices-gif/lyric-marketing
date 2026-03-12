@@ -93,7 +93,7 @@ export default function AboutPage() {
             <ScrollReveal>
               <div>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  We didn&apos;t start Lyric because we wanted to build another voice company. We started it because we were frustrated by how voice was being treated in the industry. Reduced to output. Tuned for novelty. Optimized for speed, but disconnected from intent. Voices cloned from data, then dropped into products without context, responsibility, or care.
+                  We didn&apos;t start Lyric because we wanted to build another voice company.<br />We started it because we were frustrated by how voice was being treated in the industry. Reduced to output. Tuned for novelty. Optimized for speed, but disconnected from intent. Voices cloned from data, then dropped into products without context, responsibility, or care.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
                   It wasn&apos;t a technology problem. It was a design problem.
