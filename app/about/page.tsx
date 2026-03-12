@@ -99,7 +99,7 @@ export default function AboutPage() {
                   It wasn&apos;t a technology problem. It was a design problem.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Most voice tools today ask you to adapt to them. You test phrases in a composer. You adjust sliders. You listen, tweak, regenerate, repeat. You try to imagine how a voice might sound inside your product, brand, or experience. And somehow, the burden of authorship ends up on you.
+                  Most voice tools today ask you to adapt to them. You test phrases in a composer. You adjust sliders. You listen, tweak, regenerate, repeat.<br />You try to imagine how a voice might sound inside your product, brand, or experience. And somehow, the burden of authorship ends up on you.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: 0 }}>
                   We believed there was another way.
