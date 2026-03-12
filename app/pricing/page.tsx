@@ -1,10 +1,20 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
+import ScrollReveal from "@/components/ScrollReveal"
 
 export const metadata: Metadata = {
   title: "Pricing",
   description: "Simple, transparent pricing. Every plan includes all Edition 01 voices.",
 }
+
+const DARK   = "#2b2a25"
+const LIGHT  = "#f5f3ef"
+const GOLD   = "#c9a96e"
+const TEXT1  = "#1a1a18"
+const TEXT2  = "#4a4a45"
+const TEXT3  = "#9c958f"
+const BORDER = "#e5dfd5"
 
 const plans = [
   {
@@ -99,71 +109,62 @@ export default function PricingPage() {
   return (
     <>
       {/* ─────────────────────────────────────────────────────────────────────
-          HEADER
+          HERO
       ───────────────────────────────────────────────────────────────────── */}
-      <section style={{ background: "#2a2622", padding: "100px 32px 80px" }}>
-        <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
-          <p
-            style={{
-              fontSize: "11px",
+      <section style={{ background: DARK, padding: "104px 48px 80px" }}>
+        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
+          <ScrollReveal>
+            <p style={{
+              fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
+              textTransform: "uppercase", color: TEXT3, marginBottom: "20px",
+            }}>
+              Pricing
+            </p>
+            <h1 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(36px, 5vw, 68px)",
               fontWeight: 600,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#4a4540",
-              marginBottom: "20px",
-            }}
-          >
-            Pricing
-          </p>
-          <h1
-            style={{
-              fontSize: "clamp(32px, 4.5vw, 60px)",
-              fontWeight: 600,
-              letterSpacing: "-0.03em",
-              color: "#faf9f7",
-              margin: "0 0 20px",
-              lineHeight: 1.05,
-            }}
-          >
-            Simple pricing.
-            <br />
-            <span style={{ color: "#B8955A" }}>Every plan, every voice.</span>
-          </h1>
-          <p style={{ fontSize: "16px", color: "#756d65", lineHeight: 1.6, maxWidth: "400px", margin: 0 }}>
-            Start with Creator. All five Edition 01 voices included in every plan.
-          </p>
+              letterSpacing: "-0.02em",
+              color: LIGHT,
+              margin: "0 0 24px",
+              lineHeight: 0.95,
+            }}>
+              Simple pricing.
+              <br />
+              <em style={{ color: GOLD, fontStyle: "italic" }}>Every plan, every voice.</em>
+            </h1>
+            <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.6, maxWidth: "400px", margin: 0 }}>
+              Start with Creator. All five Edition 01 voices included in every plan.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
           PLANS
       ───────────────────────────────────────────────────────────────────── */}
-      <section style={{ background: "#faf9f7", padding: "64px 32px 100px" }}>
-        <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "16px",
-              alignItems: "stretch",
-            }}
-          >
-            {plans.map((plan) => (
-              <div
-                key={plan.id}
-                style={{
-                  background: plan.dark ? "#2a2622" : "#ffffff",
-                  border: plan.dark ? "none" : "1px solid #eae4de",
+      <section style={{ background: LIGHT, padding: "64px 48px 100px" }}>
+        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "16px",
+            alignItems: "stretch",
+          }}>
+            {plans.map((plan, i) => (
+              <ScrollReveal key={plan.id} delay={i * 80}>
+                <div style={{
+                  background: plan.dark ? DARK : "#ffffff",
+                  border: plan.dark ? "none" : `1px solid ${BORDER}`,
                   borderRadius: "16px",
                   padding: "32px",
                   display: "flex",
                   flexDirection: "column",
                   position: "relative",
-                }}
-              >
-                {plan.badge && (
-                  <span
-                    style={{
+                  height: "100%",
+                }}>
+                  {plan.badge && (
+                    <span style={{
                       position: "absolute",
                       top: "16px",
                       right: "16px",
@@ -171,257 +172,254 @@ export default function PricingPage() {
                       fontWeight: 600,
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      color: "#2a2622",
-                      background: "#B8955A",
+                      color: DARK,
+                      background: GOLD,
                       padding: "4px 10px",
                       borderRadius: "100px",
-                    }}
-                  >
-                    {plan.badge}
-                  </span>
-                )}
-
-                <p
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: plan.dark ? "#4a4540" : "#b5aca3",
-                    margin: "0 0 20px",
-                  }}
-                >
-                  {plan.name}
-                </p>
-
-                <div style={{ marginBottom: "8px" }}>
-                  <span
-                    style={{
-                      fontSize: "44px",
-                      fontWeight: 700,
-                      letterSpacing: "-0.04em",
-                      color: plan.dark ? "#faf9f7" : "#2a2622",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {plan.price}
-                  </span>
-                  {plan.period && (
-                    <span
-                      style={{
-                        fontSize: "14px",
-                        color: plan.dark ? "#4a4540" : "#b5aca3",
-                        marginLeft: "4px",
-                      }}
-                    >
-                      {plan.period}
+                    }}>
+                      {plan.badge}
                     </span>
                   )}
-                </div>
 
-                <p
-                  style={{
+                  <p style={{
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: plan.dark ? TEXT3 : TEXT3,
+                    margin: "0 0 20px",
+                  }}>
+                    {plan.name}
+                  </p>
+
+                  <div style={{ marginBottom: "8px" }}>
+                    <span style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "48px",
+                      fontWeight: 600,
+                      letterSpacing: "-0.03em",
+                      color: plan.dark ? LIGHT : TEXT1,
+                      lineHeight: 1,
+                    }}>
+                      {plan.price}
+                    </span>
+                    {plan.period && (
+                      <span style={{
+                        fontSize: "14px",
+                        color: TEXT3,
+                        marginLeft: "4px",
+                      }}>
+                        {plan.period}
+                      </span>
+                    )}
+                  </div>
+
+                  <p style={{
                     fontSize: "13px",
-                    color: plan.dark ? "#756d65" : "#756d65",
+                    color: TEXT2,
                     lineHeight: 1.5,
                     margin: "0 0 28px",
-                  }}
-                >
-                  {plan.tagline}
-                </p>
+                  }}>
+                    {plan.tagline}
+                  </p>
 
-                <a
-                  href={plan.href}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "11px 20px",
-                    borderRadius: "100px",
-                    fontSize: "13px",
-                    fontWeight: 500,
-                    background: plan.dark ? "#faf9f7" : "#2a2622",
-                    color: plan.dark ? "#2a2622" : "#faf9f7",
-                    marginBottom: "28px",
-                  }}
-                >
-                  {plan.cta}
-                </a>
+                  <a
+                    href={plan.href}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "11px 20px",
+                      borderRadius: "100px",
+                      fontSize: "13px",
+                      fontWeight: 500,
+                      background: plan.dark ? LIGHT : DARK,
+                      color: plan.dark ? DARK : LIGHT,
+                      marginBottom: "28px",
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {plan.cta}
+                  </a>
 
-                <div
-                  style={{
+                  <div style={{
                     borderTop: plan.dark
-                      ? "1px solid rgba(234,228,222,0.08)"
-                      : "1px solid #eae4de",
+                      ? "1px solid rgba(229,223,213,0.1)"
+                      : `1px solid ${BORDER}`,
                     paddingTop: "24px",
                     flex: 1,
-                  }}
-                >
-                  <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
-                    {plan.features.map((f) => (
-                      <li
-                        key={f}
-                        style={{
+                  }}>
+                    <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                      {plan.features.map((f) => (
+                        <li key={f} style={{
                           display: "flex",
                           alignItems: "flex-start",
                           gap: "10px",
                           padding: "6px 0",
                           fontSize: "13px",
-                          color: plan.dark ? "rgba(245,240,232,0.7)" : "#4a4540",
+                          color: plan.dark ? "rgba(245,243,239,0.65)" : TEXT2,
                           lineHeight: 1.4,
-                        }}
-                      >
-                        <span
-                          style={{
-                            color: "#B8955A",
-                            flexShrink: 0,
-                            fontSize: "12px",
-                            marginTop: "1px",
-                          }}
-                        >
-                          ✓
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
+                        }}>
+                          <span style={{ color: GOLD, flexShrink: 0, fontSize: "12px", marginTop: "1px" }}>✓</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
-          FAQ — clean list layout
+          FAQ
       ───────────────────────────────────────────────────────────────────── */}
-      <section
-        style={{
-          background: "#faf9f7",
-          borderTop: "1px solid #eae4de",
-          padding: "80px 32px 100px",
-        }}
-      >
-        <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
+      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px 100px" }}>
+        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: "80px" }}>
-            <div>
-              <p
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#b5aca3",
-                  marginBottom: "12px",
-                }}
-              >
-                Questions
-              </p>
-              <p style={{ fontSize: "13px", color: "#756d65", lineHeight: 1.6, margin: "0 0 24px" }}>
-                Everything else about how Lyric works and what&apos;s included.
-              </p>
-              <a
-                href="mailto:hi@lyricvoices.ai"
-                style={{ fontSize: "13px", color: "#2a2622", fontWeight: 500 }}
-              >
-                hi@lyricvoices.ai →
-              </a>
-            </div>
+            <ScrollReveal>
+              <div>
+                <p style={{
+                  fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
+                  textTransform: "uppercase", color: TEXT3, marginBottom: "12px",
+                }}>
+                  Questions
+                </p>
+                <p style={{ fontSize: "13px", color: TEXT2, lineHeight: 1.6, margin: "0 0 24px" }}>
+                  Everything else about how Lyric works and what&apos;s included.
+                </p>
+                <a href="mailto:hi@lyricvoices.ai" style={{ fontSize: "13px", color: TEXT1, fontWeight: 500 }}>
+                  hi@lyricvoices.ai →
+                </a>
+              </div>
+            </ScrollReveal>
 
             <div>
               {faqs.map((faq, i) => (
-                <div
-                  key={i}
-                  style={{
+                <ScrollReveal key={i} delay={i * 40}>
+                  <div style={{
                     padding: "24px 0",
-                    borderBottom: "1px solid #eae4de",
+                    borderBottom: `1px solid ${BORDER}`,
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
                     gap: "40px",
-                  }}
-                >
-                  <p
-                    style={{
+                  }}>
+                    <p style={{
                       fontSize: "14px",
                       fontWeight: 600,
-                      color: "#2a2622",
+                      color: TEXT1,
                       margin: 0,
                       lineHeight: 1.5,
                       letterSpacing: "-0.01em",
-                    }}
-                  >
-                    {faq.q}
-                  </p>
-                  <p style={{ fontSize: "13px", color: "#756d65", lineHeight: 1.7, margin: 0 }}>
-                    {faq.a}
-                  </p>
-                </div>
+                    }}>
+                      {faq.q}
+                    </p>
+                    <p style={{ fontSize: "13px", color: TEXT2, lineHeight: 1.7, margin: 0 }}>
+                      {faq.a}
+                    </p>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────────────
-          BOTTOM CTA
-      ───────────────────────────────────────────────────────────────────── */}
-      <section style={{ background: "#2a2622", padding: "80px 32px" }}>
-        <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto",
-              gap: "48px",
-              alignItems: "center",
-            }}
-          >
-            <div>
-              <h2
-                style={{
-                  fontSize: "clamp(24px, 3vw, 36px)",
-                  fontWeight: 600,
-                  letterSpacing: "-0.03em",
-                  color: "#faf9f7",
-                  margin: "0 0 10px",
-                  lineHeight: 1.1,
-                }}
-              >
-                Start with Creator.
-                <br />
-                <span style={{ color: "#B8955A" }}>Upgrade when you&apos;re ready.</span>
-              </h2>
-              <p style={{ fontSize: "14px", color: "#756d65", margin: 0, lineHeight: 1.6 }}>
-                All five Edition 01 voices, all three variants, ready to use today.
-              </p>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-end" }}>
-              <a
-                href="https://composer.lyricvoices.ai/sign-up"
-                style={{
-                  padding: "13px 28px",
-                  borderRadius: "100px",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  background: "#faf9f7",
-                  color: "#2a2622",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Get started
-              </a>
-              <a
-                href="mailto:hi@lyricvoices.ai?subject=Pricing question"
-                style={{
-                  fontSize: "13px",
-                  color: "#4a4540",
-                  textAlign: "center",
-                }}
-              >
-                Talk to us first →
-              </a>
-            </div>
+      {/* ══════════════════════════════════════════════════════════════════════
+          FULL CTA — matches home and about page pattern
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
+        <ScrollReveal>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(36px, 4vw, 58px)",
+            fontWeight: 600,
+            color: LIGHT,
+            margin: "0 auto 20px",
+            lineHeight: 0.95,
+            letterSpacing: "-0.02em",
+            maxWidth: "720px",
+          }}>
+            Ready to hear Lyric
+            <br />
+            in action?
+          </h2>
+        </ScrollReveal>
+
+        <ScrollReveal delay={80}>
+          <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.5, maxWidth: "380px", margin: "0 auto 36px" }}>
+            Try the composer and experience how Lyric voices perform in real moments.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={160}>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
+            <a
+              href="https://composer.lyricvoices.ai"
+              style={{
+                padding: "13px 26px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 500,
+                background: LIGHT,
+                color: DARK,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Try the composer
+            </a>
+            <Link
+              href="/editions"
+              style={{
+                padding: "13px 26px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 400,
+                background: "rgba(245,243,239,0.07)",
+                color: "rgba(245,243,239,0.6)",
+                border: "1px solid rgba(245,243,239,0.12)",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Learn how Lyric works
+            </Link>
           </div>
-        </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={240}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+            <div style={{ display: "flex" }}>
+              {[1, 2, 3, 4].map((n) => (
+                <div
+                  key={n}
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    border: `2px solid ${DARK}`,
+                    marginLeft: n === 1 ? 0 : "-10px",
+                    background: "#d4c9bc",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Image
+                    src={`/images/founders_${n}.webp`}
+                    alt=""
+                    width={36}
+                    height={36}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
+              ✦ Shaped by designers behind AI products at top brands.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
     </>
   )
