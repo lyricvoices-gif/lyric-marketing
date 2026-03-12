@@ -122,7 +122,7 @@ export default function PricingPage() {
             </p>
             <h1 style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(36px, 5vw, 68px)",
+              fontSize: "clamp(36px, 4vw, 58px)",
               fontWeight: 600,
               letterSpacing: "-0.02em",
               color: LIGHT,
@@ -131,7 +131,7 @@ export default function PricingPage() {
             }}>
               Voices that perform.
               <br />
-              Pricing that works with <em style={{ fontStyle: "italic" }}>you.</em>
+              Pricing that works with <em style={{ fontStyle: "italic", color: GOLD }}>you.</em>
             </h1>
             <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.6, maxWidth: "460px", margin: 0 }}>
               From indie creators to established studios, Lyric meets you where you are, and scales as your work evolves.
