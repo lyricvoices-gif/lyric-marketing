@@ -79,9 +79,9 @@ export default function HomePage() {
               maxWidth: "720px",
             }}
           >
-            The AI voice platform built
+            The AI voice platform
             <br />
-            for{" "}
+            built for{" "}
             <em style={{ color: GOLD, fontStyle: "italic" }}>intentional sound</em>.
           </h1>
         </ScrollReveal>
@@ -120,7 +120,7 @@ export default function HomePage() {
               Compose a line
             </a>
             <Link
-              href="/editions"
+              href="/about"
               style={{
                 padding: "12px 24px",
                 borderRadius: "100px",

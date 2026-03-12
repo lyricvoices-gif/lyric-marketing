@@ -45,6 +45,7 @@ type Card = (typeof cards)[number]
 export default function VideosInAction() {
   const [activeIdx, setActiveIdx]       = React.useState(1)
   const [lightboxCard, setLightboxCard] = React.useState<Card | null>(null)
+  const [hoveredSlot, setHoveredSlot]   = React.useState<number | null>(null)
 
   // Scroll-reveal for the section
   const sectionRef = React.useRef<HTMLElement>(null)
@@ -159,6 +160,8 @@ export default function VideosInAction() {
             <div
               key={visualPos}
               onClick={() => { if (visualPos === 0) advance(-1); else if (visualPos === 2) advance(1) }}
+              onMouseEnter={() => setHoveredSlot(visualPos)}
+              onMouseLeave={() => setHoveredSlot(null)}
               style={{
                 flexShrink: 0,
                 width: isCenter ? "calc(66% - 6px)" : "calc(17% - 6px)",
@@ -173,15 +176,21 @@ export default function VideosInAction() {
             >
               {/* Inner wrapper keyed to card.id */}
               <div style={{ position: "absolute", inset: 0 }}>
-                {/* Photography background */}
-                <Image
-                  src={card.imageSrc}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 100vw, 58vw"
-                  style={{ objectFit: "cover", objectPosition: "center" }}
-                  priority={visualPos === 1}
-                />
+                {/* Photography background — zoom on hover */}
+                <div style={{
+                  position: "absolute", inset: 0,
+                  transform: hoveredSlot === visualPos ? "scale(1.05)" : "scale(1)",
+                  transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                }}>
+                  <Image
+                    src={card.imageSrc}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 58vw"
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                    priority={visualPos === 1}
+                  />
+                </div>
 
                 {/* Dark scrim — bottom to top for text legibility */}
                 <div style={{
