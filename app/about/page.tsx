@@ -175,7 +175,7 @@ export default function AboutPage() {
                   fontFamily: "var(--font-display)",
                   fontSize: "clamp(28px, 3.5vw, 48px)",
                   fontWeight: 600,
-                  fontStyle: "italic",
+                  fontStyle: "normal",
                   letterSpacing: "-0.02em",
                   lineHeight: 1.1,
                   color: TEXT1,
@@ -226,7 +226,7 @@ export default function AboutPage() {
                       <p style={{
                         fontFamily: "var(--font-display)",
                         fontSize: "18px",
-                        fontStyle: "italic",
+                        fontStyle: "normal",
                         fontWeight: 500,
                         color: TEXT1,
                         margin: "0 0 2px",
