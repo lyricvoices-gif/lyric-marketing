@@ -145,12 +145,12 @@ export default function HomePage() {
                 <div
                   key={n}
                   style={{
-                    width: "28px",
-                    height: "28px",
+                    width: "36px",
+                    height: "36px",
                     borderRadius: "50%",
                     overflow: "hidden",
                     border: `2px solid ${DARK}`,
-                    marginLeft: n === 1 ? 0 : "-8px",
+                    marginLeft: n === 1 ? 0 : "-10px",
                     background: "#d4c9bc",
                     flexShrink: 0,
                   }}
@@ -158,8 +158,8 @@ export default function HomePage() {
                   <Image
                     src={`/images/founders_${n}.webp`}
                     alt=""
-                    width={28}
-                    height={28}
+                    width={36}
+                    height={36}
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
@@ -488,12 +488,12 @@ export default function HomePage() {
                 <div
                   key={n}
                   style={{
-                    width: "28px",
-                    height: "28px",
+                    width: "36px",
+                    height: "36px",
                     borderRadius: "50%",
                     overflow: "hidden",
                     border: `2px solid ${DARK}`,
-                    marginLeft: n === 1 ? 0 : "-8px",
+                    marginLeft: n === 1 ? 0 : "-10px",
                     background: "#d4c9bc",
                     flexShrink: 0,
                   }}
@@ -501,14 +501,14 @@ export default function HomePage() {
                   <Image
                     src={`/images/founders_${n}.webp`}
                     alt=""
-                    width={28}
-                    height={28}
+                    width={36}
+                    height={36}
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
               ))}
             </div>
-            <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(245,243,239,0.3)", margin: 0 }}>
+            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
               ✦ Shaped by designers behind AI products at top brands.
             </p>
           </div>
