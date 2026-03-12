@@ -72,7 +72,7 @@ export default function HomePage() {
               ...display,
               fontSize: "clamp(36px, 4vw, 58px)",
               fontWeight: 600,
-              lineHeight: 1.0,
+              lineHeight: 0.95,
               letterSpacing: "-0.02em",
               color: "#f5f3ef",
               margin: "0 0 16px",
@@ -429,7 +429,7 @@ export default function HomePage() {
               fontWeight: 600,
               color: "#f5f3ef",
               margin: "0 auto 20px",
-              lineHeight: 1.0,
+              lineHeight: 0.95,
               letterSpacing: "-0.02em",
               maxWidth: "720px",
             }}

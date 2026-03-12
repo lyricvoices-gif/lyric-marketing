@@ -39,7 +39,7 @@ export default function AboutPage() {
                 fontWeight: 600,
                 fontStyle: "normal",
                 letterSpacing: "-0.02em",
-                lineHeight: 1.0,
+                lineHeight: 0.95,
                 color: TEXT1,
                 margin: "0 auto 28px",
                 maxWidth: "760px",
@@ -51,7 +51,7 @@ export default function AboutPage() {
                 fontSize: "17px", color: TEXT2, lineHeight: 1.7,
                 maxWidth: "520px", margin: "0 auto",
               }}>
-                AI voices were getting more realistic, but less considered. Everything sounded fine, yet nothing sounded intentional. Lyric was created to change that. We&apos;re building voice systems that respect performance, emotion, and restraint, because how something is said still matters.
+                AI voices were getting more realistic, but less considered. Everything sounded fine, yet nothing sounded intentional.<br />Lyric was created to change that. We&apos;re building voice systems that respect performance, emotion, and restraint, because how something is said still matters.
               </p>
             </div>
           </ScrollReveal>
@@ -263,7 +263,7 @@ export default function AboutPage() {
               fontWeight: 600,
               color: "#f5f3ef",
               margin: "0 auto 20px",
-              lineHeight: 1.0,
+              lineHeight: 0.95,
               letterSpacing: "-0.02em",
               maxWidth: "720px",
             }}
