@@ -274,6 +274,70 @@ export default function PricingPage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────────
+          WHY CHOOSE LYRIC
+      ───────────────────────────────────────────────────────────────────── */}
+      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
+        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
+          <ScrollReveal>
+            <p style={{
+              fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
+              textTransform: "uppercase", color: TEXT3, marginBottom: "44px",
+            }}>Why choose lyric?</p>
+          </ScrollReveal>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "64px" }}>
+            {[
+              {
+                n: "01",
+                title: "Voices with a point of view",
+                body: "Every voice ships with a defined archetype, emotional range, and use-case clarity. Not a voice model. A character. Captured by professional actors trained in emotional variation, not stitched from generic samples.",
+              },
+              {
+                n: "02",
+                title: "Direction before generation",
+                body: "Direction is part of the product. Each voice includes intention presets and real examples. You set the intent before you write. Lyric treats direction as a constraint, not a suggestion. It performs consistently in context.",
+              },
+              {
+                n: "03",
+                title: "Built for how you work",
+                body: "Creators, product teams, brands, and creatives who care about how they sound. If sound is part of how your product feels, not just what it says, Lyric fits naturally into your work.",
+              },
+            ].map((card, i) => (
+              <ScrollReveal key={card.n} delay={i * 100}>
+                <div>
+                  <span style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "26px",
+                    fontWeight: 400,
+                    color: GOLD,
+                    display: "block",
+                    marginBottom: "20px",
+                    lineHeight: 1,
+                    fontStyle: "italic",
+                  }}>
+                    {card.n}
+                  </span>
+                  <h3 style={{
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    color: TEXT1,
+                    margin: "0 0 12px",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.3,
+                  }}>
+                    {card.title}
+                  </h3>
+                  <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.5, margin: 0 }}>
+                    {card.body}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────────────
           FAQ
       ───────────────────────────────────────────────────────────────────── */}
       <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px 100px" }}>
