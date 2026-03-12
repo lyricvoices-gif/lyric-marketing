@@ -176,20 +176,32 @@ export default function VideosInAction() {
             >
               {/* Inner wrapper keyed to card.id */}
               <div style={{ position: "absolute", inset: 0 }}>
-                {/* Photography background — zoom on hover */}
+                {/* All card images stacked — always in DOM so they're pre-loaded.
+                    Opacity cross-fade means no black flash when active card changes. */}
                 <div style={{
                   position: "absolute", inset: 0,
                   transform: hoveredSlot === visualPos ? "scale(1.05)" : "scale(1)",
                   transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
                 }}>
-                  <Image
-                    src={card.imageSrc}
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 100vw, 58vw"
-                    style={{ objectFit: "cover", objectPosition: "center" }}
-                    priority={visualPos === 1}
-                  />
+                  {cards.map((c) => (
+                    <div
+                      key={c.id}
+                      style={{
+                        position: "absolute", inset: 0,
+                        opacity: c.id === card.id ? 1 : 0,
+                        transition: "opacity 0.4s ease",
+                      }}
+                    >
+                      <Image
+                        src={c.imageSrc}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, 58vw"
+                        style={{ objectFit: "cover", objectPosition: "center" }}
+                        priority
+                      />
+                    </div>
+                  ))}
                 </div>
 
                 {/* Dark scrim — bottom to top for text legibility */}
