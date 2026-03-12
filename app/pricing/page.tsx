@@ -129,12 +129,12 @@ export default function PricingPage() {
               margin: "0 0 24px",
               lineHeight: 0.95,
             }}>
-              Simple pricing.
+              Voices that perform.
               <br />
-              <em style={{ color: GOLD, fontStyle: "italic" }}>Every plan, every voice.</em>
+              Pricing that works with <em style={{ fontStyle: "italic" }}>you.</em>
             </h1>
-            <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.6, maxWidth: "400px", margin: 0 }}>
-              Start with Creator. All five Edition 01 voices included in every plan.
+            <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.6, maxWidth: "460px", margin: 0 }}>
+              From indie creators to established studios, Lyric meets you where you are, and scales as your work evolves.
             </p>
           </ScrollReveal>
         </div>
