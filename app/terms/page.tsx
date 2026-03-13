@@ -119,13 +119,11 @@ const sections = [
   },
   {
     title: "9. Disclaimers",
-    body: "THE PLATFORM IS PROVIDED 'AS IS' AND 'AS AVAILABLE' WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. LYRIC VOICES DOES NOT WARRANT THAT THE PLATFORM WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS. YOUR USE OF THE PLATFORM IS AT YOUR OWN RISK.",
-    caps: true,
+    body: "The Platform is provided 'as is' and 'as available' without warranties of any kind, express or implied. Lyric Voices does not warrant that the Platform will be uninterrupted, error-free, or free of harmful components. Your use of the Platform is at your own risk.",
   },
   {
     title: "10. Limitation of Liability",
-    body: "TO THE MAXIMUM EXTENT PERMITTED BY LAW, LYRIC VOICES AND ITS AFFILIATES, OFFICERS, AND EMPLOYEES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE PLATFORM, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR TOTAL LIABILITY TO YOU FOR ANY CLAIM SHALL NOT EXCEED THE AMOUNTS PAID BY YOU TO LYRIC VOICES IN THE THREE MONTHS PRECEDING THE CLAIM.",
-    caps: true,
+    body: "To the maximum extent permitted by law, Lyric Voices and its affiliates, officers, and employees shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Platform, even if we have been advised of the possibility of such damages. Our total liability to you for any claim shall not exceed the amounts paid by you to Lyric Voices in the three months preceding the claim.",
   },
   {
     title: "11. Indemnification",
