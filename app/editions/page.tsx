@@ -84,11 +84,11 @@ const voices = [
 const editionFaqs = [
   {
     q: "What is an Edition?",
-    a: "An Edition is a curated, finite release of AI voices — each built with a defined purpose, performed by a professional actor, and shipped with direction built in. Rather than an overwhelming catalog, each Edition is a considered collection.",
+    a: "An Edition is a curated, finite release of AI voices, each built with a defined purpose, performed by a professional actor, and shipped with direction built in. Rather than an overwhelming catalog, each Edition is a considered collection.",
   },
   {
     q: "How are the voices different from other AI voices?",
-    a: "Most AI voices are optimized for realism. Lyric voices are optimized for performance. Each voice has a defined archetype, emotional range, and use-case clarity — so they behave consistently and intentionally, not just accurately.",
+    a: "Most AI voices are optimized for realism. Lyric voices are optimized for performance. Each voice has a defined archetype, emotional range, and use-case clarity, so they behave consistently and intentionally, not just accurately.",
   },
   {
     q: "Can I try a voice before subscribing?",
@@ -121,7 +121,7 @@ export default function EditionsPage() {
               fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em",
               textTransform: "uppercase", color: TEXT3, marginBottom: "28px",
             }}>
-              · Editions ·
+              ✦ Editions
             </p>
             <h1 style={{
               fontFamily: "var(--font-display)",
@@ -311,11 +311,11 @@ export default function EditionsPage() {
             }}>
               {[
                 { n: "5", label: "Composed\nvoices." },
-                { n: "10+", label: "Emotional tones per voice\n(warm, urgent, playful, authoritative, and more)" },
-                { n: "3", label: "Context styles\nper voice" },
+                { n: "10+", label: "Emotional tones\nper voice." },
+                { n: "3", label: "Context styles\nper voice." },
               ].map((stat, i) => (
                 <ScrollReveal key={stat.n} delay={i * 80}>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "20px" }}>
                     <span style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(64px, 7vw, 100px)",
@@ -324,12 +324,15 @@ export default function EditionsPage() {
                       lineHeight: 0.9,
                       letterSpacing: "-0.03em",
                       flexShrink: 0,
+                      fontVariantNumeric: "lining-nums",
+                      fontFeatureSettings: '"lnum" 1',
                     }}>
                       {stat.n}
                     </span>
                     <p style={{
                       fontSize: "14px", color: TEXT2,
                       lineHeight: 1.5, margin: 0,
+                      paddingTop: "8px",
                       whiteSpace: "pre-line",
                     }}>
                       {stat.label}
@@ -391,14 +394,15 @@ export default function EditionsPage() {
                 </div>
                 <p style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(18px, 2vw, 24px)",
+                  fontSize: "clamp(16px, 1.8vw, 20px)",
                   fontStyle: "italic",
                   color: TEXT1,
                   lineHeight: 1.3,
                   letterSpacing: "-0.01em",
                   margin: 0,
+                  whiteSpace: "nowrap",
                 }}>
-                  &ldquo;How a voice behaves matters more than how it sounds.&rdquo;
+                  &ldquo;How a voice behaves matters.&rdquo;
                 </p>
               </div>
             </div>
@@ -430,10 +434,9 @@ export default function EditionsPage() {
           <ScrollReveal delay={80}>
             <div style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "2px",
+              gridTemplateColumns: "1fr 56px 1fr",
+              gap: "0",
               borderRadius: "8px",
-              overflow: "hidden",
               marginBottom: "40px",
             }}>
 
@@ -478,6 +481,32 @@ export default function EditionsPage() {
                 </p>
               </div>
 
+              {/* Center — editorial arrow connector */}
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                zIndex: 1,
+              }}>
+                <div style={{
+                  width: "1px",
+                  flex: 1,
+                  background: "rgba(245,243,239,0.06)",
+                  marginBottom: "10px",
+                }} />
+                <svg width="22" height="16" viewBox="0 0 22 16" fill="none" style={{ flexShrink: 0 }}>
+                  <path d="M1 8H19M13 1.5L19.5 8L13 14.5" stroke="rgba(201,169,110,0.4)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <div style={{
+                  width: "1px",
+                  flex: 1,
+                  background: "rgba(245,243,239,0.06)",
+                  marginTop: "10px",
+                }} />
+              </div>
+
               {/* Right panel — To composed voice */}
               <div style={{
                 background: "rgba(255,255,255,0.05)",
@@ -517,7 +546,7 @@ export default function EditionsPage() {
                   margin: "0 0 24px",
                   maxWidth: "280px",
                 }}>
-                  Sage and Echo are being composed.
+                  Sage, Echo, and more are being composed.
                 </p>
 
                 <div style={{
@@ -533,7 +562,7 @@ export default function EditionsPage() {
                     background: GOLD, opacity: 0.6, flexShrink: 0,
                   }} />
                   <span style={{ fontSize: "11px", color: "rgba(245,243,239,0.35)", letterSpacing: "0.03em" }}>
-                    Edition 02 — Coming soon
+                    Edition 02 · Coming soon
                   </span>
                 </div>
               </div>
