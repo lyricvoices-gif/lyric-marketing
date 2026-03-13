@@ -651,10 +651,10 @@ export default function EditionsPage() {
                     fontSize: "16px", fontWeight: 600, color: TEXT1,
                     margin: "0 0 4px", letterSpacing: "-0.01em",
                   }}>
-                    Ready to hear Lyric in action?
+                    The Edition 01 Story
                   </p>
                   <p style={{ fontSize: "14px", color: TEXT2, margin: 0, lineHeight: 1.5 }}>
-                    Try the composer and experience how Lyric voices perform in real moments.
+                    Listen to the backstory of how Edition 01 was created. Narrated by Hex.
                   </p>
                 </div>
               </div>
@@ -672,7 +672,7 @@ export default function EditionsPage() {
                   flexShrink: 0,
                 }}
               >
-                Try the composer
+                Listen now
               </a>
             </div>
           </ScrollReveal>
