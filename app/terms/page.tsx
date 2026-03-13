@@ -1,0 +1,278 @@
+import type { Metadata } from "next"
+import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Terms of Use",
+  description: "The terms governing your use of the Lyric Voices platform.",
+}
+
+const LIGHT  = "#f5f3ef"
+const TEXT1  = "#1a1a18"
+const TEXT2  = "#4a4a45"
+const TEXT3  = "#9c958f"
+const BORDER = "#e5dfd5"
+
+const sections = [
+  {
+    title: "1. Who We Are",
+    body: "Lyric Voices is a voice AI platform that enables creators and professionals to generate expressive, AI-powered voice content. These Terms govern your use of our website, composer application, and all related services.",
+  },
+  {
+    title: "2. Eligibility",
+    body: "You must be at least 18 years old to use the Platform. By agreeing to these Terms, you represent that you meet this requirement and that you have the authority to enter into a binding agreement.",
+  },
+  {
+    title: "3. Account Registration",
+    body: "To access the Platform, you must create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account. Notify us immediately at hi@lyricvoices.ai if you believe your account has been compromised.",
+  },
+  {
+    title: "4. Subscription Plans & Usage",
+    subsections: [
+      {
+        subtitle: "4.1 Plan Tiers",
+        body: null,
+        list: [
+          "Creator — 25 generations per day, up to 500 characters per generation.",
+          "Studio — 100 generations per day, up to 2,000 characters per generation.",
+          "Enterprise — Unlimited generations, up to 10,000 characters per generation. Contact us for pricing.",
+        ],
+      },
+      {
+        subtitle: "4.2 Billing",
+        body: "Subscriptions are billed on a recurring basis through our payment processor. By subscribing, you authorize us to charge your payment method at the then-current rate. You may cancel at any time; cancellation takes effect at the end of your current billing period. We do not offer prorated refunds for partial periods unless required by applicable law.",
+        list: null,
+      },
+      {
+        subtitle: "4.3 Plan Changes",
+        body: "You may upgrade or downgrade your plan at any time through your account settings. Upgrades take effect immediately; downgrades take effect at the start of your next billing cycle.",
+        list: null,
+      },
+    ],
+  },
+  {
+    title: "5. Commercial Use Rights",
+    subsections: [
+      {
+        subtitle: "5.1 Permitted Commercial Use",
+        body: "Creator and Studio plan subscribers are granted a non-exclusive, non-transferable license to use generated voice content commercially for the following purposes:",
+        list: [
+          "Podcasts and audio content",
+          "Video and film production",
+          "Online education and e-learning",
+          "Editorial and journalistic content",
+          "Social media and digital advertising",
+        ],
+        note: "This license is granted for content where the voice is not the central branded element of a product or service experience.",
+      },
+      {
+        subtitle: "5.2 Licensing Required",
+        body: "The following use cases are not covered by a standard subscription and require a separate commercial license agreement with Lyric Voices:",
+        list: [
+          "Using a voice as a branded assistant or AI persona tied to your product",
+          "Deploying a voice as the primary or signature audio experience of an application, product, or service",
+          "White-labeling or redistributing voice output as part of a third-party platform or API",
+        ],
+        note: "To inquire about licensing, contact hi@lyricvoices.ai.",
+      },
+      {
+        subtitle: "5.3 Attribution",
+        body: "You are not required to credit Lyric Voices in your published content, though we appreciate it when you do.",
+        list: null,
+      },
+    ],
+  },
+  {
+    title: "6. Acceptable Use",
+    body: "You agree not to use the Platform to generate voice content that:",
+    list: [
+      "Impersonates a real, identifiable person without their explicit consent",
+      "Is defamatory, threatening, harassing, or unlawful",
+      "Violates any third-party intellectual property rights",
+      "Is designed to deceive, defraud, or manipulate listeners in harmful ways",
+      "Violates any applicable laws or regulations",
+    ],
+    note: "We reserve the right to suspend or terminate accounts that violate these standards, without refund, at our sole discretion.",
+  },
+  {
+    title: "7. Intellectual Property",
+    subsections: [
+      {
+        subtitle: "7.1 Your Content",
+        body: "You retain ownership of any text, scripts, or inputs you provide to the Platform. By submitting content, you grant Lyric Voices a limited, non-exclusive license to process that content solely for the purpose of delivering the service to you.",
+        list: null,
+      },
+      {
+        subtitle: "7.2 Generated Output",
+        body: "Voice output generated by the Platform is licensed to you under the terms of your subscription plan (see Section 5). Lyric Voices retains ownership of the underlying voice models, AI systems, and technology that produce the output.",
+        list: null,
+      },
+      {
+        subtitle: "7.3 Platform & Brand",
+        body: "The Lyric Voices name, logo, composer interface, and all associated intellectual property are owned by Lyric Voices. Nothing in these Terms grants you a right to use our branding or trademarks.",
+        list: null,
+      },
+    ],
+  },
+  {
+    title: "8. Privacy",
+    body: "Your use of the Platform is also governed by our Privacy Policy, which is incorporated into these Terms by reference. By using the Platform, you consent to our data practices as described in the Privacy Policy.",
+  },
+  {
+    title: "9. Disclaimers",
+    body: "THE PLATFORM IS PROVIDED 'AS IS' AND 'AS AVAILABLE' WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. LYRIC VOICES DOES NOT WARRANT THAT THE PLATFORM WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS. YOUR USE OF THE PLATFORM IS AT YOUR OWN RISK.",
+    caps: true,
+  },
+  {
+    title: "10. Limitation of Liability",
+    body: "TO THE MAXIMUM EXTENT PERMITTED BY LAW, LYRIC VOICES AND ITS AFFILIATES, OFFICERS, AND EMPLOYEES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE PLATFORM, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR TOTAL LIABILITY TO YOU FOR ANY CLAIM SHALL NOT EXCEED THE AMOUNTS PAID BY YOU TO LYRIC VOICES IN THE THREE MONTHS PRECEDING THE CLAIM.",
+    caps: true,
+  },
+  {
+    title: "11. Indemnification",
+    body: "You agree to indemnify and hold harmless Lyric Voices and its affiliates from any claims, damages, losses, or expenses (including reasonable legal fees) arising out of your use of the Platform, your violation of these Terms, or your infringement of any third-party rights.",
+  },
+  {
+    title: "12. Modifications to These Terms",
+    body: "We may update these Terms from time to time. When we do, we will revise the Effective Date at the top of this page. For material changes, we will notify you by email or via an in-app notice. Your continued use of the Platform after any change constitutes your acceptance of the revised Terms.",
+  },
+  {
+    title: "13. Governing Law",
+    body: "These Terms are governed by and construed in accordance with the laws of the United States, without regard to conflict of law principles. Any disputes shall be resolved through binding arbitration or in the courts of competent jurisdiction, as applicable.",
+  },
+  {
+    title: "14. Contact",
+    body: "Lyric Voices\nEmail: hi@lyricvoices.ai",
+  },
+]
+
+export default function TermsPage() {
+  return (
+    <>
+      {/* Header */}
+      <section style={{ background: LIGHT, borderBottom: `1px solid ${BORDER}`, padding: "80px 48px 48px" }}>
+        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+          <p style={{
+            fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
+            textTransform: "uppercase", color: TEXT3, marginBottom: "16px",
+          }}>
+            Legal
+          </p>
+          <h1 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(32px, 4vw, 52px)",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: 0.95,
+            color: TEXT1,
+            margin: "0 0 20px",
+          }}>
+            Terms of Use
+          </h1>
+          <p style={{ fontSize: "13px", color: TEXT3, margin: "0 0 16px" }}>
+            Effective Date: March 12, 2026
+          </p>
+          <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.7, margin: 0, maxWidth: "600px" }}>
+            Welcome to Lyric Voices. By accessing or using the Lyric Voices platform, composer, or any associated services (collectively, the &ldquo;Platform&rdquo;), you agree to be bound by these Terms of Use (&ldquo;Terms&rdquo;). Please read them carefully. If you do not agree, do not use the Platform.
+          </p>
+        </div>
+      </section>
+
+      {/* Body */}
+      <section style={{ background: LIGHT, padding: "64px 48px 100px" }}>
+        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+          {sections.map((s, i) => (
+            <div
+              key={i}
+              style={{
+                paddingTop: "40px",
+                marginTop: "40px",
+                borderTop: `1px solid ${BORDER}`,
+              }}
+            >
+              <h2 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "22px",
+                fontWeight: 600,
+                color: TEXT1,
+                letterSpacing: "-0.01em",
+                margin: "0 0 16px",
+                lineHeight: 1.2,
+              }}>
+                {s.title}
+              </h2>
+
+              {"subsections" in s && s.subsections ? (
+                s.subsections.map((sub, j) => (
+                  <div key={j} style={{ marginBottom: "24px" }}>
+                    <p style={{ fontSize: "13px", fontWeight: 600, color: TEXT1, margin: "0 0 8px" }}>
+                      {sub.subtitle}
+                    </p>
+                    {sub.body && (
+                      <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, margin: "0 0 8px" }}>
+                        {sub.body}
+                      </p>
+                    )}
+                    {sub.list && (
+                      <ul style={{ margin: "0 0 8px", padding: "0 0 0 18px" }}>
+                        {sub.list.map((item, k) => (
+                          <li key={k} style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, marginBottom: "4px" }}>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {"note" in sub && sub.note && (
+                      <p style={{
+                        fontSize: "13px", color: TEXT2, lineHeight: 1.7,
+                        borderLeft: `2px solid ${BORDER}`, paddingLeft: "16px", margin: "12px 0 0",
+                      }}>
+                        {sub.note}
+                      </p>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <>
+                  {"body" in s && s.body && s.body.split("\n\n").map((para, j) => (
+                    <p key={j} style={{
+                      fontSize: "14px",
+                      color: TEXT2,
+                      lineHeight: 1.75,
+                      margin: "0 0 12px",
+                      ...("caps" in s && s.caps ? { fontSize: "12px", letterSpacing: "0.01em" } : {}),
+                    }}>
+                      {para}
+                    </p>
+                  ))}
+                  {"list" in s && s.list && (
+                    <ul style={{ margin: "0 0 12px", padding: "0 0 0 18px" }}>
+                      {s.list.map((item, j) => (
+                        <li key={j} style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, marginBottom: "6px" }}>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {"note" in s && s.note && (
+                    <p style={{
+                      fontSize: "13px", color: TEXT2, lineHeight: 1.7,
+                      borderLeft: `2px solid ${BORDER}`, paddingLeft: "16px", margin: "16px 0 0",
+                    }}>
+                      {s.note}
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
+
+          {/* Footer nav */}
+          <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: `1px solid ${BORDER}`, display: "flex", gap: "24px" }}>
+            <Link href="/privacy" style={{ fontSize: "13px", color: TEXT3 }}>Privacy Policy →</Link>
+            <Link href="/" style={{ fontSize: "13px", color: TEXT3 }}>Back to home →</Link>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
