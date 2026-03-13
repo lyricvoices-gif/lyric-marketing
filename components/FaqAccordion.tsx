@@ -51,7 +51,7 @@ export default function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
               lineHeight: 1,
               display: "block",
               transform: openIndex === i ? "rotate(45deg)" : "rotate(0deg)",
-              transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+              transition: "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
             }}>
               +
             </span>
@@ -61,8 +61,8 @@ export default function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
             opacity: openIndex === i ? 1 : 0,
             overflow: "hidden",
             transition: openIndex === i
-              ? "max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease"
-              : "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease",
+              ? "max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease"
+              : "max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease",
           }}>
             <p style={{
               fontSize: "13px",
@@ -72,8 +72,8 @@ export default function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
               maxWidth: "560px",
               transform: openIndex === i ? "translateY(0)" : "translateY(-4px)",
               transition: openIndex === i
-                ? "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
-                : "transform 0.2s ease",
+                ? "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)"
+                : "transform 0.25s ease",
             }}>
               {faq.a}
             </p>
