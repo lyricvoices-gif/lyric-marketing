@@ -312,10 +312,10 @@ export default function EditionsPage() {
               {[
                 { n: "5", label: "Composed\nvoices." },
                 { n: "10+", label: "Emotional tones\nper voice." },
-                { n: "3", label: "Context styles\nper voice." },
+                { n: "3", label: "Variant styles\nper voice." },
               ].map((stat, i) => (
                 <ScrollReveal key={stat.n} delay={i * 80}>
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                     <span style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(64px, 7vw, 100px)",
@@ -332,7 +332,6 @@ export default function EditionsPage() {
                     <p style={{
                       fontSize: "14px", color: TEXT2,
                       lineHeight: 1.5, margin: 0,
-                      paddingTop: "8px",
                       whiteSpace: "pre-line",
                     }}>
                       {stat.label}
@@ -394,7 +393,7 @@ export default function EditionsPage() {
                 </div>
                 <p style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(16px, 1.8vw, 20px)",
+                  fontSize: "clamp(18px, 2vw, 24px)",
                   fontStyle: "italic",
                   color: TEXT1,
                   lineHeight: 1.3,
@@ -529,13 +528,15 @@ export default function EditionsPage() {
                 </p>
 
                 {/* Glowing orb */}
-                <div style={{
-                  width: "100px", height: "100px", borderRadius: "50%",
-                  background: "radial-gradient(circle at 40% 35%, rgba(201,169,110,0.35), rgba(43,42,37,0.8) 70%)",
-                  boxShadow: "0 0 48px rgba(201,169,110,0.12), inset 0 0 32px rgba(201,169,110,0.08)",
-                  margin: "0 auto 28px",
-                  flexShrink: 0,
-                }} />
+                <div
+                  className="orb-breathe"
+                  style={{
+                    width: "100px", height: "100px", borderRadius: "50%",
+                    background: "radial-gradient(circle at 40% 35%, rgba(201,169,110,0.35), rgba(43,42,37,0.8) 70%)",
+                    margin: "0 auto 28px",
+                    flexShrink: 0,
+                  }}
+                />
 
                 <p style={{
                   fontFamily: "var(--font-display)",

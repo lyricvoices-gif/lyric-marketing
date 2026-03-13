@@ -38,3 +38,18 @@ img { max-width: 100%; height: auto; }
 /* Scroll utilities */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Editions — orb breathing animation */
+@keyframes orb-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 48px rgba(201,169,110,0.12), inset 0 0 32px rgba(201,169,110,0.08);
+  }
+  50% {
+    transform: scale(1.09);
+    box-shadow: 0 0 88px rgba(201,169,110,0.24), inset 0 0 56px rgba(201,169,110,0.16);
+  }
+}
+.orb-breathe {
+  animation: orb-breathe 4.5s ease-in-out infinite;
+}
