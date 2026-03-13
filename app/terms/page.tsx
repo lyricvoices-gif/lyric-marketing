@@ -184,9 +184,9 @@ export default function TermsPage() {
             <div
               key={i}
               style={{
-                paddingTop: "40px",
-                marginTop: "40px",
-                borderTop: `1px solid ${BORDER}`,
+                paddingTop: i === 0 ? "0" : "40px",
+                marginTop: i === 0 ? "0" : "40px",
+                borderTop: i === 0 ? "none" : `1px solid ${BORDER}`,
               }}
             >
               <h2 style={{
