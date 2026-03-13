@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
+import FaqAccordion from "@/components/FaqAccordion"
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -102,6 +103,10 @@ const faqs = [
   {
     q: "Do unused generations roll over?",
     a: "Generations reset daily at midnight UTC and don't roll over. Studio is unlimited, so this only applies to Creator.",
+  },
+  {
+    q: "Can I use Lyric voices commercially?",
+    a: "Creator and Studio plans include commercial rights for podcasts, videos, ads, social media, education, and editorial content. If you need a voice as a branded assistant, product voice, or signature experience, reach out about licensing.",
   },
 ]
 
@@ -360,33 +365,7 @@ export default function PricingPage() {
               </div>
             </ScrollReveal>
 
-            <div>
-              {faqs.map((faq, i) => (
-                <ScrollReveal key={i} delay={i * 40}>
-                  <div style={{
-                    padding: "24px 0",
-                    borderBottom: `1px solid ${BORDER}`,
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "40px",
-                  }}>
-                    <p style={{
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      color: TEXT1,
-                      margin: 0,
-                      lineHeight: 1.5,
-                      letterSpacing: "-0.01em",
-                    }}>
-                      {faq.q}
-                    </p>
-                    <p style={{ fontSize: "13px", color: TEXT2, lineHeight: 1.7, margin: 0 }}>
-                      {faq.a}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
+            <FaqAccordion faqs={faqs} />
           </div>
         </div>
       </section>
