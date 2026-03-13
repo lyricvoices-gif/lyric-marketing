@@ -654,7 +654,7 @@ export default function EditionsPage() {
                     The Edition 01 Story
                   </p>
                   <p style={{ fontSize: "14px", color: TEXT2, margin: 0, lineHeight: 1.5 }}>
-                    Listen to the backstory of how Edition 01 was created. Narrated by Hex.
+                    Listen to Hex, as she narrates the backstory of how Edition 01 was created.
                   </p>
                 </div>
               </div>
