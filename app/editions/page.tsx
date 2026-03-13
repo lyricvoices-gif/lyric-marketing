@@ -616,7 +616,7 @@ export default function EditionsPage() {
       {/* ══════════════════════════════════════════════════════════════════════
           5 · CALLOUT — editions_4 / editions_8 style editorial strip
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
+      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "28px 48px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
           <ScrollReveal>
             <div style={{
