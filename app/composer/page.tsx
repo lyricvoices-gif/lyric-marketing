@@ -3,8 +3,9 @@ import Image from "next/image"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import VoiceCardTicker from "@/components/VoiceCardTicker"
-import AudioPlayButton from "@/components/AudioPlayButton"
-import DirectionComparisons from "@/components/DirectionComparisons"
+import VoiceCarousel from "@/components/VoiceCarousel"
+import VariantComparisons from "@/components/VariantComparisons"
+import { VoicePills, IntentPills, TypewriterScript } from "@/components/ComposerAnimations"
 
 export const metadata: Metadata = {
   title: "Composer",
@@ -19,67 +20,14 @@ const TEXT2  = "#4a4a45"
 const TEXT3  = "#9c958f"
 const BORDER = "#e5dfd5"
 
-const edition01 = [
-  {
-    id: "morgan",
-    name: "Morgan",
-    archetype: "The Anchor",
-    description: "Built for the moments that need to be believed.",
-    intents: ["Authoritative", "Warm", "Composed"],
-    gradientFrom: "#C4977F",
-    gradientTo: "#E8D5C4",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Morgan%20(sample).wav",
-  },
-  {
-    id: "nova",
-    name: "Nova",
-    archetype: "The Intimist",
-    description: "Built for the moments that need to be felt.",
-    intents: ["Compassionate", "Encouraging", "Calm"],
-    gradientFrom: "#A8B59A",
-    gradientTo: "#D9DECD",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Nova_calm%20(sample).wav",
-  },
-  {
-    id: "atlas",
-    name: "Atlas",
-    archetype: "The Guide",
-    description: "Built for the moments that need to make sense.",
-    intents: ["Patient", "Clear", "Supportive"],
-    gradientFrom: "#9D9B92",
-    gradientTo: "#CDC9BE",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Atlas_sample.wav",
-  },
-  {
-    id: "riven",
-    name: "Riven",
-    archetype: "The Narrator",
-    description: "Built for the moments that need to carry weight.",
-    intents: ["Intrigue", "Tension", "Wonder"],
-    gradientFrom: "#9C8275",
-    gradientTo: "#C8B8AD",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Riven%20(sample).wav",
-  },
-  {
-    id: "hex",
-    name: "Hex",
-    archetype: "The Wildcard",
-    description: "Built for the moments that need an edge.",
-    intents: ["Playful", "Ironic", "Bold"],
-    gradientFrom: "#B87A5C",
-    gradientTo: "#E5C4B3",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Hex%20(sample).wav",
-  },
-]
-
 export default function ComposerPage() {
   return (
     <>
       {/* ══════════════════════════════════════════════════════════════════════
-          1 · HERO — dark, quiet invite, mini composer
+          1 · HERO — pure editorial, dark
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: DARK, paddingTop: "96px" }}>
-        <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 48px 56px", textAlign: "center" }}>
+      <section style={{ background: DARK, paddingTop: "104px", paddingBottom: "96px" }}>
+        <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 48px", textAlign: "center" }}>
           <ScrollReveal>
             <p style={{
               fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em",
@@ -89,17 +37,18 @@ export default function ComposerPage() {
             </p>
             <h1 style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(32px, 4.5vw, 64px)",
+              fontSize: "clamp(44px, 5.5vw, 76px)",
               fontWeight: 500,
-              fontStyle: "italic",
+              fontStyle: "normal",
               letterSpacing: "-0.02em",
               lineHeight: 1.05,
               color: LIGHT,
-              margin: "0 auto",
-              maxWidth: "620px",
+              margin: "0 auto 24px",
+              maxWidth: "640px",
             }}>
               Before you write the line,<br />
-              set the direction.
+              set the{" "}
+              <em style={{ fontStyle: "italic", color: GOLD }}>direction.</em>
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={80}>
@@ -107,9 +56,8 @@ export default function ComposerPage() {
               fontSize: "16px",
               color: "rgba(245,243,239,0.45)",
               lineHeight: 1.7,
-              marginTop: "24px",
-              marginBottom: 0,
-              maxWidth: "420px",
+              margin: 0,
+              maxWidth: "400px",
               marginLeft: "auto",
               marginRight: "auto",
             }}>
@@ -117,9 +65,6 @@ export default function ComposerPage() {
             </p>
           </ScrollReveal>
         </div>
-
-        {/* Mini composer — full width, no padding */}
-        <VoiceCardTicker />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
@@ -141,10 +86,11 @@ export default function ComposerPage() {
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(32px, 4vw, 52px)",
                 fontWeight: 600,
+                fontStyle: "normal",
                 letterSpacing: "-0.02em",
                 lineHeight: 0.95,
                 color: TEXT1,
-                margin: "0 0 0",
+                margin: 0,
                 maxWidth: "620px",
               }}>
                 Output is not the same as{" "}
@@ -155,7 +101,7 @@ export default function ComposerPage() {
 
           {/* Three-way audio comparison */}
           <ScrollReveal delay={80}>
-            <DirectionComparisons />
+            <VariantComparisons />
           </ScrollReveal>
 
           {/* Explanation */}
@@ -164,50 +110,30 @@ export default function ComposerPage() {
               marginTop: "48px",
               paddingTop: "40px",
               borderTop: `1px solid ${BORDER}`,
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "80px",
-              alignItems: "center",
             }}>
               <p style={{
                 fontSize: "15px",
                 color: TEXT2,
                 lineHeight: 1.75,
                 margin: 0,
+                maxWidth: "680px",
               }}>
-                Direction isn&apos;t a prompt modifier. It&apos;s the first decision you make. Before you
-                write, you choose how the voice should carry the moment. The intent shapes the output
-                in ways no amount of prompt engineering can replicate.
+                Each of Lyric&apos;s voices ships with three distinct tonal directions. The intent is set
+                before you write, so the same line reads — and sounds — entirely different depending
+                on how it&apos;s directed.
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {[
-                  "Each voice ships with multiple tonal directions",
-                  "Intent is set before you write, not after",
-                  "The same line performs differently under each intent",
-                ].map((point, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                    <span style={{
-                      width: "4px", height: "4px", borderRadius: "50%",
-                      background: GOLD, flexShrink: 0, marginTop: "8px",
-                    }} />
-                    <p style={{ fontSize: "14px", color: TEXT2, margin: 0, lineHeight: 1.6 }}>
-                      {point}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          3 · FIVE VOICES — dark, horizontal editorial scroll
+          3 · FIVE VOICES — dark, animated single-voice carousel
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: DARK, padding: "80px 0 96px" }}>
+      <section style={{ background: DARK, padding: "0" }}>
 
         {/* Section header */}
-        <div style={{ maxWidth: "1120px", margin: "0 auto", padding: "0 48px 44px" }}>
+        <div style={{ maxWidth: "1120px", margin: "0 auto", padding: "80px 48px 0" }}>
           <ScrollReveal>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
               <div>
@@ -221,6 +147,7 @@ export default function ComposerPage() {
                   fontFamily: "var(--font-display)",
                   fontSize: "clamp(28px, 3.5vw, 44px)",
                   fontWeight: 600,
+                  fontStyle: "normal",
                   letterSpacing: "-0.02em",
                   lineHeight: 0.95,
                   color: LIGHT,
@@ -247,80 +174,12 @@ export default function ComposerPage() {
           </ScrollReveal>
         </div>
 
-        {/* Horizontal scroll */}
-        <div
-          className="no-scrollbar"
-          style={{ overflowX: "auto", padding: "0 48px", cursor: "default" }}
-        >
-          <div style={{ display: "flex", gap: "12px", width: "fit-content", paddingBottom: "4px" }}>
-            {edition01.map((voice, i) => (
-              <ScrollReveal key={voice.id} delay={i * 60}>
-                <div style={{
-                  width: "280px",
-                  flexShrink: 0,
-                  borderRadius: "20px",
-                  background: `linear-gradient(150deg, ${voice.gradientFrom}, ${voice.gradientTo})`,
-                  padding: "28px 24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "340px",
-                }}>
-                  {/* Top: archetype + name */}
-                  <div style={{ marginBottom: "auto" }}>
-                    <p style={{
-                      fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em",
-                      textTransform: "uppercase", color: "rgba(0,0,0,0.45)",
-                      margin: "0 0 10px",
-                    }}>
-                      {voice.archetype}
-                    </p>
-                    <h3 style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "clamp(40px, 5vw, 56px)",
-                      fontWeight: 500,
-                      letterSpacing: "-0.02em",
-                      lineHeight: 0.9,
-                      color: "rgba(0,0,0,0.82)",
-                      margin: "0 0 20px",
-                    }}>
-                      {voice.name}
-                    </h3>
-                    <p style={{
-                      fontSize: "14px",
-                      color: "rgba(0,0,0,0.6)",
-                      lineHeight: 1.55,
-                      margin: "0 0 24px",
-                    }}>
-                      {voice.description}
-                    </p>
-                  </div>
-
-                  {/* Intent tags */}
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "24px" }}>
-                    {voice.intents.map((intent) => (
-                      <span key={intent} style={{
-                        fontSize: "11px",
-                        color: "rgba(0,0,0,0.6)",
-                        background: "rgba(0,0,0,0.08)",
-                        borderRadius: "100px",
-                        padding: "4px 11px",
-                      }}>
-                        {intent}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Play button */}
-                  <AudioPlayButton sampleUrl={voice.sampleUrl} voiceName={voice.name} />
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
+        {/* Animated carousel */}
+        <VoiceCarousel />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          4 · HOW DIRECTING WORKS — light, 3-step editorial with UI glimpses
+          4 · HOW DIRECTING WORKS — light, 3-step with animated UI glimpses
       ══════════════════════════════════════════════════════════════════════ */}
       <section style={{ background: LIGHT, padding: "96px 48px 0" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
@@ -336,14 +195,17 @@ export default function ComposerPage() {
               fontFamily: "var(--font-display)",
               fontSize: "clamp(30px, 3.5vw, 46px)",
               fontWeight: 600,
+              fontStyle: "normal",
               letterSpacing: "-0.02em",
               lineHeight: 1.0,
               color: TEXT1,
               margin: "0 0 64px",
               maxWidth: "540px",
             }}>
-              Direction happens before<br />
-              <em style={{ fontStyle: "italic" }}>you write a single word.</em>
+              Direction happens{" "}
+              <em style={{ fontStyle: "italic", color: GOLD }}>before</em>
+              <br />
+              you write a single word.
             </h2>
           </ScrollReveal>
 
@@ -355,7 +217,7 @@ export default function ComposerPage() {
             background: BORDER,
             borderTop: `1px solid ${BORDER}`,
           }}>
-            {/* Step 1 — Pick a voice */}
+            {/* Step 1 — Choose the character */}
             <ScrollReveal delay={0}>
               <div style={{ background: LIGHT, padding: "48px 40px 52px" }}>
                 <p style={{
@@ -379,38 +241,8 @@ export default function ComposerPage() {
                   Five voices, each built for a different kind of moment. The one you choose shapes everything that follows.
                 </p>
 
-                {/* UI glimpse: voice selector */}
-                <div style={{
-                  background: "#1c1a17",
-                  borderRadius: "16px",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}>
-                  <p style={{
-                    fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.08em",
-                    color: "rgba(232,227,220,0.4)", fontWeight: 600, margin: 0,
-                  }}>
-                    Voice
-                  </p>
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    {["Morgan", "Nova", "Atlas", "Riven", "Hex"].map((v, i) => (
-                      <span key={v} style={{
-                        fontSize: "12px",
-                        padding: "6px 14px",
-                        borderRadius: "100px",
-                        border: i === 0
-                          ? "1px solid rgba(232,227,220,0.7)"
-                          : "1px solid rgba(232,227,220,0.18)",
-                        background: i === 0 ? "rgba(232,227,220,0.1)" : "transparent",
-                        color: i === 0 ? "#e8e3dc" : "rgba(232,227,220,0.4)",
-                      }}>
-                        {v}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                {/* Animated: voice pills appear one by one */}
+                <VoicePills />
               </div>
             </ScrollReveal>
 
@@ -438,42 +270,12 @@ export default function ComposerPage() {
                   Each voice ships with tonal variants. Pick the emotional register before the first word.
                 </p>
 
-                {/* UI glimpse: intent selector */}
-                <div style={{
-                  background: "#1c1a17",
-                  borderRadius: "16px",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}>
-                  <p style={{
-                    fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.08em",
-                    color: "rgba(232,227,220,0.4)", fontWeight: 600, margin: 0,
-                  }}>
-                    Voice Direction
-                  </p>
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    {["Authoritative", "Warm", "Composed"].map((intent, i) => (
-                      <span key={intent} style={{
-                        fontSize: "12px",
-                        padding: "7px 14px",
-                        borderRadius: "100px",
-                        border: i === 0
-                          ? "1px solid rgba(232,227,220,0.7)"
-                          : "1px solid rgba(232,227,220,0.18)",
-                        background: i === 0 ? "rgba(232,227,220,0.1)" : "transparent",
-                        color: i === 0 ? "#e8e3dc" : "rgba(232,227,220,0.4)",
-                      }}>
-                        {intent}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                {/* Animated: intent pills with Warm pulsing */}
+                <IntentPills />
               </div>
             </ScrollReveal>
 
-            {/* Step 3 — Write */}
+            {/* Step 3 — Direct as you compose */}
             <ScrollReveal delay={160}>
               <div style={{ background: LIGHT, padding: "48px 40px 52px" }}>
                 <p style={{
@@ -497,47 +299,8 @@ export default function ComposerPage() {
                   Inline marks let you shift the tone mid-script. A single take can move from quiet to urgent without switching voices.
                 </p>
 
-                {/* UI glimpse: script with direction mark */}
-                <div style={{
-                  background: "#1c1a17",
-                  borderRadius: "16px",
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}>
-                  <p style={{
-                    fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.08em",
-                    color: "rgba(232,227,220,0.4)", fontWeight: 600, margin: 0,
-                  }}>
-                    Script
-                  </p>
-                  <div style={{
-                    background: "rgba(0,0,0,0.3)",
-                    border: "1px solid rgba(232,227,220,0.15)",
-                    borderRadius: "12px",
-                    padding: "12px 14px",
-                    fontSize: "13px",
-                    lineHeight: 1.6,
-                    color: "#e8e3dc",
-                  }}>
-                    <span style={{ color: "rgba(201,169,110,0.6)" }}>[warm]</span>{" "}
-                    The work your team has done{" "}
-                    <span style={{ color: "rgba(201,169,110,0.6)" }}>[/warm]</span>{" "}
-                    <span style={{ color: "rgba(232,227,220,0.5)" }}>speaks for itself.</span>
-                    <span
-                      className="cursor-blink"
-                      style={{
-                        display: "inline-block",
-                        width: "1.5px",
-                        height: "14px",
-                        background: GOLD,
-                        verticalAlign: "middle",
-                        marginLeft: "2px",
-                      }}
-                    />
-                  </div>
-                </div>
+                {/* Animated: typewriter with [warm] tag appearing */}
+                <TypewriterScript />
               </div>
             </ScrollReveal>
           </div>
@@ -553,7 +316,7 @@ export default function ComposerPage() {
             <ScrollReveal>
               <p style={{
                 fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-                textTransform: "uppercase", color: TEXT3, marginBottom: "40px",
+                textTransform: "uppercase", color: TEXT3, marginBottom: "48px",
               }}>
                 Built for
               </p>
@@ -562,32 +325,42 @@ export default function ComposerPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "48px" }}>
               {[
                 {
-                  audience: "Brands",
-                  positioning: "For brands who know their voice is a design decision, not a setting.",
+                  label: "Brands",
+                  heading: "Sound is a brand decision, not a setting.",
+                  copy: "The voice you choose is as intentional as your visual identity. Lyric gives your brand a consistent sonic character that can perform across every moment it appears in — from product to campaign to content.",
                 },
                 {
-                  audience: "Creators",
-                  positioning: "For creators who want their work to have presence, not just output.",
+                  label: "Creators",
+                  heading: "Give your work a presence, not just an output.",
+                  copy: "When you control how a voice sounds, not just what it says, your work stops feeling generated. Lyric gives you the craft layer that separates direction from delivery.",
                 },
                 {
-                  audience: "Product Teams",
-                  positioning: "For teams building products where the voice is part of how it works.",
+                  label: "Product Teams",
+                  heading: "Voice is part of how your product works.",
+                  copy: "Whether you're building in-product narration, onboarding flows, or async updates, Lyric gives your team voices with real performance range — not just text-to-speech.",
                 },
               ].map((item, i) => (
-                <ScrollReveal key={item.audience} delay={i * 80}>
-                  <div>
+                <ScrollReveal key={item.label} delay={i * 80}>
+                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: "28px" }}>
+                    <p style={{
+                      fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em",
+                      textTransform: "uppercase", color: GOLD, margin: "0 0 16px",
+                    }}>
+                      {item.label}
+                    </p>
                     <h3 style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "26px",
+                      fontSize: "clamp(20px, 2vw, 26px)",
                       fontWeight: 500,
                       letterSpacing: "-0.01em",
+                      lineHeight: 1.2,
                       color: TEXT1,
-                      margin: "0 0 12px",
+                      margin: "0 0 16px",
                     }}>
-                      {item.audience}
+                      {item.heading}
                     </h3>
-                    <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: 0 }}>
-                      {item.positioning}
+                    <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, margin: 0 }}>
+                      {item.copy}
                     </p>
                   </div>
                 </ScrollReveal>
@@ -598,7 +371,7 @@ export default function ComposerPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          6 · SECOND MINI COMPOSER — dark CTA with full product
+          6 · MINI COMPOSER — dark CTA with full product
       ══════════════════════════════════════════════════════════════════════ */}
       <section style={{ background: DARK, paddingTop: "80px" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 48px 56px", textAlign: "center" }}>
@@ -629,7 +402,7 @@ export default function ComposerPage() {
           </ScrollReveal>
         </div>
 
-        {/* Second mini composer — full width */}
+        {/* Mini composer — full width */}
         <VoiceCardTicker />
 
         {/* Pricing nudge */}
@@ -647,7 +420,7 @@ export default function ComposerPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          7 · PRE-FOOTER CTA — matches home / about / pricing / editions
+          7 · PRE-FOOTER CTA
       ══════════════════════════════════════════════════════════════════════ */}
       <section style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
         <ScrollReveal>

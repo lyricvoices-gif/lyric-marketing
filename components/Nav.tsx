@@ -17,6 +17,7 @@ export default function Nav() {
 
   const links = [
     { href: "/editions", label: "Editions" },
+    { href: "/composer", label: "Composer" },
     { href: "/about",    label: "About" },
     { href: "/pricing",  label: "Pricing" },
   ]
