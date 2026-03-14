@@ -104,6 +104,21 @@ export default function ComposerPage() {
             <VariantComparisons />
           </ScrollReveal>
 
+          {/* Explanation */}
+          <ScrollReveal delay={160}>
+            <p style={{
+              fontSize: "15px",
+              color: TEXT2,
+              lineHeight: 1.75,
+              margin: "48px 0 0",
+              maxWidth: "680px",
+            }}>
+              Each of Lyric&apos;s voices ships with three distinct tonal directions. The intent is set
+              before you write, so the same line reads and sounds entirely different depending
+              on how it&apos;s directed.
+            </p>
+          </ScrollReveal>
+
         </div>
       </section>
 
