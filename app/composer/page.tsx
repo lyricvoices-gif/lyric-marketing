@@ -104,26 +104,6 @@ export default function ComposerPage() {
             <VariantComparisons />
           </ScrollReveal>
 
-          {/* Explanation */}
-          <ScrollReveal delay={160}>
-            <div style={{
-              marginTop: "48px",
-              paddingTop: "40px",
-              borderTop: `1px solid ${BORDER}`,
-            }}>
-              <p style={{
-                fontSize: "15px",
-                color: TEXT2,
-                lineHeight: 1.75,
-                margin: 0,
-                maxWidth: "680px",
-              }}>
-                Each of Lyric&apos;s voices ships with three distinct tonal directions. The intent is set
-                before you write, so the same line reads — and sounds — entirely different depending
-                on how it&apos;s directed.
-              </p>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
@@ -327,7 +307,7 @@ export default function ComposerPage() {
                 {
                   label: "Brands",
                   heading: "Sound is a brand decision, not a setting.",
-                  copy: "The voice you choose is as intentional as your visual identity. Lyric gives your brand a consistent sonic character that can perform across every moment it appears in — from product to campaign to content.",
+                  copy: "The voice you choose is as intentional as your visual identity. Lyric gives your brand a consistent sonic character that can perform across every moment it appears in, from product to campaign to content.",
                 },
                 {
                   label: "Creators",
@@ -337,7 +317,7 @@ export default function ComposerPage() {
                 {
                   label: "Product Teams",
                   heading: "Voice is part of how your product works.",
-                  copy: "Whether you're building in-product narration, onboarding flows, or async updates, Lyric gives your team voices with real performance range — not just text-to-speech.",
+                  copy: "Whether you're building in-product narration, onboarding flows, or async updates, Lyric gives your team voices with real performance range, not just text-to-speech.",
                 },
               ].map((item, i) => (
                 <ScrollReveal key={item.label} delay={i * 80}>
