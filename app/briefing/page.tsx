@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 
 export const metadata: Metadata = {
@@ -51,7 +50,6 @@ export default function BriefingPage() {
       <section
         style={{
           background: DARK,
-          minHeight: "calc(100vh - 52px)",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           overflow: "hidden",
@@ -60,7 +58,7 @@ export default function BriefingPage() {
         {/* Left: text */}
         <div
           style={{
-            padding: "0 64px 80px 96px",
+            padding: "120px 64px 120px 96px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -181,7 +179,7 @@ export default function BriefingPage() {
               }}
             >
               <Image
-                src="/images/about_2.webp"
+                src="/images/floret-13.jpg"
                 alt="The Lyric Briefing"
                 fill
                 sizes="50vw"
@@ -252,7 +250,7 @@ export default function BriefingPage() {
                 {[
                   { label: "Format", value: "Audio + Text" },
                   { label: "Frequency", value: "Daily" },
-                  { label: "Published on", value: "Substack" },
+                  { label: "Listen on", value: "Substack · Spotify · Apple" },
                 ].map((item, i) => (
                   <div
                     key={item.label}
@@ -482,7 +480,7 @@ export default function BriefingPage() {
               },
             ].map((col, i) => (
               <ScrollReveal key={col.label} delay={i * 80}>
-                <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: "28px" }}>
+                <div>
                   <p
                     style={{
                       fontSize: "10px",
@@ -614,115 +612,6 @@ export default function BriefingPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          6 · PRE-FOOTER CTA — composer focused, consistent with all pages
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
-        <ScrollReveal>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(36px, 4vw, 58px)",
-              fontWeight: 600,
-              color: LIGHT,
-              margin: "0 auto 20px",
-              lineHeight: 0.95,
-              letterSpacing: "-0.02em",
-              maxWidth: "720px",
-            }}
-          >
-            Ready to hear Lyric<br />in action?
-          </h2>
-        </ScrollReveal>
-
-        <ScrollReveal delay={80}>
-          <p
-            style={{
-              fontSize: "16px",
-              color: "rgba(245,243,239,0.5)",
-              lineHeight: 1.5,
-              maxWidth: "380px",
-              margin: "0 auto 36px",
-            }}
-          >
-            Try the composer and experience how Lyric voices perform in real moments.
-          </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={160}>
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
-            <a
-              href="https://composer.lyricvoices.ai"
-              style={{
-                padding: "13px 26px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 500,
-                background: LIGHT,
-                color: DARK,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Try the composer
-            </a>
-            <Link
-              href="/pricing"
-              style={{
-                padding: "13px 26px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 400,
-                background: "rgba(245,243,239,0.07)",
-                color: "rgba(245,243,239,0.6)",
-                border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              View pricing
-            </Link>
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal delay={240}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
-            <div style={{ display: "flex" }}>
-              {[1, 2, 3, 4].map((n) => (
-                <div
-                  key={n}
-                  style={{
-                    width: "36px",
-                    height: "36px",
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                    border: `2px solid ${DARK}`,
-                    marginLeft: n === 1 ? 0 : "-10px",
-                    background: "#d4c9bc",
-                    flexShrink: 0,
-                  }}
-                >
-                  <Image
-                    src={`/images/founders_${n}.webp`}
-                    alt=""
-                    width={36}
-                    height={36}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </div>
-              ))}
-            </div>
-            <p
-              style={{
-                fontSize: "12px",
-                color: "rgba(245,243,239,0.38)",
-                margin: 0,
-                letterSpacing: "0.01em",
-              }}
-            >
-              ✦ Shaped by designers behind AI products at top brands.
-            </p>
-          </div>
-        </ScrollReveal>
-      </section>
     </>
   )
 }
