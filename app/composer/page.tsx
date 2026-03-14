@@ -382,7 +382,7 @@ export default function ComposerPage() {
               margin: "0 auto 20px",
               maxWidth: "560px",
             }}>
-              The only way to understand direction is to{" "}
+              {"The only way to understand direction is to "}
               <em style={{ fontStyle: "italic", color: GOLD }}>use it.</em>
             </h2>
           </ScrollReveal>
