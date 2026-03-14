@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal"
 import VoiceCardTicker from "@/components/VoiceCardTicker"
 import VoiceCarousel from "@/components/VoiceCarousel"
 import VariantComparisons from "@/components/VariantComparisons"
-import { VoicePills, IntentPills, TypewriterScript } from "@/components/ComposerAnimations"
+import HowItWorksAnimations from "@/components/ComposerAnimations"
 
 export const metadata: Metadata = {
   title: "Composer",
@@ -204,101 +204,7 @@ export default function ComposerPage() {
             </h2>
           </ScrollReveal>
 
-          {/* Three steps */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "1px",
-            background: BORDER,
-            borderTop: `1px solid ${BORDER}`,
-          }}>
-            {/* Step 1 — Choose the character */}
-            <ScrollReveal delay={0}>
-              <div style={{ background: LIGHT, padding: "48px 40px 52px" }}>
-                <p style={{
-                  fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-                  textTransform: "uppercase", color: TEXT3, margin: "0 0 20px",
-                }}>
-                  Begin here
-                </p>
-                <h3 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "22px",
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  color: TEXT1,
-                  margin: "0 0 12px",
-                  lineHeight: 1.2,
-                }}>
-                  Choose the character.
-                </h3>
-                <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>
-                  Five voices, each built for a different kind of moment. The one you choose shapes everything that follows.
-                </p>
-
-                {/* Animated: voice pills appear one by one */}
-                <VoicePills />
-              </div>
-            </ScrollReveal>
-
-            {/* Step 2 — Set the intent */}
-            <ScrollReveal delay={80}>
-              <div style={{ background: LIGHT, padding: "48px 40px 52px" }}>
-                <p style={{
-                  fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-                  textTransform: "uppercase", color: TEXT3, margin: "0 0 20px",
-                }}>
-                  Then this
-                </p>
-                <h3 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "22px",
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  color: TEXT1,
-                  margin: "0 0 12px",
-                  lineHeight: 1.2,
-                }}>
-                  Set the intent.
-                </h3>
-                <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>
-                  Each voice ships with tonal variants. Pick the emotional register before the first word.
-                </p>
-
-                {/* Animated: intent pills with Warm pulsing */}
-                <IntentPills />
-              </div>
-            </ScrollReveal>
-
-            {/* Step 3 — Direct as you compose */}
-            <ScrollReveal delay={160}>
-              <div style={{ background: LIGHT, padding: "48px 40px 52px" }}>
-                <p style={{
-                  fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-                  textTransform: "uppercase", color: TEXT3, margin: "0 0 20px",
-                }}>
-                  Now write
-                </p>
-                <h3 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "22px",
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  color: TEXT1,
-                  margin: "0 0 12px",
-                  lineHeight: 1.2,
-                }}>
-                  Direct as you compose.
-                </h3>
-                <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>
-                  Inline marks let you shift the tone mid-script. A single take can move from quiet to urgent without switching voices.
-                </p>
-
-                {/* Animated: typewriter with [warm] tag appearing */}
-                <TypewriterScript />
-              </div>
-            </ScrollReveal>
-          </div>
+          <HowItWorksAnimations />
         </div>
       </section>
 
