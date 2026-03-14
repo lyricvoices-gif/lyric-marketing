@@ -383,7 +383,7 @@ export default function ComposerPage() {
               maxWidth: "560px",
             }}>
               {"The only way to understand direction is to "}
-              <em style={{ fontStyle: "italic", color: GOLD }}>use it.</em>
+              <em style={{ fontStyle: "italic", color: GOLD, whiteSpace: "nowrap" }}>use it.</em>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={60}>
