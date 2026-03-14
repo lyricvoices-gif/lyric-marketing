@@ -289,152 +289,148 @@ export default function BriefingPage() {
       <section style={{ background: DARK, padding: "96px 48px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
 
+          {/* Section label row */}
           <ScrollReveal>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "baseline",
-                justifyContent: "space-between",
-                marginBottom: "48px",
-              }}
-            >
-              <div>
-                <p
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: TEXT3,
-                    marginBottom: "12px",
-                  }}
-                >
-                  Recent Episodes
-                </p>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(28px, 3.5vw, 44px)",
-                    fontWeight: 600,
-                    fontStyle: "normal",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 0.95,
-                    color: LIGHT,
-                    margin: 0,
-                  }}
-                >
-                  What Morgan&apos;s been{" "}
-                  <em style={{ fontStyle: "italic", color: "rgba(245,243,239,0.4)" }}>
-                    covering.
-                  </em>
-                </h2>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Episode cards */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "12px",
-              marginBottom: "40px",
-            }}
-          >
-            {episodes.map((ep, i) => (
-              <ScrollReveal key={ep.url} delay={i * 80}>
-                <a
-                  href={ep.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: "block", textDecoration: "none" }}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      borderRadius: "20px",
-                      overflow: "hidden",
-                      minHeight: "400px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-end",
-                      padding: "32px",
-                    }}
-                  >
-                    <Image
-                      src={ep.image}
-                      alt=""
-                      fill
-                      sizes="(max-width: 1120px) 33vw, 373px"
-                      style={{ objectFit: "cover" }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background:
-                          "linear-gradient(to top, rgba(43,42,37,0.95) 0%, rgba(43,42,37,0.55) 50%, rgba(43,42,37,0.15) 100%)",
-                      }}
-                    />
-                    <div style={{ position: "relative" }}>
-                      <p
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: 600,
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "rgba(245,243,239,0.4)",
-                          margin: "0 0 10px",
-                        }}
-                      >
-                        {ep.date}
-                      </p>
-                      <h3
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "clamp(17px, 1.8vw, 21px)",
-                          fontWeight: 500,
-                          letterSpacing: "-0.01em",
-                          lineHeight: 1.25,
-                          color: LIGHT,
-                          margin: "0 0 12px",
-                        }}
-                      >
-                        {ep.title}
-                      </h3>
-                      <p
-                        style={{
-                          fontSize: "13px",
-                          color: "rgba(245,243,239,0.48)",
-                          lineHeight: 1.55,
-                          margin: 0,
-                        }}
-                      >
-                        {ep.description}
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal delay={240}>
-            <div style={{ textAlign: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "32px" }}>
+              <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: TEXT3, margin: 0 }}>
+                Recent Episodes
+              </p>
               <a
                 href={SUBSTACK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  fontSize: "14px",
-                  color: TEXT3,
-                  letterSpacing: "-0.01em",
-                }}
+                style={{ fontSize: "13px", color: TEXT3, letterSpacing: "-0.01em" }}
               >
-                Browse all episodes →
+                Browse all →
               </a>
             </div>
           </ScrollReveal>
+
+          {/* Asymmetric episode grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "12px" }}>
+
+            {/* Featured episode — left, full height */}
+            <ScrollReveal>
+              <a
+                href={episodes[0].url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "block", textDecoration: "none", height: "100%" }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    height: "100%",
+                    minHeight: "560px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    padding: "40px",
+                  }}
+                >
+                  <Image
+                    src={episodes[0].image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1120px) 67vw, 747px"
+                    style={{ objectFit: "cover" }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "linear-gradient(to top, rgba(43,42,37,0.96) 0%, rgba(43,42,37,0.5) 45%, rgba(43,42,37,0.1) 100%)",
+                    }}
+                  />
+                  <div style={{ position: "relative" }}>
+                    <p style={{ fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245,243,239,0.4)", margin: "0 0 12px" }}>
+                      {episodes[0].date}
+                    </p>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(22px, 2.5vw, 32px)",
+                        fontWeight: 500,
+                        letterSpacing: "-0.01em",
+                        lineHeight: 1.2,
+                        color: LIGHT,
+                        margin: "0 0 14px",
+                        maxWidth: "520px",
+                      }}
+                    >
+                      {episodes[0].title}
+                    </h3>
+                    <p style={{ fontSize: "14px", color: "rgba(245,243,239,0.5)", lineHeight: 1.6, margin: 0, maxWidth: "480px" }}>
+                      {episodes[0].description}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </ScrollReveal>
+
+            {/* Two stacked smaller cards — right */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {episodes.slice(1).map((ep, i) => (
+                <ScrollReveal key={ep.url} delay={(i + 1) * 80}>
+                  <a
+                    href={ep.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "block", textDecoration: "none" }}
+                  >
+                    <div
+                      style={{
+                        position: "relative",
+                        borderRadius: "20px",
+                        overflow: "hidden",
+                        minHeight: "274px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-end",
+                        padding: "24px",
+                      }}
+                    >
+                      <Image
+                        src={ep.image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 1120px) 33vw, 373px"
+                        style={{ objectFit: "cover" }}
+                      />
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          background: "linear-gradient(to top, rgba(43,42,37,0.96) 0%, rgba(43,42,37,0.55) 50%, rgba(43,42,37,0.1) 100%)",
+                        }}
+                      />
+                      <div style={{ position: "relative" }}>
+                        <p style={{ fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245,243,239,0.4)", margin: "0 0 8px" }}>
+                          {ep.date}
+                        </p>
+                        <h3
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            fontSize: "clamp(15px, 1.4vw, 18px)",
+                            fontWeight: 500,
+                            letterSpacing: "-0.01em",
+                            lineHeight: 1.25,
+                            color: LIGHT,
+                            margin: 0,
+                          }}
+                        >
+                          {ep.title}
+                        </h3>
+                      </div>
+                    </div>
+                  </a>
+                </ScrollReveal>
+              ))}
+            </div>
+
+          </div>
         </div>
       </section>
 
