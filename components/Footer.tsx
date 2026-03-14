@@ -68,7 +68,8 @@ export default function Footer() {
       links: [
         { label: "Editions", href: "/editions" },
         { label: "Pricing",  href: "/pricing" },
-        { label: "Composer", href: "/composer" },
+        { label: "Composer",       href: "/composer" },
+        { label: "Lyric Briefing", href: "/briefing" },
       ],
     },
     {
