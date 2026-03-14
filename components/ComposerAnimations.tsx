@@ -89,15 +89,39 @@ export function VoicePills() {
 const INTENTS = ["Authoritative", "Warm", "Composed"]
 
 export function IntentPills() {
-  const [pulse, setPulse] = useState(false)
+  const [loopKey, setLoopKey] = useState(0)
+  const [revealed, setRevealed] = useState(0)
+  const [warmSelected, setWarmSelected] = useState(false)
 
   useEffect(() => {
-    // Alternate pulse every 1.8s
-    const interval = setInterval(() => {
-      setPulse((p) => !p)
-    }, 1800)
-    return () => clearInterval(interval)
-  }, [])
+    setRevealed(0)
+    setWarmSelected(false)
+    const timeouts: ReturnType<typeof setTimeout>[] = []
+
+    const revealNext = (n: number) => {
+      const t = setTimeout(() => {
+        setRevealed(n)
+        if (n < INTENTS.length) {
+          revealNext(n + 1)
+        } else {
+          // All revealed — pause, then select Warm
+          const t2 = setTimeout(() => {
+            setWarmSelected(true)
+            // Hold, then loop
+            const t3 = setTimeout(() => {
+              setLoopKey((k) => k + 1)
+            }, 3000)
+            timeouts.push(t3)
+          }, 500)
+          timeouts.push(t2)
+        }
+      }, n === 1 ? 500 : 350)
+      timeouts.push(t)
+    }
+
+    revealNext(1)
+    return () => timeouts.forEach(clearTimeout)
+  }, [loopKey])
 
   return (
     <div
@@ -123,8 +147,9 @@ export function IntentPills() {
         Voice Direction
       </p>
       <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-        {INTENTS.map((intent) => {
+        {INTENTS.map((intent, i) => {
           const isWarm = intent === "Warm"
+          const selected = isWarm && warmSelected
           return (
             <span
               key={intent}
@@ -132,16 +157,17 @@ export function IntentPills() {
                 fontSize: "12px",
                 padding: "7px 14px",
                 borderRadius: "100px",
-                border: isWarm
-                  ? `1px solid rgba(201,169,110,${pulse ? "0.75" : "0.28"})`
+                border: selected
+                  ? "1px solid rgba(201,169,110,0.75)"
                   : "1px solid rgba(232,227,220,0.18)",
-                background: isWarm
-                  ? `rgba(201,169,110,${pulse ? "0.14" : "0.04"})`
-                  : "transparent",
-                color: isWarm
-                  ? `rgba(201,169,110,${pulse ? "1" : "0.5"})`
+                background: selected ? "rgba(201,169,110,0.12)" : "transparent",
+                color: selected
+                  ? "rgba(201,169,110,1)"
                   : "rgba(232,227,220,0.4)",
-                transition: "all 0.95s ease",
+                opacity: i < revealed ? 1 : 0,
+                transform: i < revealed ? "translateY(0)" : "translateY(8px)",
+                transition:
+                  "opacity 0.4s ease, transform 0.4s ease, border-color 0.8s ease, background 0.8s ease, color 0.8s ease",
               }}
             >
               {intent}
@@ -160,12 +186,15 @@ const WARM_PHRASE = "The work your team has done"
 export function TypewriterScript() {
   const [loopKey, setLoopKey] = useState(0)
   const [charCount, setCharCount] = useState(0)
+  // showTags: tags are rendered but may be invisible; tagsVisible: fade them in
   const [showTags, setShowTags] = useState(false)
+  const [tagsVisible, setTagsVisible] = useState(false)
   const [warmActive, setWarmActive] = useState(false)
 
   useEffect(() => {
     setCharCount(0)
     setShowTags(false)
+    setTagsVisible(false)
     setWarmActive(false)
 
     const timeouts: ReturnType<typeof setTimeout>[] = []
@@ -180,22 +209,26 @@ export function TypewriterScript() {
           clearInterval(typingInterval!)
           typingInterval = null
 
-          // Pause → show tags
+          // Pause after typing finishes
           const t1 = setTimeout(() => {
+            // Switch to tagged render (still invisible)
             setShowTags(true)
-
-            // Brief delay → activate warm color
+            // Next tick: fade tags in
             const t2 = setTimeout(() => {
-              setWarmActive(true)
-
-              // Hold → loop
+              setTagsVisible(true)
+              // Then slowly activate warm color
               const t3 = setTimeout(() => {
-                setLoopKey((k) => k + 1)
-              }, 2800)
+                setWarmActive(true)
+                // Hold, then loop
+                const t4 = setTimeout(() => {
+                  setLoopKey((k) => k + 1)
+                }, 3200)
+                timeouts.push(t4)
+              }, 900)
               timeouts.push(t3)
-            }, 480)
+            }, 60)
             timeouts.push(t2)
-          }, 900)
+          }, 1000)
           timeouts.push(t1)
         }
       }, 42)
@@ -266,24 +299,26 @@ export function TypewriterScript() {
           <>
             <span
               style={{
-                color: `rgba(201,169,110,${warmActive ? "0.6" : "0.25"})`,
-                transition: "color 0.5s ease",
+                color: warmActive ? "rgba(201,169,110,0.6)" : "rgba(232,227,220,0.35)",
+                opacity: tagsVisible ? 1 : 0,
+                transition: "opacity 0.8s ease, color 1.4s ease",
               }}
             >
               {"[warm] "}
             </span>
             <span
               style={{
-                color: warmActive ? "rgba(201,169,110,0.88)" : "#e8e3dc",
-                transition: "color 0.5s ease",
+                color: warmActive ? "rgba(201,169,110,0.9)" : "#e8e3dc",
+                transition: "color 1.4s ease",
               }}
             >
               {WARM_PHRASE}
             </span>
             <span
               style={{
-                color: `rgba(201,169,110,${warmActive ? "0.6" : "0.25"})`,
-                transition: "color 0.5s ease",
+                color: warmActive ? "rgba(201,169,110,0.6)" : "rgba(232,227,220,0.35)",
+                opacity: tagsVisible ? 1 : 0,
+                transition: "opacity 0.8s ease, color 1.4s ease",
               }}
             >
               {" [/warm]"}

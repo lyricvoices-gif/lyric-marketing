@@ -37,11 +37,11 @@ export default function ComposerPage() {
             </p>
             <h1 style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(44px, 5.5vw, 76px)",
-              fontWeight: 500,
+              fontSize: "clamp(38px, 5vw, 72px)",
+              fontWeight: 600,
               fontStyle: "normal",
               letterSpacing: "-0.02em",
-              lineHeight: 1.05,
+              lineHeight: 0.95,
               color: LIGHT,
               margin: "0 auto 24px",
               maxWidth: "640px",
@@ -341,7 +341,7 @@ export default function ComposerPage() {
                 },
               ].map((item, i) => (
                 <ScrollReveal key={item.label} delay={i * 80}>
-                  <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: "28px" }}>
+                  <div>
                     <p style={{
                       fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em",
                       textTransform: "uppercase", color: GOLD, margin: "0 0 16px",
@@ -380,14 +380,15 @@ export default function ComposerPage() {
               fontFamily: "var(--font-display)",
               fontSize: "clamp(28px, 3.5vw, 46px)",
               fontWeight: 600,
-              fontStyle: "italic",
+              fontStyle: "normal",
               letterSpacing: "-0.02em",
               lineHeight: 1.05,
               color: LIGHT,
               margin: "0 auto 20px",
               maxWidth: "560px",
             }}>
-              The only way to understand direction is to use it.
+              The only way to understand direction is to{" "}
+              <em style={{ fontStyle: "italic", color: GOLD }}>use it.</em>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={60}>

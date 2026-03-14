@@ -52,7 +52,7 @@ export default function VariantComparisons() {
   }, [playingIndex])
 
   return (
-    <div style={{ maxWidth: "760px" }}>
+    <div>
       {variants.map((v, i) => {
         const isPlaying = playingIndex === i
         return (

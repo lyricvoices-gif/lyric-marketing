@@ -80,7 +80,7 @@ export default function VoiceCarousel() {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!transitioning.current) goTo((current + 1) % voices.length)
-    }, 4500)
+    }, 7000)
     return () => clearTimeout(timer)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current])
