@@ -75,7 +75,10 @@ export default function Footer() {
     {
       heading: "Company",
       links: [
-        { label: "About", href: "/about" },
+        { label: "About",    href: "/about" },
+        { label: "Research", href: "/research" },
+        { label: "Blog",     href: "/blog" },
+        { label: "Careers",  href: "/careers" },
       ],
     },
     {
