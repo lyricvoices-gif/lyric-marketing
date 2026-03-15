@@ -113,7 +113,7 @@ export default function Footer() {
           >
             {/* Brand block */}
             <div>
-              <Wordmark height={20} color="#f5f3ef" style={{ marginBottom: "12px" }} />
+              <Wordmark height={34} color="#f5f3ef" style={{ marginBottom: "12px" }} />
               <p
                 style={{
                   fontSize: "13px",
