@@ -25,7 +25,7 @@ const plans = [
     period: "/mo",
     tagline: "For individuals and small teams.",
     dark: false,
-    cta: "Get started",
+    cta: "Sign up",
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "All 5 Edition 01 voices",
@@ -45,7 +45,7 @@ const plans = [
     tagline: "For creators and brands who need more.",
     dark: true,
     badge: "Most popular",
-    cta: "Get started",
+    cta: "Sign up",
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "Everything in Creator",
