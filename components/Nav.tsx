@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
+import Wordmark from "@/components/Wordmark"
 
 export default function Nav() {
   const pathname = usePathname()
@@ -43,17 +44,7 @@ export default function Nav() {
     >
       {/* Brand */}
       <Link href="/" style={{ display: "flex", alignItems: "center" }}>
-        <span
-          style={{
-            fontFamily: "Agrandir, sans-serif",
-            fontWeight: 400,
-            fontSize: "20px",
-            color: "#f5f3ef",
-            letterSpacing: "0.04em",
-          }}
-        >
-          lyric
-        </span>
+        <Wordmark height={18} color="#f5f3ef" />
       </Link>
 
       {/* Links */}

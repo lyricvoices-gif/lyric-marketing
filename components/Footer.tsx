@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal"
+import Wordmark from "@/components/Wordmark"
 
 const SOCIAL = [
   {
@@ -112,19 +113,7 @@ export default function Footer() {
           >
             {/* Brand block */}
             <div>
-              <span
-                style={{
-                  fontFamily: "Agrandir, sans-serif",
-                  fontWeight: 400,
-                  fontSize: "22px",
-                  color: "#f5f3ef",
-                  letterSpacing: "0.04em",
-                  display: "block",
-                  marginBottom: "12px",
-                }}
-              >
-                lyric
-              </span>
+              <Wordmark height={20} color="#f5f3ef" style={{ marginBottom: "12px" }} />
               <p
                 style={{
                   fontSize: "13px",
