@@ -4,6 +4,7 @@ import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import AudioPlayButton from "@/components/AudioPlayButton"
 import FaqAccordion from "@/components/FaqAccordion"
+import ListenNowButton from "@/components/ListenNowButton"
 
 export const metadata: Metadata = {
   title: "Editions",
@@ -100,7 +101,7 @@ const editionFaqs = [
   },
   {
     q: "When will Edition 02 be available?",
-    a: "Edition 02 is currently in development. If you'd like early access or want to be notified when it's ready, reach out at hi@lyricvoices.ai.",
+    a: "Edition 02 is currently in development. If you'd like early access or want to be notified when it's ready, reach out at info@lyricvoices.ai.",
   },
   {
     q: "Can I use Lyric voices commercially?",
@@ -658,22 +659,7 @@ export default function EditionsPage() {
                   </p>
                 </div>
               </div>
-              <a
-                href="https://composer.lyricvoices.ai"
-                style={{
-                  padding: "13px 28px",
-                  borderRadius: "100px",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  background: DARK,
-                  color: LIGHT,
-                  whiteSpace: "nowrap",
-                  letterSpacing: "-0.01em",
-                  flexShrink: 0,
-                }}
-              >
-                Listen now
-              </a>
+              <ListenNowButton src="/The-Story-of-Edition-01.wav" />
             </div>
           </ScrollReveal>
         </div>
@@ -709,8 +695,8 @@ export default function EditionsPage() {
                 <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 28px" }}>
                   Clear answers, no noise. Lyric is designed to feel intuitive from the start. These are the questions we hear most, answered with care.
                 </p>
-                <a href="mailto:hi@lyricvoices.ai" style={{ fontSize: "13px", color: TEXT1, fontWeight: 500 }}>
-                  hi@lyricvoices.ai →
+                <a href="mailto:info@lyricvoices.ai" style={{ fontSize: "13px", color: TEXT1, fontWeight: 500 }}>
+                  info@lyricvoices.ai →
                 </a>
               </div>
             </ScrollReveal>

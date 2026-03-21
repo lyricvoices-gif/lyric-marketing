@@ -66,7 +66,7 @@ const plans = [
     tagline: "For product teams and agencies.",
     dark: false,
     cta: "Contact us",
-    href: "mailto:hi@lyricvoices.ai?subject=Enterprise inquiry",
+    href: "mailto:info@lyricvoices.ai?subject=Enterprise inquiry",
     features: [
       "Everything in Studio",
       "Custom voice creation",
@@ -359,8 +359,8 @@ export default function PricingPage() {
                 <p style={{ fontSize: "13px", color: TEXT2, lineHeight: 1.6, margin: "0 0 24px" }}>
                   Everything else about how Lyric works and what&apos;s included.
                 </p>
-                <a href="mailto:hi@lyricvoices.ai" style={{ fontSize: "13px", color: TEXT1, fontWeight: 500 }}>
-                  hi@lyricvoices.ai →
+                <a href="mailto:info@lyricvoices.ai" style={{ fontSize: "13px", color: TEXT1, fontWeight: 500 }}>
+                  info@lyricvoices.ai →
                 </a>
               </div>
             </ScrollReveal>

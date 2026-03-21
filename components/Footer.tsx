@@ -126,7 +126,7 @@ export default function Footer() {
                 The AI voice platform built for intentional sound.
               </p>
               <a
-                href="mailto:hi@lyricvoices.ai"
+                href="mailto:info@lyricvoices.ai"
                 style={{
                   display: "block",
                   fontSize: "12px",
@@ -135,7 +135,7 @@ export default function Footer() {
                   marginBottom: "20px",
                 }}
               >
-                hi@lyricvoices.ai
+                info@lyricvoices.ai
               </a>
               {/* Social icons */}
               <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>

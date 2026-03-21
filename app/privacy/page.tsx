@@ -81,7 +81,7 @@ const sections = [
   },
   {
     title: "7. Security",
-    body: "We implement industry-standard technical and organizational measures to protect your information — including encryption in transit, access controls, and secure cloud infrastructure. No system is perfectly secure; if you believe your account has been compromised, contact us immediately at hi@lyricvoices.ai.",
+    body: "We implement industry-standard technical and organizational measures to protect your information — including encryption in transit, access controls, and secure cloud infrastructure. No system is perfectly secure; if you believe your account has been compromised, contact us immediately at info@lyricvoices.ai.",
   },
   {
     title: "8. Your Rights & Choices",
@@ -93,7 +93,7 @@ const sections = [
       "Portability — Request your data in a structured, machine-readable format",
       "Objection — Object to certain uses of your data, such as analytics",
     ],
-    note: "To exercise any of these rights, email hi@lyricvoices.ai. We will respond within 30 days.",
+    note: "To exercise any of these rights, email info@lyricvoices.ai. We will respond within 30 days.",
   },
   {
     title: "9. Children's Privacy",
@@ -105,7 +105,7 @@ const sections = [
   },
   {
     title: "11. Contact Us",
-    body: "Lyric Voices\nEmail: hi@lyricvoices.ai",
+    body: "Lyric Voices\nEmail: info@lyricvoices.ai",
   },
 ]
 

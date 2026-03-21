@@ -23,7 +23,7 @@ const sections = [
   },
   {
     title: "3. Account Registration",
-    body: "To access the Platform, you must create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account. Notify us immediately at hi@lyricvoices.ai if you believe your account has been compromised.",
+    body: "To access the Platform, you must create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account. Notify us immediately at info@lyricvoices.ai if you believe your account has been compromised.",
   },
   {
     title: "4. Subscription Plans & Usage",
@@ -72,7 +72,7 @@ const sections = [
           "Deploying a voice as the primary or signature audio experience of an application, product, or service",
           "White-labeling or redistributing voice output as part of a third-party platform or API",
         ],
-        note: "To inquire about licensing, contact hi@lyricvoices.ai.",
+        note: "To inquire about licensing, contact info@lyricvoices.ai.",
       },
       {
         subtitle: "5.3 Attribution",
@@ -139,7 +139,7 @@ const sections = [
   },
   {
     title: "14. Contact",
-    body: "Lyric Voices\nEmail: hi@lyricvoices.ai",
+    body: "Lyric Voices\nEmail: info@lyricvoices.ai",
   },
 ]
 
