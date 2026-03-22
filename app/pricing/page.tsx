@@ -25,7 +25,8 @@ const plans = [
     period: "/mo",
     tagline: "For individuals and small teams.",
     dark: false,
-    cta: "Sign up",
+    cta: "Start free trial",
+    ctaSecondary: "Or subscribe directly",
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "All 5 Edition 01 voices",
@@ -45,7 +46,8 @@ const plans = [
     tagline: "For creators and brands who need more.",
     dark: true,
     badge: "Most popular",
-    cta: "Sign up",
+    cta: "Subscribe to Studio",
+    ctaSecondary: undefined,
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "Everything in Creator",
@@ -228,6 +230,7 @@ export default function PricingPage() {
                     {plan.tagline}
                   </p>
 
+                  {/* Primary CTA */}
                   <a
                     href={plan.href}
                     style={{
@@ -240,12 +243,40 @@ export default function PricingPage() {
                       fontWeight: 500,
                       background: plan.dark ? LIGHT : DARK,
                       color: plan.dark ? DARK : LIGHT,
-                      marginBottom: "28px",
+                      marginBottom: plan.ctaSecondary ? "10px" : "28px",
                       letterSpacing: "-0.01em",
                     }}
                   >
                     {plan.cta}
                   </a>
+
+                  {/* Secondary CTA + trial note — Creator only */}
+                  {plan.ctaSecondary && (
+                    <>
+                      <a
+                        href={plan.href}
+                        style={{
+                          display: "block",
+                          textAlign: "center",
+                          fontSize: "12px",
+                          color: TEXT3,
+                          marginBottom: "8px",
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {plan.ctaSecondary}
+                      </a>
+                      <p style={{
+                        textAlign: "center",
+                        fontSize: "11px",
+                        color: TEXT3,
+                        margin: "0 0 20px",
+                        letterSpacing: "0.01em",
+                      }}>
+                        Credit card required. Cancel anytime.
+                      </p>
+                    </>
+                  )}
 
                   <div style={{
                     borderTop: plan.dark
