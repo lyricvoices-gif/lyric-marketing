@@ -62,7 +62,17 @@ export default function ListenNowButton({ src }: { src: string }) {
             }}
           />
         )}
-        <span style={{ position: "relative", zIndex: 1 }}>
+        <span style={{ position: "relative", zIndex: 1, display: "inline-flex", alignItems: "center", gap: "8px" }}>
+          {isPlaying ? (
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
+              <rect x="0" y="0" width="3.5" height="12" rx="1" />
+              <rect x="6.5" y="0" width="3.5" height="12" rx="1" />
+            </svg>
+          ) : (
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
+              <path d="M0 0L10 6L0 12V0Z" />
+            </svg>
+          )}
           {isPlaying ? "Listening…" : "Listen now"}
         </span>
       </button>
