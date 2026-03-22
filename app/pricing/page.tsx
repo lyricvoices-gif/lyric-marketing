@@ -46,8 +46,8 @@ const plans = [
     tagline: "For creators and brands who need more.",
     dark: true,
     badge: "Most popular",
-    cta: "Subscribe to Studio",
-    ctaSecondary: undefined,
+    cta: "Start free trial",
+    ctaSecondary: "Or subscribe directly",
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "Everything in Creator",
@@ -250,7 +250,7 @@ export default function PricingPage() {
                     {plan.cta}
                   </a>
 
-                  {/* Secondary CTA + trial note — Creator only */}
+                  {/* Secondary CTA + trial note */}
                   {plan.ctaSecondary && (
                     <>
                       <a
