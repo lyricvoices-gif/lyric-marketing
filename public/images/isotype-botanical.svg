@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+
+  <!--
+    Lyric Voices isotype — "The Open Bloom"
+    An asymmetric 5-petal botanical mark. Dominant upper-left sweep petal
+    echoes the horizontal motion blur of the FLORET photography world.
+    3 filled petals carry the form at small sizes; 2 outlined petals and
+    2 fine wisps add depth and the sense of breath/dispersal at larger sizes.
+  -->
+
+  <!-- Petal 1 — upper-left sweep, filled, dominant -->
+  <!-- The longest arm: inspired by the wide horizontal motion blur in FLORET 01_2 -->
+  <path
+    fill="currentColor"
+    d="M47 45C38 38 24 27 15 21C13 19 25 35 42 50Z"
+  />
+
+  <!-- Petal 2 — right, filled, medium -->
+  <path
+    fill="currentColor"
+    d="M55 46C65 42 77 43 85 47C77 54 65 58 55 54Z"
+  />
+
+  <!-- Petal 3 — lower-right, stroke only, delicate receding form -->
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M54 57C59 65 65 73 68 80C64 83 55 73 47 61Z"
+  />
+
+  <!-- Petal 4 — lower-left, filled, small -->
+  <path
+    fill="currentColor"
+    d="M43 56C36 61 25 66 20 69C22 73 34 67 44 59Z"
+  />
+
+  <!-- Petal 5 — upper, stroke only, delicate upright form -->
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M48 44C48 36 50 26 54 18C58 22 56 34 52 44Z"
+  />
+
+  <!-- Center disc — slightly irregular filled oval, the warm core -->
+  <path
+    fill="currentColor"
+    d="M48 43C54 42 59 46 59 52C59 58 55 62 49 62C43 62 41 57 41 51C41 46 44 43 48 43Z"
+  />
+
+  <!-- Stamen accent — small stroke oval sitting on the upper edge of the disc -->
+  <!-- Adds botanical specificity at larger sizes; invisible at 16px -->
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M42 45C44 41 50 43 49 47C48 51 42 52 40 49C39 46 40 44 42 45Z"
+  />
+
+  <!-- Wisp 1 — fine arc extending beyond Petal 1 tip, suggesting resonance dispersing -->
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="0.9"
+    stroke-linecap="round"
+    d="M15 21C9 15 5 10 3 6"
+  />
+
+  <!-- Wisp 2 — fine arc extending beyond Petal 2 tip -->
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="0.9"
+    stroke-linecap="round"
+    d="M85 47C89 44 93 44 96 45"
+  />
+
+</svg>
