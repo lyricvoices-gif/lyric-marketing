@@ -24,3 +24,15 @@ yarn-error.log*
 .DS_Store
 *.pem
 .vercel
+KlimTestFonts/
+PPEditorialNew-Free for personal use/
+PPEditorialNew-Free_for_personal_use.zip
+podcast-cover-source.html
+podcast_cover.png
+podcast_cover_new.png
+wordmark-editorial.svg
+wordmark-exploration.html
+wordmark-i-exploration.html
+public/isotype-preview.html
+.DS_Store
+**/.DS_Store
