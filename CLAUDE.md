@@ -2,11 +2,12 @@
 
 ## What This Is
 The public marketing website for **Lyric** — an AI voice platform built for intentional sound.
+This is the **only** marketing site. There is no Framer site. The mini composer (free-tier voice preview) lives here on the home page.
 Stack: Next.js 15.3.9, App Router, TypeScript, inline styles throughout (no Tailwind, no CSS modules).
 
-GitHub: `github.com/lyricvoices-gif/lyric-marketing` (private)
-Production: `https://lyric-marketing.vercel.app` (Vercel, auto-deploys from `main`)
-Dev: `npm run dev -- --port 3002` → `http://localhost:3002`
+**GitHub:** `github.com/lyricvoices-gif/lyric-marketing` (private)
+**Production:** `https://lyric-marketing.vercel.app` (Vercel, auto-deploys from `main`) — domain will move to `lyricvoices.ai` at launch
+**Dev:** `npm run dev -- --port 3002` → `http://localhost:3002`
 
 ---
 
@@ -64,7 +65,7 @@ app/
   page.tsx            — Home page (~520 lines)
   about/page.tsx      — About page
   editions/page.tsx   — Editions page (stub — needs full rebuild)
-  pricing/page.tsx    — Pricing page (stub — needs full rebuild)
+  pricing/page.tsx    — Pricing page ✅ Built (see below)
 
 components/
   Nav.tsx             — Fixed top nav, 52px height, dark bg, blur-in on load
@@ -118,8 +119,25 @@ Sections in order:
 ### Editions (`/editions`) ⚠️ Stub — needs full rebuild
 Currently has a basic voice grid. Needs redesign to match design system.
 
-### Pricing (`/pricing`) ⚠️ Stub — needs full rebuild
-Currently has a basic plan grid. Needs redesign to match design system.
+### Pricing (`/pricing`) ✅ Built
+3-column plan grid (Creator / Studio / Enterprise).
+- Creator: "Start free trial" CTA → `https://composer.lyricvoices.com/sign-up`
+- Studio: "Start free trial" primary CTA + "Or subscribe directly" secondary
+- Enterprise: "Contact us" CTA → `mailto:hi@lyricvoices.ai`
+- All trial CTAs link to the composer sign-up flow (Clerk-powered)
+
+---
+
+## CTA Link Targets
+
+| Action | Destination |
+|---|---|
+| Start free trial | `https://composer.lyricvoices.com/sign-up` |
+| Sign in | `https://composer.lyricvoices.com/sign-in` |
+| Contact | `mailto:hi@lyricvoices.ai` |
+| The Lyric Briefing | `https://thelyricbriefing.substack.com` |
+
+**Update all `composer.lyricvoices.com` references to `composer.lyricvoices.ai` when domain goes live.**
 
 ---
 
@@ -131,24 +149,19 @@ Currently has a basic plan grid. Needs redesign to match design system.
 | Email in footer left column, not bottom bar | Cleaner hierarchy; bottom bar = copyright only |
 | Social icons in footer left column | 6 icons: Substack, Instagram, X, Threads, Spotify, YouTube |
 | Pricing tiers: creator / studio / enterprise | Set in Clerk `publicMetadata.plan` on the composer app |
-| No free tier on Next.js composer | Mini composer on Framer marketing site = free tier |
+| No free tier on Next.js composer | Mini composer on this site = free-tier experience |
 | FLORET photography in carousel | 7200×5400 originals in `/assets/7200 x 5400/`; resized copies in `public/images/` |
 | `images: { unoptimized: true }` in next.config.ts | Required for Vercel static export compatibility |
 | Pinyon Script for signature | Replaced signature image — better alignment control, loads as font |
 | "Contact" removed from footer Company column | Redundant with mailto link in brand block |
 | How It Works CTA = outlined button | `background: transparent`, `border: 1px solid TEXT1` |
 | Carousel uses fixed 3 DOM slots | CSS `order` is not animatable; fixed slots + width transition = fluid |
+| Voices in Action card images have hover zoom | Scale transform on image on card hover (not the card itself) |
 
 ---
 
 ## Environment Variables
 No `.env` file required for the marketing site. All content is static.
-
-If adding analytics or form handling later, add to `.env.local`:
-```
-# Example — not currently used
-NEXT_PUBLIC_POSTHOG_KEY=...
-```
 
 ---
 
@@ -159,7 +172,7 @@ NEXT_PUBLIC_POSTHOG_KEY=...
 - **Build command:** `npm run build` (Next.js default)
 - **Node version:** 22.x
 
-To deploy manually: `vercel --prod` (Vercel CLI already configured, `.vercel/` in `.gitignore`)
+To deploy manually: `vercel --prod`
 
 ---
 
