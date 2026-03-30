@@ -472,8 +472,8 @@ export default function PricingPage() {
                               <div
                                 key={img.src}
                                 style={{
-                                  width: "48px",
-                                  height: "48px",
+                                  width: "40px",
+                                  height: "40px",
                                   borderRadius: "50%",
                                   overflow: "hidden",
                                   border: `2px solid ${DARK}`,
@@ -485,8 +485,8 @@ export default function PricingPage() {
                                 <Image
                                   src={img.src}
                                   alt={img.alt}
-                                  width={48}
-                                  height={48}
+                                  width={40}
+                                  height={40}
                                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                 />
                               </div>
