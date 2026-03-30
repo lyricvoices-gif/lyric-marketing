@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -830,6 +831,40 @@ export default function ArtistStory() {
             >
               Browse Edition 01
             </Link>
+          </div>
+        </ScrollReveal>
+
+        {/* Founder row */}
+        <ScrollReveal delay={240}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginTop: "40px" }}>
+            <div style={{ display: "flex" }}>
+              {[1, 2, 3, 4].map((n) => (
+                <div
+                  key={n}
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    border: `2px solid ${DARK}`,
+                    marginLeft: n === 1 ? 0 : "-10px",
+                    background: "#d4c9bc",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Image
+                    src={`/images/founders_${n}.webp`}
+                    alt=""
+                    width={36}
+                    height={36}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
+              ✦ Shaped by designers behind AI products at top brands.
+            </p>
           </div>
         </ScrollReveal>
       </section>
