@@ -318,29 +318,32 @@ export default function AboutPage() {
         <ScrollReveal delay={240}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
             <div style={{ display: "flex" }}>
-              {[1, 2, 3, 4].map((n) => (
-                <div
-                  key={n}
-                  style={{
-                    width: "36px",
-                    height: "36px",
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                    border: `2px solid ${DARK}`,
-                    marginLeft: n === 1 ? 0 : "-10px",
-                    background: "#d4c9bc",
-                    flexShrink: 0,
-                  }}
-                >
-                  <Image
-                    src={`/images/founders_${n}.webp`}
-                    alt=""
-                    width={36}
-                    height={36}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </div>
-              ))}
+              {[
+                                { src: "/images/brand_1.jpg", alt: "Brand photography" },
+                                { src: "/images/brand_2.jpg", alt: "FLORET botanicals" },
+                              ].map((img, i) => (
+                              <div
+                                key={img.src}
+                                style={{
+                                  width: "36px",
+                                  height: "36px",
+                                  borderRadius: "50%",
+                                  overflow: "hidden",
+                                  border: `2px solid ${DARK}`,
+                                  marginLeft: i === 0 ? 0 : "-10px",
+                                  background: "#d4c9bc",
+                                  flexShrink: 0,
+                                }}
+                              >
+                                <Image
+                                  src={img.src}
+                                  alt={img.alt}
+                                  width={36}
+                                  height={36}
+                                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                />
+                              </div>
+                            ))}
             </div>
             <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
               ✦ Shaped by designers behind AI products at top brands.
