@@ -42,7 +42,7 @@ const voiceSamples = [
     sampleUrl:
       "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Nova_calm%20(sample).wav",
     quote:
-      "You are not alone in this. Whatever you are carrying right now — I hear you.",
+      "You are not alone in this. Whatever you are carrying right now, I hear you.",
     use: "Wellness, coaching, and human-centered brands",
   },
   {
@@ -354,7 +354,7 @@ export default function ArtistStory() {
                   margin: 0,
                 }}
               >
-                Lyric starts differently. We begin with a character — an
+                Lyric starts differently. We begin with a character: an
                 archetype with emotional range, tonal intent, and use-case
                 clarity. Then we find the actor who can bring that character to
                 life. The performance comes first. The technology follows.
@@ -387,7 +387,7 @@ export default function ArtistStory() {
               can inhabit it.&rdquo;
             </p>
             <p style={{ fontSize: "13px", color: "rgba(245,243,239,0.4)", margin: 0 }}>
-              — Lyric Creative Team
+              Lyric Creative Team
             </p>
           </ScrollReveal>
         </div>
@@ -423,22 +423,22 @@ export default function ArtistStory() {
               {
                 n: "01",
                 title: "Character design",
-                body: "Every Edition starts with a character brief. Before anyone enters a studio, Lyric defines the archetype — its emotional range, tonal boundaries, and the contexts it was designed for. Morgan isn't just a 'confident male voice.' Morgan is The Anchor: decisive authority for enterprise, finance, and high-trust narration.",
+                body: "Every Edition starts with a character brief. Before anyone enters a studio, Lyric defines the archetype, its emotional range, tonal boundaries, and the contexts it was designed for. Morgan isn't just a 'confident male voice.' Morgan is The Anchor: decisive authority for enterprise, finance, and high-trust narration.",
               },
               {
                 n: "02",
                 title: "Casting with intent",
-                body: "We work with professional voice actors — not data contributors. These are performers with training in emotional variation, pacing, and restraint. We cast for the character, not just the sound. The actor needs to understand not only how the voice should feel, but why.",
+                body: "We work with professional voice actors, not data contributors. These are performers with training in emotional variation, pacing, and restraint. We cast for the character, not just the sound. The actor needs to understand not only how the voice should feel, but why.",
               },
               {
                 n: "03",
                 title: "Directed recording sessions",
-                body: "Recording sessions are directed, not scripted-and-read. Each actor performs across the full emotional range of their character — multiple variants, multiple intentions, multiple contexts. The result is a performance library, not a dataset.",
+                body: "Recording sessions are directed, not scripted-and-read. Each actor performs across the full emotional range of their character: multiple variants, multiple intentions, multiple contexts. The result is a performance library, not a dataset.",
               },
               {
                 n: "04",
                 title: "Voice as a system",
-                body: "The recordings become a voice system. Each voice ships with defined variants — Authoritative, Warm, Composed — that shape how every line is performed. The direction is built in. When you choose a variant, you're not tweaking a slider. You're selecting a performance mode.",
+                body: "The recordings become a voice system. Each voice ships with defined variants (Authoritative, Warm, Composed) that shape how every line is performed. The direction is built in. When you choose a variant, you're not tweaking a slider. You're selecting a performance mode.",
               },
             ].map((step, i) => (
               <ScrollReveal key={step.n} delay={i * 80}>
@@ -645,7 +645,7 @@ export default function ArtistStory() {
                   }}
                 >
                   We believe AI voice technology should create new opportunities
-                  for actors — not eliminate them. When a Lyric voice performs
+                  for actors, not eliminate them. When a Lyric voice performs
                   well, the artist behind it benefits directly.
                 </p>
               </div>
@@ -701,7 +701,7 @@ export default function ArtistStory() {
               {
                 point: "Direction built in",
                 detail:
-                  "Each voice includes performance variants — not sliders. You choose a mode, not a number.",
+                  "Each voice includes performance variants, not sliders. You choose a mode, not a number.",
               },
               {
                 point: "Fair, transparent compensation",
