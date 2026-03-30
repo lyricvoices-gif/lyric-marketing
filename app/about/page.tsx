@@ -325,12 +325,12 @@ export default function AboutPage() {
                               <div
                                 key={img.src}
                                 style={{
-                                  width: "36px",
-                                  height: "36px",
+                                  width: "48px",
+                                  height: "48px",
                                   borderRadius: "50%",
                                   overflow: "hidden",
                                   border: `2px solid ${DARK}`,
-                                  marginLeft: i === 0 ? 0 : "-10px",
+                                  marginLeft: i === 0 ? 0 : "-12px",
                                   background: "#d4c9bc",
                                   flexShrink: 0,
                                 }}
@@ -338,8 +338,8 @@ export default function AboutPage() {
                                 <Image
                                   src={img.src}
                                   alt={img.alt}
-                                  width={36}
-                                  height={36}
+                                  width={48}
+                                  height={48}
                                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                 />
                               </div>
