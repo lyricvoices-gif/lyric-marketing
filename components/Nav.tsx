@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
 import Logotype from "@/components/Logotype"
+import Isotype from "@/components/Isotype"
 
 export default function Nav() {
   const pathname = usePathname()
@@ -43,7 +44,8 @@ export default function Nav() {
       }}
     >
       {/* Brand */}
-      <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+      <Link href="/" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <Isotype size={22} color="#f5f3ef" />
         <Logotype height={28} color="#f5f3ef" />
       </Link>
 
