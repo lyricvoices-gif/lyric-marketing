@@ -113,7 +113,7 @@ export default function Footer() {
           >
             {/* Brand block */}
             <div>
-              <BrandLockup height={26} color="#f5f3ef" style={{ marginBottom: "12px" }} />
+              <BrandLockup height={34} color="#f5f3ef" style={{ marginBottom: "12px" }} />
               <p
                 style={{
                   fontSize: "13px",

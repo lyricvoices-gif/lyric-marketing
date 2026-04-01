@@ -44,7 +44,7 @@ export default function Nav() {
     >
       {/* Brand */}
       <Link href="/" style={{ display: "flex", alignItems: "center" }}>
-        <BrandLockup height={24} color="#f5f3ef" />
+        <BrandLockup height={32} color="#f5f3ef" />
       </Link>
 
       {/* Links */}
