@@ -31,7 +31,7 @@ export default function Nav() {
         left: 0,
         right: 0,
         zIndex: 100,
-        height: "52px",
+        height: "64px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

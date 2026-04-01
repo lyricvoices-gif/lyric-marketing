@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <SmoothScroll />
         <Nav />
-        <main style={{ paddingTop: "52px" }}>{children}</main>
+        <main style={{ paddingTop: "64px" }}>{children}</main>
         <Footer />
       </body>
     </html>
