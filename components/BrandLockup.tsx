@@ -12,8 +12,8 @@ export default function BrandLockup({
   style?: React.CSSProperties
 }) {
   // Isotype is square (32x32 viewBox), scale to match wordmark cap-height
-  const isoSize = height * 0.88
-  const gap = height * 0.45
+  const isoSize = height * 0.92
+  const gap = height * 0.28
 
   return (
     <div
