@@ -1,5 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal"
-import BrandLockup from "@/components/BrandLockup"
+import Isotype from "@/components/Isotype"
 
 const SOCIAL = [
   {
@@ -113,7 +113,7 @@ export default function Footer() {
           >
             {/* Brand block */}
             <div>
-              <BrandLockup height={34} color="#f5f3ef" style={{ marginBottom: "12px" }} />
+              <Isotype size={36} color="#f5f3ef" style={{ marginBottom: "16px" }} />
               <p
                 style={{
                   fontSize: "13px",
