@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
-import Wordmark from "@/components/Wordmark"
+import BrandLockup from "@/components/BrandLockup"
 
 export default function Nav() {
   const pathname = usePathname()
@@ -44,7 +44,7 @@ export default function Nav() {
     >
       {/* Brand */}
       <Link href="/" style={{ display: "flex", alignItems: "center" }}>
-        <Wordmark height={34} color="#f5f3ef" />
+        <BrandLockup height={18} color="#f5f3ef" />
       </Link>
 
       {/* Links */}

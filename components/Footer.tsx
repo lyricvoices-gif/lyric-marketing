@@ -1,5 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal"
-import Wordmark from "@/components/Wordmark"
+import BrandLockup from "@/components/BrandLockup"
 
 const SOCIAL = [
   {
@@ -113,7 +113,7 @@ export default function Footer() {
           >
             {/* Brand block */}
             <div>
-              <Wordmark height={34} color="#f5f3ef" style={{ marginBottom: "12px" }} />
+              <BrandLockup height={20} color="#f5f3ef" style={{ marginBottom: "12px" }} />
               <p
                 style={{
                   fontSize: "13px",
