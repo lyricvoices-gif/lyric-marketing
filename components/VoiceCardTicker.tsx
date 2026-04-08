@@ -478,7 +478,6 @@ function ComposerModal({ voice, onClose }: { voice: Voice; onClose: () => void }
     setQualityMetadata(null)
 
     try {
-      const activePreset = getActivePreset()
       const res = await fetch("https://lyric-voice-api.sparknfable.workers.dev", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -487,7 +486,8 @@ function ComposerModal({ voice, onClose }: { voice: Voice; onClose: () => void }
           script: script.trim(),
           emotionalIntent: selectedIntent,
           variant: selectedIntent,
-          direction: { mode: "global", intent: selectedIntent, preset: activePreset },
+          direction: { mode: "inline", intent: selectedIntent },
+          segments: [{ text: script.trim(), intent: selectedIntent }],
         }),
       })
 
