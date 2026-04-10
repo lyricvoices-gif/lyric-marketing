@@ -77,9 +77,9 @@ export default function Footer() {
       heading: "Company",
       links: [
         { label: "About",    href: "/about" },
-        { label: "Research", href: "/research" },
+        { label: "Research", href: null },
         { label: "Stories",  href: "/stories" },
-        { label: "Careers",  href: "/careers" },
+        { label: "Careers",  href: null },
       ],
     },
     {
@@ -183,16 +183,28 @@ export default function Footer() {
                   </p>
                   {col.links.map((link) => (
                     <div key={link.label} style={{ marginBottom: "10px" }}>
-                      <a
-                        href={link.href}
-                        style={{
-                          fontSize: "13px",
-                          color: "rgba(245,243,239,0.5)",
-                          letterSpacing: "-0.01em",
-                        }}
-                      >
-                        {link.label}
-                      </a>
+                      {link.href ? (
+                        <a
+                          href={link.href}
+                          style={{
+                            fontSize: "13px",
+                            color: "rgba(245,243,239,0.5)",
+                            letterSpacing: "-0.01em",
+                          }}
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <span
+                          style={{
+                            fontSize: "13px",
+                            color: "rgba(245,243,239,0.3)",
+                            letterSpacing: "-0.01em",
+                          }}
+                        >
+                          {link.label}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
