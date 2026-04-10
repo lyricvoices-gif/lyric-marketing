@@ -445,7 +445,7 @@ export default function PricingPage() {
               Try the composer
             </a>
             <Link
-              href="/editions"
+              href="/about"
               style={{
                 padding: "13px 26px",
                 borderRadius: "100px",
@@ -457,7 +457,7 @@ export default function PricingPage() {
                 letterSpacing: "-0.01em",
               }}
             >
-              Learn how Lyric works
+              Learn more
             </Link>
           </div>
         </ScrollReveal>
