@@ -46,7 +46,7 @@ export default function AudioPlayButton({
         transition: "background 0.15s",
       }}
     >
-      {playing ? "⏸ Playing..." : "▶ Play sample"}
+      {playing ? "⏸ Playing..." : "▶ Play"}
     </button>
   )
 }
