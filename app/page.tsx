@@ -120,7 +120,7 @@ export default function HomePage() {
               Compose a line
             </a>
             <Link
-              href="/about"
+              href="/composer"
               style={{
                 padding: "12px 24px",
                 borderRadius: "100px",
