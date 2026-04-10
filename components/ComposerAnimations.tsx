@@ -197,7 +197,7 @@ export default function HowItWorksAnimations() {
           Inline marks let you shift the tone mid-script. A single take can move from quiet to urgent without switching voices.
         </p>
 
-        <div style={{ background: "#1c1a17", borderRadius: "16px", padding: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ background: "#1c1a17", borderRadius: "16px", padding: "20px", display: "flex", flexDirection: "column", gap: "10px", minHeight: "128px", boxSizing: "border-box" }}>
           <p style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(232,227,220,0.4)", fontWeight: 600, margin: 0 }}>
             Script
           </p>
@@ -209,7 +209,7 @@ export default function HowItWorksAnimations() {
             fontSize: "13px",
             lineHeight: 1.6,
             color: "#e8e3dc",
-            minHeight: "52px",
+            minHeight: "66px",
           }}>
             {!showTags ? (
               <>
