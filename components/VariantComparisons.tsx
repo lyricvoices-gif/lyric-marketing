@@ -12,19 +12,19 @@ const SAMPLE_LINE = "This decision changes the trajectory of everything that fol
 
 const variants = [
   {
-    intent: "Authoritative",
-    voice: "Morgan",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Morgan%20(sample).wav",
-  },
-  {
     intent: "Warm",
-    voice: "Nova",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Nova_calm%20(sample).wav",
+    voice: "Morgan",
+    sampleUrl: "/morgan-warm.wav",
   },
   {
-    intent: "Composed",
+    intent: "Encouraging",
+    voice: "Nova",
+    sampleUrl: "/nova-encouraging.wav",
+  },
+  {
+    intent: "Supportive",
     voice: "Atlas",
-    sampleUrl: "https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Atlas_sample.wav",
+    sampleUrl: "/atlas-supportive.wav",
   },
 ]
 
