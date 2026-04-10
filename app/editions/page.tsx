@@ -402,7 +402,7 @@ export default function EditionsPage() {
                     letterSpacing: "-0.01em",
                     margin: 0,
                   }}>
-                    &ldquo;Voice represents the most significant interface shift since smartphones.&rdquo;
+                    &ldquo;Voice represents the most significant interface<br />shift since smartphones.&rdquo;
                   </p>
                   <p style={{
                     fontSize: "12px",
