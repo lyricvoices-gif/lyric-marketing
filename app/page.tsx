@@ -364,6 +364,8 @@ export default function HomePage() {
               </p>
               <a
                 href="https://composer.lyricvoices.ai"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -474,6 +476,8 @@ export default function HomePage() {
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
             <a
               href="https://composer.lyricvoices.ai"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 padding: "13px 26px",
                 borderRadius: "100px",
