@@ -81,6 +81,8 @@ export default function Nav() {
         />
         <a
           href="https://composer.lyricvoices.ai"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             padding: "7px 16px",
             borderRadius: "100px",
@@ -91,7 +93,7 @@ export default function Nav() {
             letterSpacing: "-0.01em",
           }}
         >
-          Open composer
+          Try composer
         </a>
       </div>
     </nav>
