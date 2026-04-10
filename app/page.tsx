@@ -3,6 +3,7 @@ import Link from "next/link"
 import VoiceCardTicker from "@/components/VoiceCardTicker"
 import VideosInAction from "@/components/VideosInAction"
 import ScrollReveal from "@/components/ScrollReveal"
+import SmoothAnchor from "@/components/SmoothAnchor"
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const DARK   = "#2b2a25"
@@ -105,27 +106,9 @@ export default function HomePage() {
         {/* CTA buttons */}
         <ScrollReveal delay={240}>
           <div style={{ display: "flex", gap: "12px", marginBottom: "32px" }}>
-            <a
-              href="#mini-composer"
-              onClick={(e) => {
-                e.preventDefault()
-                const el = document.getElementById("mini-composer")
-                if (!el) return
-                const target = el.getBoundingClientRect().top + window.scrollY - 20
-                const start = window.scrollY
-                const distance = target - start
-                const duration = 1200
-                let startTime: number | null = null
-                function step(ts: number) {
-                  if (!startTime) startTime = ts
-                  const elapsed = ts - startTime
-                  const t = Math.min(elapsed / duration, 1)
-                  const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-                  window.scrollTo(0, start + distance * ease)
-                  if (t < 1) requestAnimationFrame(step)
-                }
-                requestAnimationFrame(step)
-              }}
+            <SmoothAnchor
+              targetId="mini-composer"
+              offset={20}
               style={{
                 padding: "12px 24px",
                 borderRadius: "100px",
@@ -137,7 +120,7 @@ export default function HomePage() {
               }}
             >
               Compose a line
-            </a>
+            </SmoothAnchor>
             <Link
               href="/composer"
               style={{
