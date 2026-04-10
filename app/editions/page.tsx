@@ -357,7 +357,7 @@ export default function EditionsPage() {
               {/* Left: play sample */}
               <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
                 <AudioPlayButton
-                  sampleUrl="https://pub-af25e52138fa41559b794877a8400712.r2.dev/Voices/edition01/Morgan%20(sample).wav"
+                  sampleUrl="/morgan-anchor-authoritative.wav"
                   voiceName="Morgan"
                 />
                 <div>
@@ -365,14 +365,14 @@ export default function EditionsPage() {
                     fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
                     textTransform: "uppercase", color: TEXT3, margin: "0 0 4px",
                   }}>
-                    Morgan · Warm
+                    Morgan · Authoritative
                   </p>
                   <p style={{
                     fontFamily: "var(--font-display)",
                     fontSize: "16px", fontStyle: "italic",
                     color: TEXT2, margin: 0, lineHeight: 1.5,
                   }}>
-                    Here is what I&apos;ve learned after doing this for a while...
+                    The 20 best running brands in the world, According to Wallpaper...
                   </p>
                 </div>
               </div>
@@ -392,18 +392,27 @@ export default function EditionsPage() {
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
-                <p style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(18px, 2vw, 24px)",
-                  fontStyle: "italic",
-                  color: TEXT1,
-                  lineHeight: 1.3,
-                  letterSpacing: "-0.01em",
-                  margin: 0,
-                  whiteSpace: "nowrap",
-                }}>
-                  &ldquo;How a voice behaves matters.&rdquo;
-                </p>
+                <div>
+                  <p style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(18px, 2vw, 24px)",
+                    fontStyle: "italic",
+                    color: TEXT1,
+                    lineHeight: 1.3,
+                    letterSpacing: "-0.01em",
+                    margin: 0,
+                  }}>
+                    &ldquo;Voice represents the most significant interface shift since smartphones.&rdquo;
+                  </p>
+                  <p style={{
+                    fontSize: "12px",
+                    color: TEXT3,
+                    margin: "8px 0 0",
+                    letterSpacing: "0.02em",
+                  }}>
+                    — Amplified 2026
+                  </p>
+                </div>
               </div>
             </div>
           </ScrollReveal>
