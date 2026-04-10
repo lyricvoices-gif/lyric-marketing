@@ -13,7 +13,7 @@ const SOCIAL = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/thelyricvoices",
+    href: "https://www.instagram.com/lyricvoices.ai/",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
