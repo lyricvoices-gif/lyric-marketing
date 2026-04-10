@@ -106,7 +106,7 @@ export default function HomePage() {
         <ScrollReveal delay={240}>
           <div style={{ display: "flex", gap: "12px", marginBottom: "32px" }}>
             <a
-              href="https://composer.lyricvoices.ai"
+              href="#mini-composer"
               style={{
                 padding: "12px 24px",
                 borderRadius: "100px",
@@ -178,7 +178,9 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           2 · VOICE TICKER
       ══════════════════════════════════════════════════════════════════════ */}
-      <VoiceCardTicker />
+      <div id="mini-composer">
+        <VoiceCardTicker />
+      </div>
 
       {/* ══════════════════════════════════════════════════════════════════════
           3 · WHY CHOOSE LYRIC
