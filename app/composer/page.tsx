@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
-import VoiceCardTicker from "@/components/VoiceCardTicker"
 import VoiceCarousel from "@/components/VoiceCarousel"
 import VariantComparisons from "@/components/VariantComparisons"
 import HowItWorksAnimations from "@/components/ComposerAnimations"
@@ -272,58 +271,7 @@ export default function ComposerPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          6 · MINI COMPOSER — dark CTA with full product
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: DARK, paddingTop: "80px" }}>
-        <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 48px 56px", textAlign: "center" }}>
-          <ScrollReveal>
-            <h2 style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(28px, 3.5vw, 46px)",
-              fontWeight: 600,
-              fontStyle: "normal",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.05,
-              color: LIGHT,
-              margin: "0 auto 20px",
-              maxWidth: "560px",
-            }}>
-              The only way to understand<br />
-              {"direction is to "}
-              <em style={{ fontStyle: "italic", color: GOLD }}>use it.</em>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={60}>
-            <p style={{
-              fontSize: "15px",
-              color: "rgba(245,243,239,0.4)",
-              lineHeight: 1.6,
-              margin: 0,
-            }}>
-              Pick a voice below. Set the intent. Write something real.
-            </p>
-          </ScrollReveal>
-        </div>
-
-        {/* Mini composer — full width */}
-        <VoiceCardTicker />
-
-        {/* Pricing nudge */}
-        <div style={{ textAlign: "center", padding: "24px 48px 48px" }}>
-          <p style={{ fontSize: "13px", color: "rgba(245,243,239,0.3)", margin: 0 }}>
-            Want unlimited generations and downloads?{" "}
-            <Link
-              href="/pricing"
-              style={{ color: GOLD, fontWeight: 500 }}
-            >
-              View pricing →
-            </Link>
-          </p>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          7 · PRE-FOOTER CTA
+          6 · PRE-FOOTER CTA
       ══════════════════════════════════════════════════════════════════════ */}
       <section style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
         <ScrollReveal>
@@ -389,31 +337,31 @@ export default function ComposerPage() {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
             <div style={{ display: "flex" }}>
               {[
-                                { src: "/images/brand_1.jpg", alt: "Brand photography" },
-                                { src: "/images/brand_2.jpg", alt: "FLORET botanicals" },
-                              ].map((img, i) => (
-                              <div
-                                key={img.src}
-                                style={{
-                                  width: "40px",
-                                  height: "40px",
-                                  borderRadius: "50%",
-                                  overflow: "hidden",
-                                  border: `2px solid ${DARK}`,
-                                  marginLeft: i === 0 ? 0 : "-12px",
-                                  background: "#d4c9bc",
-                                  flexShrink: 0,
-                                }}
-                              >
-                                <Image
-                                  src={img.src}
-                                  alt={img.alt}
-                                  width={40}
-                                  height={40}
-                                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                />
-                              </div>
-                            ))}
+                { src: "/images/brand_1.jpg", alt: "Brand photography" },
+                { src: "/images/brand_2.jpg", alt: "FLORET botanicals" },
+              ].map((img, i) => (
+                <div
+                  key={img.src}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    border: `2px solid ${DARK}`,
+                    marginLeft: i === 0 ? 0 : "-12px",
+                    background: "#d4c9bc",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={40}
+                    height={40}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              ))}
             </div>
             <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
               ✦ Shaped by designers behind AI products at top brands.
