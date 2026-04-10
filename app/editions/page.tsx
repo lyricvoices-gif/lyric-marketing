@@ -37,7 +37,7 @@ const voices = [
     name: "Nova",
     archetype: "The Intimist",
     gender: "His",
-    image: "/images/editions_2.webp",
+    image: "/images/editions_nova.jpg",
     description:
       "Nova is designed for moments that require presence, emotional safety, and authentic care. His voice creates space for reflection without rushing, holding intimacy across meditations, wellness guidance, and personal narratives while ensuring every word feels grounding rather than prescriptive.",
     useCases: ["Meditation & Wellness", "Personal Brand Storytelling", "Therapeutic Content"],
@@ -49,7 +49,7 @@ const voices = [
     name: "Atlas",
     archetype: "The Guide",
     gender: "His",
-    image: "/images/editions_3 (callout).webp",
+    image: "/images/editions_atlas.jpg",
     description:
       "Atlas is designed for moments that require clarity, patience, and credibility. His voice maintains accessibility across tutorials, training modules, and educational content, staying composed as complexity increases and ensuring every explanation feels supportive rather than condescending.",
     useCases: ["E-Learning & Training", "Tutorial Content", "Product Education"],
