@@ -69,7 +69,7 @@ export default function Footer() {
       links: [
         { label: "Editions", href: "/editions" },
         { label: "Pricing",  href: "/pricing" },
-        { label: "Composer",       href: "/composer" },
+        { label: "Try composer",   href: "https://composer.lyricvoices.ai", external: true },
         { label: "Lyric Briefing", href: "/briefing" },
       ],
     },
@@ -186,6 +186,7 @@ export default function Footer() {
                       {link.href ? (
                         <a
                           href={link.href}
+                          {...("external" in link && link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                           style={{
                             fontSize: "13px",
                             color: "rgba(245,243,239,0.5)",
