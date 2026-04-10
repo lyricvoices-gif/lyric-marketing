@@ -155,7 +155,7 @@ export default function HowItWorksAnimations() {
           Set the intent.
         </h3>
         <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>
-          Each voice ships with tonal variants. After picking a voice, select the emotion you want the voice to express.
+          Each voice ships with tonal variants.<br />After picking a voice, select the emotion you want the voice to express.
         </p>
 
         <div style={{ background: "#1c1a17", borderRadius: "16px", padding: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
