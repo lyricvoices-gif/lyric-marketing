@@ -466,7 +466,7 @@ export default function HomePage() {
               Try the composer
             </a>
             <Link
-              href="/about"
+              href="/composer"
               style={{
                 padding: "13px 26px",
                 borderRadius: "100px",
