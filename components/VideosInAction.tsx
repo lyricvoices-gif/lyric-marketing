@@ -36,7 +36,7 @@ const cards = [
     headline: "Let's Vogue",
     duration: "1:20",
     imageSrc: "/images/floret-morgan.jpg",
-    videoSrc: "/Lets Vogue.mp4",
+    videoSrc: "/vogue_vignette.mp4",
   },
 ]
 
