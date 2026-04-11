@@ -34,7 +34,7 @@ const cards = [
     voice: "RIVEN",
     vignette: "FASHION AD-STYLE VIGNETTE",
     headline: "Let's Vogue",
-    duration: "1:20",
+    duration: "0:55",
     imageSrc: "/images/floret-morgan.jpg",
     videoSrc: "/vogue_vignette.mp4",
   },
