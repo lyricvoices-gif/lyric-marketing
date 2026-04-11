@@ -383,8 +383,9 @@ export default function ArtistStory() {
                 letterSpacing: "-0.01em",
               }}
             >
-              &ldquo;We don&apos;t cast voices. We cast performers. There&apos;s
-              a difference between someone who can read a line and someone who
+              &ldquo;We don&apos;t cast voices. We cast performers.
+              <br />
+              There&apos;s a difference between someone who can read a line and someone who
               can inhabit it.&rdquo;
             </p>
             <p style={{ fontSize: "13px", color: "rgba(245,243,239,0.4)", margin: 0 }}>
@@ -714,12 +715,12 @@ export default function ArtistStory() {
                 detail:
                   "Lyric doesn't clone voices. It captures performances and builds systems that respect the craft behind them.",
               },
-            ].map((item, i) => (
+            ].map((item, i, arr) => (
               <ScrollReveal key={i} delay={i * 60}>
                 <div
                   style={{
                     padding: "24px 0",
-                    borderBottom: `1px solid ${BORDER}`,
+                    ...(i < arr.length - 1 ? { borderBottom: `1px solid ${BORDER}` } : {}),
                   }}
                 >
                   <p
@@ -804,6 +805,8 @@ export default function ArtistStory() {
           >
             <a
               href="https://composer.lyricvoices.ai"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 padding: "13px 26px",
                 borderRadius: "100px",

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
-import Logotype from "@/components/Logotype"
+import Wordmark from "@/components/Wordmark"
 
 
 export default function Nav() {
@@ -45,7 +45,7 @@ export default function Nav() {
     >
       {/* Brand */}
       <Link href="/" style={{ display: "flex", alignItems: "center" }}>
-        <Logotype height={28} color="#f5f3ef" />
+        <Wordmark height={30} color="#f5f3ef" />
       </Link>
 
       {/* Links */}

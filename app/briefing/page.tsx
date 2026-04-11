@@ -125,7 +125,7 @@ export default function BriefingPage() {
                 width: "fit-content",
               }}
             >
-              Subscribe free
+              Subscribe on Substack
             </a>
           </ScrollReveal>
         </div>

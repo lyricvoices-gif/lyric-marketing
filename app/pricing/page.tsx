@@ -233,6 +233,8 @@ export default function PricingPage() {
                   {/* Primary CTA */}
                   <a
                     href={plan.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -255,6 +257,8 @@ export default function PricingPage() {
                     <>
                       <a
                         href={plan.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{
                           display: "block",
                           textAlign: "center",
@@ -432,6 +436,8 @@ export default function PricingPage() {
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
             <a
               href="https://composer.lyricvoices.ai"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 padding: "13px 26px",
                 borderRadius: "100px",

@@ -843,12 +843,16 @@ function ComposerModal({ voice, onClose }: { voice: Voice; onClose: () => void }
                   </span>
                   <a
                     href="https://composer.lyricvoices.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{ padding: "8px 16px", borderRadius: "100px", border: "none", background: "linear-gradient(120deg, rgba(232,227,220,0.95), rgba(215,210,200,0.95))", color: "#1c1a17", fontSize: "12px", fontWeight: 500, cursor: "pointer", textDecoration: "none", whiteSpace: "nowrap" }}
                   >
                     Sign up free
                   </a>
                   <a
                     href="https://composer.lyricvoices.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{ padding: "8px 16px", borderRadius: "100px", border: "1px solid rgba(232,227,220,0.2)", background: "transparent", color: "#e8e3dc", fontSize: "12px", fontWeight: 500, cursor: "pointer", textDecoration: "none", whiteSpace: "nowrap" }}
                   >
                     Log in

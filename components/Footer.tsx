@@ -69,7 +69,7 @@ export default function Footer() {
       links: [
         { label: "Editions", href: "/editions" },
         { label: "Pricing",  href: "/pricing" },
-        { label: "Try composer",   href: "https://composer.lyricvoices.ai", external: true },
+        { label: "Composer",   href: "/composer" },
         { label: "Lyric Briefing", href: "/briefing" },
       ],
     },
