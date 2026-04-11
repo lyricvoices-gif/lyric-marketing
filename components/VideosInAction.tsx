@@ -11,12 +11,12 @@ const cards = [
   {
     id: "hex",
     edition: "E01",
-    voice: "HEX",
-    vignette: "HEX RESPONDS",
-    headline: "Real Enough For You?",
-    duration: "4:20",
+    voice: "MORGAN",
+    vignette: "AD-STYLE VIGNETTE",
+    headline: "Porsche",
+    duration: "0:45",
     imageSrc: "/images/floret-hex.jpg",
-    videoSrc: "",
+    videoSrc: "/porsche_vignette.mp4",
   },
   {
     id: "nova",
