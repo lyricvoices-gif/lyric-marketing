@@ -385,8 +385,9 @@ export default function ArtistStory() {
             >
               &ldquo;We don&apos;t cast voices. We cast performers.
               <br />
-              There&apos;s a difference between someone who can read a line and someone who
-              can inhabit it.&rdquo;
+              There&apos;s a difference between someone who can read a line
+              <br />
+              and someone who can inhabit it.&rdquo;
             </p>
             <p style={{ fontSize: "13px", color: "rgba(245,243,239,0.4)", margin: 0 }}>
               Lyric Creative Team
