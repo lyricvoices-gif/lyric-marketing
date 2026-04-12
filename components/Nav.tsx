@@ -45,7 +45,7 @@ export default function Nav() {
     >
       {/* Brand */}
       <Link href="/" style={{ display: "flex", alignItems: "center" }}>
-        <Wordmark height={30} color="#f5f3ef" />
+        <Wordmark height={36} color="#f5f3ef" />
       </Link>
 
       {/* Links */}
