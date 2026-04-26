@@ -119,14 +119,19 @@ img { max-width: 100%; height: auto; }
   /* Layout grids */
   .lyric-grid-3           { grid-template-columns: 1fr !important; gap: 36px !important; }
   .lyric-grid-2-3         { grid-template-columns: 1fr !important; gap: 40px !important; }
-  .lyric-grid-2           { grid-template-columns: 1fr !important; gap: 40px !important; }
+  /* When the prose grid stacks on mobile, the column-gap should read like a
+     normal paragraph break — so it matches the 24px margin between <p>
+     elements above and below it. */
+  .lyric-grid-2           { grid-template-columns: 1fr !important; gap: 24px !important; }
 
   /* About page */
-  .lyric-about-hero       { padding: 64px 20px 56px !important; }
-  .lyric-about-images     { gap: 8px !important; }       /* stay 3-col, tighter gap */
-  .lyric-about-locations  { grid-template-columns: 1fr !important; gap: 28px !important; }
-  .lyric-about-loc-grid   { gap: 48px !important; align-items: start !important; }
-  .lyric-about-map        { max-width: 220px !important; margin: 0 auto !important; }
+  .lyric-about-hero              { padding: 56px 20px 32px !important; }
+  .lyric-about-intro             { margin-bottom: 32px !important; }
+  .lyric-about-images            { gap: 8px !important; margin-bottom: 32px !important; }
+  .lyric-about-map-col           { display: none !important; } /* drop the dotted map on mobile */
+  .lyric-about-locations-section { padding: 40px 20px !important; }
+  .lyric-about-locations         { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .lyric-about-loc-grid          { gap: 32px !important; align-items: start !important; }
 
   /* Edition transition row — stack instead of justify-between */
   .lyric-edition-row      { flex-direction: column; align-items: flex-start !important; gap: 12px !important; }

@@ -26,7 +26,7 @@ export default function AboutPage() {
 
           {/* Centered eyebrow + headline + intro */}
           <ScrollReveal>
-            <div style={{ textAlign: "center", marginBottom: "72px" }}>
+            <div className="lyric-about-intro" style={{ textAlign: "center", marginBottom: "72px" }}>
               <p style={{
                 fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
                 textTransform: "uppercase", color: TEXT3, marginBottom: "20px",
@@ -49,9 +49,15 @@ export default function AboutPage() {
               </h1>
               <p style={{
                 fontSize: "17px", color: TEXT2, lineHeight: 1.7,
+                maxWidth: "520px", margin: "0 auto 24px",
+              }}>
+                AI voices were getting more realistic, but less considered. Everything sounded fine, yet nothing sounded intentional.
+              </p>
+              <p style={{
+                fontSize: "17px", color: TEXT2, lineHeight: 1.7,
                 maxWidth: "520px", margin: "0 auto",
               }}>
-                AI voices were getting more realistic, but less considered. Everything sounded fine, yet nothing sounded intentional.<br />Lyric was created to change that. We&apos;re building voice systems that respect performance, emotion, and restraint, because how something is said still matters.
+                Lyric was created to change that. We&apos;re building voice systems that respect performance, emotion, and restraint, because how something is said still matters.
               </p>
             </div>
           </ScrollReveal>
@@ -93,13 +99,19 @@ export default function AboutPage() {
             <ScrollReveal>
               <div>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  We didn&apos;t start Lyric because we wanted to build another voice company.<br />We started it because we were frustrated by how voice was being treated in the industry. Reduced to output. Tuned for novelty. Optimized for speed, but disconnected from intent. Voices cloned from data, then dropped into products without context, responsibility, or care.
+                  We didn&apos;t start Lyric because we wanted to build another voice company.
+                </p>
+                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
+                  We started it because we were frustrated by how voice was being treated in the industry. Reduced to output. Tuned for novelty. Optimized for speed, but disconnected from intent. Voices cloned from data, then dropped into products without context, responsibility, or care.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
                   It wasn&apos;t a technology problem. It was a design problem.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Most voice tools today ask you to adapt to them. You test phrases in a composer. You adjust sliders. You listen, tweak, regenerate, repeat.<br />You try to imagine how a voice might sound inside your product, brand, or experience. And somehow, the burden of authorship ends up on you.
+                  Most voice tools today ask you to adapt to them. You test phrases in a composer. You adjust sliders. You listen, tweak, regenerate, repeat.
+                </p>
+                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
+                  You try to imagine how a voice might sound inside your product, brand, or experience. And somehow, the burden of authorship ends up on you.
                 </p>
                 <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: 0 }}>
                   We believed there was another way.
@@ -145,23 +157,24 @@ export default function AboutPage() {
       {/* ─────────────────────────────────────────────────────────────────────
           LOCATIONS — light, dotted map left / content + thumbnails right
       ───────────────────────────────────────────────────────────────────── */}
-      <section className="lyric-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px" }}>
+      <section className="lyric-section lyric-about-locations-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
           <div className="lyric-grid-2 lyric-about-loc-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
 
-            {/* Left: dotted map */}
-            <ScrollReveal>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <Image
-                  className="lyric-about-map"
-                  src="/images/about_4.svg"
-                  alt="Location map"
-                  width={420}
-                  height={420}
-                  style={{ width: "100%", maxWidth: "340px", height: "auto", opacity: 0.5 }}
-                />
-              </div>
-            </ScrollReveal>
+            {/* Left: dotted map (hidden on mobile) */}
+            <div className="lyric-about-map-col">
+              <ScrollReveal>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Image
+                    src="/images/about_4.svg"
+                    alt="Location map"
+                    width={420}
+                    height={420}
+                    style={{ width: "100%", maxWidth: "340px", height: "auto", opacity: 0.5 }}
+                  />
+                </div>
+              </ScrollReveal>
+            </div>
 
             {/* Right: label + headline + subtext + photo cards */}
             <ScrollReveal delay={80}>
