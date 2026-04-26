@@ -21,7 +21,7 @@ export default function AboutPage() {
       {/* ─────────────────────────────────────────────────────────────────────
           HERO + BRAND STORY — single continuous light section
       ───────────────────────────────────────────────────────────────────── */}
-      <section style={{ background: LIGHT, padding: "104px 48px 80px" }}>
+      <section className="lyric-about-hero" style={{ background: LIGHT, padding: "104px 48px 80px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
 
           {/* Centered eyebrow + headline + intro */}
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
           {/* 3-image row */}
           <ScrollReveal delay={80}>
-            <div style={{
+            <div className="lyric-about-images" style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
               gap: "12px",
@@ -85,7 +85,7 @@ export default function AboutPage() {
           </ScrollReveal>
 
           {/* Two-column prose */}
-          <div style={{
+          <div className="lyric-grid-2" style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "64px",
@@ -145,14 +145,15 @@ export default function AboutPage() {
       {/* ─────────────────────────────────────────────────────────────────────
           LOCATIONS — light, dotted map left / content + thumbnails right
       ───────────────────────────────────────────────────────────────────── */}
-      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px" }}>
+      <section className="lyric-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+          <div className="lyric-grid-2 lyric-about-loc-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
 
             {/* Left: dotted map */}
             <ScrollReveal>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Image
+                  className="lyric-about-map"
                   src="/images/about_4.svg"
                   alt="Location map"
                   width={420}
@@ -192,7 +193,7 @@ export default function AboutPage() {
                 </p>
 
                 {/* Photo thumbnails */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                <div className="lyric-about-locations" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                   {[
                     {
                       img: "/images/about_5.jpg",
@@ -254,7 +255,7 @@ export default function AboutPage() {
       {/* ══════════════════════════════════════════════════════════════════════
           FULL CTA — matches home page pattern
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
+      <section className="lyric-cta-section" style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
         <ScrollReveal>
           <h2
             style={{
@@ -281,7 +282,7 @@ export default function AboutPage() {
         </ScrollReveal>
 
         <ScrollReveal delay={160}>
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
+          <div className="lyric-button-row" style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px", flexWrap: "wrap" }}>
             <a
               href="https://composer.lyricvoices.ai"
               target="_blank"
@@ -318,7 +319,7 @@ export default function AboutPage() {
 
         {/* Founder row */}
         <ScrollReveal delay={240}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+          <div className="lyric-proof-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
             <div style={{ display: "flex" }}>
               {[
                                 { src: "/images/brand_1.jpg", alt: "Brand photography" },
