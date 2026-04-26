@@ -29,11 +29,10 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", onKey)
   }, [menuOpen])
 
-  // Close on any click outside the hamburger toggle. We defer the listener by a
-  // tick so the click that opened the menu doesn't immediately close it. The
-  // listener does NOT preventDefault — taps on voice cards (or anything else)
-  // still trigger their own onClick, so a card opens its modal AND the menu
-  // closes from the same tap.
+  // Close on any click outside the hamburger toggle. Deferred by a tick so the
+  // tap that opened the menu doesn't immediately close it. The listener does
+  // NOT preventDefault — taps on a mini-composer voice card still trigger the
+  // card's onClick, so the modal opens AND the menu closes from the same tap.
   React.useEffect(() => {
     if (!menuOpen) return
     const onDocClick = (e: MouseEvent) => {
@@ -75,8 +74,21 @@ export default function Nav() {
         transition: "opacity 0.6s ease-out, filter 0.6s ease-out",
       }}
     >
-      {/* Brand */}
-      <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+      {/* Brand — wordmark fades on mobile when the menu is open so the inline
+          links have the full nav width to land in. Desktop is unaffected
+          because .lyric-nav-mobile-menu is display:none above 768px. */}
+      <Link
+        href="/"
+        className="lyric-wordmark-link"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          opacity: menuOpen ? 0 : 1,
+          transform: menuOpen ? "translateX(-6px)" : "translateX(0)",
+          transition: "opacity 0.22s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+          pointerEvents: menuOpen ? "none" : "auto",
+        }}
+      >
         <Wordmark height={36} color="#f5f3ef" />
       </Link>
 
@@ -127,6 +139,57 @@ export default function Nav() {
         >
           Try composer
         </a>
+      </div>
+
+      {/* Mobile inline menu — sits ON the nav bar between the (faded) wordmark
+          and the hamburger. Each link slides in from the right with a stagger;
+          on close they slide back out to the right in reverse order. */}
+      <div
+        className="lyric-nav-mobile-menu"
+        aria-hidden={!menuOpen}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "20px",
+          right: "60px",
+          height: "64px",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: "2px",
+          pointerEvents: menuOpen ? "auto" : "none",
+        }}
+      >
+        {links.map((link, i) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={() => setMenuOpen(false)}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "8px",
+              fontSize: "13px",
+              fontWeight: 400,
+              color: pathname === link.href
+                ? "rgba(245,243,239,0.95)"
+                : "rgba(245,243,239,0.75)",
+              background: pathname === link.href
+                ? "rgba(245,243,239,0.08)"
+                : "transparent",
+              letterSpacing: "-0.01em",
+              whiteSpace: "nowrap",
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? "translateX(0)" : "translateX(24px)",
+              transition: "opacity 0.32s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)",
+              // Open: cascade left→right (Editions lands first on the left).
+              // Close: reverse — Pricing exits first, Editions last.
+              transitionDelay: menuOpen
+                ? `${60 + i * 55}ms`
+                : `${(links.length - 1 - i) * 35}ms`,
+            }}
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
 
       {/* Mobile hamburger toggle — borderless, two-bar morph to X */}
@@ -182,54 +245,6 @@ export default function Nav() {
           }}
         />
       </button>
-
-      {/* Mobile menu — bare floating links over the page (no panel/backdrop).
-          Always rendered; opacity + translateX drive the in/out animation so we
-          can play a clean exit when the user closes via the X. */}
-      <div
-        className="lyric-nav-mobile-menu"
-        aria-hidden={!menuOpen}
-        style={{
-          position: "fixed",
-          top: "64px",
-          right: 0,
-          padding: "20px 24px 24px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          gap: "2px",
-          zIndex: 99,
-          pointerEvents: menuOpen ? "auto" : "none",
-        }}
-      >
-        {links.map((link, i) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            onClick={() => setMenuOpen(false)}
-            style={{
-              fontSize: "17px",
-              fontWeight: 500,
-              letterSpacing: "-0.01em",
-              padding: "10px 4px",
-              color: pathname === link.href
-                ? "rgba(245,243,239,0.95)"
-                : "rgba(245,243,239,0.85)",
-              textShadow: "0 1px 8px rgba(0,0,0,0.55), 0 0 1px rgba(0,0,0,0.4)",
-              opacity: menuOpen ? 1 : 0,
-              transform: menuOpen ? "translateX(0)" : "translateX(40px)",
-              transition: "opacity 0.32s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)",
-              // Open: cascade top→bottom. Close: cascade top→bottom too (each
-              // link slides back out to the right).
-              transitionDelay: menuOpen
-                ? `${60 + i * 55}ms`
-                : `${i * 35}ms`,
-            }}
-          >
-            {link.label}
-          </Link>
-        ))}
-      </div>
     </nav>
   )
 }

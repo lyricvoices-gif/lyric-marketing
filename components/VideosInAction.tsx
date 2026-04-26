@@ -178,13 +178,13 @@ export default function VideosInAction() {
         }
       `}</style>
 
-      {/* Header row */}
+      {/* Header row — eyebrow only; arrows now overlay the desktop carousel */}
       <div className="lyric-via-header" style={{
         padding: "0 48px",
         marginBottom: "36px",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         opacity: sectionVisible ? 1 : 0,
         transform: sectionVisible ? "none" : "translateY(20px)",
         transition: "opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
@@ -199,39 +199,6 @@ export default function VideosInAction() {
         }}>
           Voices in action
         </p>
-
-        {/* Arrow nav */}
-        <div style={{ display: "flex", gap: "8px" }}>
-          {([-1, 1] as const).map((dir) => (
-            <button
-              key={dir}
-              onClick={() => { setAnimating(true); advance(dir) }}
-              aria-label={dir === -1 ? "Previous" : "Next"}
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                border: "1px solid rgba(28,26,23,0.15)",
-                background: "transparent",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#4a4a45",
-              }}
-            >
-              {dir === -1 ? (
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-                  <path d="M5 1L1 5L5 9M1 5H11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              ) : (
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-                  <path d="M7 1L11 5L7 9M11 5H1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              )}
-            </button>
-          ))}
-        </div>
       </div>
 
       {isMobile ? (
@@ -296,7 +263,28 @@ export default function VideosInAction() {
           </div>
         </div>
       ) : (
-        // Desktop: existing 3-slot width-based carousel
+        // Desktop: existing 3-slot width-based carousel + modern overlay arrows
+        <div style={{ position: "relative" }}>
+        <button
+          type="button"
+          className="lyric-via-arrow lyric-via-arrow--prev"
+          onClick={() => advance(-1)}
+          aria-label="Previous"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M9 2.5L4 7L9 11.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="lyric-via-arrow lyric-via-arrow--next"
+          onClick={() => advance(1)}
+          aria-label="Next"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M5 2.5L10 7L5 11.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
         <div className="lyric-via-track" style={{
           display: "flex",
           gap: "12px",
@@ -445,6 +433,7 @@ export default function VideosInAction() {
               </div>
             )
           })}
+        </div>
         </div>
       )}
 

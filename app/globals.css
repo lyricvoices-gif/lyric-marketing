@@ -62,8 +62,54 @@ img { max-width: 100%; height: auto; }
    tokens stay centralised in the components themselves. */
 
 .lyric-nav-mobile-toggle { display: none; }
+.lyric-nav-mobile-menu   { display: none; }
+
+/* Modern overlay arrows for the Voices in Action carousel (desktop) */
+.lyric-via-arrow {
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(28, 26, 23, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2b2a25;
+  z-index: 5;
+  padding: 0;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.22s ease,
+              box-shadow 0.22s ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.lyric-via-arrow--prev { left: 16px;  transform: translateY(-50%); }
+.lyric-via-arrow--next { right: 16px; transform: translateY(-50%); }
+.lyric-via-arrow:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.14);
+}
+.lyric-via-arrow--prev:hover { transform: translateY(-50%) scale(1.06); }
+.lyric-via-arrow--next:hover { transform: translateY(-50%) scale(1.06); }
+.lyric-via-arrow:active     { transform: translateY(-50%) scale(0.96); }
 
 @media (max-width: 768px) {
+  /* Mobile menu — inline links overlaying the nav bar */
+  .lyric-nav-mobile-menu { display: flex !important; }
+
+  /* Wordmark — slightly smaller on mobile so the inline menu fits */
+  .lyric-wordmark-link svg {
+    height: 30px !important;
+    width: 46.33px !important; /* (265.625 / 172) * 30 */
+  }
+
+  /* Modern arrows on the desktop carousel — hidden on mobile */
+  .lyric-via-arrow { display: none !important; }
+
   /* Page sections */
   .lyric-section          { padding: 56px 20px !important; }
   .lyric-section-tight    { padding: 20px 20px !important; }
