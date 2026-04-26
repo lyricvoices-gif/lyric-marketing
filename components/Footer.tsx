@@ -50,6 +50,15 @@ const SOCIAL = [
     ),
   },
   {
+    label: "Pocket Casts",
+    href: "https://pca.st/5u4gmbzu",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6C6.698 21.6 2.4 17.302 2.4 12S6.698 2.4 12 2.4 21.6 6.698 21.6 12 17.302 21.6 12 21.6zm0-17.4a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4zm0 12a4.8 4.8 0 1 1 0-9.6 4.8 4.8 0 0 1 0 9.6z" />
+      </svg>
+    ),
+  },
+  {
     label: "YouTube",
     href: "https://www.youtube.com/@LyricVoices",
     icon: (
@@ -95,6 +104,7 @@ export default function Footer() {
     <footer style={{ background: DARK }}>
       <ScrollReveal>
         <div
+          className="lyric-footer-inner"
           style={{
             maxWidth: "1120px",
             margin: "0 auto",
@@ -103,6 +113,7 @@ export default function Footer() {
         >
           {/* Top row: brand + nav columns */}
           <div
+            className="lyric-footer-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr auto",
@@ -166,7 +177,7 @@ export default function Footer() {
             </div>
 
             {/* Nav columns */}
-            <div style={{ display: "flex", gap: "64px" }}>
+            <div className="lyric-footer-cols" style={{ display: "flex", gap: "64px" }}>
               {cols.map((col) => (
                 <div key={col.heading}>
                   <p

@@ -32,6 +32,7 @@ export default function HomePage() {
           1 · HERO
       ══════════════════════════════════════════════════════════════════════ */}
       <section
+        className="lyric-hero"
         style={{
           background: DARK,
           display: "flex",
@@ -105,7 +106,7 @@ export default function HomePage() {
 
         {/* CTA buttons */}
         <ScrollReveal delay={240}>
-          <div style={{ display: "flex", gap: "12px", marginBottom: "32px" }}>
+          <div className="lyric-button-row" style={{ display: "flex", gap: "12px", marginBottom: "32px" }}>
             <SmoothAnchor
               targetId="mini-composer"
               offset={20}
@@ -141,7 +142,7 @@ export default function HomePage() {
 
         {/* Founders social proof */}
         <ScrollReveal delay={320}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div className="lyric-proof-row" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{ display: "flex" }}>
               {[
                                 { src: "/images/brand_1.jpg", alt: "Brand photography" },
@@ -187,13 +188,14 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           3 · WHY CHOOSE LYRIC
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
+      <section className="lyric-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
           <ScrollReveal>
             <p style={{ ...label, marginBottom: "44px" }}>Why choose lyric?</p>
           </ScrollReveal>
 
           <div
+            className="lyric-grid-3"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
@@ -258,9 +260,10 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           4 · EDITION 01 — transition row
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "28px 48px" }}>
+      <section className="lyric-section-tight" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "28px 48px" }}>
         <ScrollReveal>
           <div
+            className="lyric-edition-row"
             style={{
               maxWidth: "1120px",
               margin: "0 auto",
@@ -306,8 +309,9 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           5 · HOW IT WORKS
       ══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
+      <section className="lyric-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
         <div
+          className="lyric-grid-2-3"
           style={{
             maxWidth: "1120px",
             margin: "0 auto",
@@ -424,6 +428,7 @@ export default function HomePage() {
           7 · FULL CTA
       ══════════════════════════════════════════════════════════════════════ */}
       <section
+        className="lyric-cta-section"
         style={{
           background: DARK,
           padding: "72px 24px 48px",
@@ -456,7 +461,7 @@ export default function HomePage() {
         </ScrollReveal>
 
         <ScrollReveal delay={160}>
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px" }}>
+          <div className="lyric-button-row" style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px", flexWrap: "wrap" }}>
             <a
               href="https://composer.lyricvoices.ai"
               target="_blank"
@@ -493,7 +498,7 @@ export default function HomePage() {
 
         {/* Founder row */}
         <ScrollReveal delay={240}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
+          <div className="lyric-proof-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
             <div style={{ display: "flex" }}>
               {[
                                 { src: "/images/brand_1.jpg", alt: "Brand photography" },

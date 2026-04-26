@@ -252,7 +252,7 @@ export default function VoiceCardTicker() {
   }, [])
 
   return (
-    <div style={{ width: "100%", overflow: "hidden", background: "#2b2a25", padding: "32px 0 80px" }}>
+    <div className="lyric-ticker-wrap" style={{ width: "100%", overflow: "hidden", background: "#2b2a25", padding: "32px 0 80px" }}>
       {isMounted && (
         <>
           {/* Hover wrapper: single enter/leave for the whole strip prevents per-card jitter */}
@@ -560,6 +560,7 @@ function ComposerModal({ voice, onClose }: { voice: Voice; onClose: () => void }
       onClick={onClose}
     >
       <div
+        className="lyric-modal-shell"
         style={{
           width: "680px",
           maxWidth: "100%",
@@ -833,7 +834,7 @@ function ComposerModal({ voice, onClose }: { voice: Voice; onClose: () => void }
                 )}
 
                 {/* CTA row */}
-                <div style={{ paddingTop: "12px", borderTop: "1px solid rgba(232,227,220,0.08)", display: "flex", gap: "10px", alignItems: "center" }}>
+                <div className="lyric-modal-cta-row" style={{ paddingTop: "12px", borderTop: "1px solid rgba(232,227,220,0.08)", display: "flex", gap: "10px", alignItems: "center" }}>
                   <span style={{ fontSize: "12px", color: "rgba(232,227,220,0.55)", flex: 1 }}>
                     {generationCount === 1
                       ? "Sign up to download and use commercially"

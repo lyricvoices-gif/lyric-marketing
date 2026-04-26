@@ -86,7 +86,7 @@ export default function VideosInAction() {
       `}</style>
 
       {/* Header row */}
-      <div style={{
+      <div className="lyric-via-header" style={{
         padding: "0 48px",
         marginBottom: "36px",
         display: "flex",
@@ -142,7 +142,7 @@ export default function VideosInAction() {
       </div>
 
       {/* Carousel track — entrance handled on the container, only width transitions on cards */}
-      <div style={{
+      <div className="lyric-via-track" style={{
         display: "flex",
         gap: "12px",
         overflow: "hidden",
@@ -159,6 +159,7 @@ export default function VideosInAction() {
           return (
             <div
               key={visualPos}
+              className={isCenter ? "lyric-via-center" : "lyric-via-side"}
               onClick={() => { if (visualPos === 0) advance(-1); else if (visualPos === 2) advance(1) }}
               onMouseEnter={() => setHoveredSlot(visualPos)}
               onMouseLeave={() => setHoveredSlot(null)}

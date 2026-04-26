@@ -54,3 +54,59 @@ img { max-width: 100%; height: auto; }
 .cursor-blink {
   animation: cursor-blink 1s step-end infinite;
 }
+
+/* ─── Responsive utilities ──────────────────────────────────────────────────
+   Components set desktop-default values via inline styles. These media
+   queries override them on smaller viewports using !important. Keep changes
+   here scoped to layout properties (padding, grid, flex) so the design
+   tokens stay centralised in the components themselves. */
+
+.lyric-nav-mobile-toggle { display: none; }
+
+@media (max-width: 768px) {
+  /* Page sections */
+  .lyric-section          { padding: 56px 20px !important; }
+  .lyric-section-tight    { padding: 20px 20px !important; }
+  .lyric-hero             { padding: 40px 20px 32px !important; }
+  .lyric-cta-section      { padding: 56px 20px 40px !important; }
+
+  /* Layout grids */
+  .lyric-grid-3           { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .lyric-grid-2-3         { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* Edition transition row — stack instead of justify-between */
+  .lyric-edition-row      { flex-direction: column; align-items: flex-start !important; gap: 12px !important; }
+
+  /* Generic CTA button rows — keep buttons on one line, allow wrap to 2 rows */
+  .lyric-button-row       { flex-wrap: wrap; }
+  .lyric-button-row > a,
+  .lyric-button-row > button { white-space: nowrap; }
+
+  /* Founder/social-proof row — wrap so the line of text doesn't get crushed */
+  .lyric-proof-row        { flex-wrap: wrap; gap: 12px !important; }
+
+  /* Nav: hide desktop links, show hamburger */
+  .lyric-nav              { padding: 0 20px !important; }
+  .lyric-nav-desktop      { display: none !important; }
+  .lyric-nav-mobile-toggle { display: inline-flex !important; }
+
+  /* Footer */
+  .lyric-footer-inner     { padding: 48px 20px 36px !important; }
+  .lyric-footer-grid      { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 36px !important; }
+  .lyric-footer-cols      { gap: 32px !important; flex-wrap: wrap; }
+
+  /* Voice ticker — keep card size (marquee keyframe is hard-coded) */
+  .lyric-ticker-wrap      { padding: 24px 0 56px !important; }
+
+  /* Voices in Action — hide side peek slots, show centre full width */
+  .lyric-via-header       { padding: 0 20px !important; margin-bottom: 24px !important; }
+  .lyric-via-track        { padding-left: 20px !important; padding-right: 20px !important; gap: 0 !important; }
+  .lyric-via-side         { display: none !important; }
+  .lyric-via-center       { width: 100% !important; height: 420px !important; }
+
+  /* Modal — full-screen feel on mobile */
+  .lyric-modal-shell      { width: 100% !important; max-height: 92vh !important; border-radius: 16px !important; }
+  .lyric-modal-cta-row    { flex-wrap: wrap; }
+  .lyric-modal-cta-row > a,
+  .lyric-modal-cta-row > button { flex: 1 1 auto; }
+}
