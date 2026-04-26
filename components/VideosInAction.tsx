@@ -42,7 +42,23 @@ const cards = [
 
 type Card = (typeof cards)[number]
 
+// Detect mobile via matchMedia. Returns false during SSR / first render so the
+// desktop layout owns the initial paint; flips to true on mount if the viewport
+// is narrow.
+function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState(false)
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)")
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
+  return isMobile
+}
+
 export default function VideosInAction() {
+  const isMobile = useIsMobile()
   const [activeIdx, setActiveIdx]       = React.useState(1)
   const [lightboxCard, setLightboxCard] = React.useState<Card | null>(null)
   const [hoveredSlot, setHoveredSlot]   = React.useState<number | null>(null)
@@ -69,63 +85,89 @@ export default function VideosInAction() {
   const advance = (dir: 1 | -1) =>
     setActiveIdx((p) => (p + dir + n) % n)
 
-  // Fixed visual slots [left, center, right] — no CSS order changes, ever
+  // Desktop visual slots [left, center, right]
   const slots = [
     (activeIdx - 1 + n) % n,
     activeIdx,
     (activeIdx + 1) % n,
   ]
 
-  // ─── Touch swipe (mobile) ───────────────────────────────────────────────
-  // Tracks finger from touchstart through release. Once we determine the
-  // gesture is horizontal (dx > vertical drift), we capture it and let the
-  // active card translate with the finger; on release we either advance or
-  // snap back. Cross-fade on the underlying card images covers the visual
-  // hand-off so swipe + fade feels like a single motion.
+  // ─── Mobile carousel ────────────────────────────────────────────────────
+  // Real flex track that translates from one card to the next. Touch handlers
+  // capture the gesture once it's clearly horizontal, then preventDefault on a
+  // non-passive listener so the page can't scroll vertically mid-swipe. On
+  // release we either commit (advance + animate to the next slot) or snap back.
+  const trackRef = React.useRef<HTMLDivElement>(null)
+  const [dragX, setDragX]       = React.useState(0)
+  const [animating, setAnimating] = React.useState(false)
   const touchRef = React.useRef<{ x: number; y: number; captured: boolean } | null>(null)
-  const [dragX, setDragX] = React.useState(0)
-  const [dragging, setDragging] = React.useState(false)
+  const activeIdxRef = React.useRef(activeIdx)
+  React.useEffect(() => { activeIdxRef.current = activeIdx }, [activeIdx])
+
+  React.useEffect(() => {
+    if (!isMobile) return
+    const el = trackRef.current
+    if (!el) return
+
+    const onMove = (e: TouchEvent) => {
+      if (!touchRef.current) return
+      const t = e.touches[0]
+      const dx = t.clientX - touchRef.current.x
+      const dy = t.clientY - touchRef.current.y
+      if (!touchRef.current.captured) {
+        if (Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
+          touchRef.current.captured = true
+        } else if (Math.abs(dy) > 6) {
+          // Vertical scroll wins — release the gesture
+          touchRef.current = null
+          return
+        }
+      }
+      if (touchRef.current?.captured) {
+        e.preventDefault() // lock page scroll once we own the gesture
+        const idx = activeIdxRef.current
+        let next = dx
+        // Rubber-band the ends so swipe doesn't fly off; arrow buttons still wrap
+        if ((idx === 0 && dx > 0) || (idx === n - 1 && dx < 0)) {
+          next = dx * 0.32
+        }
+        setDragX(next)
+      }
+    }
+    el.addEventListener("touchmove", onMove, { passive: false })
+    return () => el.removeEventListener("touchmove", onMove)
+  }, [isMobile, n])
 
   const onTouchStart = (e: React.TouchEvent) => {
     const t = e.touches[0]
     touchRef.current = { x: t.clientX, y: t.clientY, captured: false }
-    setDragging(true)
-  }
-  const onTouchMove = (e: React.TouchEvent) => {
-    if (!touchRef.current) return
-    const t = e.touches[0]
-    const dx = t.clientX - touchRef.current.x
-    const dy = t.clientY - touchRef.current.y
-    if (!touchRef.current.captured) {
-      // Need a clear horizontal intent before we hijack the gesture
-      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
-        touchRef.current.captured = true
-      } else if (Math.abs(dy) > 8) {
-        // Vertical scroll wins — bail
-        touchRef.current = null
-        setDragging(false)
-        setDragX(0)
-        return
-      }
-    }
-    if (touchRef.current?.captured) {
-      // Slight resistance so over-drag doesn't feel infinite
-      const damped = Math.sign(dx) * Math.min(Math.abs(dx), 220)
-      setDragX(damped)
-    }
+    setAnimating(false)
   }
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (!touchRef.current) { setDragging(false); setDragX(0); return }
+    if (!touchRef.current) { setAnimating(true); setDragX(0); return }
     const t = e.changedTouches[0]
     const dx = t.clientX - touchRef.current.x
     const captured = touchRef.current.captured
     touchRef.current = null
-    setDragging(false)
-    setDragX(0)
-    if (captured && Math.abs(dx) > 50) {
-      advance(dx < 0 ? 1 : -1)
+    setAnimating(true)
+    if (!captured) { setDragX(0); return }
+
+    const threshold = 50
+    if (dx < -threshold && activeIdx < n - 1) {
+      setActiveIdx(activeIdx + 1)
+      setDragX(0)
+    } else if (dx > threshold && activeIdx > 0) {
+      setActiveIdx(activeIdx - 1)
+      setDragX(0)
+    } else {
+      setDragX(0)
     }
   }
+
+  // Mobile track translation: each card is 100% wide with a 12px gap between
+  // them. To centre card N we shift left by N * (100% + 12px), then add the
+  // live drag offset.
+  const mobileTransform = `translate3d(calc(${-activeIdx * 100}% - ${activeIdx * 12}px + ${dragX}px), 0, 0)`
 
   return (
     <section ref={sectionRef} style={{ background: LIGHT, padding: "72px 0 80px" }}>
@@ -163,7 +205,7 @@ export default function VideosInAction() {
           {([-1, 1] as const).map((dir) => (
             <button
               key={dir}
-              onClick={() => advance(dir)}
+              onClick={() => { setAnimating(true); advance(dir) }}
               aria-label={dir === -1 ? "Previous" : "Next"}
               style={{
                 width: "32px",
@@ -192,14 +234,70 @@ export default function VideosInAction() {
         </div>
       </div>
 
-      {/* Carousel track — entrance handled on the container, only width transitions on cards */}
-      <div
-        className="lyric-via-track"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        onTouchCancel={onTouchEnd}
-        style={{
+      {isMobile ? (
+        // Mobile: real flex carousel — every card is full container width.
+        <div
+          style={{
+            padding: "0 20px",
+            overflow: "hidden",
+            opacity: sectionVisible ? 1 : 0,
+            transform: sectionVisible ? "none" : "translateY(20px)",
+            transition: "opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
+          }}
+        >
+          <div
+            ref={trackRef}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            onTouchCancel={onTouchEnd}
+            onTransitionEnd={() => setAnimating(false)}
+            style={{
+              display: "flex",
+              gap: "12px",
+              transform: mobileTransform,
+              transition: animating ? "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)" : "none",
+              willChange: "transform",
+              touchAction: "pan-y",
+            }}
+          >
+            {cards.map((card) => (
+              <MobileCarouselCard
+                key={card.id}
+                card={card}
+                onWatch={() => setLightboxCard(card)}
+              />
+            ))}
+          </div>
+
+          {/* Dot indicators */}
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "8px",
+            marginTop: "20px",
+          }}>
+            {cards.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setAnimating(true); setActiveIdx(i) }}
+                aria-label={`Go to card ${i + 1}`}
+                style={{
+                  width: i === activeIdx ? "20px" : "6px",
+                  height: "6px",
+                  borderRadius: "100px",
+                  border: "none",
+                  background: i === activeIdx ? "rgba(28,26,23,0.7)" : "rgba(28,26,23,0.2)",
+                  padding: 0,
+                  cursor: "pointer",
+                  transition: "width 0.3s ease, background 0.25s ease",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        // Desktop: existing 3-slot width-based carousel
+        <div className="lyric-via-track" style={{
           display: "flex",
           gap: "12px",
           overflow: "hidden",
@@ -208,164 +306,259 @@ export default function VideosInAction() {
           opacity: sectionVisible ? 1 : 0,
           transform: sectionVisible ? "none" : "translateY(20px)",
           transition: "opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
-          touchAction: "pan-y",
-        }}
-      >
-        {slots.map((cardIdx, visualPos) => {
-          const card     = cards[cardIdx]
-          const isCenter = visualPos === 1
+        }}>
+          {slots.map((cardIdx, visualPos) => {
+            const card     = cards[cardIdx]
+            const isCenter = visualPos === 1
 
-          return (
-            <div
-              key={visualPos}
-              className={isCenter ? "lyric-via-center" : "lyric-via-side"}
-              onClick={() => { if (visualPos === 0) advance(-1); else if (visualPos === 2) advance(1) }}
-              onMouseEnter={() => setHoveredSlot(visualPos)}
-              onMouseLeave={() => setHoveredSlot(null)}
-              style={{
-                flexShrink: 0,
-                width: isCenter ? "calc(66% - 6px)" : "calc(17% - 6px)",
-                height: "480px",
-                borderRadius: "12px",
-                overflow: "hidden",
-                position: "relative",
-                cursor: isCenter ? "default" : "pointer",
-                background: DARK,
-                transform: isCenter && dragX !== 0 ? `translateX(${dragX}px)` : undefined,
-                transition: dragging
-                  ? "width 0.6s cubic-bezier(0.22, 1, 0.36, 1)"
-                  : "width 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
-              }}
-            >
-              {/* Inner wrapper keyed to card.id */}
-              <div style={{ position: "absolute", inset: 0 }}>
-                {/* All card images stacked — always in DOM so they're pre-loaded.
-                    Opacity cross-fade means no black flash when active card changes. */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  transform: hoveredSlot === visualPos ? "scale(1.05)" : "scale(1)",
-                  transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                }}>
-                  {cards.map((c) => (
-                    <div
-                      key={c.id}
-                      style={{
-                        position: "absolute", inset: 0,
-                        opacity: c.id === card.id ? 1 : 0,
-                        transition: "opacity 0.4s ease",
-                      }}
-                    >
-                      <Image
-                        src={c.imageSrc}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 100vw, 58vw"
-                        style={{ objectFit: "cover", objectPosition: "center" }}
-                        priority
-                      />
+            return (
+              <div
+                key={visualPos}
+                onClick={() => { if (visualPos === 0) advance(-1); else if (visualPos === 2) advance(1) }}
+                onMouseEnter={() => setHoveredSlot(visualPos)}
+                onMouseLeave={() => setHoveredSlot(null)}
+                style={{
+                  flexShrink: 0,
+                  width: isCenter ? "calc(66% - 6px)" : "calc(17% - 6px)",
+                  height: "480px",
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  position: "relative",
+                  cursor: isCenter ? "default" : "pointer",
+                  background: DARK,
+                  transition: "width 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                <div style={{ position: "absolute", inset: 0 }}>
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    transform: hoveredSlot === visualPos ? "scale(1.05)" : "scale(1)",
+                    transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                  }}>
+                    {cards.map((c) => (
+                      <div
+                        key={c.id}
+                        style={{
+                          position: "absolute", inset: 0,
+                          opacity: c.id === card.id ? 1 : 0,
+                          transition: "opacity 0.4s ease",
+                        }}
+                      >
+                        <Image
+                          src={c.imageSrc}
+                          alt=""
+                          fill
+                          sizes="(max-width: 768px) 100vw, 58vw"
+                          style={{ objectFit: "cover", objectPosition: "center" }}
+                          priority
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0) 70%)",
+                    pointerEvents: "none",
+                  }} />
+
+                  {isCenter && (
+                    <div style={{
+                      position: "absolute",
+                      top: "20px",
+                      left: "24px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "7px",
+                      pointerEvents: "none",
+                      animation: "via-overlayFadeIn 0.35s ease both",
+                    }}>
+                      <span style={{
+                        fontSize: "10px",
+                        fontWeight: 600,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "rgba(255,255,255,0.65)",
+                      }}>
+                        {card.edition} {card.voice}
+                      </span>
+                      <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px" }}>·</span>
+                      <span style={{
+                        fontSize: "10px",
+                        fontWeight: 600,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "rgba(255,255,255,0.65)",
+                      }}>
+                        {card.vignette}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                  )}
 
-                {/* Dark scrim — bottom to top for text legibility */}
-                <div style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0) 70%)",
-                  pointerEvents: "none",
-                }} />
-
-                {/* Top-left: edition + vignette label — center card only */}
-                {isCenter && (
-                  <div style={{
-                    position: "absolute",
-                    top: "20px",
-                    left: "24px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "7px",
-                    pointerEvents: "none",
-                    animation: "via-overlayFadeIn 0.35s ease both",
-                  }}>
-                    <span style={{
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.65)",
+                  {isCenter && (
+                    <div style={{
+                      position: "absolute",
+                      bottom: "28px",
+                      left: "28px",
+                      pointerEvents: "none",
+                      animation: "via-overlayFadeIn 0.4s ease both",
                     }}>
-                      {card.edition} {card.voice}
-                    </span>
-                    <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px" }}>·</span>
-                    <span style={{
-                      fontSize: "10px",
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.65)",
-                    }}>
-                      {card.vignette}
-                    </span>
-                  </div>
-                )}
-
-                {/* Bottom-left: headline + watch button — center card only */}
-                {isCenter && (
-                  <div style={{
-                    position: "absolute",
-                    bottom: "28px",
-                    left: "28px",
-                    pointerEvents: "none",
-                    animation: "via-overlayFadeIn 0.4s ease both",
-                  }}>
-                    <h3 style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "clamp(28px, 2.6vw, 40px)",
-                      fontWeight: 500,
-                      fontStyle: "italic",
-                      color: "#ffffff",
-                      margin: "0 0 16px",
-                      lineHeight: 1.08,
-                      letterSpacing: "-0.01em",
-                    }}>
-                      {card.headline}
-                    </h3>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setLightboxCard(card) }}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        padding: "8px 16px 8px 13px",
-                        borderRadius: "100px",
-                        background: "rgba(255,255,255,0.92)",
-                        border: "none",
-                        cursor: "pointer",
-                        fontSize: "13px",
+                      <h3 style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(28px, 2.6vw, 40px)",
                         fontWeight: 500,
-                        color: DARK,
+                        fontStyle: "italic",
+                        color: "#ffffff",
+                        margin: "0 0 16px",
+                        lineHeight: 1.08,
                         letterSpacing: "-0.01em",
-                        pointerEvents: "auto",
-                      }}
-                    >
-                      <svg width="9" height="10" viewBox="0 0 9 10" fill="none">
-                        <path d="M1 1L8 5L1 9V1Z" fill="currentColor" />
-                      </svg>
-                      Watch video ({card.duration})
-                    </button>
-                  </div>
-                )}
+                      }}>
+                        {card.headline}
+                      </h3>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setLightboxCard(card) }}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "8px",
+                          padding: "8px 16px 8px 13px",
+                          borderRadius: "100px",
+                          background: "rgba(255,255,255,0.92)",
+                          border: "none",
+                          cursor: "pointer",
+                          fontSize: "13px",
+                          fontWeight: 500,
+                          color: DARK,
+                          letterSpacing: "-0.01em",
+                          pointerEvents: "auto",
+                        }}
+                      >
+                        <svg width="9" height="10" viewBox="0 0 9 10" fill="none">
+                          <path d="M1 1L8 5L1 9V1Z" fill="currentColor" />
+                        </svg>
+                        Watch video ({card.duration})
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      )}
 
       {/* Lightbox */}
       {lightboxCard && (
         <VideoLightbox card={lightboxCard} onClose={() => setLightboxCard(null)} />
       )}
     </section>
+  )
+}
+
+// ─── Mobile carousel card ────────────────────────────────────────────────────
+
+function MobileCarouselCard({ card, onWatch }: { card: Card; onWatch: () => void }) {
+  return (
+    <div style={{
+      flex: "0 0 100%",
+      height: "440px",
+      borderRadius: "12px",
+      overflow: "hidden",
+      position: "relative",
+      background: DARK,
+    }}>
+      <Image
+        src={card.imageSrc}
+        alt=""
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover", objectPosition: "center" }}
+        priority
+      />
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0) 70%)",
+        pointerEvents: "none",
+      }} />
+
+      {/* Top label row */}
+      <div style={{
+        position: "absolute",
+        top: "20px",
+        left: "20px",
+        right: "20px",
+        display: "flex",
+        alignItems: "center",
+        gap: "7px",
+        pointerEvents: "none",
+        flexWrap: "wrap",
+      }}>
+        <span style={{
+          fontSize: "10px",
+          fontWeight: 600,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          color: "rgba(255,255,255,0.7)",
+        }}>
+          {card.edition} {card.voice}
+        </span>
+        <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "10px" }}>·</span>
+        <span style={{
+          fontSize: "10px",
+          fontWeight: 600,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          color: "rgba(255,255,255,0.7)",
+        }}>
+          {card.vignette}
+        </span>
+      </div>
+
+      {/* Headline + CTA */}
+      <div style={{
+        position: "absolute",
+        bottom: "24px",
+        left: "24px",
+        right: "24px",
+      }}>
+        <h3 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "30px",
+          fontWeight: 500,
+          fontStyle: "italic",
+          color: "#ffffff",
+          margin: "0 0 14px",
+          lineHeight: 1.08,
+          letterSpacing: "-0.01em",
+        }}>
+          {card.headline}
+        </h3>
+        <button
+          onClick={onWatch}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "9px 16px 9px 13px",
+            borderRadius: "100px",
+            background: "rgba(255,255,255,0.94)",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "13px",
+            fontWeight: 500,
+            color: DARK,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          <svg width="9" height="10" viewBox="0 0 9 10" fill="none">
+            <path d="M1 1L8 5L1 9V1Z" fill="currentColor" />
+          </svg>
+          Watch video ({card.duration})
+        </button>
+      </div>
+    </div>
   )
 }
 
@@ -459,7 +652,6 @@ function VideoLightbox({ card, onClose }: { card: Card; onClose: () => void }) {
             onEnded={() => setIsPlaying(false)}
             onClick={togglePlay}
           />
-          {/* Photo bg in lightbox while no video */}
           {!card.videoSrc && (
             <>
               <Image
