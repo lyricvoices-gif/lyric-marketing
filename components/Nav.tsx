@@ -29,6 +29,14 @@ export default function Nav() {
     return () => { document.body.style.overflow = prev }
   }, [menuOpen])
 
+  // Close on Escape
+  React.useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false) }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [menuOpen])
+
   const links = [
     { href: "/editions", label: "Editions" },
     { href: "/composer", label: "Composer" },
@@ -110,7 +118,7 @@ export default function Nav() {
         </a>
       </div>
 
-      {/* Mobile hamburger toggle */}
+      {/* Mobile hamburger toggle — borderless, two-bar morph to X */}
       <button
         type="button"
         className="lyric-nav-mobile-toggle"
@@ -118,94 +126,155 @@ export default function Nav() {
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
         style={{
-          width: "40px",
-          height: "40px",
+          width: "44px",
+          height: "44px",
           alignItems: "center",
           justifyContent: "center",
           background: "transparent",
-          border: "1px solid rgba(245,243,239,0.18)",
-          borderRadius: "10px",
+          border: "none",
           padding: 0,
+          margin: "0 -10px 0 0",
           cursor: "pointer",
           color: "#f5f3ef",
+          position: "relative",
+          zIndex: 101,
         }}
       >
-        {menuOpen ? (
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-        ) : (
-          <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-            <path d="M1 1H17M1 7H17M1 13H17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-        )}
+        <span
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "20px",
+            height: "1.5px",
+            background: "currentColor",
+            borderRadius: "2px",
+            transform: menuOpen
+              ? "translate(-50%, -50%) rotate(45deg)"
+              : "translate(-50%, calc(-50% - 5px)) rotate(0)",
+            transition: "transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        />
+        <span
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "20px",
+            height: "1.5px",
+            background: "currentColor",
+            borderRadius: "2px",
+            transform: menuOpen
+              ? "translate(-50%, -50%) rotate(-45deg)"
+              : "translate(-50%, calc(-50% + 5px)) rotate(0)",
+            transition: "transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        />
       </button>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile flyout — backdrop + slide-in panel from right */}
       {menuOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: "64px",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: "#2b2a25",
-            zIndex: 99,
-            display: "flex",
-            flexDirection: "column",
-            padding: "20px",
-            gap: "4px",
-            animation: "lyric-menu-in 0.2s ease-out",
-          }}
-        >
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                padding: "16px 12px",
-                borderRadius: "10px",
-                fontSize: "18px",
-                fontWeight: 400,
-                color: pathname === link.href
-                  ? "rgba(245,243,239,0.95)"
-                  : "rgba(245,243,239,0.6)",
-                background: pathname === link.href
-                  ? "rgba(245,243,239,0.06)"
-                  : "transparent",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href="https://composer.lyricvoices.ai"
-            target="_blank"
-            rel="noopener noreferrer"
+        <>
+          <div
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
             style={{
-              marginTop: "16px",
-              padding: "14px 20px",
-              borderRadius: "100px",
-              fontSize: "15px",
-              fontWeight: 500,
-              color: "#2b2a25",
-              background: "#f5f3ef",
-              letterSpacing: "-0.01em",
-              textAlign: "center",
+              position: "fixed",
+              top: "64px",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(15,14,12,0.55)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              zIndex: 98,
+              animation: "lyric-backdrop-in 0.25s ease-out",
+            }}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            style={{
+              position: "fixed",
+              top: "64px",
+              right: 0,
+              width: "min(85vw, 320px)",
+              height: "calc(100vh - 64px)",
+              background: "#2b2a25",
+              zIndex: 99,
+              display: "flex",
+              flexDirection: "column",
+              padding: "24px 20px 32px",
+              gap: "2px",
+              boxShadow: "-16px 0 40px rgba(0,0,0,0.45)",
+              borderLeft: "1px solid rgba(245,243,239,0.06)",
+              animation: "lyric-flyout-in 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+              overflowY: "auto",
             }}
           >
-            Try composer
-          </a>
+            {links.map((link, i) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  padding: "16px 12px",
+                  borderRadius: "10px",
+                  fontSize: "17px",
+                  fontWeight: 400,
+                  color: pathname === link.href
+                    ? "rgba(245,243,239,0.95)"
+                    : "rgba(245,243,239,0.65)",
+                  background: pathname === link.href
+                    ? "rgba(245,243,239,0.06)"
+                    : "transparent",
+                  letterSpacing: "-0.01em",
+                  animation: `lyric-flyout-item-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both`,
+                  animationDelay: `${0.08 + i * 0.04}s`,
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div style={{ flex: 1, minHeight: "20px" }} />
+            <a
+              href="https://composer.lyricvoices.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                marginTop: "16px",
+                padding: "14px 20px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 500,
+                color: "#2b2a25",
+                background: "#f5f3ef",
+                letterSpacing: "-0.01em",
+                textAlign: "center",
+                animation: `lyric-flyout-item-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both`,
+                animationDelay: `${0.08 + links.length * 0.04}s`,
+              }}
+            >
+              Try composer
+            </a>
+          </div>
           <style>{`
-            @keyframes lyric-menu-in {
-              from { opacity: 0; transform: translateY(-6px); }
-              to   { opacity: 1; transform: translateY(0); }
+            @keyframes lyric-backdrop-in {
+              from { opacity: 0; }
+              to   { opacity: 1; }
+            }
+            @keyframes lyric-flyout-in {
+              from { transform: translateX(100%); }
+              to   { transform: translateX(0); }
+            }
+            @keyframes lyric-flyout-item-in {
+              from { opacity: 0; transform: translateX(12px); }
+              to   { opacity: 1; transform: translateX(0); }
             }
           `}</style>
-        </div>
+        </>
       )}
     </nav>
   )

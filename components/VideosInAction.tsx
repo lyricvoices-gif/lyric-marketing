@@ -76,6 +76,57 @@ export default function VideosInAction() {
     (activeIdx + 1) % n,
   ]
 
+  // ─── Touch swipe (mobile) ───────────────────────────────────────────────
+  // Tracks finger from touchstart through release. Once we determine the
+  // gesture is horizontal (dx > vertical drift), we capture it and let the
+  // active card translate with the finger; on release we either advance or
+  // snap back. Cross-fade on the underlying card images covers the visual
+  // hand-off so swipe + fade feels like a single motion.
+  const touchRef = React.useRef<{ x: number; y: number; captured: boolean } | null>(null)
+  const [dragX, setDragX] = React.useState(0)
+  const [dragging, setDragging] = React.useState(false)
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0]
+    touchRef.current = { x: t.clientX, y: t.clientY, captured: false }
+    setDragging(true)
+  }
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (!touchRef.current) return
+    const t = e.touches[0]
+    const dx = t.clientX - touchRef.current.x
+    const dy = t.clientY - touchRef.current.y
+    if (!touchRef.current.captured) {
+      // Need a clear horizontal intent before we hijack the gesture
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+        touchRef.current.captured = true
+      } else if (Math.abs(dy) > 8) {
+        // Vertical scroll wins — bail
+        touchRef.current = null
+        setDragging(false)
+        setDragX(0)
+        return
+      }
+    }
+    if (touchRef.current?.captured) {
+      // Slight resistance so over-drag doesn't feel infinite
+      const damped = Math.sign(dx) * Math.min(Math.abs(dx), 220)
+      setDragX(damped)
+    }
+  }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!touchRef.current) { setDragging(false); setDragX(0); return }
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touchRef.current.x
+    const captured = touchRef.current.captured
+    touchRef.current = null
+    setDragging(false)
+    setDragX(0)
+    if (captured && Math.abs(dx) > 50) {
+      advance(dx < 0 ? 1 : -1)
+    }
+  }
+
   return (
     <section ref={sectionRef} style={{ background: LIGHT, padding: "72px 0 80px" }}>
       <style>{`
@@ -142,16 +193,24 @@ export default function VideosInAction() {
       </div>
 
       {/* Carousel track — entrance handled on the container, only width transitions on cards */}
-      <div className="lyric-via-track" style={{
-        display: "flex",
-        gap: "12px",
-        overflow: "hidden",
-        paddingLeft: "48px",
-        alignItems: "stretch",
-        opacity: sectionVisible ? 1 : 0,
-        transform: sectionVisible ? "none" : "translateY(20px)",
-        transition: "opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
-      }}>
+      <div
+        className="lyric-via-track"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
+        style={{
+          display: "flex",
+          gap: "12px",
+          overflow: "hidden",
+          paddingLeft: "48px",
+          alignItems: "stretch",
+          opacity: sectionVisible ? 1 : 0,
+          transform: sectionVisible ? "none" : "translateY(20px)",
+          transition: "opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
+          touchAction: "pan-y",
+        }}
+      >
         {slots.map((cardIdx, visualPos) => {
           const card     = cards[cardIdx]
           const isCenter = visualPos === 1
@@ -172,7 +231,10 @@ export default function VideosInAction() {
                 position: "relative",
                 cursor: isCenter ? "default" : "pointer",
                 background: DARK,
-                transition: "width 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                transform: isCenter && dragX !== 0 ? `translateX(${dragX}px)` : undefined,
+                transition: dragging
+                  ? "width 0.6s cubic-bezier(0.22, 1, 0.36, 1)"
+                  : "width 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             >
               {/* Inner wrapper keyed to card.id */}
