@@ -62,7 +62,7 @@ export default function HomePage() {
               flexShrink: 0,
             }} />
             <span style={{ ...label, color: "rgba(229,223,213,0.55)", fontSize: "10px" }}>
-              Curated AI Voices
+              A voice studio
             </span>
           </div>
         </ScrollReveal>
