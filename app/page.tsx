@@ -81,10 +81,10 @@ export default function HomePage() {
               maxWidth: "720px",
             }}
           >
-            The AI voice platform
+            Voice artists build the voices.
             <br />
-            built for{" "}
-            <em style={{ color: GOLD, fontStyle: "italic" }}>intentional sound</em>.
+            You{" "}
+            <em style={{ color: GOLD, fontStyle: "italic" }}>compose with them</em>.
           </h1>
         </ScrollReveal>
 
@@ -99,8 +99,8 @@ export default function HomePage() {
               margin: "0 0 28px",
             }}
           >
-            Lyric is a design-led AI company creating expressive voices performed
-            by professional actors.
+            Lyric is the ethical AI voice platform. Every voice was performed
+            by a real artist who recorded it, owns it, and earns from it.
           </p>
         </ScrollReveal>
 
