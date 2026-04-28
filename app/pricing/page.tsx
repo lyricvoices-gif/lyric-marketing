@@ -30,7 +30,7 @@ const plans = [
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "All 5 Edition 01 voices",
-      "50 generations per day",
+      "25 generations per day",
       "3 variants per voice",
       "Standard quality rendering",
       "Scripts up to 500 characters",
@@ -51,7 +51,7 @@ const plans = [
     href: "https://composer.lyricvoices.ai/sign-up",
     features: [
       "Everything in Creator",
-      "Unlimited generations",
+      "100 generations per day",
       "Premium quality rendering",
       "Scripts up to 2,000 characters",
       "Full direction control",
@@ -71,12 +71,13 @@ const plans = [
     href: "mailto:info@lyricvoices.ai?subject=Enterprise inquiry",
     features: [
       "Everything in Studio",
+      "Unlimited generations",
+      "Scripts up to 10,000 characters",
       "Custom voice creation",
       "API access",
       "SSO & advanced permissions",
       "Dedicated support",
       "SLA guarantee",
-      "Volume licensing",
     ],
   },
 ]
@@ -104,7 +105,7 @@ const faqs = [
   },
   {
     q: "Do unused generations roll over?",
-    a: "Generations reset daily at midnight UTC and don't roll over. Studio is unlimited, so this only applies to Creator.",
+    a: "Generations reset daily at midnight UTC and don't roll over. Enterprise is unlimited, so this only applies to Creator and Studio.",
   },
   {
     q: "Can I use Lyric voices commercially?",
