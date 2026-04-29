@@ -43,6 +43,23 @@ img { max-width: 100%; height: auto; }
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
+/* Pricing grid — mobile reflow with Studio leading the stack so the
+   recommended path is the first card a thumb-scrolling visitor reaches.
+   Desktop default ("repeat(3, 1fr)") is set inline by PlanGrid. */
+@media (max-width: 720px) {
+  .lyric-pricing-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .lyric-pricing-card-studio { order: -1; }
+  .lyric-pricing-card-creator { order: 0; }
+  .lyric-pricing-card-enterprise { order: 1; }
+  .lyric-pricing-card[data-highlight="true"] {
+    transform: none !important;
+  }
+}
+
 /* Editions — orb breathing animation */
 @keyframes orb-breathe {
   0%, 100% {
