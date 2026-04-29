@@ -182,6 +182,11 @@ export default function PlanGrid() {
       >
         {PLANS.map((plan, i) => {
           const price = period === "annual" ? plan.annual : plan.monthly
+          // Append the live billing-period selection to the trial CTAs so
+          // the composer's checkout route picks the right Stripe price ID.
+          const ctaHref = plan.isContact
+            ? plan.href
+            : `${plan.href}${plan.href.includes("?") ? "&" : "?"}period=${period}`
           return (
             <ScrollReveal key={plan.id} delay={i * 80}>
               <div
@@ -291,7 +296,7 @@ export default function PlanGrid() {
                 </p>
 
                 <a
-                  href={plan.href}
+                  href={ctaHref}
                   target={plan.isContact ? undefined : "_blank"}
                   rel={plan.isContact ? undefined : "noopener noreferrer"}
                   style={{
