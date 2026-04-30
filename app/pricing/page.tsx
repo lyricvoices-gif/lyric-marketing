@@ -73,7 +73,8 @@ export default function PricingPage() {
               margin: "0 0 24px",
               lineHeight: 0.95,
             }}>
-              Pricing that fits{" "}
+              Pricing that fits
+              <br />
               <em style={{ fontStyle: "italic", color: GOLD }}>how you work.</em>
             </h1>
             <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.6, maxWidth: "60ch", margin: 0 }}>
