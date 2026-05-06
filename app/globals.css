@@ -142,7 +142,10 @@ img { max-width: 100%; height: auto; }
   /* Page sections */
   .lyric-section          { padding: 56px 20px !important; }
   .lyric-section-tight    { padding: 20px 20px !important; }
-  .lyric-hero             { padding: 40px 20px 32px !important; }
+  .lyric-hero             { padding: 80px 20px 64px !important; }
+  .lyric-philosophy       { padding: 72px 20px 80px !important; }
+  .lyric-philosophy-grid  { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .lyric-philosophy-rail  { position: static !important; }
   .lyric-cta-section      { padding: 56px 20px 40px !important; }
 
   /* Layout grids */

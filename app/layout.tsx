@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, Pinyon_Script } from "next/font/google"
+import { Cormorant_Garamond, Pinyon_Script, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
@@ -20,6 +20,14 @@ const pinyon = Pinyon_Script({
   display: "swap",
 })
 
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-accent",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: {
     default: "lyric — The AI voice platform built for intentional sound",
@@ -36,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${pinyon.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${pinyon.variable} ${instrumentSerif.variable}`}>
       <body>
         <SmoothScroll />
         <Nav />
