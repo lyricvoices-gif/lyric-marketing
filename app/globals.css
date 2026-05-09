@@ -1,14 +1,131 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   TRIAL FONTS — REPLACE BEFORE PRODUCTION DEPLOY
+   GT Super and GT America are Grilli Type trial fonts, licensed for design
+   exploration and development only. Do NOT deploy to production with these
+   files. When the licensed files arrive, drop them into
+   /public/fonts/grilli-type/{gt-super,gt-america}/ matching the same
+   filenames (or update the src: url() paths below) and remove this notice.
+   Source: ~/Documents/Grilli-Type-Trial-Fonts-2026-04/Web/{GT-Super,GT-America}/
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* GT Super Display — display headlines, editorial section headers, large
+   statement type, stat numerals. */
+@font-face {
+  font-family: "GT Super Display";
+  src: url("/fonts/grilli-type/gt-super/GT-Super-Display-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Super Display";
+  src: url("/fonts/grilli-type/gt-super/GT-Super-Display-Regular-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Super Display";
+  src: url("/fonts/grilli-type/gt-super/GT-Super-Display-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Super Display";
+  src: url("/fonts/grilli-type/gt-super/GT-Super-Display-Medium-Italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Super Display";
+  src: url("/fonts/grilli-type/gt-super/GT-Super-Display-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Super Display";
+  src: url("/fonts/grilli-type/gt-super/GT-Super-Display-Bold-Italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GT America Standard — body, navigation, UI, captions, buttons, all utility
+   typography. Designed by the same foundry to pair with GT Super. */
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Standard-Regular-Trial.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Standard-Regular-Italic-Trial.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Standard-Medium-Trial.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Standard-Medium-Italic-Trial.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Standard-Bold-Trial.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Standard-Bold-Italic-Trial.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT America Mono";
+  src: url("/fonts/grilli-type/gt-america/GT-America-Mono-Regular-Trial.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --bg-dark:   #2b2a25;
-  --bg-light:  #f5f3ef;
+  /* Brand palette — updated 2026-05.
+     Use --olive for primary text on the cream ground. Sage and gold are
+     paired accents — keep both restrained, do not over-rely on gold.
+     Black and white are reserved for sparing contrast moments. */
+  --bg-dark:   #2b2a25;   /* legacy dark — used by sections not yet revised */
+  --bg-light:  #FFF8EC;   /* warm off-white — primary ground */
   --bg-card:   #ffffff;
-  --text-1:    #1c1a17;
+  --text-1:    #1c1a17;   /* legacy primary text — used by older sections */
   --text-2:    #6b6257;
   --text-3:    #9c958f;
   --border:    #e5dfd5;
-  --gold:      #B8955A;
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gold:      #F3D171;   /* gold/yellow accent — used sparingly */
+  --olive:     #5A5E43;   /* dark olive — primary text on warm off-white */
+  --sage:      #C1C17E;   /* sage — paired accent with gold */
+  --font-display: "GT Super Display", Georgia, "Times New Roman", serif;
+  --font-body: "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "GT America Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Loaded via next/font in app/layout.tsx — exposed here so it can be used
+     in inline-style fontFamily declarations alongside --font-display. */
+  --font-accent: var(--font-instrument-serif), Georgia, serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -38,6 +155,1079 @@ body {
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; }
+
+/* The 64px-tall fixed nav overlays content. By default, push the page down
+   so it isn't obscured. When a page renders a full-bleed .lv-hero (currently
+   the home page), the hero owns the top of the viewport and renders the dark
+   background behind the transparent nav — so we drop the offset there and
+   let .lv-hero's own padding-top clear the nav. */
+main { padding-top: 64px; }
+main:has(.lv-hero) { padding-top: 0; }
+
+/* Active nav link — subtle dot indicator instead of a pill background. */
+.lyric-nav-link {
+  position: relative;
+}
+.lyric-nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+/* ─── Hero ──────────────────────────────────────────────────────────────────
+   Type-led, centered, restrained. Sandbar-inspired posture: weight comes
+   from whitespace, not size. A blurred FLORET photograph sits behind the
+   type as a soft, painterly backdrop — cream-toned with a centered floral
+   highlight. A subtle cream wash overlays the image so the olive type stays
+   legible. */
+.lv-hero {
+  position: relative;
+  background: var(--bg-light);
+  color: var(--olive);
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 20px 80px;
+  text-align: center;
+}
+
+.lv-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* The image is a 4:3 botanical that needs to read as a soft, painterly
+   ground — not stretched-to-fit. Keep its natural aspect intact: object-fit
+   cover with object-position centered on the floral element, plus a gentle
+   readability scrim that fades from cream-tinted edges to a clear center. */
+.lv-hero-bg img {
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.lv-hero-bg::after {
+  /* Two-stop scrim. (a) A faint vertical-center band lifts text contrast
+     over the orange flower core (where olive/dark text would otherwise
+     fall to ~1.6:1); (b) a bottom fade softens the seam into the manifesto
+     below. The top stays open so the image reads cleanly behind the nav. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 60% 38% at 50% 55%,
+      rgba(255, 248, 236, 0.42) 0%,
+      rgba(255, 248, 236, 0.18) 55%,
+      rgba(255, 248, 236, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 236, 0) 0%,
+      rgba(255, 248, 236, 0) 60%,
+      rgba(255, 248, 236, 0.85) 100%
+    );
+  pointer-events: none;
+}
+
+.lv-hero-statement {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.lv-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 20px;
+}
+
+.lv-hero h1 em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.lv-hero-supporting {
+  /* Darker than the headline for legibility — body text needs 4.5:1 vs
+     the headline's 3:1 (large text), and this paragraph sits above the
+     orange flower core where olive at 0.72 opacity falls under 2:1. */
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-1);
+  opacity: 0.85;
+  margin: 0 auto 36px;
+  max-width: 480px;
+}
+
+.lv-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+  border-bottom: 1px solid var(--text-1);
+  padding-bottom: 3px;
+  letter-spacing: 0;
+  transition: opacity 0.18s ease;
+}
+
+.lv-hero-cta:hover {
+  opacity: 0.7;
+}
+
+/* Legacy single-portrait visual — no longer used (replaced by the corner
+   videos above). Left in for any consumer that still references the class. */
+.lv-hero-visual {
+  display: none;
+  margin: 80px auto 0;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 3 / 4;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(90, 94, 67, 0.08);
+}
+
+.lv-hero-visual img {
+  object-fit: cover;
+}
+
+/* ─── Philosophy section ────────────────────────────────────────────────────
+   Editorial manifesto, centered, paced as a sequence of short statement
+   movements. Each movement is 2-3 short declarative lines separated by
+   generous vertical space. One italic gold accent at the close. */
+.lv-philosophy {
+  background: var(--bg-light);
+  padding: 120px 20px;
+  text-align: center;
+  color: var(--olive);
+}
+
+.lv-philosophy-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 80px;
+}
+
+.lv-philosophy-eyebrow > span:last-child {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.lv-eyebrow-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage);
+  flex-shrink: 0;
+}
+
+.lv-philosophy-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.lv-philosophy-movement {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lv-philosophy-movement p {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--olive);
+  margin: 0;
+}
+
+.lv-philosophy-movement em {
+  /* All italic body lines render in dark olive on cream. Gold is reserved
+     for non-text accents only (sage / gold dots, dividers, borders). */
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--olive);
+}
+
+/* ─── Logo marquee ─────────────────────────────────────────────────────────
+   Modeled after brand.ai's "Built with brand leaders from" strip — left-
+   aligned sentence-case eyebrow, large monochrome logos in a continuous
+   horizontal scroll. The track holds two copies of the list; translateX
+   (-50%) over a long linear duration produces a seamless loop. Edge masks
+   fade the row into the cream so the seam is never visible. SVG marks are
+   forced to a uniform mid-grey via a brightness/invert filter so brand
+   colors don't compete with the editorial palette. */
+.lv-logos {
+  background: var(--bg-light);
+  /* The credit line and logo row read as a single unified block —
+     top and bottom section padding match so the block sits cleanly
+     centered between manifesto and products. */
+  padding: 96px 0;
+  overflow: hidden;
+  /* Base logo row height. Each brand's <img> applies a per-logo scale
+     multiplier on top of this so optical weight is balanced across
+     wide wordmarks and square icon-style marks. */
+  --logo-h: 26px;
+}
+
+.lv-logos-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Credit line — quiet body type, not display. Reads as the opening of
+   a sentence whose object is the logo strip below it, so the line has
+   no terminal punctuation and sits tight to the row of marks. */
+.lv-logos-eyebrow {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--olive);
+  text-align: left;
+  margin: 0 0 28px;
+}
+
+.lv-logos-viewport {
+  position: relative;
+  overflow: hidden;
+  /* Soft fade on both edges into the cream ground. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+.lv-logos-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  /* Marquee — translate the full track left by exactly half its width
+     (the duplicated copy slides into place seamlessly). */
+  animation: lv-logos-scroll 56s linear infinite;
+}
+
+.lv-logos-track:hover {
+  animation-play-state: paused;
+}
+
+/* Logo row — credentials, not interactive. Height is driven by an
+   inline `height: calc(var(--logo-h) * scale)` so each mark is
+   optically balanced (wide wordmarks scale down, square icons scale
+   up). brightness(0) flattens any brand color to black, then
+   invert(0.62) lifts the whole mark to a warm mid-grey that sits in
+   the same tonal family as the cream ground. No hover state — these
+   marks are part of the credit sentence above them. */
+.lv-logos-mark {
+  flex-shrink: 0;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(0.62) sepia(0.05);
+  opacity: 0.85;
+}
+
+@keyframes lv-logos-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-logos-track {
+    animation: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .lv-logos {
+    /* Symmetric padding — credit line + logos sit as one unified
+       block, centered between manifesto above and products below. */
+    padding: 128px 0;
+    --logo-h: 32px;
+  }
+
+  .lv-logos-inner {
+    padding: 0 48px;
+  }
+
+  .lv-logos-eyebrow {
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+
+  .lv-logos-track {
+    gap: 88px;
+  }
+}
+
+/* ─── Products section ─────────────────────────────────────────────────────
+   Asymmetric tile grid drawing on Sandbar's About-page card pattern. Four
+   tiles, each with its own ground color (cream / black / sage / cream
+   with gold edge), each functioning as a portal into a product. The
+   section sits on olive ground so the tile band reads as a deliberate
+   chapter break from the cream hero / manifesto / logos sections above.
+   The cream→olive boundary is a hard edge — restraint reads as
+   conviction; soft fades read as hesitation. */
+.lv-products {
+  background: var(--olive);
+  color: var(--bg-light);
+  padding: 120px 20px;
+}
+
+.lv-products-header {
+  /* Narrower than the grid below — centered editorial column. The grid
+     breaks out to ~1320px so tiles have more horizontal room than typical
+     section content. Same pattern Sandbar uses on the About card grid. */
+  max-width: 720px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.lv-products-header .lv-philosophy-eyebrow {
+  margin: 0 0 28px;
+}
+
+/* Eyebrow inside the products section — text becomes cream, dot swaps to
+   gold (sage on olive is too low-contrast). */
+.lv-products-header .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+
+.lv-products-header .lv-eyebrow-dot {
+  background: var(--gold);
+}
+
+.lv-products-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--bg-light);
+  margin: 0 0 18px;
+}
+
+.lv-products-headline em {
+  font-family: inherit;
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-products-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.72);
+  margin: 0 auto;
+  max-width: 540px;
+}
+
+/* Tabs strip — anchored to a hairline rule with a per-tab gold underline
+   marking the active product. Tab labels are display type (no numbered
+   index — products are a constellation, not a sequence). The underline
+   appears under the active tab as a fixed gold rule via an ::after
+   pseudo on each tab; snap-on / snap-off avoids the brittle CSS-
+   transition behavior that locked indicator state in dev mode. */
+.lv-products-tabs-wrap {
+  max-width: 1320px;
+  margin: 0 auto 56px;
+  padding: 0 4px;
+}
+
+.lv-products-tabs {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-bottom: 1px solid rgba(255, 248, 236, 0.14);
+}
+
+.lv-products-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.lv-products-tab {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  padding: 18px 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 248, 236, 0.55);
+  letter-spacing: 0;
+  transition: color 0.22s ease;
+  font-family: inherit;
+}
+
+.lv-products-tab::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--gold);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lv-products-tab.is-active::after {
+  opacity: 1;
+}
+
+.lv-products-tab:hover {
+  color: rgba(255, 248, 236, 0.85);
+}
+
+.lv-products-tab.is-active {
+  color: var(--bg-light);
+}
+
+.lv-products-tab-name {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Stage — landscape video frame stacked above centered copy. The video
+   sits centered with a max-width so it doesn't dominate the section on
+   ultra-wide displays; copy below is centered and constrained to a
+   readable measure. */
+.lv-products-stage {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
+}
+
+.lv-products-stage-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 14px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.lv-products-stage-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Crossfade when the source switches — handled by remounting the
+     video via the React `key` on tab change. */
+  animation: lv-products-fade 0.5s ease-out both;
+}
+
+.lv-products-stage-name {
+  position: absolute;
+  z-index: 2;
+  left: 18px;
+  bottom: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.85);
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.32);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.lv-products-stage-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.lv-products-tagline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0;
+}
+
+.lv-products-description {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.85);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.lv-products-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 0 0 4px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bg-light);
+  border-bottom: 1px solid rgba(255, 248, 236, 0.7);
+  letter-spacing: 0;
+  transition: gap 0.22s ease, opacity 0.18s ease;
+}
+
+.lv-products-cta:hover {
+  gap: 12px;
+  opacity: 0.85;
+}
+
+@keyframes lv-products-fade {
+  from { opacity: 0; transform: scale(1.02); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* (Old hero proof bar CSS removed — the new hero is type-led with no stats
+   strip. The 79% stat is now folded into the hero supporting line.) */
+.lv-hero-proof {
+  display: none;
+}
+
+.lv-roster,
+.lv-briefing,
+.lv-partnerships,
+.lv-market,
+.lv-final {
+  padding: 72px 20px;
+}
+
+.lv-briefing-grid,
+.lv-partnership-grid,
+.lv-stats,
+.lv-section-head {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* For Artists / For Brands / For Researchers — three numbered editorial
+   statement blocks. Mobile: single-column vertical stack. Desktop: 3-column
+   grid matching the existing site's "Why choose lyric?" pattern (64px gap,
+   stacked content per column). Italic gold numerals anchor each block. */
+/* Audiences / Work With Us — a dark interlude between the two cream
+   sections (Listen above, Notes below). The dark ground breaks the
+   rhythm so this relationship-routing surface reads as its own
+   editorial beat. All text inherits cream from the section root. */
+.lv-audiences {
+  padding: 88px 20px;
+  color: var(--bg-light);
+}
+
+.lv-audiences-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header cluster — sage-dot eyebrow + headline + italic sub-line.
+   Left-aligned to share an anchor with the card grid below; sized in
+   the same rhythm as the Listen section's left-anchored head. */
+.lv-audiences-header {
+  margin: 0 0 48px;
+  text-align: left;
+  max-width: 720px;
+}
+
+.lv-audiences .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+/* Eyebrow text + body type flip to cream on the dark ground. The
+   sage dot already reads at 8:1 against #2b2a25, so the marker keeps
+   the brand pattern without competing with the eyebrow word. */
+.lv-audiences .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+
+.lv-audiences-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--bg-light);
+  margin: 0 0 14px;
+}
+
+.lv-audiences-headline em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.lv-audiences-subline {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--bg-light);
+  opacity: 0.7;
+  margin: 0;
+  max-width: 540px;
+}
+
+/* Legacy single-line eyebrow rule kept for backward compat. The new
+   header structure uses .lv-audiences-header above; this rule no
+   longer renders. */
+.lv-audiences-eyebrow {
+  margin: 0 0 56px;
+}
+
+/* The grid wrapper. Mobile-first single column with row gap; desktop flips
+   to 3 equal columns. Spacing between blocks is fully grid-driven — no more
+   margin-bottom on .lv-audience-block. */
+.lv-audiences-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+}
+
+.lv-audience-number {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(44px, 7vw, 56px);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: 0;
+  color: var(--gold);
+  margin: 0 0 20px;
+}
+
+/* On the dark section ground the per-card eyebrow is set in the same
+   cream as the section's body, lowered with opacity so it reads as a
+   subordinate label rather than competing with the headline. */
+.lv-audience-label {
+  margin: 0 0 18px;
+  color: var(--bg-light);
+  opacity: 0.6;
+}
+
+.lv-audience-block h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.05;
+  margin: 0 0 24px;
+  font-size: clamp(28px, 5vw, 36px);
+  color: var(--bg-light);
+}
+
+.lv-audience-body {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--bg-light);
+  opacity: 0.78;
+  margin: 0 0 32px;
+}
+
+.lv-manifesto h2,
+.lv-section-head h2,
+.lv-briefing-copy h2,
+.lv-note h2,
+.lv-final h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 0.98;
+  margin: 0;
+}
+
+.lv-manifesto {
+  color: var(--bg-light);
+  padding: 84px 20px;
+}
+
+.lv-manifesto-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Tight typographic stack: eyebrow → small gap → headline → modest gap →
+   caption. All three elements share the same left anchor. The caption sits
+   directly beneath the headline at body size — clearly subordinate. */
+.lv-manifesto p:first-of-type {
+  margin: 0 0 24px;
+}
+
+.lv-manifesto h2 {
+  /* ~18% smaller than the previous max so the headline breaks to 3-4 lines
+     instead of 5-6. max-width also widened (11ch → 18ch) so the line length
+     fills closer to ~70% of the inner column. */
+  font-size: clamp(36px, 9vw, 76px);
+  max-width: 18ch;
+  margin: 0 0 28px;
+}
+
+/* Headline italic accents — italic from the SAME display family (GT Super)
+   so the regular ↔ italic shift reads as voice/rhythm, not as a font swap.
+   This rule applies wherever an in-headline <em> is used; individual sections
+   can override color if a particular accent should pop.
+   Instrument Serif (--font-accent) is reserved for STANDALONE pull quotes
+   and taglines, where a different family functions as a separate voice. */
+.lv-hero h1 em,
+.lv-audience-block h2 em,
+.lv-section-head h2 em,
+.lv-briefing-copy h2 em,
+.lv-note h2 em,
+.lv-final h2 em,
+.lv-roster-headline em,
+.lv-manifesto h2 em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+/* Edition 01 headline keeps the gold accent on its closing italic.
+   The legacy manifesto's gold em is dropped per the no-gold-in-body-text
+   rule — italic alone carries the emphasis there now. */
+.lv-roster-headline em {
+  color: var(--gold);
+}
+
+.lv-manifesto p:last-of-type {
+  /* Caption — left-anchored beneath the headline, body-sized GT America so
+     it reads as subordinate to the GT Super display. No right-anchoring. */
+  max-width: 56ch;
+  margin: 0;
+  color: rgba(245,243,239,0.7);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.lv-section-head {
+  display: grid;
+  gap: 22px;
+  margin-bottom: 36px;
+}
+
+.lv-section-head h2 {
+  color: var(--text-1);
+  font-size: clamp(42px, 12vw, 92px);
+  max-width: 9ch;
+}
+
+.lv-section-head > div > p {
+  color: var(--text-2);
+  margin: 0;
+  max-width: 430px;
+}
+
+/* Edition 01 roster — vertical editorial stack with a 3-column card grid in
+   the middle. Wrapper centers content; everything inside shares the same
+   left anchor. */
+.lv-roster-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.lv-roster-headline {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--text-1);
+  font-size: clamp(36px, 8vw, 72px);
+  max-width: 18ch;
+  margin: 24px 0 28px;
+}
+
+.lv-roster-supporting {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin: 0 0 48px;
+}
+
+.lv-roster-grid {
+  /* Cards break out wider than the typographic column (1280 vs 1120) so
+     they have horizontal room to breathe. Indented type, wider images is a
+     standard editorial convention. */
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+/* Browse link — left-anchored, GT America Medium with subtle underline. */
+.lv-edition-browse-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 56px 0 0;
+  padding: 0 0 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+  border-bottom: 1px solid var(--text-1);
+  letter-spacing: 0;
+  transition: opacity 0.18s ease;
+}
+
+.lv-edition-browse-link:hover {
+  opacity: 0.65;
+}
+
+/* About the Editions footnote — editorial context, visually subordinate.
+   Thin rule above marks the transition from cards to context. Capped at
+   ~50% of the typographic column on desktop. */
+.lv-edition-footnote {
+  margin: 96px 0 0;
+  padding-top: 32px;
+  border-top: 1px solid rgba(43, 42, 37, 0.1);
+  max-width: 540px;
+}
+
+.lv-edition-footnote h3 {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: rgba(43, 42, 37, 0.55);
+  margin: 0 0 14px;
+}
+
+.lv-edition-footnote p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(43, 42, 37, 0.65);
+  margin: 0;
+}
+
+.lv-briefing {
+  color: var(--bg-light);
+}
+
+.lv-briefing-grid {
+  display: grid;
+  gap: 36px;
+}
+
+.lv-briefing-image {
+  position: relative;
+  min-height: 440px;
+  overflow: hidden;
+  background: #1f1e1a;
+}
+
+.lv-briefing-image:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(43,42,37,0) 48%, rgba(43,42,37,0.7) 100%);
+}
+
+.lv-briefing-badge {
+  position: absolute;
+  z-index: 1;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  color: var(--bg-light);
+}
+
+.lv-briefing-badge span {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 0.9;
+}
+
+.lv-briefing-badge strong {
+  font-size: 12px;
+  max-width: 13ch;
+  text-align: right;
+}
+
+.lv-briefing-copy h2,
+.lv-note h2,
+.lv-final h2 {
+  font-size: clamp(38px, 10vw, 74px);
+}
+
+.lv-briefing-copy p {
+  color: rgba(245,243,239,0.7);
+}
+
+.lv-briefing-copy > p:last-of-type {
+  margin: 24px 0 30px;
+}
+
+/* Inline CTA row — pills sit in a flex line with breathing room
+   between them. flex-wrap keeps the row sensible on narrow widths. */
+.lv-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.lv-briefing .lv-cta-row a,
+.lv-final .lv-cta-row a {
+  color: var(--bg-light);
+}
+
+/* Closing CTA eyebrow — sage dot + cream label, matching the rest of
+   the editorial section eyebrows on the home page. The descendant
+   selector beats the (0,1,0) desktop media query that pushes the base
+   .lv-philosophy-eyebrow margin to 120px. */
+.lv-final .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+.lv-final .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+
+.lv-partnership-grid {
+  display: grid;
+  gap: 34px;
+  border-top: 1px solid var(--border);
+  padding-top: 64px;
+}
+
+.lv-note-copy p {
+  color: var(--text-2);
+  margin: 0 0 28px;
+}
+
+.lv-proof-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--border);
+}
+
+.lv-proof-strip span {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+}
+
+.lv-section-head-center {
+  text-align: left;
+}
+
+.lv-stats {
+  display: grid;
+  gap: 18px;
+}
+
+.lv-stat {
+  border-top: 1px solid var(--border);
+  padding-top: 22px;
+}
+
+.lv-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  color: var(--gold);
+  font-size: clamp(70px, 20vw, 120px);
+  font-weight: 500;
+  line-height: 0.88;
+}
+
+.lv-stat p {
+  color: var(--text-2);
+  margin: 16px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.lv-source {
+  max-width: 1120px;
+  margin: 34px auto 0;
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.lv-final {
+  color: var(--bg-light);
+  text-align: left;
+}
+
+.lv-final > div {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.lv-final h2 {
+  max-width: 11ch;
+  margin: 0 0 34px;
+}
+
+.lv-cta-row-center {
+  max-width: 520px;
+}
 
 /* Scroll utilities */
 .no-scrollbar { scrollbar-width: none; }
@@ -91,7 +1281,8 @@ img { max-width: 100%; height: auto; }
    tokens stay centralised in the components themselves. */
 
 .lyric-nav-mobile-toggle { display: none; }
-.lyric-nav-mobile-menu   { display: none; }
+.lyric-nav-overlay       { display: none; }
+.lyric-mobile-sticky-cta { display: none !important; }
 
 /* Modern overlay arrows for the Voices in Action carousel (desktop) */
 .lyric-via-arrow {
@@ -127,10 +1318,13 @@ img { max-width: 100%; height: auto; }
 .lyric-via-arrow:active     { transform: translateY(-50%) scale(0.96); }
 
 @media (max-width: 768px) {
-  /* Mobile menu — inline links overlaying the nav bar */
-  .lyric-nav-mobile-menu { display: flex !important; }
+  /* Full-screen mobile nav overlay */
+  .lyric-nav-overlay { display: flex !important; }
 
-  /* Wordmark — slightly smaller on mobile so the inline menu fits */
+  /* Sticky bottom CTA bar — only on small viewports */
+  .lyric-mobile-sticky-cta { display: flex !important; }
+
+  /* Wordmark — slightly smaller on mobile */
   .lyric-wordmark-link svg {
     height: 30px !important;
     width: 46.33px !important; /* (265.625 / 172) * 30 */
@@ -140,10 +1334,13 @@ img { max-width: 100%; height: auto; }
   .lyric-via-arrow { display: none !important; }
 
   /* Page sections */
-  .lyric-section          { padding: 56px 20px !important; }
+  .lyric-section          { padding: 64px 20px !important; }
   .lyric-section-tight    { padding: 20px 20px !important; }
-  .lyric-hero             { padding: 40px 20px 32px !important; }
-  .lyric-cta-section      { padding: 56px 20px 40px !important; }
+  .lyric-section-thesis   { padding: 72px 20px !important; }
+  .lyric-hero             { padding: 56px 20px 64px !important; }
+  .lyric-home-hero        { padding-top: 32px !important; }
+  .lyric-home-hero-visual { min-height: 240px !important; aspect-ratio: 5 / 4 !important; }
+  .lyric-cta-section      { padding: 72px 20px calc(80px + env(safe-area-inset-bottom)) !important; }
 
   /* Layout grids */
   .lyric-grid-3           { grid-template-columns: 1fr !important; gap: 36px !important; }
@@ -152,6 +1349,15 @@ img { max-width: 100%; height: auto; }
      normal paragraph break — so it matches the 24px margin between <p>
      elements above and below it. */
   .lyric-grid-2           { grid-template-columns: 1fr !important; gap: 24px !important; }
+
+  /* Homepage — new section grids */
+  .lyric-roster-grid      { grid-template-columns: 1fr !important; gap: 16px !important; }
+  .lyric-stats-grid       { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .lyric-mirror-grid      { grid-template-columns: 1fr !important; gap: 24px !important; padding-top: 56px !important; }
+  .lyric-briefing-grid    { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .lyric-roster-header    { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; margin-bottom: 32px !important; }
+  .lyric-hero-buttons     { flex-direction: column; align-items: stretch; }
+  .lyric-hero-buttons > a { width: 100%; }
 
   /* About page */
   .lyric-about-hero              { padding: 56px 20px 32px !important; }
@@ -179,9 +1385,9 @@ img { max-width: 100%; height: auto; }
   .lyric-nav-mobile-toggle { display: inline-flex !important; }
 
   /* Footer */
-  .lyric-footer-inner     { padding: 48px 20px 36px !important; }
+  .lyric-footer-inner     { padding: 48px 20px calc(36px + 80px + env(safe-area-inset-bottom)) !important; }
   .lyric-footer-grid      { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 36px !important; }
-  .lyric-footer-cols      { gap: 32px !important; flex-wrap: wrap; }
+  .lyric-footer-cols      { gap: 28px 40px !important; flex-wrap: wrap; }
 
   /* Voice ticker — keep card size (marquee keyframe is hard-coded) */
   .lyric-ticker-wrap      { padding: 24px 0 56px !important; }
@@ -197,4 +1403,1275 @@ img { max-width: 100%; height: auto; }
   .lyric-modal-cta-row    { flex-wrap: wrap; }
   .lyric-modal-cta-row > a,
   .lyric-modal-cta-row > button { flex: 1 1 auto; }
+}
+
+@media (min-width: 769px) {
+  .lv-hero {
+    padding: 120px 48px;
+  }
+
+  .lv-hero h1 {
+    font-size: clamp(36px, 4vw, 56px);
+  }
+
+  .lv-hero-supporting {
+    font-size: 17px;
+  }
+
+  .lv-philosophy {
+    padding: 200px 48px;
+  }
+
+  .lv-philosophy-eyebrow {
+    margin-bottom: 120px;
+  }
+
+  .lv-philosophy-flow {
+    gap: 144px;
+  }
+
+  .lv-philosophy-movement p {
+    font-size: 21px;
+    line-height: 1.45;
+  }
+
+  .lv-products {
+    /* Tighter outer padding (32) than the typical 48 used elsewhere — pulls
+       the grid edges closer to the viewport so tiles have room to breathe. */
+    padding: 160px 32px;
+  }
+
+  .lv-products-header {
+    margin-bottom: 72px;
+  }
+
+  /* Tabs row — center the strip in a max-width container. The hairline
+     extends the full width of the container so the active underline has
+     a baseline rule to ride along. */
+  .lv-products-tabs-wrap {
+    margin-bottom: 64px;
+    padding: 0 32px;
+  }
+
+  .lv-products-tabs {
+    overflow-x: visible;
+  }
+
+  .lv-products-tab {
+    padding: 24px 28px;
+  }
+
+  /* Stage: centered video + copy. Wider max-width and slightly larger
+     description type at desktop. */
+  .lv-products-stage {
+    gap: 48px;
+    padding: 0 32px;
+  }
+
+  .lv-products-stage-name {
+    left: 24px;
+    bottom: 20px;
+    padding: 8px 14px;
+  }
+
+  .lv-products-description {
+    font-size: 17px;
+  }
+
+  .lv-roster,
+  .lv-briefing,
+  .lv-partnerships,
+  .lv-market,
+  .lv-final {
+    padding: 104px 48px;
+  }
+
+  /* Audiences section: matches the Notes section's 128px vertical
+     padding so the dark interlude has the same breathing room as the
+     cream sections it sits between. Three equal columns at 64px gap. */
+  .lv-audiences {
+    padding: 128px 48px;
+  }
+
+  .lv-audiences-eyebrow {
+    margin-bottom: 88px;
+  }
+
+  .lv-audiences-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+  }
+
+  .lv-audience-block h2 {
+    font-size: clamp(28px, 3vw, 36px);
+  }
+
+  .lv-audience-body {
+    font-size: 15px;
+  }
+
+  .lv-manifesto {
+    padding: 128px 48px;
+  }
+
+  .lv-section-head {
+    grid-template-columns: 1fr minmax(280px, 430px);
+    align-items: end;
+    margin-bottom: 52px;
+  }
+
+  .lv-roster-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .lv-briefing-grid,
+  .lv-partnership-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 78px;
+  }
+
+  .lv-briefing-image {
+    min-height: 620px;
+  }
+
+  .lv-proof-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lv-proof-strip span:nth-child(odd) {
+    border-right: 1px solid var(--border);
+  }
+
+  .lv-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px;
+  }
+
+  .lv-section-head-center {
+    display: block;
+    text-align: center;
+  }
+
+  .lv-section-head-center h2 {
+    margin: 0 auto;
+  }
+
+  .lv-source {
+    text-align: center;
+  }
+
+  .lv-final {
+    text-align: center;
+  }
+
+  .lv-final h2,
+  .lv-cta-row-center {
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+  }
+
+  .lyric-home-hero {
+    padding: 88px 48px 96px !important;
+  }
+  .lyric-home-hero-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr) !important;
+    gap: 72px !important;
+  }
+  .lyric-home-hero-grid > :first-child {
+    order: 2;
+  }
+  .lyric-home-hero-grid > :last-child {
+    order: 1;
+  }
+  .lyric-home-hero-visual {
+    min-height: 560px !important;
+  }
+}
+
+/* Roster grid — 2 columns at small tablet sizes (overrides the mobile
+   single-column rule above), 3 columns at desktop is the inline default. */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .lyric-roster-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+}
+
+/* ─── Listen section — Editorial Index ─────────────────────────────────────
+   Magazine contributor index. Five numbered, ruled rows — each row
+   reads as a single horizontal sweep on desktop:
+
+     accent │ 01  Voice Name   Voiced by Artist        0:24  ▶
+                              Beat descriptor
+
+   The vertical color accent on the left is the printed-page reference
+   tying the row to the voice's identity. The play button on the right
+   is a substantive filled circle — a clear control, not a decorative
+   dot. Hairline rules above and below each row are the primary
+   visual separator; no card containers. */
+.lv-listen {
+  background: var(--bg-light);
+  color: var(--olive);
+  padding: 88px 20px;
+}
+
+/* Two-column editorial split: section header anchors the left, the
+   artist index runs down the right. Stacks on mobile. */
+.lv-listen-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.lv-listen-header {
+  text-align: left;
+}
+
+.lv-listen-supporting {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Override the shared eyebrow rule's heavy bottom margin so the
+   eyebrow sits close to the headline (matches the rhythm used in the
+   Products section). The shared rule is tuned for the Manifesto and
+   adds 80–120px of breathing room beneath the eyebrow there. */
+.lv-listen .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+.lv-listen-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0 0 14px;
+}
+
+.lv-listen-headline em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: var(--olive);
+}
+
+.lv-listen-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.72;
+  margin: 0 auto;
+  max-width: 540px;
+}
+
+.lv-listen-supporting p {
+  margin: 0 0 10px;
+}
+
+.lv-listen-supporting p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Editorial index ──────────────────────────────────────────────────── */
+/* Each row contributes a top border so the rules stack between rows.
+   No bottom rule on the container — the toggle is the last beat of
+   the index and shouldn't be closed off by a second hairline. */
+.lv-artist-index {
+  min-width: 0;
+}
+
+/* Each row is a single horizontal sweep on desktop:
+     accent │ 01    Voice Name · italic beat            0:24  ●
+                     Voiced by Artist
+   The voice name is the row's typographic anchor (large display
+   type). The italic beat sits inline beside the name with a centered
+   dot separator, in the display italic. The "Voiced by" credit drops
+   below as a small caption. Controls anchor the row's right edge —
+   substantive whitespace between meta and controls is the visual
+   rhythm. */
+.lv-artist-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 26px 16px 26px 28px;
+  border-top: 1px solid rgba(90, 94, 67, 0.22);
+  transition: background 0.32s ease;
+}
+
+/* Vertical color accent — printed-page reference on the row's left
+   edge. Sits inside the row's padding so it lands at the visual start
+   of the content area. */
+.lv-artist-row-accent {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 10px;
+  width: 4px;
+  background: var(--voice);
+  border-radius: 2px;
+  opacity: 0.75;
+  transition: opacity 0.22s ease;
+}
+
+.lv-artist-row:hover .lv-artist-row-accent,
+.lv-artist-row[data-active="true"] .lv-artist-row-accent {
+  opacity: 1;
+}
+
+.lv-artist-row-num {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--olive);
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+  font-feature-settings: "tnum";
+  flex-shrink: 0;
+}
+
+/* Meta block — voice name (large display) → "Voiced by" byline →
+   roman beat descriptor. The byline sits directly beneath the name
+   so the artist attribution reads as a magazine credit rather than
+   a footnote. min-width: 0 so the column can shrink on narrow widths
+   without forcing the controls off the row. */
+.lv-artist-row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.lv-artist-row-name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.6vw, 44px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--olive);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.lv-artist-row-credit {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--olive);
+  opacity: 0.6;
+  margin: 4px 0 0;
+  letter-spacing: 0;
+}
+
+.lv-artist-row-beat {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--olive);
+  opacity: 0.78;
+  letter-spacing: 0;
+  margin: 0;
+  max-width: 56ch;
+}
+
+.lv-artist-row-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.lv-artist-row-duration {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--olive);
+  opacity: 0.55;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Filled circle in near-black — clear "this is a button" treatment
+   with stronger contrast against the cream ground than olive would
+   give. On hover scales subtly; on active gains a thin outline in
+   the voice's color so the playing row's control is unmistakable
+   without being loud. */
+.lv-artist-row-play {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--text-1);
+  color: var(--bg-light);
+  border: 2px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.22s ease, background 0.22s ease;
+}
+
+.lv-artist-row-play:hover {
+  transform: scale(1.05);
+}
+
+.lv-artist-row-play svg {
+  transform: translateX(1px);
+}
+
+.lv-artist-row[data-playing="true"] .lv-artist-row-play svg {
+  transform: none;
+}
+
+.lv-artist-row[data-active="true"] .lv-artist-row-play {
+  border-color: var(--voice);
+}
+
+.lv-artist-row:hover {
+  background: color-mix(in srgb, var(--voice) 6%, transparent);
+}
+
+.lv-artist-row[data-active="true"] {
+  background: color-mix(in srgb, var(--voice) 9%, transparent);
+}
+
+/* ─── Show-more reveal ────────────────────────────────────────────────────
+   The hidden voices live in a grid-row container that animates between
+   0fr and 1fr. The grid template rows trick gives a true height
+   transition without needing JS to measure the content; pairs with
+   the easeInOutCubic curve used by SmoothAnchor for the manifesto
+   anchor in the hero, so the motion stays in the same family. */
+.lv-artist-index-rest {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.lv-artist-index-rest[data-expanded="true"] {
+  grid-template-rows: 1fr;
+}
+
+.lv-artist-index-rest-inner {
+  overflow: hidden;
+}
+
+/* The inner rows fade in with a small lift once the container has
+   started opening — staggered so the second voice doesn't trail too
+   far behind the first. */
+.lv-artist-index-rest .lv-artist-row {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.lv-artist-index-rest[data-expanded="true"] .lv-artist-row {
+  opacity: 1;
+  transform: none;
+}
+
+.lv-artist-index-rest[data-expanded="true"] .lv-artist-row:nth-child(2) {
+  transition-delay: 0.18s;
+}
+
+.lv-artist-index-rest[data-expanded="true"] .lv-artist-row:nth-child(3) {
+  transition-delay: 0.32s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-artist-index-rest,
+  .lv-artist-index-rest .lv-artist-row {
+    transition: none;
+  }
+}
+
+/* Toggle row — italic editorial signpost, sits beneath the index
+   like a credit footer on a contributor index. Borders match the
+   row hairlines so the toggle reads as part of the index, not as a
+   button bolted on. */
+.lv-artist-index-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(90, 94, 67, 0.22);
+  padding: 18px 16px 18px 28px;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--olive);
+  opacity: 0.78;
+  letter-spacing: 0;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 0.22s ease, background 0.22s ease;
+}
+
+.lv-artist-index-toggle em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-artist-index-toggle span {
+  margin-left: 4px;
+  display: inline-block;
+  transition: transform 0.32s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.lv-artist-index-toggle:hover {
+  opacity: 1;
+  background: rgba(90, 94, 67, 0.04);
+}
+
+.lv-artist-index-toggle:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: -2px;
+}
+
+/* ─── Listen footer (Briefing footnote + closing line) ─────────────────── */
+.lv-listen-footer {
+  max-width: 720px;
+  margin: 96px auto 0;
+  text-align: center;
+}
+
+.lv-briefing-footnote {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.7;
+  margin: 0 0 28px;
+  letter-spacing: 0;
+}
+
+.lv-briefing-footnote em {
+  font-style: italic;
+  color: var(--olive);
+}
+
+/* The Briefing link sits inline with the surrounding italic text — a
+   small dot (Morgan's color) with a play glyph + the italic title +
+   a thin progress line that fills as the Briefing plays. */
+.lv-briefing-footnote-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 2px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.lv-briefing-footnote-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  color: var(--olive);
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+}
+
+.lv-briefing-footnote-link:hover .lv-briefing-footnote-dot {
+  transform: scale(1.1);
+}
+
+.lv-briefing-footnote-label {
+  font-family: var(--font-body);
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 94, 67, 0.32);
+  text-underline-offset: 3px;
+}
+
+.lv-briefing-footnote-line {
+  position: relative;
+  width: 56px;
+  height: 1px;
+  background: rgba(90, 94, 67, 0.22);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.lv-briefing-footnote-link[data-active="true"] .lv-briefing-footnote-line {
+  height: 2px;
+}
+
+.lv-briefing-footnote-line-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--gold);
+  transition: width 0.18s linear;
+}
+
+.lv-listen-closing {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--olive);
+  opacity: 0.6;
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.lv-listen-closing em {
+  font-style: italic;
+  color: inherit;
+}
+
+/* Editorial signposts beneath the section's body copy — quiet
+   italic redirects for brand-side and artist-side visitors. Body
+   type, no buttons or containers, sit inline below the supporting
+   paragraphs the way an end-note would tail a contributor brief. */
+.lv-listen-redirects {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lv-listen-redirect {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.lv-listen-redirect em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-listen-redirect-link {
+  color: inherit;
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 94, 67, 0.32);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.22s ease;
+}
+
+.lv-listen-redirect-link:hover {
+  text-decoration-color: rgba(90, 94, 67, 0.85);
+}
+
+.lv-listen-redirect-link span {
+  margin-left: 4px;
+}
+
+/* ─── Notes — editorial publication index ────────────────────────────────
+   Three featured pieces in a magazine-style three-up. Cards are equal
+   weight; the grid is the section's typographic anchor. Visual posture
+   references the front page of a literary journal — restrained type,
+   muted color tints, no SaaS-card affordances. */
+.lv-notes {
+  background: var(--bg-light);
+  color: var(--olive);
+  padding: 88px 20px;
+}
+
+.lv-notes-header {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.lv-notes .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+  justify-content: center;
+}
+
+.lv-notes-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0 0 14px;
+}
+
+.lv-notes-headline em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: var(--olive);
+}
+
+.lv-notes-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.7;
+  margin: 0 auto;
+  max-width: 540px;
+}
+
+.lv-notes-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+}
+
+/* Card frame — no border, no shadow. The thumbnail's tinted block
+   does the visual anchoring; the body sits below as editorial type. */
+.lv-note-card {
+  margin: 0;
+}
+
+.lv-note-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.32s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.lv-note-card-link:hover {
+  transform: translateY(-2px);
+}
+
+.lv-note-card-link:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Thumbnail — full-bleed editorial photograph in a 4:3 frame. The
+   image fills the frame with object-fit: cover and lifts a hair on
+   hover (paired with the card's translateY) for a quiet "this leads
+   somewhere" cue. */
+.lv-note-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: rgba(90, 94, 67, 0.06);
+}
+
+.lv-note-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.lv-note-card-link:hover .lv-note-thumb-img {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-note-thumb-img {
+    transition: none;
+  }
+  .lv-note-card-link:hover .lv-note-thumb-img {
+    transform: none;
+  }
+}
+
+/* Body — voice attribution → headline → dek → metadata. The whole
+   card is the click target; no inline arrow indicator. */
+.lv-note-body {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 4px 0;
+  position: relative;
+}
+
+.lv-note-voice {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 0 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lv-note-voice-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.lv-note-headline {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 10px;
+  transition: color 0.22s ease;
+}
+
+.lv-note-card-link:hover .lv-note-headline {
+  color: color-mix(in srgb, var(--olive) 80%, #000 20%);
+}
+
+.lv-note-dek {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 0 0 16px;
+  max-width: 42ch;
+}
+
+.lv-note-meta {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--olive);
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+
+.lv-note-meta span[aria-hidden="true"] {
+  opacity: 0.6;
+}
+
+/* Closing line — italic editorial signpost beneath the grid. Quiet,
+   right-aligned, no button or container — same posture as the Listen
+   section's brand/artist redirects. */
+.lv-notes-archive {
+  max-width: 1280px;
+  margin: 40px auto 0;
+  padding: 0 4px;
+  text-align: right;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--olive);
+  opacity: 0.78;
+}
+
+.lv-notes-archive em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-notes-archive-link {
+  color: inherit;
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 94, 67, 0.32);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.22s ease;
+}
+
+.lv-notes-archive-link:hover {
+  text-decoration-color: rgba(90, 94, 67, 0.85);
+}
+
+.lv-notes-archive-link span {
+  margin-left: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-note-card-link,
+  .lv-note-thumb,
+  .lv-note-headline {
+    transition: none;
+  }
+  .lv-note-card-link:hover {
+    transform: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .lv-notes {
+    padding: 128px 48px;
+  }
+
+  .lv-notes-header {
+    margin-bottom: 72px;
+  }
+
+  .lv-notes-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
+  }
+
+  .lv-notes-archive {
+    margin-top: 56px;
+  }
+}
+
+/* CTA pill hover — restrained: a 1.02 lift and a subtle background
+   shift. The light variant darkens its cream slightly toward warm
+   gray; the dark variant lightens its olive a hair. Both stay in
+   brand palette. */
+.lv-cta {
+  text-decoration: none;
+}
+
+.lv-cta-light:hover {
+  background: #f0e9d8 !important;
+  transform: scale(1.02);
+}
+
+.lv-cta-dark:hover {
+  background: color-mix(in srgb, var(--olive) 88%, #fff 12%) !important;
+  transform: scale(1.02);
+}
+
+.lv-cta-outline:hover {
+  background: rgba(255, 248, 236, 0.08) !important;
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-cta-light:hover,
+  .lv-cta-dark:hover,
+  .lv-cta-outline:hover {
+    transform: none;
+  }
+}
+
+/* Products dropdown items in the main nav. Subtle olive tint on hover
+   so the menu feels active without competing with the bar's quiet
+   typographic posture. */
+.lyric-nav-dropdown-item:hover {
+  background: rgba(90, 94, 67, 0.06);
+  color: var(--olive) !important;
+}
+
+.lyric-nav-dropdown-item:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: -2px;
+}
+
+/* Placeholder pages for /notes and /notes/[slug] — minimal editorial
+   stub treatment so the stub doesn't render naked. Replaced by the
+   archive index and article template in a future pass. */
+.lv-notes-stub {
+  background: var(--bg-light);
+  color: var(--olive);
+  min-height: calc(100vh - 200px);
+  padding: 160px 24px 120px;
+}
+
+.lv-notes-stub-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.lv-notes-stub-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.6;
+  margin: 0 0 24px;
+}
+
+.lv-notes-stub h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0 0 24px;
+}
+
+.lv-notes-stub h1 em {
+  font-style: italic;
+}
+
+.lv-notes-stub p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 0 0 18px;
+  max-width: 56ch;
+}
+
+.lv-notes-stub-back {
+  margin-top: 32px;
+  font-style: italic;
+  opacity: 0.78;
+}
+
+.lv-notes-stub-back a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 94, 67, 0.32);
+  text-underline-offset: 3px;
+}
+
+.lv-notes-stub-back a:hover {
+  text-decoration-color: rgba(90, 94, 67, 0.85);
+}
+
+@media (max-width: 720px) {
+  /* Mobile: voice name → byline → roman descriptor stack; controls
+     stay anchored to the right. */
+  .lv-artist-row {
+    gap: 16px;
+    padding: 22px 12px 22px 22px;
+  }
+
+  .lv-artist-row-name {
+    font-size: 28px;
+    white-space: normal;
+  }
+
+  .lv-artist-row-beat {
+    font-size: 14px;
+  }
+
+  .lv-artist-row-accent {
+    top: 14px;
+    bottom: 14px;
+    left: 8px;
+    width: 3px;
+  }
+
+  .lv-artist-row-play {
+    width: 42px;
+    height: 42px;
+  }
+
+  .lv-artist-row-controls {
+    gap: 12px;
+  }
+
+  .lv-artist-row-duration {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .lv-listen {
+    padding: 128px 48px;
+  }
+
+  /* Two-column split: header column on the left, artist index on the
+     right. The right column is given the wider share so beat
+     descriptors fit cleanly on a single line without orphan words.
+     The header sticks to the top of the section so the page keeps
+     its anchor as the visitor scrolls down the index. */
+  .lv-listen-layout {
+    grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.55fr);
+    gap: 64px;
+  }
+
+  .lv-listen-header {
+    position: sticky;
+    top: 96px;
+    padding-right: 16px;
+  }
+
+  /* Tightened row padding on desktop — the hairlines still rule the
+     rhythm, the rows just don't lean as heavy. */
+  .lv-artist-row {
+    padding: 28px 20px 28px 32px;
+    gap: 24px;
+  }
+
+  .lv-artist-row-accent {
+    top: 20px;
+    bottom: 20px;
+    left: 12px;
+    width: 4px;
+  }
+
+  .lv-artist-row-name {
+    font-size: clamp(28px, 3vw, 40px);
+  }
+
+  .lv-artist-row-play {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* ─── Persistent playback bar ──────────────────────────────────────────────
+   Fixed to the bottom of the viewport, sits above all other content.
+   Slides in (translateY 100% → 0) when audio loads; slides out when
+   the visitor closes it. Dark olive ground keeps it visible against
+   any section the page may scroll behind. */
+.lv-playback-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr) auto auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px calc(10px + env(safe-area-inset-bottom)) 20px;
+  background: var(--olive);
+  color: var(--bg-light);
+  box-shadow: 0 -4px 24px rgba(28, 26, 23, 0.18);
+  font-family: var(--font-body);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s ease;
+}
+
+.lv-playback-bar[data-visible="true"] {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.lv-playback-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.lv-playback-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.lv-playback-voice {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.lv-playback-sep {
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.lv-playback-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.lv-playback-track {
+  position: relative;
+  height: 2px;
+  background: rgba(255, 248, 236, 0.18);
+  border: none;
+  padding: 0;
+  border-radius: 1px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.lv-playback-track-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--gold);
+  transition: width 0.18s linear;
+}
+
+.lv-playback-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.lv-playback-time-sep {
+  opacity: 0.5;
+  margin: 0 4px;
+}
+
+.lv-playback-toggle,
+.lv-playback-close {
+  background: transparent;
+  border: 1px solid rgba(255, 248, 236, 0.28);
+  color: var(--bg-light);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.22s ease, border-color 0.22s ease;
+}
+
+.lv-playback-toggle:hover,
+.lv-playback-close:hover {
+  background: rgba(255, 248, 236, 0.08);
+  border-color: rgba(255, 248, 236, 0.5);
+}
+
+.lv-playback-toggle svg {
+  transform: translateX(1px);
+}
+
+@media (max-width: 720px) {
+  /* Mobile: hide the live time readout and let the track + voice
+     metadata + controls share the row tighter. */
+  .lv-playback-bar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 12px;
+    padding: 8px 16px calc(8px + env(safe-area-inset-bottom)) 16px;
+  }
+
+  .lv-playback-track,
+  .lv-playback-time {
+    display: none;
+  }
+
+  .lv-playback-title {
+    font-size: 14px;
+  }
 }

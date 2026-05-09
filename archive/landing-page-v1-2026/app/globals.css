@@ -1,0 +1,200 @@
+:root {
+  --bg-dark:   #2b2a25;
+  --bg-light:  #f5f3ef;
+  --bg-card:   #ffffff;
+  --text-1:    #1c1a17;
+  --text-2:    #6b6257;
+  --text-3:    #9c958f;
+  --border:    #e5dfd5;
+  --gold:      #B8955A;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* Prevent the page itself from scrolling horizontally on any device.
+     Carousels manage their own touch handlers + inner overflow:hidden,
+     so this only locks down the document, not them. */
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-light);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Kill the iOS/Chrome horizontal swipe-back / rubber-band on the page
+     so a finger drag inside (or just over) a carousel never escapes to
+     navigate the browser. */
+  overscroll-behavior-x: none;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; }
+
+/* Scroll utilities */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Pricing grid — mobile reflow with Studio leading the stack so the
+   recommended path is the first card a thumb-scrolling visitor reaches.
+   Desktop default ("repeat(3, 1fr)") is set inline by PlanGrid. */
+@media (max-width: 720px) {
+  .lyric-pricing-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .lyric-pricing-card-studio { order: -1; }
+  .lyric-pricing-card-creator { order: 0; }
+  .lyric-pricing-card-enterprise { order: 1; }
+  .lyric-pricing-card[data-highlight="true"] {
+    transform: none !important;
+  }
+}
+
+/* Editions — orb breathing animation */
+@keyframes orb-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 48px rgba(201,169,110,0.12), inset 0 0 32px rgba(201,169,110,0.08);
+  }
+  50% {
+    transform: scale(1.09);
+    box-shadow: 0 0 88px rgba(201,169,110,0.24), inset 0 0 56px rgba(201,169,110,0.16);
+  }
+}
+.orb-breathe {
+  animation: orb-breathe 4.5s ease-in-out infinite;
+}
+
+/* Composer page — cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* ─── Responsive utilities ──────────────────────────────────────────────────
+   Components set desktop-default values via inline styles. These media
+   queries override them on smaller viewports using !important. Keep changes
+   here scoped to layout properties (padding, grid, flex) so the design
+   tokens stay centralised in the components themselves. */
+
+.lyric-nav-mobile-toggle { display: none; }
+.lyric-nav-mobile-menu   { display: none; }
+
+/* Modern overlay arrows for the Voices in Action carousel (desktop) */
+.lyric-via-arrow {
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(28, 26, 23, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2b2a25;
+  z-index: 5;
+  padding: 0;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.22s ease,
+              box-shadow 0.22s ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.lyric-via-arrow--prev { left: 16px;  transform: translateY(-50%); }
+.lyric-via-arrow--next { right: 16px; transform: translateY(-50%); }
+.lyric-via-arrow:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.14);
+}
+.lyric-via-arrow--prev:hover { transform: translateY(-50%) scale(1.06); }
+.lyric-via-arrow--next:hover { transform: translateY(-50%) scale(1.06); }
+.lyric-via-arrow:active     { transform: translateY(-50%) scale(0.96); }
+
+@media (max-width: 768px) {
+  /* Mobile menu — inline links overlaying the nav bar */
+  .lyric-nav-mobile-menu { display: flex !important; }
+
+  /* Wordmark — slightly smaller on mobile so the inline menu fits */
+  .lyric-wordmark-link svg {
+    height: 30px !important;
+    width: 46.33px !important; /* (265.625 / 172) * 30 */
+  }
+
+  /* Modern arrows on the desktop carousel — hidden on mobile */
+  .lyric-via-arrow { display: none !important; }
+
+  /* Page sections */
+  .lyric-section          { padding: 56px 20px !important; }
+  .lyric-section-tight    { padding: 20px 20px !important; }
+  .lyric-hero             { padding: 40px 20px 32px !important; }
+  .lyric-cta-section      { padding: 56px 20px 40px !important; }
+
+  /* Layout grids */
+  .lyric-grid-3           { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .lyric-grid-2-3         { grid-template-columns: 1fr !important; gap: 40px !important; }
+  /* When the prose grid stacks on mobile, the column-gap should read like a
+     normal paragraph break — so it matches the 24px margin between <p>
+     elements above and below it. */
+  .lyric-grid-2           { grid-template-columns: 1fr !important; gap: 24px !important; }
+
+  /* About page */
+  .lyric-about-hero              { padding: 56px 20px 32px !important; }
+  .lyric-about-intro             { margin-bottom: 32px !important; }
+  .lyric-about-images            { gap: 8px !important; margin-bottom: 32px !important; }
+  .lyric-about-map-col           { display: none !important; } /* drop the dotted map on mobile */
+  .lyric-about-locations-section { padding: 40px 20px !important; }
+  .lyric-about-locations         { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .lyric-about-loc-grid          { gap: 32px !important; align-items: start !important; }
+
+  /* Edition transition row — stack instead of justify-between */
+  .lyric-edition-row      { flex-direction: column; align-items: flex-start !important; gap: 12px !important; }
+
+  /* Generic CTA button rows — keep buttons on one line, allow wrap to 2 rows */
+  .lyric-button-row       { flex-wrap: wrap; }
+  .lyric-button-row > a,
+  .lyric-button-row > button { white-space: nowrap; }
+
+  /* Founder/social-proof row — wrap so the line of text doesn't get crushed */
+  .lyric-proof-row        { flex-wrap: wrap; gap: 12px !important; }
+
+  /* Nav: hide desktop links, show hamburger */
+  .lyric-nav              { padding: 0 20px !important; }
+  .lyric-nav-desktop      { display: none !important; }
+  .lyric-nav-mobile-toggle { display: inline-flex !important; }
+
+  /* Footer */
+  .lyric-footer-inner     { padding: 48px 20px 36px !important; }
+  .lyric-footer-grid      { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 36px !important; }
+  .lyric-footer-cols      { gap: 32px !important; flex-wrap: wrap; }
+
+  /* Voice ticker — keep card size (marquee keyframe is hard-coded) */
+  .lyric-ticker-wrap      { padding: 24px 0 56px !important; }
+
+  /* Voices in Action — hide side peek slots, show centre full width */
+  .lyric-via-header       { padding: 0 20px !important; margin-bottom: 24px !important; }
+  .lyric-via-track        { padding-left: 20px !important; padding-right: 20px !important; gap: 0 !important; }
+  .lyric-via-side         { display: none !important; }
+  .lyric-via-center       { width: 100% !important; height: 420px !important; }
+
+  /* Modal — full-screen feel on mobile */
+  .lyric-modal-shell      { width: 100% !important; max-height: 92vh !important; border-radius: 16px !important; }
+  .lyric-modal-cta-row    { flex-wrap: wrap; }
+  .lyric-modal-cta-row > a,
+  .lyric-modal-cta-row > button { flex: 1 1 auto; }
+}

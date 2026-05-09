@@ -1,538 +1,245 @@
-import Image from "next/image"
 import Link from "next/link"
-import VoiceCardTicker from "@/components/VoiceCardTicker"
-import VideosInAction from "@/components/VideosInAction"
+import type React from "react"
+import HomeHero from "@/components/HomeHero"
+import ListenSection from "@/components/ListenSection"
+import LogoMarquee from "@/components/LogoMarquee"
+import MobileStickyCTA from "@/components/MobileStickyCTA"
+import NotesSection from "@/components/NotesSection"
+import ProductsSection from "@/components/ProductsSection"
+import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
-import SmoothAnchor from "@/components/SmoothAnchor"
 
-// ─── Design tokens ────────────────────────────────────────────────────────────
-const DARK   = "#2b2a25"
-const LIGHT  = "#f5f3ef"
-const GOLD   = "#c9a96e"
-const TEXT1  = "#1a1a18"
-const TEXT2  = "#4a4a45"
-const TEXT3  = "#9c958f"
-const BORDER = "#e5dfd5"
+const DARK = "#2b2a25"
+const LIGHT = "#f5f3ef"
+const GOLD = "#c9a96e"
+const TEXT1 = "#1a1a18"
+const TEXT2 = "#4a4a45"
+const TEXT3 = "#8b8378"
+const BORDER = "#ded7ca"
 
-// ─── Shared style helpers ─────────────────────────────────────────────────────
-const display = { fontFamily: "var(--font-display)" } as const
-const label   = {
+const label = {
   fontSize: "11px",
-  fontWeight: 600,
-  letterSpacing: "0.08em",
+  fontWeight: 700,
+  letterSpacing: "0",
   textTransform: "uppercase" as const,
-  color: TEXT3,
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+function CTA({
+  href,
+  children,
+  variant = "dark",
+}: {
+  href: string
+  children: React.ReactNode
+  variant?: "dark" | "light" | "outline"
+}) {
+  const isMail = href.startsWith("mailto:")
+  const isExternal = href.startsWith("http")
+  /* Light-variant pills sit on dark grounds (Work With Us, final CTA).
+     Filled with warm off-white and set in dark olive — the brand-palette
+     equivalent of the prompt's olive-on-cream pill, inverted for dark
+     backgrounds where olive-on-dark lands too low-contrast. */
+  const style = {
+    minHeight: "54px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 24px",
+    borderRadius: "100px",
+    fontSize: "15px",
+    fontWeight: 500,
+    letterSpacing: "0",
+    background:
+      variant === "light"
+        ? "var(--bg-light)"
+        : variant === "dark"
+          ? "var(--olive)"
+          : "transparent",
+    color:
+      variant === "light"
+        ? "var(--olive)"
+        : variant === "dark"
+          ? "var(--bg-light)"
+          : "inherit",
+    border: variant === "outline" ? "1px solid currentColor" : "1px solid transparent",
+    transition: "background 0.22s ease, color 0.22s ease, transform 0.22s ease",
+  }
+
+  const className = `lv-cta lv-cta-${variant}`
+
+  if (isMail || isExternal) {
+    return (
+      <a
+        href={href}
+        className={className}
+        style={style}
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} className={className} style={style}>
+      {children}
+    </Link>
+  )
+}
+
 export default function HomePage() {
   return (
     <>
-      {/* ══════════════════════════════════════════════════════════════════════
-          1 · HERO
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        className="lyric-hero"
-        style={{
-          background: DARK,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          padding: "68px 48px 40px",
-        }}
-      >
-        {/* Eyebrow pill */}
-        <ScrollReveal delay={0} display="inline-flex">
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "#3a3a32",
-              borderRadius: "100px",
-              padding: "5px 12px 5px 9px",
-              marginBottom: "20px",
-            }}
-          >
-            <span style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              background: GOLD,
-              flexShrink: 0,
-            }} />
-            <span style={{ ...label, color: "rgba(229,223,213,0.55)", fontSize: "10px" }}>
-              A voice studio
-            </span>
+      <HomeHero />
+
+      <section id="manifesto" className="lv-philosophy">
+        <ScrollReveal>
+          <div className="lv-philosophy-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>Manifesto</span>
           </div>
         </ScrollReveal>
 
-        {/* Headline */}
-        <ScrollReveal delay={80}>
-          <h1
-            style={{
-              ...display,
-              fontSize: "clamp(36px, 4vw, 58px)",
-              fontWeight: 600,
-              lineHeight: 0.95,
-              letterSpacing: "-0.02em",
-              color: "#f5f3ef",
-              margin: "0 0 16px",
-              maxWidth: "720px",
-            }}
-          >
-            Voice artists build the voices.
-            <br />
-            You{" "}
-            <em style={{ color: GOLD, fontStyle: "italic" }}>compose with them</em>.
-          </h1>
-        </ScrollReveal>
-
-        {/* Sub */}
-        <ScrollReveal delay={160}>
-          <p
-            style={{
-              fontSize: "16px",
-              color: "rgba(245,243,239,0.5)",
-              lineHeight: 1.5,
-              maxWidth: "400px",
-              margin: "0 0 28px",
-            }}
-          >
-            Lyric is the ethical AI voice platform. Every voice was performed
-            by a real artist who recorded it, owns it, and earns from it.
-          </p>
-        </ScrollReveal>
-
-        {/* CTA buttons */}
-        <ScrollReveal delay={240}>
-          <div className="lyric-button-row" style={{ display: "flex", gap: "12px", marginBottom: "32px" }}>
-            <SmoothAnchor
-              targetId="mini-composer"
-              offset={20}
-              style={{
-                padding: "12px 24px",
-                borderRadius: "100px",
-                fontSize: "14px",
-                fontWeight: 500,
-                background: "#f5f3ef",
-                color: DARK,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Compose a line
-            </SmoothAnchor>
-            <Link
-              href="/composer"
-              style={{
-                padding: "12px 24px",
-                borderRadius: "100px",
-                fontSize: "14px",
-                fontWeight: 400,
-                background: "rgba(245,243,239,0.07)",
-                color: "rgba(245,243,239,0.6)",
-                border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Learn more
-            </Link>
+        {/* Per-paragraph ScrollHighlightText: words start dim and lift to
+            full opacity tied to scroll position — each line "highlights"
+            word-by-word as the reader scrolls past it. Editorial pacing
+            for the manifesto specifically; not used elsewhere on the page. */}
+        <div className="lv-philosophy-flow">
+          <div className="lv-philosophy-movement">
+            <ScrollHighlightText>The voice layer of AI is being commoditized.</ScrollHighlightText>
+            <ScrollHighlightText>Most platforms treat it as a feature, an afterthought, a string to ship under a button.</ScrollHighlightText>
+            <ScrollHighlightText><em>We don&apos;t agree with that.</em></ScrollHighlightText>
           </div>
-        </ScrollReveal>
 
-        {/* Founders social proof */}
-        <ScrollReveal delay={320}>
-          <div className="lyric-proof-row" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <div style={{ display: "flex" }}>
-              {[
-                                { src: "/images/brand_1.jpg", alt: "Brand photography" },
-                                { src: "/images/brand_2.jpg", alt: "FLORET botanicals" },
-                              ].map((img, i) => (
-                              <div
-                                key={img.src}
-                                style={{
-                                  width: "40px",
-                                  height: "40px",
-                                  borderRadius: "50%",
-                                  overflow: "hidden",
-                                  border: `2px solid ${DARK}`,
-                                  marginLeft: i === 0 ? 0 : "-12px",
-                                  background: "#d4c9bc",
-                                  flexShrink: 0,
-                                }}
-                              >
-                                <Image
-                                  src={img.src}
-                                  alt={img.alt}
-                                  width={40}
-                                  height={40}
-                                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                />
-                              </div>
-                            ))}
-            </div>
-            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
-              ✦ Co-founded by AI Designers from Amazon, Apple, and Google
-            </p>
+          <div className="lv-philosophy-movement">
+            <ScrollHighlightText>Voice deserves craft. Voice deserves artistry.</ScrollHighlightText>
+            <ScrollHighlightText>And voice artists deserve what music artists fought for in the streaming age.</ScrollHighlightText>
+            <ScrollHighlightText>Attribution, rights, ongoing compensation in the systems they power.</ScrollHighlightText>
           </div>
-        </ScrollReveal>
+
+          <div className="lv-philosophy-movement">
+            <ScrollHighlightText>We&apos;re not just building voices. We&apos;re setting the standard for how voice AI should be implemented.</ScrollHighlightText>
+            <ScrollHighlightText>How a brand uses voice AI shapes how the people who hear it perceive AI itself.</ScrollHighlightText>
+          </div>
+
+          <div className="lv-philosophy-movement">
+            <ScrollHighlightText>Done badly, voice AI flattens, cheapens, and reinforces the rhetoric that AI is here to replace people.</ScrollHighlightText>
+            <ScrollHighlightText>Done well, with human artistry at the center, AI elevates rather than replaces.</ScrollHighlightText>
+            <ScrollHighlightText>That isn&apos;t a marketing position. It&apos;s a stance on <em>what AI should be</em>.</ScrollHighlightText>
+          </div>
+        </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          2 · VOICE TICKER
-      ══════════════════════════════════════════════════════════════════════ */}
-      <div id="mini-composer">
-        <VoiceCardTicker />
-      </div>
+      <LogoMarquee />
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          3 · WHY CHOOSE LYRIC
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="lyric-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
-        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
+      <ProductsSection />
+
+      <ListenSection />
+
+      <section className="lv-audiences" style={{ background: DARK }}>
+        <div className="lv-audiences-inner">
           <ScrollReveal>
-            <p style={{ ...label, marginBottom: "44px" }}>Why choose lyric?</p>
-          </ScrollReveal>
-
-          <div
-            className="lyric-grid-3"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "64px",
-            }}
-          >
-            {[
-              {
-                n: "01",
-                title: "Voices with a point of view",
-                body: "Every voice ships with a defined archetype, emotional range, and use-case clarity. Not a voice model. A character. Captured by professional actors trained in emotional variation, not stitched from generic samples.",
-              },
-              {
-                n: "02",
-                title: "Direction before generation",
-                body: "Direction is part of the product. Each voice includes intention presets and real examples. You set the intent before you write. Lyric treats direction as a constraint, not a suggestion. It performs consistently in context.",
-              },
-              {
-                n: "03",
-                title: "Built for how you work",
-                body: "Creators, product teams, brands, and creatives who care about how they sound. If sound is part of how your product feels, not just what it says, Lyric fits naturally into your work.",
-              },
-            ].map((card, i) => (
-              <ScrollReveal key={card.n} delay={i * 100}>
-                <div>
-                  <span
-                    style={{
-                      ...display,
-                      fontSize: "26px",
-                      fontWeight: 400,
-                      color: GOLD,
-                      display: "block",
-                      marginBottom: "20px",
-                      lineHeight: 1,
-                      fontStyle: "italic",
-                    }}
-                  >
-                    {card.n}
-                  </span>
-                  <h3
-                    style={{
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      color: TEXT1,
-                      margin: "0 0 12px",
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {card.title}
-                  </h3>
-                  <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.5, margin: 0 }}>
-                    {card.body}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          4 · EDITION 01 — transition row
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="lyric-section-tight" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "28px 48px" }}>
-        <ScrollReveal>
-          <div
-            className="lyric-edition-row"
-            style={{
-              maxWidth: "1120px",
-              margin: "0 auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "24px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <span
-                style={{
-                  width: "7px",
-                  height: "7px",
-                  borderRadius: "50%",
-                  background: GOLD,
-                  flexShrink: 0,
-                }}
-              />
-              <span style={{ fontSize: "14px", color: TEXT1, letterSpacing: "-0.01em" }}>
-                <strong>Edition 01</strong>
-                <span style={{ color: "rgba(28,26,23,0.25)", margin: "0 10px" }}>·</span>
-                <span style={{ color: TEXT2 }}>Five voices, available now</span>
-              </span>
-            </div>
-            <Link
-              href="/editions"
-              style={{
-                fontSize: "13px",
-                color: TEXT2,
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                flexShrink: 0,
-              }}
-            >
-              Browse editions →
-            </Link>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          5 · HOW IT WORKS
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="lyric-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "72px 48px" }}>
-        <div
-          className="lyric-grid-2-3"
-          style={{
-            maxWidth: "1120px",
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "2fr 3fr",
-            gap: "80px",
-            alignItems: "start",
-          }}
-        >
-          {/* Left */}
-          <ScrollReveal from="left">
-            <div>
-              <p style={{ ...label, marginBottom: "24px" }}>
-                How it works
-              </p>
-              <h2
-                style={{
-                  ...display,
-                  fontSize: "clamp(32px, 3vw, 46px)",
-                  fontWeight: 600,
-                  color: TEXT1,
-                  margin: "0 0 20px",
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Choose the voice.
-                <br />
-                Set the intent.
-                <br />
-                <span style={{ color: GOLD }}>Write the line.</span>
+            <div className="lv-audiences-header">
+              <div className="lv-philosophy-eyebrow">
+                <span className="lv-eyebrow-dot" aria-hidden="true" />
+                <span>Work with us</span>
+              </div>
+              <h2 className="lv-audiences-headline">
+                Three ways to <em>partner</em>.
               </h2>
-              <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.5, margin: "0 0 32px", maxWidth: "340px" }}>
-                Lyric is built around direction, not prompting. Pick a voice,
-                select how it should behave, and write your script. The voice
-                performs consistently, in character, every time.
+              <p className="lv-audiences-subline">
+                For artists, brands, and researchers ready to build something
+                with Lyric.
               </p>
-              <a
-                href="https://composer.lyricvoices.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  padding: "11px 22px",
-                  borderRadius: "100px",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  background: "transparent",
-                  color: TEXT1,
-                  border: `1px solid ${TEXT1}`,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                Try the composer
-              </a>
             </div>
           </ScrollReveal>
 
-          {/* Right: numbered steps */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "36px", paddingTop: "8px" }}>
-            {[
-              {
-                n: "01",
-                title: "Pick a voice",
-                body: "Browse Edition 01. Five voices, each with a defined character, blurb, and sample you can play before you commit.",
-              },
-              {
-                n: "02",
-                title: "Select a variant",
-                body: "Each voice has three tonal variants: Authoritative, Warm, Composed. The variant shapes how every line is performed.",
-              },
-              {
-                n: "03",
-                title: "Write and direct",
-                body: "Write your script in the composer. Add inline direction marks. Generate, preview, and download in one place.",
-              },
-            ].map((step, i) => (
-              <ScrollReveal key={step.n} delay={i * 100}>
-                <div>
-                  <span
-                    style={{
-                      ...display,
-                      fontSize: "18px",
-                      fontWeight: 400,
-                      fontStyle: "italic",
-                      color: GOLD,
-                      display: "block",
-                      marginBottom: "8px",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {step.n}
-                  </span>
-                  <p style={{ fontSize: "15px", fontWeight: 600, color: TEXT1, margin: "0 0 6px", letterSpacing: "-0.01em" }}>
-                    {step.title}
-                  </p>
-                  <p style={{ fontSize: "13px", color: TEXT2, lineHeight: 1.5, margin: 0 }}>
-                    {step.body}
-                  </p>
-                </div>
+          <div className="lv-audiences-grid">
+            <div className="lv-audience-block">
+              <ScrollReveal>
+                <span className="lv-audience-number">01</span>
+                <p className="lv-audience-label" style={label}>
+                  For artists
+                </p>
+                <h2>
+                  Your voice <em>belongs</em> to you.
+                </h2>
+                <p className="lv-audience-body">
+                  Lyric brings real voice artists into the AI era as creative
+                  partners on the imprint. You direct the performance, retain
+                  your rights, and earn as your voice carries forward.
+                </p>
+                <CTA href="/for-artists" variant="light">
+                  Apply to the Imprint
+                </CTA>
               </ScrollReveal>
-            ))}
+            </div>
+
+            <div className="lv-audience-block">
+              <ScrollReveal delay={90}>
+                <span className="lv-audience-number">02</span>
+                <p className="lv-audience-label" style={label}>
+                  For brands
+                </p>
+                <h2>
+                  License the <em>artist</em>. Not the <em>algorithm</em>.
+                </h2>
+                <p className="lv-audience-body">
+                  Build sonic identity with voices from the imprint. Directed
+                  by professional artists, documented consent, transparent
+                  sourcing, and clear rights for deployment.
+                </p>
+                <CTA href="/for-brands" variant="light">
+                  License from the Imprint
+                </CTA>
+              </ScrollReveal>
+            </div>
+
+            <div className="lv-audience-block">
+              <ScrollReveal delay={180}>
+                <span className="lv-audience-number">03</span>
+                <p className="lv-audience-label" style={label}>
+                  For researchers
+                </p>
+                <h2>
+                  Performance-grade <em>voice datasets</em>.
+                </h2>
+                <p className="lv-audience-body">
+                  SCOR is a dataset product built from real voice artist
+                  sessions on the imprint. Anchor passages, directed emotional
+                  range, full performance metadata. Every dataset is
+                  defensibly sourced.
+                </p>
+                <CTA href="/score" variant="light">
+                  Explore SCOR
+                </CTA>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          6 · VOICES IN ACTION
-      ══════════════════════════════════════════════════════════════════════ */}
-      <VideosInAction />
+      <NotesSection />
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          7 · FULL CTA
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        className="lyric-cta-section"
-        style={{
-          background: DARK,
-          padding: "72px 24px 48px",
-          textAlign: "center",
-        }}
-      >
+      <section className="lv-final" style={{ background: DARK }}>
         <ScrollReveal>
-          <h2
-            style={{
-              ...display,
-              fontSize: "clamp(36px, 4vw, 58px)",
-              fontWeight: 600,
-              color: "#f5f3ef",
-              margin: "0 auto 20px",
-              lineHeight: 0.95,
-              letterSpacing: "-0.02em",
-              maxWidth: "720px",
-            }}
-          >
-            Ready to hear Lyric
-            <br />
-            in action?
-          </h2>
-        </ScrollReveal>
-
-        <ScrollReveal delay={80}>
-          <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.5, maxWidth: "380px", margin: "0 auto 36px" }}>
-            Try the composer and experience how Lyric voices perform in real moments.
-          </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={160}>
-          <div className="lyric-button-row" style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px", flexWrap: "wrap" }}>
-            <a
-              href="https://composer.lyricvoices.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                padding: "13px 26px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 500,
-                background: "#f5f3ef",
-                color: DARK,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Try the composer
-            </a>
-            <Link
-              href="/composer"
-              style={{
-                padding: "13px 26px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 400,
-                background: "rgba(245,243,239,0.07)",
-                color: "rgba(245,243,239,0.6)",
-                border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Learn more
-            </Link>
+          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>AI-era voice artistry</span>
           </div>
-        </ScrollReveal>
-
-        {/* Founder row */}
-        <ScrollReveal delay={240}>
-          <div className="lyric-proof-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
-            <div style={{ display: "flex" }}>
-              {[
-                                { src: "/images/brand_1.jpg", alt: "Brand photography" },
-                                { src: "/images/brand_2.jpg", alt: "FLORET botanicals" },
-                              ].map((img, i) => (
-                              <div
-                                key={img.src}
-                                style={{
-                                  width: "40px",
-                                  height: "40px",
-                                  borderRadius: "50%",
-                                  overflow: "hidden",
-                                  border: `2px solid ${DARK}`,
-                                  marginLeft: i === 0 ? 0 : "-12px",
-                                  background: "#d4c9bc",
-                                  flexShrink: 0,
-                                }}
-                              >
-                                <Image
-                                  src={img.src}
-                                  alt={img.alt}
-                                  width={40}
-                                  height={40}
-                                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                />
-                              </div>
-                            ))}
-            </div>
-            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
-              ✦ Shaped by designers behind AI products at top brands.
-            </p>
+          <h2>The voice-first era is here. <em>Build it differently.</em></h2>
+          <div className="lv-cta-row lv-cta-row-center">
+            <CTA href="/for-brands" variant="light">
+              License a voice
+            </CTA>
+            <CTA href="/for-artists" variant="outline">
+              Partner with Lyric
+            </CTA>
           </div>
         </ScrollReveal>
       </section>
+
+      <MobileStickyCTA />
     </>
   )
 }

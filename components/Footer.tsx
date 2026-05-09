@@ -50,15 +50,6 @@ const SOCIAL = [
     ),
   },
   {
-    label: "Pocket Casts",
-    href: "https://pca.st/5u4gmbzu",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6C6.698 21.6 2.4 17.302 2.4 12S6.698 2.4 12 2.4 21.6 6.698 21.6 12 17.302 21.6 12 21.6zm0-17.4a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4zm0 12a4.8 4.8 0 1 1 0-9.6 4.8 4.8 0 0 1 0 9.6z" />
-      </svg>
-    ),
-  },
-  {
     label: "YouTube",
     href: "https://www.youtube.com/@LyricVoices",
     icon: (
@@ -72,23 +63,25 @@ const SOCIAL = [
 export default function Footer() {
   const DARK = "#2b2a25"
 
+  /* Footer columns mirror the global nav so destinations stay
+     consistent. Products lists every entry from the nav dropdown;
+     Company carries the editorial / corporate routes. */
   const cols = [
-    {
-      heading: "Product",
-      links: [
-        { label: "Editions", href: "/editions" },
-        { label: "Pricing",  href: "/pricing" },
-        { label: "Composer",   href: "/composer" },
-        { label: "Lyric Briefing", href: "/briefing" },
-      ],
-    },
     {
       heading: "Company",
       links: [
-        { label: "About",    href: "/about" },
-        { label: "Research", href: null },
-        { label: "Stories",  href: "/stories" },
-        { label: "Careers",  href: null },
+        { label: "About", href: "/about" },
+        { label: "Notes", href: "/notes" },
+      ],
+    },
+    {
+      heading: "Products",
+      links: [
+        { label: "Composer",           href: "/composer" },
+        { label: "Imprint",            href: "/imprint" },
+        { label: "SCOR",               href: "/score" },
+        { label: "Timbre",             href: "/timbre" },
+        { label: "The Lyric Briefing", href: "/briefing" },
       ],
     },
     {
@@ -122,34 +115,41 @@ export default function Footer() {
               alignItems: "start",
             }}
           >
-            {/* Brand block */}
+            {/* Brand block — Isotype, eyebrow signature, contact, social */}
             <div>
               <Isotype size={36} color="#f5f3ef" style={{ marginBottom: "16px" }} />
+
               <p
                 style={{
-                  fontSize: "13px",
-                  color: "rgba(245,243,239,0.35)",
-                  lineHeight: 1.6,
-                  maxWidth: "220px",
-                  margin: "0 0 14px",
+                  fontFamily: "var(--font-accent)",
+                  fontSize: "20px",
+                  fontStyle: "italic",
+                  color: "rgba(245,243,239,0.6)",
+                  lineHeight: 1.3,
+                  maxWidth: "260px",
+                  margin: "0 0 18px",
+                  letterSpacing: "0",
                 }}
               >
-                The AI voice platform built for intentional sound.
+                Composed, not cloned.
               </p>
+
               <a
-                href="mailto:info@lyricvoices.ai"
+                href="mailto:hi@lyricvoices.ai"
                 style={{
                   display: "block",
-                  fontSize: "12px",
-                  color: "rgba(245,243,239,0.3)",
-                  letterSpacing: "-0.01em",
+                  fontSize: "13px",
+                  color: "rgba(245,243,239,0.4)",
+                  letterSpacing: "0",
                   marginBottom: "20px",
                 }}
               >
-                info@lyricvoices.ai
+                hi@lyricvoices.ai
               </a>
-              {/* Social icons */}
-              <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+
+              {/* Social icons — natural sizing with a 16px gap so the
+                  icons sit close like the live lyricvoices.ai footer. */}
+              <div style={{ display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap" }}>
                 {SOCIAL.map((s) => (
                   <a
                     key={s.label}
@@ -163,6 +163,7 @@ export default function Footer() {
                   </a>
                 ))}
               </div>
+
               <style>{`
                 .footer-social-icon {
                   color: rgba(245,243,239,0.25);
@@ -186,39 +187,36 @@ export default function Footer() {
                       fontWeight: 700,
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
-                      color: "rgba(245,243,239,0.25)",
+                      color: "rgba(245,243,239,0.3)",
                       margin: "0 0 16px",
                     }}
                   >
                     {col.heading}
                   </p>
-                  {col.links.map((link) => (
-                    <div key={link.label} style={{ marginBottom: "10px" }}>
-                      {link.href ? (
+                  {col.links.map((link) => {
+                    const isMailto = link.href.startsWith("mailto:")
+                    const isExternal = link.href.startsWith("http")
+                    const sharedStyle: React.CSSProperties = {
+                      fontSize: "13px",
+                      color: "rgba(245,243,239,0.55)",
+                      letterSpacing: "0",
+                    }
+                    return (
+                      <div key={link.label} style={{ marginBottom: "10px" }}>
                         <a
                           href={link.href}
-                          {...("external" in link && link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          style={{
-                            fontSize: "13px",
-                            color: "rgba(245,243,239,0.5)",
-                            letterSpacing: "-0.01em",
-                          }}
+                          {...(isExternal
+                            ? { target: "_blank", rel: "noopener noreferrer" }
+                            : isMailto
+                              ? {}
+                              : {})}
+                          style={sharedStyle}
                         >
                           {link.label}
                         </a>
-                      ) : (
-                        <span
-                          style={{
-                            fontSize: "13px",
-                            color: "rgba(245,243,239,0.3)",
-                            letterSpacing: "-0.01em",
-                          }}
-                        >
-                          {link.label}
-                        </span>
-                      )}
-                    </div>
-                  ))}
+                      </div>
+                    )
+                  })}
                 </div>
               ))}
             </div>
@@ -231,8 +229,8 @@ export default function Footer() {
               borderTop: "1px solid rgba(245,243,239,0.07)",
             }}
           >
-            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.2)", margin: 0 }}>
-              © {new Date().getFullYear()} Lyric Voices, Inc. All rights reserved.
+            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.22)", margin: 0 }}>
+              © {new Date().getFullYear()} Lyric Voices, Inc.
             </p>
           </div>
         </div>
