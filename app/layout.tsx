@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/next"
 import { Pinyon_Script, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import AudioPlayerProvider from "@/components/audio/AudioPlayerProvider"
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <PersistentPlaybackBar />
         </AudioPlayerProvider>
+        <Analytics />
       </body>
     </html>
   )
