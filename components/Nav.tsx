@@ -134,16 +134,16 @@ export default function Nav() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 48px",
-          background:
-            isHome && !scrolled
-              ? "rgba(255, 248, 236, 0.18)"
-              : "var(--bg-light)",
-          backdropFilter: isHome && !scrolled ? "blur(8px) saturate(1.1)" : "none",
-          WebkitBackdropFilter: isHome && !scrolled ? "blur(8px) saturate(1.1)" : "none",
+          background: scrolled
+            ? "rgba(255, 248, 236, 1)"
+            : "rgba(255, 248, 236, 0)",
+          backdropFilter: "none",
+          WebkitBackdropFilter: "none",
           borderBottom: scrolled ? "1px solid rgba(90,94,67,0.1)" : "1px solid transparent",
           opacity: loaded ? 1 : 0,
           filter: loaded ? "blur(0px)" : "blur(4px)",
-          transition: "opacity 0.6s ease-out, filter 0.6s ease-out, border-color 0.28s ease",
+          transition:
+            "opacity 0.6s ease-out, filter 0.6s ease-out, background-color 0.36s ease, border-color 0.28s ease",
         }}
       >
         {/* Brand wordmark — links home */}

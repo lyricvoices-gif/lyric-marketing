@@ -1,372 +1,363 @@
+/* About — credibility surface, not conversion surface. No CTAs. The
+   page closes editorially with "Composed, not cloned."
+
+   Visual architecture varies section to section so the page reads as a
+   designed editorial spread rather than eight repetitions of one
+   template:
+     1. Hero — page-cover typographic moment
+     2. Origin — two-column editorial spread (head left, body right)
+     3. Reference — full-bleed dark olive featured pull-quote
+     4. The Work — two-column spread, JBL case-study micro-moment, logo strip
+     5. The Team — masthead with structured founder card framed by rules
+     6. The Products — restrained compact list with hairlines between rows
+     7. Locations — sage accent ground for visual variation
+     8. Closing — full-bleed dark olive, large italic. Bookends Section 3. */
+
 import type { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
+import LogoMarquee from "@/components/LogoMarquee"
 import ScrollReveal from "@/components/ScrollReveal"
+import SmoothAnchor from "@/components/SmoothAnchor"
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Lyric is a design-led AI company creating expressive voices performed by professional actors.",
+  description:
+    "Lyric is a voice AI company built on a stance: voice deserves craft, artists deserve what music artists fought for, and how brands implement voice AI shapes how the public perceives AI itself.",
 }
 
-const DARK   = "#2b2a25"
-const LIGHT  = "#f5f3ef"
-const TEXT1  = "#1a1a18"
-const TEXT2  = "#4a4a45"
-const TEXT3  = "#9c958f"
-const BORDER = "#e5dfd5"
+const LOCATIONS = [
+  {
+    city: "Los Angeles",
+    name: "Wilshire",
+    image: "/images/location-la-wilshire.jpg",
+    lines: ["915 Wilshire Blvd", "7th & 8th Floor", "Los Angeles, CA 90017"],
+  },
+  {
+    city: "Atlanta",
+    name: "Buckhead",
+    image: "/images/location-atlanta-three-alliance.jpg",
+    lines: ["3550 Lenox Rd NE", "21st Floor", "Atlanta, GA 30326"],
+  },
+]
+
+function LinkedInIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.23 0z" />
+    </svg>
+  )
+}
 
 export default function AboutPage() {
   return (
-    <>
-      {/* ─────────────────────────────────────────────────────────────────────
-          HERO + BRAND STORY — single continuous light section
-      ───────────────────────────────────────────────────────────────────── */}
-      <section className="lyric-about-hero" style={{ background: LIGHT, padding: "104px 48px 80px" }}>
-        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-
-          {/* Centered eyebrow + headline + intro */}
-          <ScrollReveal>
-            <div className="lyric-about-intro" style={{ textAlign: "center", marginBottom: "72px" }}>
-              <p style={{
-                fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-                textTransform: "uppercase", color: TEXT3, marginBottom: "20px",
-              }}>
-                About
-              </p>
-              <h1 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(36px, 5vw, 68px)",
-                fontWeight: 600,
-                fontStyle: "normal",
-                letterSpacing: "-0.02em",
-                lineHeight: 0.95,
-                color: TEXT1,
-                margin: "0 auto 28px",
-                maxWidth: "760px",
-              }}>
-                Lyric started with a simple{" "}
-                <em>frustration.</em>
-              </h1>
-              <p style={{
-                fontSize: "17px", color: TEXT2, lineHeight: 1.7,
-                maxWidth: "520px", margin: "0 auto 24px",
-              }}>
-                AI voices were getting more realistic, but less considered. Everything sounded fine, yet nothing sounded intentional.
-              </p>
-              <p style={{
-                fontSize: "17px", color: TEXT2, lineHeight: 1.7,
-                maxWidth: "520px", margin: "0 auto",
-              }}>
-                Lyric was created to change that. We&apos;re building voice systems that respect performance, emotion, and restraint, because how something is said still matters.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* 3-image row */}
-          <ScrollReveal delay={80}>
-            <div className="lyric-about-images" style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "12px",
-              marginBottom: "80px",
-            }}>
-              {[
-                { src: "/images/about_1.jpg", alt: "Brand photography" },
-                { src: "/images/about_2.webp", alt: "Soft botanicals" },
-                { src: "/images/about_3.webp", alt: "Studio session" },
-              ].map((img, i) => (
-                <ScrollReveal key={img.src} delay={i * 80}>
-                  <div style={{ aspectRatio: "3/4", overflow: "hidden", borderRadius: "4px" }}>
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      width={360}
-                      height={480}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </ScrollReveal>
-
-          {/* Two-column prose */}
-          <div className="lyric-grid-2" style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "64px",
-          }}>
-            <ScrollReveal>
-              <div>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  We didn&apos;t start Lyric because we wanted to build another voice company.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  We started it because we were frustrated by how voice was being treated in the industry. Reduced to output. Tuned for novelty. Optimized for speed, but disconnected from intent. Voices cloned from data, then dropped into products without context, responsibility, or care.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  It wasn&apos;t a technology problem. It was a design problem.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Most voice tools today ask you to adapt to them. You test phrases in a composer. You adjust sliders. You listen, tweak, regenerate, repeat.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  You try to imagine how a voice might sound inside your product, brand, or experience. And somehow, the burden of authorship ends up on you.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: 0 }}>
-                  We believed there was another way.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={80}>
-              <div>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  Lyric is built around the idea that voices should be composed, not cloned. Designed with a point of view. Shaped for specific environments. Tuned for how they&apos;re meant to be used, not how fast they can be generated. Each Lyric Edition is crafted with intention. A voice that knows when to lead, when to soften, and when to stay out of the way.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 24px" }}>
-                  That&apos;s why we show our voices in their element. In motion. In context. In the moments they were designed for. Not as raw output, but as part of a living system. Because voice isn&apos;t something you test in isolation. It&apos;s something you experience.
-                </p>
-                <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.8, margin: "0 0 48px" }}>
-                  Lyric is for brands, creators, and teams who care about how they sound. Who believe voice is part of design, not an afterthought. If that&apos;s you, you&apos;re exactly where you&apos;re meant to be.
-                </p>
-
-                {/* Signature */}
-                <div>
-                  <p style={{
-                    fontFamily: "var(--font-signature)",
-                    fontSize: "30px",
-                    color: TEXT1,
-                    margin: "0 0 8px",
-                    lineHeight: 1,
-                  }}>
-                    Michael Lang
-                  </p>
-                  <p style={{ fontSize: "13px", fontWeight: 600, color: TEXT1, margin: "0 0 2px" }}>
-                    Michael Lang
-                  </p>
-                  <p style={{ fontSize: "12px", color: TEXT3, margin: 0 }}>Founder</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-
+    <main className="lv-about">
+      {/* Section 1 — Hero. Same treatment as the home page hero:
+          gold-amber gradient ground, centered statement at restrained
+          display scale. No CTA — About is a credibility surface, not a
+          conversion surface. The .lv-hero shell is reused rather than
+          reimplemented so the visual register is identical on both pages. */}
+      <section className="lv-hero">
+        <img
+          className="lv-hero-floret"
+          src="/images/floret-about-hero.jpg"
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="lv-hero-statement">
+          <h1>
+            A voice AI company built on a <em>stance</em>.
+          </h1>
+          <p className="lv-hero-supporting">
+            Voice deserves craft. Artists deserve what music artists fought
+            for. And how brands implement voice AI shapes how the public
+            perceives AI itself.
+          </p>
+          <SmoothAnchor targetId="origin" offset={64} className="lv-hero-cta">
+            Read the origin <span aria-hidden="true">&rarr;</span>
+          </SmoothAnchor>
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────────────
-          LOCATIONS — light, dotted map left / content + thumbnails right
-      ───────────────────────────────────────────────────────────────────── */}
-      <section className="lyric-section lyric-about-locations-section" style={{ background: LIGHT, borderTop: `1px solid ${BORDER}`, padding: "80px 48px" }}>
-        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <div className="lyric-grid-2 lyric-about-loc-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+      {/* Section 2 — The Origin.
+          Layout adapted from the previous /about page (lyricvoices.ai/about
+          before this rebuild): centered intro (eyebrow + headline +
+          opening paragraph), three-image row at 3:4, then a two-column
+          prose grid for the remaining paragraphs. The visual richness of
+          the photographs paired with editorial multi-column prose makes
+          this section the page's most substantial beat after the hero. */}
+      <section id="origin" className="lv-about-section">
+        <div className="lv-about-inner">
+          <ScrollReveal>
+            <div className="lv-about-origin-intro">
+              <div className="lv-philosophy-eyebrow">
+                <span className="lv-eyebrow-dot" aria-hidden="true" />
+                <span>Origin</span>
+              </div>
+              <h2 className="lv-about-origin-headline">
+                Lyric started{" "}
+                <span className="lv-about-origin-headline-pair">
+                  with <em>frustration</em>.
+                </span>
+              </h2>
+              <p className="lv-about-origin-supporting">
+                AI voices were getting more realistic, but less considered.
+                Voices cloned from data without consent. Voices stripped from
+                artists who never agreed to the deployment. Voices dropped
+                into products without context, responsibility, or care.
+              </p>
+            </div>
+          </ScrollReveal>
 
-            {/* Left: dotted map (hidden on mobile) */}
-            <div className="lyric-about-map-col">
-              <ScrollReveal>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Image
-                    src="/images/about_4.svg"
-                    alt="Location map"
-                    width={420}
-                    height={420}
-                    style={{ width: "100%", maxWidth: "340px", height: "auto", opacity: 0.5 }}
-                  />
-                </div>
-              </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <div className="lv-about-origin-images">
+              <div className="lv-about-origin-image">
+                <img src="/images/about_1.jpg" alt="" loading="lazy" />
+              </div>
+              <div className="lv-about-origin-image">
+                <img src="/images/about_2.webp" alt="" loading="lazy" />
+              </div>
+              <div className="lv-about-origin-image">
+                <img src="/images/about_3.webp" alt="" loading="lazy" />
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={220}>
+            <div className="lv-about-origin-prose">
+              <div className="lv-about-origin-prose-col">
+                <p>
+                  The problems were stacking. Voice artists were watching
+                  their craft get scraped, cloned, and rebranded by platforms
+                  that gave them no credit, no rights, and no revenue. Brands
+                  were implementing voice AI in ways that flattened the
+                  medium and reinforced the public sense that AI was here to
+                  replace human creative work. The companies building voice
+                  models treated voice as output. Tuned for novelty.
+                  Optimized for speed. Disconnected from intent.
+                </p>
+                <p>
+                  It wasn&apos;t a technology problem. It was an artist
+                  problem. An implementation problem. A design problem.
+                  Three problems, all reinforcing each other.
+                </p>
+                <p>Lyric was built to refuse all three.</p>
+              </div>
+              <div className="lv-about-origin-prose-col">
+                <p>
+                  Voices on the Lyric imprint are partnerships. Real voice
+                  artists shape them, direct the performance, retain their
+                  rights, and earn as their voice carries forward. The AI
+                  carries their craft, with their consent, in the directions
+                  they sanction.
+                </p>
+                <p>
+                  Brands using Lyric voices implement them with care. The
+                  standard isn&apos;t speed or scale. It&apos;s how the voice
+                  lands with the people who hear it, because how brands
+                  implement voice AI shapes how the public understands AI
+                  itself.
+                </p>
+                <p>
+                  And every product Lyric makes, from Composer for content
+                  to Imprint for licensing, from SCOR for research to Timbre
+                  for direction, alongside the daily Briefing that proves
+                  the voices in real editorial work, stems from the same
+                  belief. Voice deserves craft. Artists deserve what music
+                  artists fought for. Implementation matters.
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Section 3 — The Reference (Steve Stoute).
+          Full-bleed dark olive ground. The page's editorial statement of
+          conviction; the visual contrast against the surrounding warm
+          off-white sections is the whole point. Bookends with Section 8. */}
+      <section className="lv-about-reference">
+        <div className="lv-about-inner">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow lv-about-reference-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>The Blueprint</span>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={120}>
+            <h2 className="lv-about-pullquote">
+              What Steve Stoute did for <em>music</em>, we&apos;re doing
+              for <em>voice</em>.
+            </h2>
+          </ScrollReveal>
+
+          <ScrollReveal delay={220}>
+            <div className="lv-about-reference-body">
+              <p>
+                Lyric&apos;s founders are fans of Steve Stoute and United
+                Masters. We&apos;ve watched him fight to give music artists
+                ownership, attribution, and revenue participation in an
+                industry that had stopped offering any of those things.
+                We&apos;re doing the same for voice artists in the age of
+                conversational AI.
+              </p>
+              <p>
+                Voice artists deserve what music artists fought for. Their
+                work powers the AI voices reshaping how brands speak to the
+                world. They should be credited. They should be paid. They
+                should retain their rights. The Lyric imprint exists to make
+                that the standard, not the exception.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Section 4 — The Team.
+          Editorial narrative. Decades of industry work, anchored mid-stream
+          by the JBL Authentics vignette, closing on the co-founder framing.
+          Founder masthead with LinkedIn icon link sits below. Logo strip
+          beneath repeats the credentials visually. */}
+      <section className="lv-about-section">
+        <div className="lv-about-inner lv-about-spread">
+          <div className="lv-about-spread-head">
+            <ScrollReveal>
+              <div className="lv-philosophy-eyebrow">
+                <span className="lv-eyebrow-dot" aria-hidden="true" />
+                <span>The Team</span>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={120}>
+              <h2 className="lv-about-spread-headline">
+                The team behind lyric voices
+              </h2>
+            </ScrollReveal>
+
+            <ScrollReveal delay={320}>
+              <p className="lv-about-team-redirect">
+                <em>
+                  Founded by Michael &ldquo;Mike&rdquo; Lang.
+                  <a
+                    href="https://www.linkedin.com/in/mikeybucks"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lv-about-team-redirect-link"
+                    aria-label="Mike Lang on LinkedIn (opens in new tab)"
+                  >
+                    <LinkedInIcon />
+                    LinkedIn <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </em>
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={220}>
+            <div className="lv-about-spread-body">
+              <p>
+                Lyric&apos;s founders have spent more than a decade designing
+                voice and conversational AI for the world&apos;s most
+                considered consumer brands. The work runs through Amazon and
+                Google, and partnerships across automotive, travel,
+                telecommunications, consumer electronics, and enterprise
+                software. Some of it shipped. Much of it informed the
+                products that did. All of it shaped how we think about voice
+                AI now.
+              </p>
+
+              <p>
+                One example. In 2024, Mike led the consumer voice experience
+                design for JBL Authentics, the first consumer device to host
+                both Alexa and Google Assistant simultaneously. The system
+                won a CES Innovation Award. The onboarding flow he designed
+                reached over ninety percent opt-in for voice setup. That
+                kind of result doesn&apos;t come from model performance. It
+                comes from treating voice as a craft problem: how the system
+                speaks, when it speaks, what it asks for, and how it earns
+                the user&apos;s permission to keep speaking.
+              </p>
+
+              <p>
+                Mike&apos;s co-founders bring complementary backgrounds in
+                AI engineering, voice product design, and the creative
+                industries. Those are the disciplines required to build
+                voice AI the way we believe it should be built. As a craft,
+                not a benchmark.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Logo strip — repeats the credentials anchor under the narrative. */}
+      <LogoMarquee />
+
+      {/* Section 5 — Locations.
+          Sage accent ground. Each location leads with a photograph of the
+          building, followed by city heading, building name, and address —
+          editorial dossier register, inspired by the legacy lyricvoices.ai
+          /about layout. */}
+      <section className="lv-about-section lv-about-locations-section">
+        <div className="lv-about-inner">
+          <div className="lv-about-locations-layout">
+            <div className="lv-about-locations-map" aria-hidden="true">
+              <img src="/images/about_4.svg" alt="" loading="lazy" />
             </div>
 
-            {/* Right: label + headline + subtext + photo cards */}
-            <ScrollReveal delay={80}>
-              <div>
-                <p style={{
-                  fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-                  textTransform: "uppercase", color: TEXT3, marginBottom: "16px",
-                }}>
-                  Our Locations
-                </p>
-                <h2 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(28px, 3.5vw, 48px)",
-                  fontWeight: 600,
-                  fontStyle: "normal",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1.1,
-                  color: TEXT1,
-                  margin: "0 0 16px",
-                }}>
-                  From SFO to the world.
-                </h2>
-                <p style={{
-                  fontSize: "15px", color: TEXT2, lineHeight: 1.7,
-                  margin: "0 0 40px", maxWidth: "380px",
-                }}>
-                  Lyric lives where voices matter most. In moments shaped by place,
-                  pace, and intent.
-                </p>
+            <div className="lv-about-locations-content">
+              <ScrollReveal>
+                <div className="lv-philosophy-eyebrow">
+                  <span className="lv-eyebrow-dot" aria-hidden="true" />
+                  <span>Locations</span>
+                </div>
+              </ScrollReveal>
 
-                {/* Photo thumbnails */}
-                <div className="lyric-about-locations" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  {[
-                    {
-                      img: "/images/about_5.jpg",
-                      city: "San Francisco",
-                      label: "Lyric HQ",
-                      address: "14 Hanbury Street\nSan Francisco, CA 94105",
-                    },
-                    {
-                      img: "/images/about_6.jpg.webp",
-                      city: "Atlanta",
-                      label: "Lyric South",
-                      address: "3017 Bolling Way\nAtlanta, GA 30305",
-                    },
-                  ].map((loc) => (
-                    <div key={loc.city}>
-                      <div style={{
-                        aspectRatio: "4/3",
-                        overflow: "hidden",
-                        borderRadius: "6px",
-                        marginBottom: "12px",
-                        background: BORDER,
-                      }}>
-                        <Image
-                          src={loc.img}
-                          alt={loc.city}
-                          width={260}
-                          height={195}
-                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              <ScrollReveal delay={120}>
+                <h2 className="lv-about-section-headline">
+                  From LA to the world
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal delay={220}>
+                <p className="lv-about-section-supporting">
+                  We are committed to being present wherever conversations
+                  matter, shaped by place, culture, and purpose.
+                </p>
+              </ScrollReveal>
+
+              <ScrollReveal delay={320}>
+                <div className="lv-about-locations">
+                  {LOCATIONS.map(loc => (
+                    <div key={loc.city} className="lv-about-location">
+                      <div className="lv-about-location-image">
+                        <img
+                          src={loc.image}
+                          alt={`${loc.name}, ${loc.city}`}
+                          loading="lazy"
                         />
                       </div>
-                      <p style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "18px",
-                        fontStyle: "normal",
-                        fontWeight: 500,
-                        color: TEXT1,
-                        margin: "0 0 2px",
-                        letterSpacing: "-0.01em",
-                      }}>
-                        {loc.city}
-                      </p>
-                      <p style={{ fontSize: "12px", color: TEXT3, margin: "0 0 6px" }}>{loc.label}</p>
-                      <p style={{
-                        fontSize: "12px", color: TEXT2, lineHeight: 1.6,
-                        margin: 0, whiteSpace: "pre-line",
-                      }}>
-                        {loc.address}
-                      </p>
+                      <h3 className="lv-about-location-city">{loc.city}</h3>
+                      <p className="lv-about-location-name">{loc.name}</p>
+                      {loc.lines.map(line => (
+                        <p key={line} className="lv-about-location-line">
+                          {line}
+                        </p>
+                      ))}
                     </div>
                   ))}
                 </div>
-              </div>
-            </ScrollReveal>
-
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          FULL CTA — matches home page pattern
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="lyric-cta-section" style={{ background: DARK, padding: "72px 24px 48px", textAlign: "center" }}>
-        <ScrollReveal>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(36px, 4vw, 58px)",
-              fontWeight: 600,
-              color: "#f5f3ef",
-              margin: "0 auto 20px",
-              lineHeight: 0.95,
-              letterSpacing: "-0.02em",
-              maxWidth: "720px",
-            }}
-          >
-            Ready to hear Lyric
-            <br />
-            in action?
-          </h2>
-        </ScrollReveal>
-
-        <ScrollReveal delay={80}>
-          <p style={{ fontSize: "16px", color: "rgba(245,243,239,0.5)", lineHeight: 1.5, maxWidth: "380px", margin: "0 auto 36px" }}>
-            Try the composer and experience how Lyric voices perform in real moments.
-          </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={160}>
-          <div className="lyric-button-row" style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "40px", flexWrap: "wrap" }}>
-            <a
-              href="https://composer.lyricvoices.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                padding: "13px 26px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 500,
-                background: "#f5f3ef",
-                color: DARK,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Try the composer
-            </a>
-            <Link
-              href="/composer"
-              style={{
-                padding: "13px 26px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 400,
-                background: "rgba(245,243,239,0.07)",
-                color: "rgba(245,243,239,0.6)",
-                border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Learn more
-            </Link>
-          </div>
-        </ScrollReveal>
-
-        {/* Founder row */}
-        <ScrollReveal delay={240}>
-          <div className="lyric-proof-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px" }}>
-            <div style={{ display: "flex" }}>
-              {[
-                                { src: "/images/brand_1.jpg", alt: "Brand photography" },
-                                { src: "/images/brand_2.jpg", alt: "FLORET botanicals" },
-                              ].map((img, i) => (
-                              <div
-                                key={img.src}
-                                style={{
-                                  width: "40px",
-                                  height: "40px",
-                                  borderRadius: "50%",
-                                  overflow: "hidden",
-                                  border: `2px solid ${DARK}`,
-                                  marginLeft: i === 0 ? 0 : "-12px",
-                                  background: "#d4c9bc",
-                                  flexShrink: 0,
-                                }}
-                              >
-                                <Image
-                                  src={img.src}
-                                  alt={img.alt}
-                                  width={40}
-                                  height={40}
-                                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                />
-                              </div>
-                            ))}
-            </div>
-            <p style={{ fontSize: "12px", color: "rgba(245,243,239,0.38)", margin: 0, letterSpacing: "0.01em" }}>
-              ✦ Shaped by designers behind AI products at top brands.
-            </p>
-          </div>
-        </ScrollReveal>
-      </section>
-    </>
+    </main>
   )
 }

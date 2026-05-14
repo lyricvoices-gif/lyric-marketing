@@ -1,20 +1,14 @@
-import Image from "next/image"
 import SmoothAnchor from "@/components/SmoothAnchor"
 
 export default function HomeHero() {
   return (
     <section className="lv-hero">
-      <div className="lv-hero-bg" aria-hidden="true">
-        <Image
-          src="/images/floret-hero.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: "cover" }}
-        />
-      </div>
-
+      <img
+        className="lv-hero-floret"
+        src="/images/floret-home-hero.jpg"
+        alt=""
+        aria-hidden="true"
+      />
       <div className="lv-hero-statement">
         <h1>
           Voice <em>artistry</em> in the age of AI.

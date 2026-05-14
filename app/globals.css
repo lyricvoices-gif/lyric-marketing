@@ -186,9 +186,19 @@ main:has(.lv-hero) { padding-top: 0; }
    type as a soft, painterly backdrop — cream-toned with a centered floral
    highlight. A subtle cream wash overlays the image so the olive type stays
    legible. */
+/* Hero ground is a vertical gradient: warm gold-amber tint at the top
+   that washes through the cream baseline and lightens further toward
+   the bottom seam where the next section meets it. No photograph or
+   scrim — the gradient does the atmospheric work on its own. Shared
+   between the home and About heroes so the visual register matches. */
 .lv-hero {
   position: relative;
-  background: var(--bg-light);
+  background: linear-gradient(
+    180deg,
+    #F4E8CE 0%,
+    var(--bg-light) 60%,
+    #FFFEFA 100%
+  );
   color: var(--olive);
   min-height: 100svh;
   overflow: hidden;
@@ -197,46 +207,6 @@ main:has(.lv-hero) { padding-top: 0; }
   justify-content: center;
   padding: 140px 20px 80px;
   text-align: center;
-}
-
-.lv-hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* The image is a 4:3 botanical that needs to read as a soft, painterly
-   ground — not stretched-to-fit. Keep its natural aspect intact: object-fit
-   cover with object-position centered on the floral element, plus a gentle
-   readability scrim that fades from cream-tinted edges to a clear center. */
-.lv-hero-bg img {
-  object-fit: cover;
-  object-position: center 45%;
-}
-
-.lv-hero-bg::after {
-  /* Two-stop scrim. (a) A faint vertical-center band lifts text contrast
-     over the orange flower core (where olive/dark text would otherwise
-     fall to ~1.6:1); (b) a bottom fade softens the seam into the manifesto
-     below. The top stays open so the image reads cleanly behind the nav. */
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse 60% 38% at 50% 55%,
-      rgba(255, 248, 236, 0.42) 0%,
-      rgba(255, 248, 236, 0.18) 55%,
-      rgba(255, 248, 236, 0) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 248, 236, 0) 0%,
-      rgba(255, 248, 236, 0) 60%,
-      rgba(255, 248, 236, 0.85) 100%
-    );
-  pointer-events: none;
 }
 
 .lv-hero-statement {
@@ -1493,6 +1463,16 @@ main:has(.lv-hero) { padding-top: 0; }
     padding: 128px 48px;
   }
 
+  /* Header → grid gap: bumped to 72px on desktop so the rest between
+     the body copy and the gold 01/02/03 numbers reads on the same
+     rhythm as Notes' header → image grid. The italic 0.9 line-height
+     of the audience-number eats some of the visual gap, so the CSS
+     value matches the Notes margin even though it appears slightly
+     tighter visually. */
+  .lv-audiences-header {
+    margin-bottom: 72px;
+  }
+
   .lv-audiences-eyebrow {
     margin-bottom: 88px;
   }
@@ -2673,5 +2653,857 @@ main:has(.lv-hero) { padding-top: 0; }
 
   .lv-playback-title {
     font-size: 14px;
+  }
+}
+
+
+/* ─── About page ──────────────────────────────────────────────────────────
+   Editorial spread, not a templated content stack. Sections vary in
+   layout (full-bleed vs. constrained, single-col vs. two-col), color
+   ground (warm off-white default, dark olive for the Stoute/closing
+   bookends, sage tint for Locations), and typographic scale (page-cover
+   hero, smaller spread headlines, large pull-quote italic). The variation
+   is the composition. */
+.lv-about {
+  background: var(--bg-light);
+  color: var(--olive);
+}
+
+/* Inner frame matches the home page section pattern (Work With Us,
+   Notes, etc.): 1280px cap, no horizontal padding here — the section
+   itself owns the horizontal padding so all About sections share the
+   exact same left edge as the home page sections. */
+.lv-about-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Eyebrow → headline rhythm matches the home page (22px). The
+   descendant selector beats the (0,1,0) desktop media query that pushes
+   the base .lv-philosophy-eyebrow margin to 120px. */
+.lv-about .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+/* ─── Section 1: Hero ─────────────────────────────────────────────────── */
+/* Both the home and About heroes extend the global .lv-hero shell with a
+   full-bleed FLORET botanical layered behind a cream scrim. The scrim
+   keeps the type dominant; the floret gives the hero warmth and texture. */
+.lv-hero-floret {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.lv-hero:has(.lv-hero-floret)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(244, 232, 206, 0.35) 0%,
+    rgba(255, 248, 236, 0.55) 60%,
+    rgba(255, 254, 250, 0.7) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.lv-hero:has(.lv-hero-floret) .lv-hero-statement {
+  z-index: 2;
+}
+
+/* ─── Generic section shell ───────────────────────────────────────────── */
+/* Horizontal padding lives on the section, not the inner — matches the
+   pattern used by Work With Us, Notes, and the rest of the home page so
+   the left edge aligns across pages. */
+.lv-about-section {
+  padding: 88px 20px;
+}
+
+.lv-about-section-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.08;
+  color: var(--olive);
+  margin: 0 0 28px;
+  /* No max-width — the headline runs as long as the inner column
+     allows. Section copy here ("Lyric started with frustration.",
+     "The team behind the imprint.", etc.) reads as a single line
+     anchor at full display scale. */
+}
+
+.lv-about-section-headline em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-about-section-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--olive);
+  opacity: 0.78;
+  max-width: 560px;
+  margin: 0 0 36px;
+}
+
+/* ─── Section 2: Origin (intro + images + 2-col prose) ────────────────── */
+/* Centered intro carries eyebrow + headline + opening paragraph at
+   reading-width caps; below it a 3-image row (3:4 portrait crops); below
+   that a two-column prose grid for the remaining paragraphs. Pattern
+   adapted from the pre-rebuild /about page. */
+.lv-about-origin-intro {
+  text-align: center;
+  margin: 0 auto 56px;
+}
+
+.lv-about-origin-intro .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+  justify-content: center;
+}
+
+.lv-about-origin-headline {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.0;
+  color: var(--olive);
+  margin: 0 auto 28px;
+  max-width: 760px;
+}
+
+.lv-about-origin-headline em {
+  font-style: italic;
+  color: inherit;
+}
+
+/* Keeps "with frustration" together on the same line so the wrap, when
+   it happens, breaks before "with" instead of between "with" and
+   "frustration". */
+.lv-about-origin-headline-pair {
+  white-space: nowrap;
+}
+
+.lv-about-origin-supporting {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--olive);
+  opacity: 0.78;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.lv-about-origin-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0 0 56px;
+}
+
+.lv-about-origin-image {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(90, 94, 67, 0.06);
+}
+
+.lv-about-origin-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lv-about-origin-prose {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.lv-about-origin-prose-col p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--olive);
+  opacity: 0.85;
+  margin: 0 0 24px;
+}
+
+.lv-about-origin-prose-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Sections 2 & 4: Two-column editorial spread ─────────────────────── */
+/* Magazine feature-opener pattern. Eyebrow + display headline anchors
+   the left column; multi-paragraph body flows in the right. Stacks on
+   mobile with the head first. */
+.lv-about-spread {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.lv-about-spread-headline {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: var(--olive);
+  margin: 0;
+  max-width: 14ch;
+}
+
+.lv-about-spread-headline em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-about-spread-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--olive);
+  opacity: 0.85;
+  max-width: 600px;
+}
+
+.lv-about-spread-body p {
+  margin: 0 0 18px;
+}
+
+.lv-about-spread-body p:last-child {
+  margin-bottom: 0;
+}
+
+.lv-about-spread-body em {
+  font-style: italic;
+  color: inherit;
+}
+
+/* JBL case-study micro-moment inside Section 4. Sits as a quiet
+   sub-block in the right column with a small all-caps metadata line
+   above the paragraph. The hairline-flanked block reads as a printed
+   case study rather than just a paragraph. */
+.lv-about-case {
+  margin: 18px 0;
+  padding: 22px 0;
+  border-top: 1px solid rgba(90, 94, 67, 0.22);
+  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
+}
+
+.lv-about-case-meta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.55;
+  margin: 0 0 12px;
+}
+
+.lv-about-case p:last-child {
+  margin: 0;
+}
+
+/* ─── Section 3: Reference (full-bleed dark olive pull-quote) ─────────── */
+/* The page's editorial statement of conviction. Dark olive ground
+   breaks the warm off-white rhythm; cream type carries the headline as
+   a featured pull-quote. Bookends with the closing section. */
+.lv-about-reference {
+  background: var(--olive);
+  color: var(--bg-light);
+  padding: 120px 20px;
+}
+
+.lv-about-reference-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+
+.lv-about-pullquote {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7.5vw, 96px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.005em;
+  line-height: 1.05;
+  color: var(--bg-light);
+  margin: 0 0 36px;
+  max-width: 16ch;
+}
+
+.lv-about-pullquote em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-about-reference-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--bg-light);
+  opacity: 0.82;
+  max-width: 600px;
+}
+
+.lv-about-reference-body p {
+  margin: 0 0 18px;
+}
+
+.lv-about-reference-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Section 5: Team / Masthead ──────────────────────────────────────── */
+/* Editorial masthead pattern. Founder card framed by hairlines above
+   and below; quieter co-founder aside sits beneath the lower rule. The
+   visible structure is the visual signal that this is a contributor
+   page, not a paragraph. */
+.lv-about-masthead {
+  margin-top: 12px;
+}
+
+.lv-about-founder {
+  border-top: 1px solid rgba(90, 94, 67, 0.22);
+  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
+  padding: 36px 0;
+  max-width: 720px;
+}
+
+.lv-about-founder-name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: var(--olive);
+  margin: 0 0 8px;
+}
+
+.lv-about-founder-role {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.6;
+  margin: 0 0 22px;
+}
+
+.lv-about-founder-bio {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--olive);
+  opacity: 0.85;
+  margin: 0 0 18px;
+  max-width: 56ch;
+}
+
+.lv-about-founder-link {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 0;
+}
+
+/* Founder credit at the foot of the Team section's header column —
+   mirrors the .lv-listen-redirect pattern: italic framing prose, roman
+   link with arrow. The inline LinkedIn icon sits inside the link
+   alongside the label so the whole signpost reads as one unit. */
+.lv-about-team-redirect {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 28px 0 0;
+  max-width: 56ch;
+}
+
+.lv-about-team-redirect em {
+  font-style: italic;
+}
+
+.lv-about-team-redirect-link {
+  font-style: normal;
+  color: var(--olive);
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 94, 67, 0.32);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.22s ease;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+  margin-top: 14px;
+  width: fit-content;
+}
+
+/* The em wrapper inside the redirect is inline by default — switching it
+   to flex column lets the link sit on its own line with proper margin-top
+   spacing, instead of a single line-height gap from a <br />. */
+.lv-about-team-redirect em {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lv-about-team-redirect-link:hover {
+  text-decoration-color: rgba(90, 94, 67, 0.85);
+}
+
+.lv-about-team-redirect-link svg {
+  position: relative;
+  top: 2px;
+}
+
+/* Social link with inline logo — replaces the older "Read more on
+   LinkedIn →" italic signpost. Sits beneath the bio as a quiet badge:
+   olive icon + roman label, underline-on-hover only. */
+.lv-about-founder-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--olive);
+  opacity: 0.78;
+  text-decoration: none;
+  margin: 0;
+  transition: opacity 0.22s ease;
+}
+
+.lv-about-founder-social:hover {
+  opacity: 1;
+}
+
+.lv-about-founder-social svg {
+  flex-shrink: 0;
+  display: block;
+}
+
+.lv-about-founder-social span {
+  border-bottom: 1px solid rgba(90, 94, 67, 0.32);
+  padding-bottom: 1px;
+  transition: border-color 0.22s ease;
+}
+
+.lv-about-founder-social:hover span {
+  border-color: rgba(90, 94, 67, 0.85);
+}
+
+.lv-about-team-aside {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--olive);
+  opacity: 0.65;
+  margin: 24px 0 0;
+  max-width: 56ch;
+}
+
+.lv-about-team-aside em {
+  font-style: italic;
+  color: inherit;
+}
+
+/* ─── Editorial inline link ───────────────────────────────────────────── */
+/* Italic framing carries through, but the linked text itself flips to
+   roman with a quiet underline — same pattern as the Listen section's
+   brand/artist redirects. */
+.lv-about-link {
+  color: inherit;
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 94, 67, 0.32);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.22s ease;
+}
+
+.lv-about-link:hover {
+  text-decoration-color: rgba(90, 94, 67, 0.85);
+}
+
+.lv-about-link span {
+  margin-left: 4px;
+}
+
+/* ─── Section 6: Products / Compact list ──────────────────────────────── */
+/* Restrained reference list. Each row is a 3-col grid: name (display)
+   on the left, body description in the middle, italic visit link
+   anchored to the right. Hairlines top + bottom on each row read as a
+   single ruled register, like a credits list at the back of a book. */
+.lv-about-products {
+  list-style: none;
+  padding: 0;
+  margin: 36px 0 0;
+  border-top: 1px solid rgba(90, 94, 67, 0.22);
+}
+
+.lv-about-product {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
+}
+
+.lv-about-product-name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0;
+}
+
+.lv-about-product-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 0;
+}
+
+.lv-about-product-cta {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--olive);
+  opacity: 0.78;
+  margin: 4px 0 0;
+}
+
+/* ─── Section 7: Locations (sage accent ground) ───────────────────────── */
+/* Option A — sage tinted ground for visual variation against the warm
+   off-white sections. Two location blocks side by side on desktop, each
+   anchored by a hairline so the ruled register continues the products
+   list pattern above. */
+.lv-about-locations-section {
+  background: rgba(193, 193, 126, 0.28);
+}
+
+/* Two-column layout — dotted USA map on the left, eyebrow/headline/cards
+   on the right. Inspired by the legacy lyricvoices.ai/about. Mobile drops
+   the map column entirely so the content stacks cleanly. */
+.lv-about-locations-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.lv-about-locations-map {
+  display: none;
+}
+
+.lv-about-locations-map img {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  opacity: 0.5;
+  margin: 0 auto;
+  display: block;
+}
+
+.lv-about-locations {
+  margin: 36px 0 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.lv-about-location {
+  padding: 28px 0;
+}
+
+.lv-about-location-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 2px;
+  margin: 0 0 22px;
+  background: rgba(90, 94, 67, 0.06);
+}
+
+.lv-about-location-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lv-about-location-city {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0 0 8px;
+}
+
+.lv-about-location-name {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.6;
+  margin: 0 0 14px;
+}
+
+.lv-about-location-line {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.82;
+  margin: 0;
+}
+
+/* ─── Section 8: Closing (full-bleed dark olive) ──────────────────────── */
+/* Option A — visual bookend with Section 3. The line set at near-hero
+   scale, italic, centered, with substantial vertical breathing room.
+   No surrounding copy or CTA. The page's emotional close. */
+.lv-about-closing {
+  background: var(--olive);
+  color: var(--bg-light);
+  padding: 144px 20px;
+  text-align: center;
+}
+
+.lv-about-closing-line {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--bg-light);
+  margin: 0 auto;
+  max-width: 16ch;
+  letter-spacing: -0.005em;
+}
+
+.lv-about-closing-line em {
+  font-style: italic;
+  color: inherit;
+}
+
+/* ─── Mobile and desktop overrides ────────────────────────────────────── */
+@media (min-width: 769px) {
+  .lv-about-section {
+    padding: 128px 48px;
+  }
+
+  /* Origin section breaks into 1fr 1fr at 769px so the prose flows in
+     two balanced columns beneath the image row, mirroring the pre-rebuild
+     /about layout. */
+  .lv-about-origin-prose {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .lv-about-origin-intro {
+    margin-bottom: 72px;
+  }
+
+  .lv-about-origin-images {
+    margin-bottom: 72px;
+  }
+
+  /* Two-col spread breaks open at 769px — head left (40%), body right
+     (60%). The asymmetric split gives the head room while keeping the
+     prose column at a comfortable reading width. */
+  .lv-about-spread {
+    grid-template-columns: 4fr 6fr;
+    gap: 96px;
+    align-items: start;
+  }
+
+  .lv-about-reference {
+    padding: 144px 48px;
+  }
+
+  /* Products row becomes a 3-col grid on desktop: name | desc | cta. */
+  .lv-about-product {
+    grid-template-columns: minmax(180px, 1fr) minmax(0, 2fr) auto;
+    gap: 32px;
+    align-items: baseline;
+  }
+
+  .lv-about-product-cta {
+    margin: 0;
+    text-align: right;
+  }
+
+  .lv-about-locations-layout {
+    grid-template-columns: minmax(260px, 1fr) 1.6fr;
+    gap: 64px;
+  }
+
+  .lv-about-locations-map {
+    display: block;
+  }
+
+  .lv-about-locations {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .lv-about-closing {
+    padding: 192px 48px;
+  }
+}
+
+
+/* ─── Gradient preview ────────────────────────────────────────────────────
+   Temporary comparison route at /preview/gradient. Three full-viewport
+   hero mockups stacked vertically. Delete this block when a direction
+   is locked in. */
+.lv-gradient-preview {
+  background: var(--bg-light);
+}
+
+.lv-gradient-preview-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 20px 80px;
+  text-align: center;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.12);
+}
+
+/* Dark variant — text flips to cream. */
+.lv-gradient-preview-dark .lv-gradient-preview-hero {
+  color: var(--bg-light);
+}
+
+.lv-gradient-preview-dark .lv-gradient-preview-hero h1 {
+  color: var(--bg-light);
+}
+
+.lv-gradient-preview-dark .lv-gradient-preview-supporting {
+  color: var(--bg-light);
+  opacity: 0.78;
+}
+
+.lv-gradient-preview-dark .lv-gradient-preview-label-name {
+  color: var(--bg-light);
+  opacity: 0.85;
+}
+
+.lv-gradient-preview-dark .lv-gradient-preview-label-desc {
+  color: var(--bg-light);
+  opacity: 0.6;
+}
+
+.lv-gradient-preview-label {
+  position: absolute;
+  top: 88px;
+  left: 24px;
+  right: 24px;
+  text-align: left;
+  max-width: 540px;
+}
+
+.lv-gradient-preview-label-name {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.75;
+  margin: 0 0 6px;
+}
+
+.lv-gradient-preview-label-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--olive);
+  opacity: 0.55;
+  margin: 0;
+}
+
+.lv-gradient-preview-statement {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.lv-gradient-preview-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 20px;
+}
+
+.lv-gradient-preview-hero h1 em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.lv-gradient-preview-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-1);
+  opacity: 0.85;
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+@media (min-width: 769px) {
+  .lv-gradient-preview-hero {
+    padding: 120px 48px;
+  }
+
+  .lv-gradient-preview-hero h1 {
+    font-size: clamp(36px, 4vw, 56px);
+  }
+
+  .lv-gradient-preview-supporting {
+    font-size: 17px;
+  }
+
+  .lv-gradient-preview-label {
+    top: 112px;
+    left: 48px;
   }
 }
