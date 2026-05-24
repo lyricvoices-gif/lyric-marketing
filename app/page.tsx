@@ -108,13 +108,22 @@ export default function HomePage() {
           <div className="lv-philosophy-movement">
             <ScrollHighlightText>The voice layer of AI is being commoditized.</ScrollHighlightText>
             <ScrollHighlightText>Most platforms treat it as a feature, an afterthought, a string to ship under a button.</ScrollHighlightText>
-            <ScrollHighlightText><em>We don&apos;t agree with that.</em></ScrollHighlightText>
+            <ScrollHighlightText><em>We don&apos;t agree with that. Neither do brands.</em></ScrollHighlightText>
+            <ScrollHighlightText>Nearly 80% say AI voices should come from real, attributed voice artists. The market is already moving toward what we&apos;ve been building.</ScrollHighlightText>
           </div>
 
           <div className="lv-philosophy-movement">
             <ScrollHighlightText>Voice deserves craft. Voice deserves artistry.</ScrollHighlightText>
             <ScrollHighlightText>And voice artists deserve what music artists fought for in the streaming age.</ScrollHighlightText>
             <ScrollHighlightText>Attribution, rights, ongoing compensation in the systems they power.</ScrollHighlightText>
+            <ScrollHighlightText>That&apos;s why Lyric is built on the <em>NAVA framework</em> of consent, control, and compensation.</ScrollHighlightText>
+          </div>
+
+          <div className="lv-philosophy-movement">
+            <ScrollHighlightText>But ethics is the floor, not the ceiling.</ScrollHighlightText>
+            <ScrollHighlightText>The real shift is from voice as utility to voice as <em>identity</em>.</ScrollHighlightText>
+            <ScrollHighlightText>A casted voice is a transaction. A composed voice is a <em>brand</em>.</ScrollHighlightText>
+            <ScrollHighlightText>We build voices as ongoing identities with their own creative lives, directed by real artists who shape how they perform and evolve.</ScrollHighlightText>
           </div>
 
           <div className="lv-philosophy-movement">
@@ -182,7 +191,9 @@ export default function HomePage() {
                   For brands
                 </p>
                 <h2>
-                  License the <em>artist</em>. Not the <em>algorithm</em>.
+                  License the <em>artist</em>.
+                  <br />
+                  Not the <em>algorithm</em>.
                 </h2>
                 <p className="lv-audience-body">
                   Build sonic identity with voices from the imprint. Directed
