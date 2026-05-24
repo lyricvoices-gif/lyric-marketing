@@ -247,22 +247,32 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 480px;
 }
 
-.lv-hero-cta {
+/* ─── Editorial link CTA ─────────────────────────────────────────────────
+   Canonical "text + arrow + underline" CTA used across the site for
+   directional, navigational links: hero anchors, Products pillars, the
+   Work-with-us audience blocks, and anywhere a quiet editorial pointer
+   is the right call instead of a pill button. The color inherits from
+   the surrounding text via currentColor so the same class works on
+   cream-on-olive grounds (Products, Audiences) and olive-on-cream
+   grounds (heroes) without variants. Hover widens the gap between the
+   label and the arrow and shifts the underline to gold. */
+.lv-link-cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 0 0 3px;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-1);
-  border-bottom: 1px solid var(--text-1);
-  padding-bottom: 3px;
+  color: inherit;
+  border-bottom: 1px solid currentColor;
   letter-spacing: 0;
-  transition: opacity 0.18s ease;
+  transition: gap 0.22s ease, border-color 0.22s ease;
 }
 
-.lv-hero-cta:hover {
-  opacity: 0.7;
+.lv-link-cta:hover {
+  gap: 12px;
+  border-bottom-color: var(--gold);
 }
 
 /* Legacy single-portrait visual — no longer used (replaced by the corner
@@ -534,182 +544,666 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 540px;
 }
 
-/* Tabs strip — anchored to a hairline rule with a per-tab gold underline
-   marking the active product. Tab labels are display type (no numbered
-   index — products are a constellation, not a sequence). The underline
-   appears under the active tab as a fixed gold rule via an ::after
-   pseudo on each tab; snap-on / snap-off avoids the brittle CSS-
-   transition behavior that locked indicator state in dev mode. */
-.lv-products-tabs-wrap {
-  max-width: 1320px;
-  margin: 0 auto 56px;
-  padding: 0 4px;
-}
+/* Three-pillar editorial moments — replaces the older row-of-cards
+   layout. Each pillar is a full-width alternating two-column block with
+   a custom visual on one side and a copy column on the other. Ample
+   vertical breathing room between blocks so each pillar reads as its
+   own moment. All visuals are pure CSS + inline SVG; per-pillar ambient
+   motion (drift, pulse, blink, breathing) is wrapped in a
+   prefers-reduced-motion gate at the bottom of this block. */
 
-.lv-products-tabs {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  border-bottom: 1px solid rgba(255, 248, 236, 0.14);
-}
-
-.lv-products-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.lv-products-tab {
-  position: relative;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: baseline;
-  padding: 18px 22px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: rgba(255, 248, 236, 0.55);
-  letter-spacing: 0;
-  transition: color 0.22s ease;
-  font-family: inherit;
-}
-
-.lv-products-tab::after {
-  content: "";
-  position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: -1px;
-  height: 2px;
-  background: var(--gold);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.lv-products-tab.is-active::after {
-  opacity: 1;
-}
-
-.lv-products-tab:hover {
-  color: rgba(255, 248, 236, 0.85);
-}
-
-.lv-products-tab.is-active {
-  color: var(--bg-light);
-}
-
-.lv-products-tab-name {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 2.2vw, 22px);
-  font-weight: 400;
-  line-height: 1;
-}
-
-/* Stage — landscape video frame stacked above centered copy. The video
-   sits centered with a max-width so it doesn't dominate the section on
-   ultra-wide displays; copy below is centered and constrained to a
-   readable measure. */
-.lv-products-stage {
-  max-width: 1080px;
+.lv-products-pillars {
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  text-align: center;
+  /* Substantial breathing room so each pillar reads as its own moment
+     and its ScrollReveal fade-up fires as the reader scrolls past, the
+     same beat-by-beat pacing used elsewhere on the site. */
+  gap: 112px;
 }
 
-.lv-products-stage-media {
+.lv-pillar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.lv-pillar-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  background: rgba(0, 0, 0, 0.28);
+}
+
+.lv-pillar-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   border-radius: 14px;
   overflow: hidden;
   isolation: isolate;
+  border: 1px solid rgba(255, 248, 236, 0.14);
 }
 
-.lv-products-stage-video {
+/* Shared atmospheric ground layer — each pillar tweaks the gradient
+   and hue but the same .lv-pillar-bg element does the work. Position
+   absolute behind the foreground composition. */
+.lv-pillar-bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Crossfade when the source switches — handled by remounting the
-     video via the React `key` on tab change. */
-  animation: lv-products-fade 0.5s ease-out both;
+  z-index: 0;
 }
 
-.lv-products-stage-name {
-  position: absolute;
-  z-index: 2;
-  left: 18px;
-  bottom: 14px;
-  font-family: var(--font-mono);
+.lv-pillar-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 0;
+}
+
+.lv-pillar-index {
+  font-family: var(--font-body);
   font-size: 11px;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.85);
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.32);
-  border-radius: 999px;
+  color: var(--gold);
+  margin: 0 0 14px;
+}
+
+.lv-pillar-name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.4vw, 52px);
+  font-weight: 500;
+  line-height: 1.02;
+  color: var(--bg-light);
+  margin: 0 0 18px;
+  letter-spacing: -0.005em;
+}
+
+.lv-pillar-body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.82);
+  margin: 0 0 28px;
+  max-width: 52ch;
+}
+
+/* .lv-pillar-cta was promoted to the canonical .lv-link-cta earlier in
+   this file (see "Editorial link CTA"). All call sites now reference
+   .lv-link-cta. */
+
+/* ─── Imprint visual ───────────────────────────────────────────────────
+   Warm cream-gold gradient ground evoking the FLORET palette without
+   needing an image. Foreground: vertical stack of five voice plaques
+   with per-voice color dots. Each dot breathes on a staggered offset
+   so the dots ripple as a slow wave. */
+.lv-pillar-bg-imprint {
+  background:
+    radial-gradient(
+      120% 90% at 50% 0%,
+      rgba(243, 209, 113, 0.42) 0%,
+      rgba(193, 193, 126, 0.18) 35%,
+      rgba(43, 42, 37, 0.0) 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 236, 0.10) 0%,
+      rgba(255, 248, 236, 0.0) 100%
+    );
+}
+
+.lv-pillar-bg-imprint::after {
+  /* Soft grain via a low-opacity radial dot pattern. Sits above the
+     gradient at very low opacity for a paper-texture feel. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 248, 236, 0.12) 0.6px,
+    transparent 0.7px
+  );
+  background-size: 4px 4px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.lv-imprint-roster {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.lv-imprint-plaque {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: rgba(255, 248, 236, 0.06);
+  border: 1px solid rgba(255, 248, 236, 0.10);
+  border-radius: 6px;
+}
+
+.lv-imprint-plaque-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+  animation: lv-pillar-breathe 2.4s ease-in-out infinite;
+  animation-delay: var(--breath-delay, 0s);
+  box-shadow: 0 0 0 0 currentColor;
+}
+
+.lv-imprint-plaque-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--bg-light);
+  line-height: 1;
+}
+
+.lv-imprint-plaque-role {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+}
+
+.lv-imprint-caption {
+  position: absolute;
+  bottom: 18px;
+  left: 36px;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.45);
+}
+
+/* ─── Score visual ─────────────────────────────────────────────────────
+   Deeper olive ground with a fine grid texture and a soft warm vignette
+   at one corner. Foreground: full-width waveform with bars that pulse on
+   a staggered phase, and a small floating datasheet plaque overlay. */
+.lv-pillar-bg-score {
+  background:
+    radial-gradient(
+      80% 80% at 100% 100%,
+      rgba(243, 209, 113, 0.14) 0%,
+      rgba(43, 42, 37, 0.0) 60%
+    ),
+    linear-gradient(180deg, #2f2e29 0%, #25241f 100%);
+}
+
+.lv-pillar-bg-score::after {
+  /* Faint orthogonal grid for the "data" feel */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 248, 236, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 248, 236, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Score waveform — Morgan's actual voice rendered by wavesurfer.js
+   (see components/products/ScoreVisual.tsx). The hand-coded scrolling
+   bar strip from the earlier pass has been retired; the bars now come
+   from the real audio file at /audio/morgan-sample.wav, which means
+   the silhouette is naturally asymmetric and voice-shaped. The track
+   keeps its edge-fade mask, the datasheet keeps its position, and a
+   custom gold cursor traverses the waveform on a linear loop. */
+.lv-score-wave-track {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  height: 56%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* Waveform host — fills the track horizontally; the ElevenLabs UI
+   Waveform component (installed at components/ui/waveform.tsx, fed
+   amplitude data computed from /audio/morgan-sample.wav) renders its
+   canvas inside this element at the component's reference height
+   (128px). Vertical centering parks the bars on the waveform's
+   horizontal axis regardless of the host's height. The child > div
+   selector targets the component's outer wrapper and stretches it to
+   the host width. */
+.lv-score-wave-host {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* The cream base waveform fills horizontally. The :not selector keeps
+   this rule from hitting the gold overlay (which has its own absolute
+   layout and clip animation). */
+.lv-score-wave-host > div:not(.lv-score-wave-progress) {
+  width: 100%;
+}
+
+/* Gold "played" overlay — same waveform rendered in brand gold,
+   stacked on top of the cream base and clipped from the right via a
+   clip-path animation that reveals left-to-right in sync with the gold
+   cursor. The clip-path goes from inset(0 100% 0 0) (everything clipped
+   from the right = invisible) to inset(0 0% 0 0) (nothing clipped =
+   fully visible) over the same 10s as the cursor's traversal, so the
+   gold fill always extends exactly to where the cursor is. */
+.lv-score-wave-progress {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  animation: lv-score-wave-fill 10s linear infinite;
+  pointer-events: none;
+}
+
+.lv-score-wave-progress > div {
+  width: 100%;
+}
+
+@keyframes lv-score-wave-fill {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 0; }
+  6%   { clip-path: inset(0 94% 0 0);  opacity: 1; }
+  94%  { clip-path: inset(0 0% 0 0);   opacity: 1; }
+  98%  { clip-path: inset(0 0% 0 0);   opacity: 0; }
+  100% { clip-path: inset(0 100% 0 0); opacity: 0; }
+}
+
+/* Gold cursor removed: the gold "played" overlay's leading edge does
+   the same job, and a moving cursor line over a non-playing waveform
+   is faux-functional UI — every real instance of that pattern (Logic,
+   Pro Tools, Audacity, Spotify, podcast players) ties to actual audio
+   playback at that position. Ours wasn't, so it went. */
+
+.lv-score-datasheet {
+  position: absolute;
+  top: 28px;
+  left: 36px;
+  z-index: 2;
+  background: rgba(20, 19, 15, 0.78);
+  border: 1px solid rgba(255, 248, 236, 0.14);
+  border-radius: 8px;
+  padding: 16px 18px;
+  min-width: 200px;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
-.lv-products-stage-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  max-width: 640px;
-}
-
-.lv-products-tagline {
+.lv-score-datasheet-label {
+  margin: 0 0 10px;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold);
-  margin: 0;
 }
 
-.lv-products-description {
+.lv-score-datasheet-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.lv-score-datasheet-list > div {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 248, 236, 0.86);
+}
+
+.lv-score-datasheet-list dt {
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.55;
-  color: rgba(255, 248, 236, 0.85);
-  margin: 0;
-  max-width: 56ch;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(255, 248, 236, 0.5);
+  text-transform: uppercase;
+  font-size: 10px;
+  align-self: center;
 }
 
-.lv-products-cta {
+.lv-score-datasheet-list dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ─── Opus visual ──────────────────────────────────────────────────────
+   Deep warm-olive ground with a soft amber glow at the top — studio
+   coming to life. Foreground: a stylized studio canvas mockup showing
+   the two Opus modes (Direction live, Composer quiet), a take counter,
+   the directorial line in italic display, a blinking caret, and a row
+   of emotional tag chips. */
+.lv-pillar-bg-opus {
+  background:
+    radial-gradient(
+      90% 60% at 50% 0%,
+      rgba(243, 209, 113, 0.16) 0%,
+      rgba(43, 42, 37, 0.0) 70%
+    ),
+    linear-gradient(180deg, #2a2924 0%, #1f1e1a 100%);
+}
+
+.lv-opus-panel {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 28px 36px;
+}
+
+.lv-opus-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lv-opus-chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
-  padding: 0 0 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.06);
+  border: 1px solid rgba(255, 248, 236, 0.16);
+}
+
+.lv-opus-chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sage, #C1C17E);
+  animation: lv-pillar-breathe 2.4s ease-in-out infinite;
+}
+
+.lv-opus-chip-label {
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.82);
+}
+
+.lv-opus-modes {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lv-opus-mode {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.42);
+  transition: color 0.22s ease;
+}
+
+.lv-opus-mode.is-active {
   color: var(--bg-light);
-  border-bottom: 1px solid rgba(255, 248, 236, 0.7);
-  letter-spacing: 0;
-  transition: gap 0.22s ease, opacity 0.18s ease;
+  position: relative;
 }
 
-.lv-products-cta:hover {
+.lv-opus-mode.is-active::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 6px;
+  background: var(--gold);
+}
+
+.lv-opus-mode-divider {
+  display: inline-block;
+  width: 1px;
+  height: 10px;
+  background: rgba(255, 248, 236, 0.18);
+}
+
+/* Direction-mode chat — agent messages flow left, user messages flow
+   right as gold pill chips, suggestion chips below the latest agent
+   message. The thread accumulates downward in a fixed-height frame; a
+   mask-image gradient at the top dissolves older messages as the
+   conversation grows. After three rounds the whole thread fades out
+   together and the cycle restarts. Motion is wired in
+   components/products/OpusVisual.tsx; this block handles the visual
+   layer. */
+
+.lv-opus-conversation {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  opacity: 0.85;
+  flex: 1;
+  justify-content: flex-end;
+  min-height: 280px;
+  overflow: hidden;
+  /* Mask the top of the frame so messages that exceed the container
+     height softly fade out as they scroll up the column rather than
+     hard-clipping at the edge. */
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    black 14%,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    black 14%,
+    black 100%
+  );
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes lv-products-fade {
-  from { opacity: 0; transform: scale(1.02); }
-  to   { opacity: 1; transform: scale(1); }
+.lv-opus-conversation.is-resetting {
+  opacity: 0;
+}
+
+/* Each round (agent message + optional user pick) is wrapped in a
+   .lv-opus-round container so the whole turn shrinks and dims as a
+   single unit when it becomes history. Per-bubble shrinking would have
+   each agent and user message reduce independently; wrapping the pair
+   keeps them tethered as one editorial moment that recedes together. */
+.lv-opus-round {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform-origin: top left;
+  transition: opacity 1.0s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lv-opus-round.is-history {
+  opacity: 0.5;
+  transform: scale(0.82);
+}
+
+.lv-opus-msg {
+  animation: lv-opus-msg-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  max-width: 92%;
+}
+
+@keyframes lv-opus-msg-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Agent turn — italic display, the Lyric editorial register. Left-
+   aligned, sits at the start of the row. */
+.lv-opus-msg-agent {
+  align-self: flex-start;
+}
+
+.lv-opus-msg-agent .lv-opus-msg-text {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(16px, 1.65vw, 19px);
+  font-weight: 400;
+  line-height: 1.42;
+  color: rgba(255, 248, 236, 0.92);
+}
+
+/* Typing caret — blinks at the end of a streaming agent message so the
+   character-by-character reveal reads as a real streaming response, not
+   a pre-rendered string. Disappears once the message is fully typed and
+   the bubble settles for the chips. */
+.lv-opus-typing-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.92em;
+  margin-left: 2px;
+  background: rgba(255, 248, 236, 0.78);
+  vertical-align: baseline;
+  transform: translateY(2px);
+  animation: lv-opus-typing-caret 0.9s steps(2, end) infinite;
+}
+
+@keyframes lv-opus-typing-caret {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* User turn — gold pill, the same accent the selected suggestion chip
+   used a moment earlier, so the chip-tap → message lineage reads. */
+.lv-opus-msg-user {
+  align-self: flex-end;
+}
+
+.lv-opus-msg-user .lv-opus-msg-text {
+  display: inline-flex;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #2a2924;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.lv-opus-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+  /* Chips arrive shortly after the agent message has settled, slow
+     enough that they land as a separate beat. */
+  animation: lv-opus-chips-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+  /* When the user picks a chip and the user message takes over, the chip
+     row stays mounted but flips to .is-hidden so we can fade it out
+     smoothly instead of unmounting abruptly. */
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lv-opus-chips.is-hidden {
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+}
+
+@keyframes lv-opus-chips-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lv-opus-chip-suggestion {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(255, 248, 236, 0.7);
+  background: rgba(255, 248, 236, 0.04);
+  border: 1px solid rgba(255, 248, 236, 0.14);
+  /* Slow chip-selection transition so the gold "settles" rather than
+     snapping when the directorial pick is registered. */
+  transition: color 0.9s ease, background-color 0.9s ease,
+    border-color 0.9s ease;
+}
+
+.lv-opus-chip-suggestion.is-selected {
+  color: #2a2924;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ─── Pillar motion keyframes ──────────────────────────────────────────
+   All ambient motion is slow and considered. Disabled below for users
+   who prefer reduced motion — they see the still composition. */
+@keyframes lv-pillar-breathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-imprint-plaque-dot,
+  .lv-opus-chip-dot,
+  .lv-opus-msg,
+  .lv-opus-round,
+  .lv-opus-chips,
+  .lv-opus-chip-suggestion,
+  .lv-opus-conversation,
+  .lv-opus-typing-caret {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* The waveform itself (Morgan's voice) stays exactly as it is. The
+     gold "played" overlay parks at a fixed 33% reveal so the static
+     composition still reads as "analyzed up to here." */
+  .lv-score-wave-progress {
+    animation: none !important;
+    clip-path: inset(0 67% 0 0) !important;
+    opacity: 1 !important;
+  }
 }
 
 /* (Old hero proof bar CSS removed — the new hero is type-led with no stats
@@ -1415,37 +1909,44 @@ main:has(.lv-hero) { padding-top: 0; }
     margin-bottom: 72px;
   }
 
-  /* Tabs row — center the strip in a max-width container. The hairline
-     extends the full width of the container so the active underline has
-     a baseline rule to ride along. */
-  .lv-products-tabs-wrap {
-    margin-bottom: 64px;
+  /* Three-pillar stack at desktop — vertical sequence of alternating
+     two-column moments. Visual half + copy half swap sides every other
+     pillar via the data-orient attribute. Generous gap between
+     moments so each one reads as its own beat and the scroll-reveal
+     fade-up fires distinctly for each pillar as the reader scrolls
+     down. */
+  .lv-products-pillars {
+    gap: 176px;
     padding: 0 32px;
   }
 
-  .lv-products-tabs {
-    overflow-x: visible;
+  .lv-pillar {
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
   }
 
-  .lv-products-tab {
-    padding: 24px 28px;
+  /* When the visual is on the right, mirror the column tracks so the
+     visual always occupies the wider (1.15fr) track, not just the
+     left-side one. Without this the Score pillar's visual would render
+     narrower than Imprint's and Opus's. */
+  .lv-pillar[data-orient="visual-right"] {
+    grid-template-columns: 1fr 1.15fr;
   }
 
-  /* Stage: centered video + copy. Wider max-width and slightly larger
-     description type at desktop. */
-  .lv-products-stage {
-    gap: 48px;
-    padding: 0 32px;
+  .lv-pillar[data-orient="visual-right"] .lv-pillar-media {
+    order: 2;
   }
 
-  .lv-products-stage-name {
-    left: 24px;
-    bottom: 20px;
-    padding: 8px 14px;
+  .lv-pillar[data-orient="visual-right"] .lv-pillar-copy {
+    order: 1;
   }
 
-  .lv-products-description {
-    font-size: 17px;
+  .lv-pillar-copy {
+    padding: 12px 0;
+  }
+
+  .lv-pillar-body {
+    font-size: 18px;
   }
 
   .lv-roster,
@@ -2054,6 +2555,10 @@ main:has(.lv-hero) { padding-top: 0; }
   text-decoration-color: rgba(90, 94, 67, 0.32);
   text-underline-offset: 3px;
   transition: text-decoration-color 0.22s ease;
+  /* Keep the link text and trailing arrow on a single line. The link as
+     a whole can still wrap to a new line within the surrounding italic
+     paragraph; we just don't want a wrap point between "Lyric" and "→". */
+  white-space: nowrap;
 }
 
 .lv-listen-redirect-link:hover {
@@ -3053,9 +3558,11 @@ main:has(.lv-hero) { padding-top: 0; }
   display: inline-flex;
   align-items: baseline;
   gap: 6px;
+  /* Keep icon + label + arrow on one line. Dropped the earlier
+     width: fit-content because it could clamp the inline-flex element
+     narrower than its content and force a wrap. */
   white-space: nowrap;
   margin-top: 14px;
-  width: fit-content;
 }
 
 /* The em wrapper inside the redirect is inline by default — switching it

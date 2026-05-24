@@ -79,7 +79,7 @@ export default function Footer() {
       links: [
         { label: "Composer",           href: "/composer" },
         { label: "Imprint",            href: "/imprint" },
-        { label: "SCOR",               href: "/score" },
+        { label: "Score",              href: "/score" },
         { label: "Timbre",             href: "/timbre" },
         { label: "The Lyric Briefing", href: "/briefing" },
       ],

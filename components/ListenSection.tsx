@@ -2,13 +2,15 @@
    Each row credits the real artist whose performance powers the AI
    voice, laid out as a contributor index from a literary journal.
 
-   The left column carries the section's framing and two italic
-   redirects pointing brand-side and artist-side visitors to the
-   Imprint product page. The right column holds the artist index
-   with progressive disclosure (first three voices visible by
-   default, a toggle reveals the rest). */
+   The left column carries the section's framing and a single italic
+   closing line that frames what the reader has just seen and hands
+   them off to the Three Ways to Partner section below. The two
+   italic CTAs that used to sit here ("contact Lyric" / "partner with
+   Lyric") were retired because they duplicated the conversion
+   pathways handled cleanly by the Three Ways to Partner block. Each
+   section now does one job: Voices shows the roster, Three Ways
+   handles the offer. */
 
-import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import ArtistIndex from "@/components/listen/ArtistIndex"
 import { artists } from "@/components/listen/data"
@@ -39,9 +41,6 @@ export default function ListenSection() {
                 retains their rights, and shapes how their voice carries
                 forward in the age of AI.
               </p>
-              <p>
-                Edition 02 of the Lyric imprint is scheduled for Q3 2026.
-              </p>
             </div>
           </ScrollReveal>
 
@@ -49,19 +48,8 @@ export default function ListenSection() {
             <div className="lv-listen-redirects">
               <p className="lv-listen-redirect">
                 <em>
-                  For brands ready to license a voice from the imprint,{" "}
-                  <Link href="/imprint" className="lv-listen-redirect-link">
-                    contact Lyric <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </em>
-              </p>
-              <p className="lv-listen-redirect">
-                <em>
-                  For voice artists interested in joining the imprint,
-                  <br />
-                  <Link href="/imprint" className="lv-listen-redirect-link">
-                    partner with Lyric <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                  Five voices in Edition 01. Edition 02 of the Lyric imprint
+                  is scheduled for Q3 2026.
                 </em>
               </p>
             </div>

@@ -178,9 +178,10 @@ export default function HomePage() {
                   partners on the imprint. You direct the performance, retain
                   your rights, and earn as your voice carries forward.
                 </p>
-                <CTA href="/for-artists" variant="light">
-                  Apply to the Imprint
-                </CTA>
+                <Link href="/for-artists" className="lv-link-cta">
+                  Apply to the Imprint{" "}
+                  <span aria-hidden="true">&rarr;</span>
+                </Link>
               </ScrollReveal>
             </div>
 
@@ -200,9 +201,10 @@ export default function HomePage() {
                   by professional artists, documented consent, transparent
                   sourcing, and clear rights for deployment.
                 </p>
-                <CTA href="/for-brands" variant="light">
-                  License from the Imprint
-                </CTA>
+                <Link href="/for-brands" className="lv-link-cta">
+                  License from the Imprint{" "}
+                  <span aria-hidden="true">&rarr;</span>
+                </Link>
               </ScrollReveal>
             </div>
 
@@ -216,14 +218,14 @@ export default function HomePage() {
                   Performance-grade <em>voice datasets</em>.
                 </h2>
                 <p className="lv-audience-body">
-                  SCOR is a dataset product built from real voice artist
+                  Score is a dataset product built from real voice artist
                   sessions on the imprint. Anchor passages, directed emotional
                   range, full performance metadata. Every dataset is
                   defensibly sourced.
                 </p>
-                <CTA href="/score" variant="light">
-                  Explore SCOR
-                </CTA>
+                <Link href="/score" className="lv-link-cta">
+                  Explore Score <span aria-hidden="true">&rarr;</span>
+                </Link>
               </ScrollReveal>
             </div>
           </div>

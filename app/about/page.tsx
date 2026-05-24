@@ -77,7 +77,7 @@ export default function AboutPage() {
             for. And how brands implement voice AI shapes how the public
             perceives AI itself.
           </p>
-          <SmoothAnchor targetId="origin" offset={64} className="lv-hero-cta">
+          <SmoothAnchor targetId="origin" offset={64} className="lv-link-cta">
             Read the origin <span aria-hidden="true">&rarr;</span>
           </SmoothAnchor>
         </div>
@@ -164,7 +164,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   And every product Lyric makes, from Composer for content
-                  to Imprint for licensing, from SCOR for research to Timbre
+                  to Imprint for licensing, from Score for research to Opus
                   for direction, alongside the daily Briefing that proves
                   the voices in real editorial work, stems from the same
                   belief. Voice deserves craft. Artists deserve what music

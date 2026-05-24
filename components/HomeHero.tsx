@@ -17,7 +17,7 @@ export default function HomeHero() {
           79% of brands say AI voices should come from real, attributed voice
           artists. We built Lyric that way from the start.
         </p>
-        <SmoothAnchor targetId="manifesto" offset={64} className="lv-hero-cta">
+        <SmoothAnchor targetId="manifesto" offset={64} className="lv-link-cta">
           Read the manifesto <span aria-hidden="true">&rarr;</span>
         </SmoothAnchor>
       </div>

@@ -24,7 +24,7 @@ const NAV_ITEMS: NavItem[] = [
     items: [
       { href: "/composer", label: "Composer" },
       { href: "/imprint", label: "Imprint" },
-      { href: "/score", label: "SCOR" },
+      { href: "/score", label: "Score" },
       { href: "/timbre", label: "Timbre" },
       { href: "/briefing", label: "The Lyric Briefing" },
     ],
