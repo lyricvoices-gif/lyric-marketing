@@ -10,7 +10,7 @@ import Wordmark from "@/components/Wordmark"
    The mobile overlay flattens the dropdown into an indented sub-group
    so visitors see every destination without an extra tap. */
 
-type NavLink = { href: string; label: string; external?: boolean }
+type NavLink = { href: string; label: string; external?: boolean; comingSoon?: boolean }
 
 type NavItem =
   | ({ type: "link" } & NavLink)
@@ -24,7 +24,7 @@ const NAV_ITEMS: NavItem[] = [
     items: [
       { href: "/imprint", label: "Imprint" },
       { href: "/opus", label: "Opus" },
-      { href: "/score", label: "Score" },
+      { href: "/score", label: "Score", comingSoon: true },
     ],
   },
   { type: "link", href: "/notes", label: "Notes" },
@@ -249,7 +249,9 @@ export default function Nav() {
                         onClick={() => setProductsOpen(false)}
                         className="lyric-nav-dropdown-item"
                         style={{
-                          display: "block",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
                           padding: "8px 12px",
                           fontSize: "13px",
                           fontWeight: 400,
@@ -259,7 +261,8 @@ export default function Nav() {
                           transition: "background 0.18s ease, color 0.18s ease",
                         }}
                       >
-                        {sub.label}
+                        <span>{sub.label}</span>
+                        {sub.comingSoon && <ComingSoonBadge tone="light" />}
                       </Link>
                     )
                   })}
@@ -429,10 +432,13 @@ export default function Nav() {
                           transform: menuOpen ? "translateY(0)" : "translateY(8px)",
                           transition: "opacity 0.42s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
                           transitionDelay: menuOpen ? `${subDelay}ms` : "0ms",
-                          display: "block",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "10px",
                         }}
                       >
-                        {sub.label}
+                        <span>{sub.label}</span>
+                        {sub.comingSoon && <ComingSoonBadge tone="light" />}
                       </Link>
                     )
                   })}
@@ -443,6 +449,35 @@ export default function Nav() {
         </div>
       </div>
     </>
+  )
+}
+
+/* Small "Coming soon" pill rendered next to nav items that aren't
+   live yet. Two tones so the pill reads correctly on both light nav
+   surfaces (Products dropdown) and dark ones (footer column). */
+export function ComingSoonBadge({ tone = "light" }: { tone?: "light" | "dark" }) {
+  const styles =
+    tone === "dark"
+      ? { color: "rgba(245,243,239,0.7)", background: "rgba(245,243,239,0.1)", border: "1px solid rgba(245,243,239,0.16)" }
+      : { color: "var(--olive)", background: "rgba(193,193,126,0.22)", border: "1px solid rgba(193,193,126,0.42)" }
+  return (
+    <span
+      aria-label="(Coming soon)"
+      style={{
+        fontFamily: "var(--font-body)",
+        fontSize: "9px",
+        fontWeight: 700,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        padding: "2px 6px",
+        borderRadius: "3px",
+        lineHeight: 1,
+        whiteSpace: "nowrap",
+        ...styles,
+      }}
+    >
+      Coming soon
+    </span>
   )
 }
 

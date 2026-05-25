@@ -380,16 +380,24 @@ main:has(.lv-hero) { padding-top: 0; }
   --logo-h: 26px;
 }
 
-.lv-logos-inner {
+/* Row container. At mobile this is a stacked layout (credit above
+   marquee); at desktop (min-width: 769px below) it switches to a
+   two-column grid: credit on the left (at its intrinsic width, anchored
+   to the content max-width's left edge so its x-position matches the
+   pre-redesign placement), marquee viewport filling the remaining
+   space on the right. */
+.lv-logos-row {
   max-width: 1320px;
   margin: 0 auto;
   padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 /* Credit line — quiet body type, not display. Reads as the opening of
-   a sentence whose object is the logo strip below it, so the line has
-   no terminal punctuation and sits tight to the row of marks. */
-.lv-logos-eyebrow {
+   a sentence whose object is the logo strip after it. */
+.lv-logos-credit {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
@@ -397,25 +405,31 @@ main:has(.lv-hero) { padding-top: 0; }
   text-transform: none;
   color: var(--olive);
   text-align: left;
-  margin: 0 0 28px;
+  margin: 0;
+  white-space: nowrap;
 }
 
+/* Marquee viewport. Mask-image fades both edges into the cream ground
+   so logos materialize as they enter from the right and dissolve as
+   they exit on the left. At desktop the left mask edge sits right
+   next to the "at" word, so each logo fades out before it would
+   collide with the credit line. */
 .lv-logos-viewport {
   position: relative;
   overflow: hidden;
-  /* Soft fade on both edges into the cream ground. */
+  min-width: 0;
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0,
-    #000 6%,
-    #000 94%,
+    #000 8%,
+    #000 92%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0,
-    #000 6%,
-    #000 94%,
+    #000 8%,
+    #000 92%,
     transparent 100%
   );
 }
@@ -462,19 +476,35 @@ main:has(.lv-hero) { padding-top: 0; }
 
 @media (min-width: 769px) {
   .lv-logos {
-    /* Symmetric padding — credit line + logos sit as one unified
-       block, centered between manifesto above and products below. */
-    padding: 128px 0;
+    /* Asymmetric padding — the credit + marquee row is anchored to the
+       y-position the credit line held before the redesign (128px below
+       the section's top edge). The extra bottom padding compensates
+       for the height the old stacked layout used to occupy (credit +
+       gap + marquee), so the section's overall vertical footprint
+       stays close to the pre-redesign rhythm against manifesto above
+       and products below. */
+    padding: 128px 0 178px;
     --logo-h: 32px;
   }
 
-  .lv-logos-inner {
+  /* Desktop layout: same y-axis for credit + marquee. Grid runs
+     auto | 1fr — credit takes its intrinsic width on the left
+     (anchored to the content padding's left edge, matching the
+     original pre-redesign x-position of the line), marquee viewport
+     fills the remaining width on the right. The marquee track flows
+     from right to left and fades out on its left edge, which sits
+     just past the "at" word, so each logo dissolves before colliding
+     with the credit. */
+  .lv-logos-row {
     padding: 0 48px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 32px;
   }
 
-  .lv-logos-eyebrow {
+  .lv-logos-credit {
     font-size: 15px;
-    margin-bottom: 32px;
   }
 
   .lv-logos-track {
@@ -560,7 +590,7 @@ main:has(.lv-hero) { padding-top: 0; }
   /* Substantial breathing room so each pillar reads as its own moment
      and its ScrollReveal fade-up fires as the reader scrolls past, the
      same beat-by-beat pacing used elsewhere on the site. */
-  gap: 112px;
+  gap: 144px;
 }
 
 .lv-pillar {
@@ -1955,7 +1985,7 @@ main:has(.lv-hero) { padding-top: 0; }
      fade-up fires distinctly for each pillar as the reader scrolls
      down. */
   .lv-products-pillars {
-    gap: 176px;
+    gap: 224px;
     padding: 0 32px;
   }
 
@@ -4061,3 +4091,296 @@ main:has(.lv-hero) { padding-top: 0; }
     left: 48px;
   }
 }
+
+/* ─── Score page ────────────────────────────────────────────────────
+   Datasets grid + per-card micrographic frame + methodology icon lane.
+   The Score page sits in the same editorial register as /imprint and
+   /opus (cream → warm olive → cream → cold dark → cream → dark
+   bookend); these styles handle the section-specific layouts and the
+   subtle motion on the SVG micrographics. All motion respects
+   prefers-reduced-motion. */
+
+.lv-score-dataset-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.lv-score-dataset-card {
+  background: rgba(255, 248, 236, 0.04);
+  border: 1px solid rgba(255, 248, 236, 0.12);
+  border-radius: 4px;
+  padding: 32px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.lv-score-dataset-card:hover {
+  background: rgba(255, 248, 236, 0.06);
+  border-color: rgba(255, 248, 236, 0.22);
+}
+
+/* The micrographic head — fixed aspect, the SVG fills the box. The
+   inner SVG viewBox includes a tiny labeled chrome strip at the
+   bottom (corner ticks + axis label + readout), so the panel reads
+   as an instrument readout rather than a decorative tile. */
+.lv-score-dataset-viz {
+  aspect-ratio: 20 / 17;
+  width: 100%;
+  border-radius: 3px;
+  background: rgba(20, 20, 18, 0.42);
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 18px;
+}
+
+.lv-score-microviz {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lv-score-dataset-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lv-score-dataset-index {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0;
+}
+
+.lv-score-dataset-name {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.6vw, 32px);
+  font-weight: 500;
+  line-height: 1.06;
+  color: var(--bg-light);
+  margin: 0;
+}
+
+.lv-score-dataset-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.3;
+  color: rgba(255, 248, 236, 0.78);
+  margin: 0;
+}
+
+.lv-score-dataset-copy {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 248, 236, 0.74);
+  margin: 6px 0 0;
+}
+
+.lv-score-dataset-spec {
+  margin: 18px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lv-score-dataset-spec-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.lv-score-dataset-spec dt {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0;
+}
+
+.lv-score-dataset-spec dd {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 248, 236, 0.86);
+  margin: 0;
+}
+
+/* ─── Score micrographic motion ────────────────────────────────────
+   Each micrographic gets a whisper of motion that signals what it
+   represents without dominating the card. */
+
+/* Anchor — the gold cue dashed line and the RMS contour both pulse
+   in sync at a very slow cycle, so the "take marker" reads as live. */
+.lv-score-anchor-cue {
+  transform-origin: 100px 78px;
+  animation: lv-score-anchor-pulse 5.6s ease-in-out infinite;
+}
+.lv-score-anchor-rms {
+  animation: lv-score-anchor-rms-fade 5.6s ease-in-out infinite;
+}
+@keyframes lv-score-anchor-pulse {
+  0%, 100% { opacity: 0.9; }
+  50%      { opacity: 0.55; }
+}
+@keyframes lv-score-anchor-rms-fade {
+  0%, 100% { stroke-opacity: 0.62; }
+  50%      { stroke-opacity: 0.42; }
+}
+
+/* Spectrum — the centroid ring breathes slowly, like a measurement
+   reticle settling. */
+.lv-score-spectrum-ring {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: lv-score-spectrum-ring-pulse 6.4s ease-in-out infinite;
+}
+@keyframes lv-score-spectrum-ring-pulse {
+  0%, 100% { transform: scale(1); stroke-opacity: 0.32; }
+  50%      { transform: scale(1.18); stroke-opacity: 0.18; }
+}
+
+/* Cadence — the pitch contour drifts horizontally (the SVG draws the
+   path at 2x width so translating -50% gives a seamless loop). The
+   intensity histogram drifts at the same rate. */
+.lv-score-cadence-contour {
+  animation: lv-score-cadence-drift 24s linear infinite;
+}
+.lv-score-cadence-bars {
+  animation: lv-score-cadence-drift 24s linear infinite;
+}
+@keyframes lv-score-cadence-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Choir — three voice contours drift at independent rates so their
+   composite never quite repeats. */
+.lv-score-choir-wave-a { animation: lv-score-choir-drift-a 14s ease-in-out infinite; }
+.lv-score-choir-wave-b { animation: lv-score-choir-drift-b 18s ease-in-out infinite; }
+.lv-score-choir-wave-c { animation: lv-score-choir-drift-c 22s ease-in-out infinite; }
+@keyframes lv-score-choir-drift-a {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-6px); }
+}
+@keyframes lv-score-choir-drift-b {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(4px); }
+}
+@keyframes lv-score-choir-drift-c {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-score-anchor-cue,
+  .lv-score-anchor-rms,
+  .lv-score-spectrum-ring,
+  .lv-score-cadence-contour,
+  .lv-score-cadence-bars,
+  .lv-score-choir-wave-a,
+  .lv-score-choir-wave-b,
+  .lv-score-choir-wave-c {
+    animation: none;
+  }
+}
+
+/* ─── Methodology lane ─────────────────────────────────────────────
+   Six steps, each with a small icon + Roman numeral + label + one
+   line of body copy. Three across on desktop, single column on
+   mobile. */
+.lv-score-steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+.lv-score-step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(90, 94, 67, 0.22);
+}
+
+.lv-score-step-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.lv-score-stepicon {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+.lv-score-step-numeral {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--olive);
+  opacity: 0.55;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.lv-score-step-label {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0;
+}
+
+.lv-score-step-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-1);
+  opacity: 0.78;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* CTA grid for licensing + inquiry */
+.lv-score-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+@media (min-width: 769px) {
+  .lv-score-dataset-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .lv-score-dataset-card {
+    padding: 36px 32px 40px;
+  }
+
+  .lv-score-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px 48px;
+  }
+
+  .lv-score-cta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+

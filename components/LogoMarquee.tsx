@@ -1,11 +1,21 @@
-/* Founder credit line + brand strip. The eight brand SVGs render in a
-   uniform monochrome treatment as the visual completion of the credit
-   line "Our founders shaped voice AI at" — copy and logos read as one
-   unbroken sentence, so the spacing between them is intentionally tight.
+/* Founder credit line + brand strip. At desktop the credit line and
+   the logo marquee sit on the same y-axis. The credit anchors to the
+   left edge of the content max-width (its pre-redesign x-position),
+   and the marquee viewport fills the remaining width on the right.
+   Logos enter from the offscreen right, slide leftward toward the
+   credit, and fade out (via the marquee viewport's left mask edge)
+   right before they would collide with the "at" word — so each brand,
+   in turn, briefly reads as the implicit completion of the sentence:
+   "Our founders shaped voice AI at [Google]" … fades … "at [Meta]"
+   and so on.
+
+   At mobile the layout falls back to stacked (credit above, marquee
+   below) because the side-by-side layout doesn't have room.
+
    Brands are ordered to alternate sizes (medium, square, wide, square,
-   wide, square, wide, medium) so the line has rhythm and no single mark
-   dominates. The marks aren't interactive — these are credentials, not
-   navigation. */
+   wide, square, wide, medium) so the line has rhythm and no single
+   mark dominates. The marks aren't interactive — these are
+   credentials, not navigation. */
 
 type Brand = {
   name: string
@@ -30,8 +40,8 @@ const BRANDS: Brand[] = [
 export default function LogoMarquee() {
   return (
     <section className="lv-logos">
-      <div className="lv-logos-inner">
-        <p className="lv-logos-eyebrow">Our founders shaped voice AI at</p>
+      <div className="lv-logos-row">
+        <p className="lv-logos-credit">Our founders shaped voice AI at</p>
 
         <div className="lv-logos-viewport" aria-hidden="true">
           <div className="lv-logos-track">

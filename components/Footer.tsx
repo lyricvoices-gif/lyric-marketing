@@ -1,5 +1,6 @@
 import ScrollReveal from "@/components/ScrollReveal"
 import Isotype from "@/components/Isotype"
+import { ComingSoonBadge } from "@/components/Nav"
 
 const SOCIAL = [
   {
@@ -75,7 +76,7 @@ export default function Footer() {
       links: [
         { label: "Imprint", href: "/imprint" },
         { label: "Opus",    href: "/opus" },
-        { label: "Score",   href: "/score" },
+        { label: "Score",   href: "/score", comingSoon: true },
       ],
     },
     {
@@ -224,9 +225,15 @@ export default function Footer() {
                             : isMailto
                               ? {}
                               : {})}
-                          style={sharedStyle}
+                          style={{
+                            ...sharedStyle,
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "8px",
+                          }}
                         >
-                          {link.label}
+                          <span>{link.label}</span>
+                          {("comingSoon" in link) && link.comingSoon && <ComingSoonBadge tone="dark" />}
                         </a>
                       </div>
                     )
