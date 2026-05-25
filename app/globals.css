@@ -1017,23 +1017,28 @@ main:has(.lv-hero) { padding-top: 0; }
   flex-direction: column;
   gap: 12px;
   flex: 1;
-  justify-content: flex-end;
+  /* Anchor the thread below the Direction | Composer modes row and let
+     it grow downward as new turns arrive, mirroring how real chat UIs
+     stack messages. The previous flex-end made the first message float
+     at the bottom of the container and "rise" as new ones landed, which
+     was the wrong direction visually. */
+  justify-content: flex-start;
   min-height: 280px;
   overflow: hidden;
-  /* Mask the top of the frame so messages that exceed the container
-     height softly fade out as they scroll up the column rather than
-     hard-clipping at the edge. */
+  /* Fade the bottom edge so messages that exceed the container height
+     softly dissolve as the conversation grows downward, instead of
+     hard-clipping at the bottom edge. */
   mask-image: linear-gradient(
     180deg,
-    transparent 0%,
-    black 14%,
-    black 100%
+    black 0%,
+    black 86%,
+    transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     180deg,
-    transparent 0%,
-    black 14%,
-    black 100%
+    black 0%,
+    black 86%,
+    transparent 100%
   );
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }

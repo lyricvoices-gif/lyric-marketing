@@ -92,7 +92,7 @@ export default function ScoreVisual() {
         <div className="lv-score-wave-host">
           <Waveform
             data={data}
-            height={128}
+            height={100}
             barColor="rgba(255, 248, 236, 0.7)"
             barWidth={3}
             barGap={2}
@@ -109,7 +109,7 @@ export default function ScoreVisual() {
           <div className="lv-score-wave-progress">
             <Waveform
               data={data}
-              height={128}
+              height={100}
               barColor="#F3D171"
               barWidth={3}
               barGap={2}
