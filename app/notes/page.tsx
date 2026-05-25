@@ -6,7 +6,7 @@
 import Link from "next/link"
 
 export const metadata = {
-  title: "Notes — Lyric",
+  title: "Notes",
   description: "An ongoing publication on voice in the age of AI.",
 }
 
@@ -14,7 +14,10 @@ export default function NotesIndexPage() {
   return (
     <main className="lv-notes-stub">
       <div className="lv-notes-stub-inner">
-        <p className="lv-notes-stub-eyebrow">Notes</p>
+        <div className="lv-philosophy-eyebrow">
+          <span className="lv-eyebrow-dot" aria-hidden="true" />
+          <span>Notes</span>
+        </div>
         <h1>
           The archive is <em>on the way.</em>
         </h1>

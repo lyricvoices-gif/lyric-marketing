@@ -7,7 +7,7 @@
 import Link from "next/link"
 
 export const metadata = {
-  title: "Notes — Lyric",
+  title: "Notes",
   description: "An ongoing publication on voice in the age of AI.",
 }
 
@@ -25,7 +25,10 @@ export default async function NoteArticlePage({
   return (
     <main className="lv-notes-stub">
       <div className="lv-notes-stub-inner">
-        <p className="lv-notes-stub-eyebrow">Notes / {title}</p>
+        <div className="lv-philosophy-eyebrow">
+          <span className="lv-eyebrow-dot" aria-hidden="true" />
+          <span>Notes / {title}</span>
+        </div>
         <h1>
           Article page <em>coming soon.</em>
         </h1>

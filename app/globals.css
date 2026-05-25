@@ -763,6 +763,58 @@ main:has(.lv-hero) { padding-top: 0; }
   opacity: 0.6;
 }
 
+/* ─── Opus storyboard ("Direction is part of the format") ───────────
+   Four looping MP4s pulled from composer.lyricvoices.ai's "What you'll
+   make" section, sitting on a dark olive ground inside /opus so the
+   page has rhythm against its surrounding cream sections. Each tile
+   is a 16:10 frame with a video and a single italic display caption
+   beneath. Reduced-motion users get the still poster frame (browsers
+   render the first frame when autoplay can't run). */
+.lv-opus-storyboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px 32px;
+  margin: 56px 0 0;
+}
+
+@media (min-width: 769px) {
+  .lv-opus-storyboard {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px 40px;
+  }
+}
+
+.lv-opus-storyboard-tile {
+  margin: 0;
+}
+
+.lv-opus-storyboard-frame {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1a1a18;
+  border: 1px solid rgba(255, 248, 236, 0.10);
+  box-shadow: 0 24px 48px -32px rgba(0, 0, 0, 0.5);
+}
+
+.lv-opus-storyboard-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.lv-opus-storyboard-caption {
+  margin: 22px 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(17px, 1.7vw, 20px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgba(255, 248, 236, 0.86);
+}
+
 /* Score orb — a slow breathing gold sphere that represents the voice
    itself, not a timeline. The earlier passes tried a literal waveform
    (hand-coded, then wavesurfer.js, then the ElevenLabs UI Waveform
@@ -2851,6 +2903,10 @@ main:has(.lv-hero) { padding-top: 0; }
   text-align: left;
 }
 
+/* Old .lv-notes-stub-eyebrow kept for any consumer still referencing
+   it. The stub pages now use the canonical .lv-philosophy-eyebrow
+   pattern (sage dot + uppercase label) to match the rest of the site;
+   the rule below restores the same 24px gap to the H1 underneath. */
 .lv-notes-stub-eyebrow {
   font-family: var(--font-body);
   font-size: 11px;
@@ -2859,6 +2915,10 @@ main:has(.lv-hero) { padding-top: 0; }
   text-transform: uppercase;
   color: var(--olive);
   opacity: 0.6;
+  margin: 0 0 24px;
+}
+
+.lv-notes-stub .lv-philosophy-eyebrow {
   margin: 0 0 24px;
 }
 
