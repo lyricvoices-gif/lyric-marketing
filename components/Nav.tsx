@@ -150,7 +150,7 @@ export default function Nav() {
         <Link
           href="/"
           className="lyric-wordmark-link"
-          aria-label="Lyric — Home"
+          aria-label="Lyric Home"
           style={{
             display: "flex",
             alignItems: "center",

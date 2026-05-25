@@ -35,7 +35,7 @@ const notes: Note[] = [
     voice: "Morgan",
     voiceColor: MORGAN,
     image: "/images/notes/note-1.jpg",
-    imageAlt: "Cover image — The artists behind the voice",
+    imageAlt: "Cover image for The artists behind the voice",
     headline: "The artists behind the voice.",
     dek:
       "How Lyric partners with real voice artists to shape the AI voices that carry their craft forward. The story of the imprint, told by the people building it.",
@@ -48,7 +48,7 @@ const notes: Note[] = [
     voice: "Hex",
     voiceColor: HEX,
     image: "/images/notes/note-2.jpg",
-    imageAlt: "Cover image — Edition 01",
+    imageAlt: "Cover image for Edition 01",
     headline: "Edition 01.",
     dek:
       "How the inaugural cohort of Lyric voices came together. The artists, the partnerships, the methodology behind the imprint's first release.",
@@ -61,7 +61,7 @@ const notes: Note[] = [
     voice: "Morgan",
     voiceColor: MORGAN,
     image: "/images/notes/note-3.jpg",
-    imageAlt: "Cover image — Two Sams",
+    imageAlt: "Cover image for Two Sams",
     headline: "Two Sams.",
     dek:
       "An editorial deep dive on whether Sam Altman can be trusted, and what the answer means for the AI industry's relationship with the public.",

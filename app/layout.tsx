@@ -30,8 +30,8 @@ const instrument = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: "Lyric — Real voices for real brands. Composed, not cloned.",
-    template: "%s — Lyric",
+    default: "Lyric. Real voices for real brands. Composed, not cloned.",
+    template: "%s · Lyric",
   },
   description:
     "Lyric is a voice talent partnership for the AI era. Real voice actors. Transparent licensing. Ongoing compensation. Voices brands can deploy with legal clarity.",
