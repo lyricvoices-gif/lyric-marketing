@@ -7,11 +7,10 @@ export const metadata: Metadata = {
     "How Lyric collects, uses, and protects information for brands, voice artists, and AI labs working with the Lyric imprint.",
 }
 
-/* Privacy Policy — enterprise-focused. Draft pending legal review.
-   Reflects the current three-product structure (Imprint, Opus, Score),
-   the artist partnership at /imprint/agreement, and the production
-   third-party stack. Em dashes are avoided throughout per design.md
-   section 2 voice rules. */
+/* Privacy Policy — enterprise-focused. Reflects the current three-
+   product structure (Imprint, Opus, Score), the artist partnership at
+   /imprint/agreement, and the production third-party stack. Em dashes
+   are avoided throughout per design.md section 2 voice rules. */
 
 const C = {
   bg: "var(--bg-light)",
@@ -197,8 +196,6 @@ export default function PrivacyPage() {
         }}
       >
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <DraftBadge />
-
           <p
             style={{
               fontSize: "11px",
@@ -232,7 +229,7 @@ export default function PrivacyPage() {
               letterSpacing: "0.04em",
             }}
           >
-            Last updated: [TBD before publication]
+            Last updated: May 25, 2026
           </p>
           <p
             style={{
@@ -283,30 +280,6 @@ export default function PrivacyPage() {
         </div>
       </section>
     </>
-  )
-}
-
-function DraftBadge() {
-  return (
-    <p
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "10px",
-        background: C.gold,
-        color: C.olive,
-        padding: "6px 14px",
-        borderRadius: "999px",
-        fontFamily: "var(--font-body)",
-        fontSize: "10px",
-        fontWeight: 700,
-        letterSpacing: "0.16em",
-        textTransform: "uppercase",
-        margin: "0 0 28px",
-      }}
-    >
-      <span>Draft. Pending legal review.</span>
-    </p>
   )
 }
 

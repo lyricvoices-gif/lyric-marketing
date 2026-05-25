@@ -7,14 +7,14 @@ export const metadata: Metadata = {
     "The terms governing access to and use of Lyric's products by brands, agencies, and AI labs.",
 }
 
-/* Terms of Use — enterprise B2B focus. Draft pending legal review.
-   Reflects the current three-product structure: Imprint (separate
-   licensing contracts), Opus (subscription-based access to Composer
-   and Direction), and Score (separate dataset agreements). Voice
-   artist relationships are governed by the Artist Partnership at
-   /imprint/agreement, which takes precedence for any matter specific
-   to the artist relationship. Em dashes are avoided throughout per
-   design.md section 2 voice rules. */
+/* Terms of Use — enterprise B2B focus. Reflects the current three-
+   product structure: Imprint (separate licensing contracts), Opus
+   (subscription-based access to Composer and Direction), and Score
+   (separate dataset agreements). Voice artist relationships are
+   governed by the Artist Partnership at /imprint/agreement, which
+   takes precedence for any matter specific to the artist
+   relationship. Em dashes are avoided throughout per design.md
+   section 2 voice rules. */
 
 const C = {
   bg: "var(--bg-light)",
@@ -152,8 +152,7 @@ const sections: Section[] = [
   },
   {
     title: "11. Disputes",
-    body: "These Terms are governed by the laws of [JURISDICTION TBD], without regard to conflict of laws principles. Any dispute arising from or related to these Terms or the use of Lyric's products will be resolved through binding arbitration in [VENUE TBD], subject to applicable law where it cannot be displaced by agreement. The brand waives any right to participate in a class action against Lyric.\n\nNotwithstanding the foregoing, either party may seek equitable relief in any court of competent jurisdiction to protect its intellectual property rights or confidential information.",
-    note: "Jurisdiction and venue placeholders to be finalized in legal review.",
+    body: "These Terms are governed by the laws of the State of California, without regard to conflict of laws principles. Any dispute arising from or related to these Terms or the use of Lyric's products will be resolved through binding arbitration in Los Angeles County, California, subject to applicable law where it cannot be displaced by agreement. The brand waives any right to participate in a class action against Lyric.\n\nNotwithstanding the foregoing, either party may seek equitable relief in any court of competent jurisdiction to protect its intellectual property rights or confidential information.",
   },
   {
     title: "12. Modifications",
@@ -181,8 +180,6 @@ export default function TermsPage() {
         }}
       >
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <DraftBadge />
-
           <p
             style={{
               fontSize: "11px",
@@ -216,7 +213,7 @@ export default function TermsPage() {
               letterSpacing: "0.04em",
             }}
           >
-            Last updated: [TBD before publication]
+            Last updated: May 25, 2026
           </p>
           <p
             style={{
@@ -267,30 +264,6 @@ export default function TermsPage() {
         </div>
       </section>
     </>
-  )
-}
-
-function DraftBadge() {
-  return (
-    <p
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "10px",
-        background: C.gold,
-        color: C.olive,
-        padding: "6px 14px",
-        borderRadius: "999px",
-        fontFamily: "var(--font-body)",
-        fontSize: "10px",
-        fontWeight: 700,
-        letterSpacing: "0.16em",
-        textTransform: "uppercase",
-        margin: "0 0 28px",
-      }}
-    >
-      <span>Draft. Pending legal review.</span>
-    </p>
   )
 }
 
