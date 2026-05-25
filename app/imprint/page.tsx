@@ -143,183 +143,193 @@ export default function ImprintPage() {
         </div>
       </section>
 
-      {/* Section 3 — How we work with artists */}
+      {/* Section 3 — How we work with artists.
+          Warm brand olive (var(--olive) = #5A5E43, the same ground
+          the home page Products section uses) gives the artist side
+          its own register: warm, considered, distinct from the colder
+          #2b2a25 used on the brands section that follows. Layout is
+          the screenshot reference's two-column anchor + numbered list
+          with hairline separators. */}
       <section
         style={{
-          padding: "96px 24px",
-          borderBottom: `1px solid ${C.border}`,
+          background: "var(--olive)",
+          color: C.bg,
+          padding: "120px 24px",
+          borderTop: "1px solid rgba(255, 248, 236, 0.08)",
+          borderBottom: "1px solid rgba(255, 248, 236, 0.08)",
         }}
       >
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <ScrollReveal>
-            <Eyebrow label="For artists" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(28px, 4vw, 44px)",
-                fontWeight: 500,
-                lineHeight: 1.06,
-                color: C.olive,
-                margin: "0 0 18px",
-                maxWidth: "640px",
-              }}
-            >
-              How we work with <em>artists</em>.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p
-              style={{
-                fontSize: "16px",
-                lineHeight: 1.7,
-                color: C.text,
-                opacity: 0.78,
-                margin: "0 0 56px",
-                maxWidth: "640px",
-              }}
-            >
-              The partnership is built on the NAVA framework. Consent,
-              control, compensation. The full agreement lives at the
-              Artist Partnership.
-            </p>
-          </ScrollReveal>
+          <div className="lv-imprint-anchor-grid">
+            <div>
+              <ScrollReveal>
+                <DarkEyebrow label="For artists" />
+              </ScrollReveal>
+              <ScrollReveal delay={120}>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(32px, 4.4vw, 52px)",
+                    fontWeight: 500,
+                    lineHeight: 1.02,
+                    letterSpacing: "-0.005em",
+                    color: C.bg,
+                    margin: "0 0 22px",
+                  }}
+                >
+                  How we work with <em>artists</em>.
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={220}>
+                <p
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: 1.7,
+                    color: "rgba(255, 248, 236, 0.82)",
+                    margin: "0 0 28px",
+                  }}
+                >
+                  The partnership is built on the NAVA framework. Consent,
+                  control, compensation. The full agreement lives at the
+                  Artist Partnership.
+                </p>
+                <Link href="/imprint/agreement" className="lv-link-cta">
+                  Read the full Artist Partnership{" "}
+                  <span aria-hidden="true">&rarr;</span>
+                </Link>
+              </ScrollReveal>
+            </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "32px",
-              marginBottom: "48px",
-            }}
-          >
-            <PrincipleBlock
-              label="Consent"
-              body="Voice artists join the Imprint as creative partners. Every aspect of the partnership requires informed, documented consent. Artists review the full agreement before any session begins."
-            />
-            <PrincipleBlock
-              label="Control"
-              body="The voice belongs to the artist. Lyric stewards the technical implementation under license, with the artist retaining rights to their voice, identity, name, likeness, and performance throughout the partnership and beyond it."
-            />
-            <PrincipleBlock
-              label="Compensation"
-              body="Artists receive studio session rates plus ongoing royalties on every commercial deployment of their voice. Royalties are not capped. Compensation continues for the lifetime of the voice's commercial use."
-            />
+            <ScrollReveal delay={320}>
+              <NumberedList
+                items={[
+                  {
+                    n: "01",
+                    label: "Consent",
+                    body: "Voice artists join the Imprint as creative partners. Every aspect of the partnership requires informed, documented consent. Artists review the full agreement before any session begins.",
+                  },
+                  {
+                    n: "02",
+                    label: "Control",
+                    body: "The voice belongs to the artist. Lyric stewards the technical implementation under license, with the artist retaining rights to their voice, identity, name, likeness, and performance throughout the partnership and beyond it.",
+                  },
+                  {
+                    n: "03",
+                    label: "Compensation",
+                    body: "Artists receive studio session rates plus ongoing royalties on every commercial deployment of their voice. Royalties are not capped. Compensation continues for the lifetime of the voice's commercial use.",
+                  },
+                ]}
+                onDark={true}
+              />
+            </ScrollReveal>
           </div>
-
-          <ScrollReveal delay={420}>
-            <Link href="/imprint/agreement" className="lv-link-cta">
-              Read the full Artist Partnership{" "}
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </ScrollReveal>
         </div>
       </section>
 
-      {/* Section 4 — How brands license voices */}
+      {/* Section 4 — How brands license voices.
+          Dark olive ground (matches the home page Products section)
+          gives the brand/licensing story commercial weight. Same
+          two-column anchor + numbered list pattern as the artist
+          section, mirrored visually by the inverted color register. */}
       <section
         style={{
-          padding: "96px 24px",
-          borderBottom: `1px solid ${C.border}`,
+          background: "#2b2a25",
+          color: C.bg,
+          padding: "120px 24px",
+          borderTop: "1px solid rgba(255, 248, 236, 0.08)",
+          borderBottom: "1px solid rgba(255, 248, 236, 0.08)",
         }}
       >
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <ScrollReveal>
-            <Eyebrow label="For brands" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(28px, 4vw, 44px)",
-                fontWeight: 500,
-                lineHeight: 1.06,
-                color: C.olive,
-                margin: "0 0 18px",
-                maxWidth: "640px",
-              }}
-            >
-              How brands <em>license</em> voices.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p
-              style={{
-                fontSize: "16px",
-                lineHeight: 1.7,
-                color: C.text,
-                opacity: 0.78,
-                margin: "0 0 56px",
-                maxWidth: "640px",
-              }}
-            >
-              Three licensing tiers, each designed for a different
-              commercial need.
-            </p>
-          </ScrollReveal>
+          <div className="lv-imprint-anchor-grid">
+            <div>
+              <ScrollReveal>
+                <DarkEyebrow label="For brands" />
+              </ScrollReveal>
+              <ScrollReveal delay={120}>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(32px, 4.4vw, 52px)",
+                    fontWeight: 500,
+                    lineHeight: 1.02,
+                    letterSpacing: "-0.005em",
+                    color: C.bg,
+                    margin: "0 0 22px",
+                  }}
+                >
+                  How brands <em>license</em> voices.
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={220}>
+                <p
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: 1.7,
+                    color: "rgba(255, 248, 236, 0.78)",
+                    margin: "0 0 18px",
+                  }}
+                >
+                  Three licensing tiers, each designed for a different
+                  commercial need. Every licensed voice comes with access
+                  to{" "}
+                  <Link
+                    href="/opus"
+                    style={{
+                      color: C.bg,
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                    }}
+                  >
+                    Opus
+                  </Link>
+                  , our enterprise creative environment for directing
+                  performances and configuring voice parameters for
+                  deployment.
+                </p>
+                <Link href="/opus" className="lv-link-cta">
+                  Learn about Opus <span aria-hidden="true">&rarr;</span>
+                </Link>
+              </ScrollReveal>
+            </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "32px",
-              marginBottom: "48px",
-            }}
-          >
-            <PrincipleBlock
-              label="Non-exclusive"
-              body="The voice can be licensed to multiple non-competing brands simultaneously. Best for utility deployments, content production, and broad commercial use."
-            />
-            <PrincipleBlock
-              label="Industry-exclusive"
-              body="The voice is exclusive within a specific industry vertical for the term of the agreement. Best for brands seeking differentiation within their category."
-            />
-            <PrincipleBlock
-              label="Brand-exclusive"
-              body="The voice is used exclusively by one brand globally. Premium tier for brands building a signature sonic identity."
-            />
+            <ScrollReveal delay={320}>
+              <NumberedList
+                items={[
+                  {
+                    n: "01",
+                    label: "Non-exclusive",
+                    body: "The voice can be licensed to multiple non-competing brands simultaneously. Best for utility deployments, content production, and broad commercial use.",
+                  },
+                  {
+                    n: "02",
+                    label: "Industry-exclusive",
+                    body: "The voice is exclusive within a specific industry vertical for the term of the agreement. Best for brands seeking differentiation within their category.",
+                  },
+                  {
+                    n: "03",
+                    label: "Brand-exclusive",
+                    body: "The voice is used exclusively by one brand globally. Premium tier for brands building a signature sonic identity.",
+                  },
+                ]}
+                onDark={true}
+              />
+            </ScrollReveal>
           </div>
-
-          <ScrollReveal delay={420}>
-            <p
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.7,
-                color: C.text,
-                opacity: 0.78,
-                margin: "0 0 18px",
-                maxWidth: "640px",
-              }}
-            >
-              Every licensed voice comes with access to{" "}
-              <Link
-                href="/opus"
-                style={{
-                  color: C.olive,
-                  textDecoration: "underline",
-                  textUnderlineOffset: "3px",
-                }}
-              >
-                Opus
-              </Link>
-              , our enterprise creative environment for directing
-              performances and configuring voice parameters for deployment.
-            </p>
-            <Link href="/opus" className="lv-link-cta">
-              Learn about Opus <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </ScrollReveal>
         </div>
       </section>
 
-      {/* Section 5 — Two paths forward */}
-      <section
-        style={{
-          padding: "96px 24px",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
+      {/* Section 5 — Two paths forward.
+          Cream ground sits between the dark sections above and the
+          dark closing below, giving the conversion choice point room
+          to breathe. The earlier PathCard treatment (card frames,
+          body paragraphs, eyebrow + italic headline + body + CTA) read
+          as SaaS and triple-stated content sections 3 and 4 already
+          covered. New treatment is editorial two-column with just a
+          label, an italic display headline, and a single arrow CTA.
+          Hairline top borders on each column echo the numbered-list
+          rule pattern from sections 3 and 4 without re-using cards. */}
+      <section style={{ padding: "120px 24px" }}>
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
           <ScrollReveal>
             <Eyebrow label="Two paths forward" />
@@ -328,11 +338,12 @@ export default function ImprintPage() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(28px, 4vw, 44px)",
+                fontSize: "clamp(32px, 4.4vw, 52px)",
                 fontWeight: 500,
-                lineHeight: 1.06,
+                lineHeight: 1.02,
+                letterSpacing: "-0.005em",
                 color: C.olive,
-                margin: "0 0 56px",
+                margin: "0 0 64px",
                 maxWidth: "640px",
               }}
             >
@@ -343,33 +354,52 @@ export default function ImprintPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: "28px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "64px",
             }}
           >
-            <PathCard
-              label="For artists"
-              headline="Apply to the Imprint."
-              body="We are currently recruiting Edition 02 voice artists internationally. Sessions begin Q3 2026."
-              ctaHref="/imprint/apply"
-              ctaLabel="Apply now"
-            />
-            <PathCard
-              label="For brands"
-              headline="License from the Imprint."
-              body="Build a sonic identity with a Lyric voice. Industry exclusivity, brand exclusivity, and non-exclusive licensing tiers available."
-              ctaHref="/imprint/license"
-              ctaLabel="Inquire about licensing"
-            />
+            <ScrollReveal delay={220}>
+              <PathLine
+                label="For artists"
+                headline={
+                  <>
+                    Apply to the <em>Imprint</em>.
+                  </>
+                }
+                ctaHref="/imprint/apply"
+                ctaLabel="Apply now"
+              />
+            </ScrollReveal>
+            <ScrollReveal delay={320}>
+              <PathLine
+                label="For brands"
+                headline={
+                  <>
+                    License from the <em>Imprint</em>.
+                  </>
+                }
+                ctaHref="/imprint/license"
+                ctaLabel="Inquire about licensing"
+              />
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Section 6 — Closing */}
-      <section style={{ padding: "120px 24px" }}>
+      {/* Section 6 — Closing.
+          Dark olive ground as the editorial bookend, matching the home
+          page's Final CTA chapter-break pattern. The closing line in
+          italic display reads as the page's emotional close. */}
+      <section
+        style={{
+          background: "#2b2a25",
+          color: C.bg,
+          padding: "144px 24px",
+        }}
+      >
         <div
           style={{
-            maxWidth: "720px",
+            maxWidth: "760px",
             margin: "0 auto",
             textAlign: "center",
           }}
@@ -379,10 +409,10 @@ export default function ImprintPage() {
               style={{
                 fontFamily: "var(--font-display)",
                 fontStyle: "italic",
-                fontSize: "clamp(22px, 2.8vw, 30px)",
+                fontSize: "clamp(24px, 3vw, 34px)",
                 fontWeight: 400,
-                lineHeight: 1.4,
-                color: C.olive,
+                lineHeight: 1.36,
+                color: C.bg,
                 margin: 0,
               }}
             >
@@ -432,68 +462,142 @@ function Eyebrow({ label }: { label: string }) {
   )
 }
 
-function PrincipleBlock({ label, body }: { label: string; body: string }) {
+/* Dark-ground variant of the canonical eyebrow. The sage dot stays
+   visible on dark per design.md §7.1; the label color flips to cream.
+   Used in the imprint section grounds that go dark (For brands, Two
+   paths, Closing) so the eyebrow reads through the contrast change. */
+function DarkEyebrow({ label }: { label: string }) {
   return (
-    <div>
-      <p
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "10px",
+        margin: "0 0 22px",
+      }}
+    >
+      <span
+        aria-hidden="true"
         style={{
-          fontFamily: "var(--font-body)",
+          width: "8px",
+          height: "8px",
+          borderRadius: "50%",
+          background: C.gold,
+        }}
+      />
+      <span
+        style={{
           fontSize: "11px",
           fontWeight: 700,
-          letterSpacing: "0.14em",
+          letterSpacing: "0.16em",
           textTransform: "uppercase",
-          color: C.gold,
-          margin: "0 0 14px",
+          color: C.bg,
         }}
       >
         {label}
-      </p>
-      <p
-        style={{
-          fontSize: "15px",
-          lineHeight: 1.7,
-          color: C.text,
-          opacity: 0.82,
-          margin: 0,
-        }}
-      >
-        {body}
-      </p>
+      </span>
     </div>
   )
 }
 
-function PathCard({
+/* Numbered list with hairline separators, layout-mirrored from the
+   "Breaking down what we do" reference: item body left, index right.
+   Used in /imprint's For artists and For brands sections as the right
+   column of the two-column anchor grid. Color tokens flip between
+   cream-on-sage (onDark=false) and cream-on-dark (onDark=true) so the
+   pattern reads on both grounds. */
+function NumberedList({
+  items,
+  onDark,
+}: {
+  items: { n: string; label: string; body: string }[]
+  onDark: boolean
+}) {
+  const ruleColor = onDark
+    ? "rgba(255, 248, 236, 0.14)"
+    : "rgba(90, 94, 67, 0.22)"
+  const bodyColor = onDark ? "rgba(255, 248, 236, 0.92)" : C.text
+  const numberColor = onDark ? "rgba(255, 248, 236, 0.45)" : C.olive
+  return (
+    <ol style={{ margin: 0, padding: 0, listStyle: "none" }}>
+      {items.map((item, i) => (
+        <li
+          key={item.n}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            gap: "32px",
+            alignItems: "start",
+            padding: "26px 0",
+            borderTop: i === 0 ? `1px solid ${ruleColor}` : "none",
+            borderBottom: `1px solid ${ruleColor}`,
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontSize: "16px",
+              lineHeight: 1.7,
+              color: bodyColor,
+            }}
+          >
+            <strong
+              style={{
+                fontWeight: 600,
+                color: onDark ? C.bg : C.olive,
+              }}
+            >
+              {item.label}.
+            </strong>{" "}
+            {item.body}
+          </p>
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "14px",
+              fontWeight: 500,
+              color: numberColor,
+              letterSpacing: "0.04em",
+              alignSelf: "start",
+              paddingTop: "2px",
+            }}
+          >
+            {item.n}
+          </span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+/* Replaces the older PathCard. Editorial two-column treatment for the
+   conversion choice point: top hairline, small uppercase label, italic
+   display headline, single arrow CTA. No card frame, no body
+   paragraphs. Echoes the numbered-list hairline pattern used in
+   sections 3 and 4 without re-using the list itself. */
+function PathLine({
   label,
   headline,
-  body,
   ctaHref,
   ctaLabel,
 }: {
   label: string
-  headline: string
-  body: string
+  headline: React.ReactNode
   ctaHref: string
   ctaLabel: string
 }) {
   return (
-    <div
-      style={{
-        padding: "40px 36px 36px",
-        background: "rgba(90, 94, 67, 0.04)",
-        border: `1px solid ${C.border}`,
-        borderRadius: "10px",
-      }}
-    >
+    <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "32px" }}>
       <p
         style={{
           fontFamily: "var(--font-body)",
           fontSize: "11px",
           fontWeight: 700,
-          letterSpacing: "0.14em",
+          letterSpacing: "0.16em",
           textTransform: "uppercase",
-          color: C.gold,
-          margin: "0 0 18px",
+          color: C.olive,
+          opacity: 0.7,
+          margin: "0 0 16px",
         }}
       >
         {label}
@@ -502,26 +606,15 @@ function PathCard({
         style={{
           fontFamily: "var(--font-display)",
           fontStyle: "italic",
-          fontSize: "clamp(24px, 2.6vw, 30px)",
+          fontSize: "clamp(26px, 3vw, 36px)",
           fontWeight: 500,
-          lineHeight: 1.1,
+          lineHeight: 1.08,
           color: C.olive,
-          margin: "0 0 18px",
+          margin: "0 0 24px",
         }}
       >
         {headline}
       </h3>
-      <p
-        style={{
-          fontSize: "15px",
-          lineHeight: 1.65,
-          color: C.text,
-          opacity: 0.82,
-          margin: "0 0 28px",
-        }}
-      >
-        {body}
-      </p>
       <Link href={ctaHref} className="lv-link-cta">
         {ctaLabel} <span aria-hidden="true">&rarr;</span>
       </Link>

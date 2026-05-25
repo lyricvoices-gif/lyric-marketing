@@ -763,6 +763,27 @@ main:has(.lv-hero) { padding-top: 0; }
   opacity: 0.6;
 }
 
+/* ─── Imprint anchor + numbered-list grid ─────────────────────────────
+   Two-column layout used on /imprint's "For artists" and "For brands"
+   sections, modeled on the "Breaking down what we do" reference. Left
+   column carries the eyebrow + headline + body + CTA; right column is
+   a numbered list with hairline separators (rendered by NumberedList
+   in the page). Mobile stacks; desktop runs 1 : 1.4 so the list gets
+   slightly more room than the anchor. */
+.lv-imprint-anchor-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (min-width: 769px) {
+  .lv-imprint-anchor-grid {
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+  }
+}
+
 /* ─── Opus storyboard ("Direction is part of the format") ───────────
    Four looping MP4s pulled from composer.lyricvoices.ai's "What you'll
    make" section, sitting on a dark olive ground inside /opus so the
