@@ -87,8 +87,9 @@ export default function Footer() {
     {
       heading: "Legal",
       links: [
-        { label: "Privacy", href: "/privacy" },
-        { label: "Terms",   href: "/terms" },
+        { label: "Privacy",            href: "/privacy" },
+        { label: "Terms",              href: "/terms" },
+        { label: "Artist Partnership", href: "/imprint/agreement" },
       ],
     },
   ]

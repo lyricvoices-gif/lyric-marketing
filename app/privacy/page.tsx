@@ -3,109 +3,185 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Lyric Voices collects, uses, and protects your information.",
+  description:
+    "How Lyric collects, uses, and protects information for brands, voice artists, and AI labs working with the Lyric imprint.",
 }
 
-const DARK   = "#2b2a25"
-const LIGHT  = "#f5f3ef"
-const TEXT1  = "#1a1a18"
-const TEXT2  = "#4a4a45"
-const TEXT3  = "#9c958f"
-const BORDER = "#e5dfd5"
+/* Privacy Policy — enterprise-focused. Draft pending legal review.
+   Reflects the current three-product structure (Imprint, Opus, Score),
+   the artist partnership at /imprint/agreement, and the production
+   third-party stack. Em dashes are avoided throughout per design.md
+   section 2 voice rules. */
 
-const sections = [
+const C = {
+  bg: "var(--bg-light)",
+  text: "var(--text-1)",
+  textMuted: "var(--text-2)",
+  textFaint: "var(--text-3)",
+  border: "var(--border)",
+  gold: "var(--gold)",
+  olive: "var(--olive)",
+}
+
+type Section = {
+  title: string
+  body?: string
+  list?: string[]
+  note?: string
+  subsections?: {
+    subtitle: string
+    body?: string
+    list?: string[]
+  }[]
+}
+
+const sections: Section[] = [
   {
-    title: "1. Information We Collect",
+    title: "1. Who Lyric Serves",
+    body: "Lyric serves enterprise brands, agencies, and AI labs. Brands license voices from the Lyric imprint and use Opus tools, including Composer and Direction, to produce voice content for their products and services. AI labs access voice datasets through Score. Lyric is not a consumer-facing platform. Individual creators are not the intended audience for Lyric's products.",
+  },
+  {
+    title: "2. Information We Collect",
     subsections: [
       {
-        subtitle: "1.1 Information You Provide",
-        body: null,
+        subtitle: "2.1 Brand and Account Information",
         list: [
-          "Your name and email address",
-          "Payment information (processed securely by our payment provider — we never store full card details)",
-          "Text and scripts you input to generate voice content",
-          "Any messages you send to our support team",
+          "Name, role, business email, and company name for brand contacts and authorized users",
+          "Billing address and payment method details, processed by Stripe; Lyric does not store full payment card numbers",
+          "Tax and invoice information as required for billing and compliance",
         ],
       },
       {
-        subtitle: "1.2 Information Collected Automatically",
-        body: "When you use the Platform, we automatically collect:",
+        subtitle: "2.2 Opus Usage Data",
+        body: "When a brand uses Opus, Lyric collects:",
         list: [
-          "Usage data — which voices you use, generation counts, session duration, and feature interactions",
-          "Technical data — IP address, browser type, operating system, and device identifiers",
-          "Log data — server logs, error reports, and performance data",
+          "Generation counts, session metadata, and feature interactions across Composer and Direction",
+          "Scripts, text content, and other materials uploaded to Composer for voice generation",
+          "Conversational input submitted to Direction during voice configuration sessions",
+          "Parameter configurations produced by Direction",
+          "Server, performance, and error logs",
         ],
       },
       {
-        subtitle: "1.3 Information from Third Parties",
-        body: "If you sign in with Google or another third-party provider, we receive basic profile information (name, email) from that provider, subject to their privacy policies.",
-        list: null,
+        subtitle: "2.3 Voice Artist Materials",
+        body: "For voice artists who partner with Lyric, the following materials are collected and stored:",
+        list: [
+          "Voice recordings supplied by the artist for model training and reference",
+          "Voice model files, embeddings, and other derivatives produced from those recordings",
+          "Performance metadata, including take counts, emotional ranges, session notes, and consent records",
+          "Audit logs documenting usage of the artist's voice across the platform",
+        ],
+      },
+      {
+        subtitle: "2.4 Technical Data",
+        body: "Lyric automatically collects IP address, browser type, operating system, device identifiers, and standard server logs when users interact with its products.",
+      },
+      {
+        subtitle: "2.5 Information from Third-Party Services",
+        body: "If a brand authenticates through a third-party identity provider, Lyric receives basic profile information from that provider, subject to its own privacy policy.",
       },
     ],
   },
   {
-    title: "2. How We Use Your Information",
-    body: "We use the information we collect to:",
-    list: [
-      "Provide, maintain, and improve the Platform",
-      "Process your subscription and payments",
-      "Enforce plan limits and entitlements",
-      "Send you account-related communications (receipts, security alerts, product updates)",
-      "Analyze aggregate usage patterns to improve voice quality and platform features",
-      "Respond to your support requests",
-      "Comply with legal obligations",
-    ],
-    note: "We do not sell your personal information to third parties. We do not use your input scripts or generated audio to train third-party AI models without your explicit consent.",
+    title: "3. Voice Artist Data Protection",
+    body: "Voice artist materials, including recordings, model files, training metadata, embeddings, and performance data, are stored on infrastructure with restricted access controls. Lyric does not share voice artist materials with any third party without the corresponding artist's documented consent. Artists retain access to their own materials at any time and may request audit logs or deletion of their materials in accordance with the Artist Partnership.",
   },
   {
-    title: "3. Voice Generation Data",
-    body: "Your input text and generated audio are processed to deliver the service. We may retain anonymized, aggregated usage metrics (e.g., character counts, voice selections, generation times) to improve platform performance. We do not use your specific scripts or audio output for model training purposes.\n\nIf you are on an Enterprise plan or have a licensing agreement, data handling terms may be further specified in your separate agreement.",
-  },
-  {
-    title: "4. Sharing Your Information",
-    body: "We share your information only in these limited circumstances:",
+    title: "4. Third-Party Services Lyric Uses",
+    body: "Lyric relies on the following third-party services to deliver Imprint, Opus, and Score. Each service processes data under its own privacy and security obligations. Lyric provides each service only the data necessary to perform its function.",
     list: [
-      "Service providers — third-party vendors (payment processors, authentication providers, cloud infrastructure, voice API partners) who access your data only as needed, under confidentiality obligations.",
-      "Legal requirements — disclosure if required by law, regulation, or valid legal process.",
-      "Business transfers — if Lyric Voices is acquired or merged, your information may transfer to the new entity, subject to equivalent privacy protections.",
-      "With your consent — for any other purpose, only with your explicit consent.",
+      "Hume AI: voice model hosting and emotional voice generation for Edition 01 voices",
+      "OpenAI: GPT-Realtime-2 for the Direction tool's conversational layer",
+      "ElevenLabs: voice generation for The Lyric Briefing and select deployments",
+      "Clerk: authentication and account management",
+      "Neon: managed PostgreSQL database",
+      "Stripe: billing and subscription management",
+      "Vercel: web hosting and edge delivery",
+      "Cloudflare Workers: voice model routing and edge compute",
+      "Resend: transactional email",
     ],
   },
   {
-    title: "5. Cookies & Tracking",
-    body: "We use cookies and similar technologies to keep you logged in, remember your preferences, and understand how the Platform is used. We do not use third-party advertising trackers or sell your browsing data. You can control cookies through your browser settings; disabling cookies may affect some Platform functionality.",
-  },
-  {
-    title: "6. Data Retention",
-    body: "We retain your account information and usage data for as long as your account is active, and for a reasonable period afterward for legal and operational purposes. You may request deletion of your account and associated data at any time (see Section 8).",
-  },
-  {
-    title: "7. Security",
-    body: "We implement industry-standard technical and organizational measures to protect your information — including encryption in transit, access controls, and secure cloud infrastructure. No system is perfectly secure; if you believe your account has been compromised, contact us immediately at info@lyricvoices.ai.",
-  },
-  {
-    title: "8. Your Rights & Choices",
-    body: "Depending on your location, you may have the following rights:",
+    title: "5. How Lyric Uses Information",
     list: [
-      "Access — Request a copy of the personal information we hold about you",
-      "Correction — Ask us to correct inaccurate or incomplete information",
-      "Deletion — Request that we delete your account and personal data",
-      "Portability — Request your data in a structured, machine-readable format",
-      "Objection — Object to certain uses of your data, such as analytics",
+      "Operate, secure, and improve Imprint, Opus, and Score",
+      "Authenticate users and protect against unauthorized access",
+      "Bill brands for subscription and licensing fees, and calculate artist compensation",
+      "Generate usage reports for brand accounts and statements for partnered artists",
+      "Support audit requests from artists and brands under their respective agreements",
+      "Communicate with brand contacts about account status, security, and product updates",
+      "Meet legal, regulatory, and contractual obligations",
     ],
-    note: "To exercise any of these rights, email info@lyricvoices.ai. We will respond within 30 days.",
   },
   {
-    title: "9. Children's Privacy",
-    body: "The Platform is not intended for users under 18 years of age. We do not knowingly collect personal information from minors. If you believe a minor has provided us with their information, please contact us and we will delete it promptly.",
+    title: "6. What Lyric Does Not Do",
+    list: [
+      "Lyric does not sell brand data or voice artist materials to advertisers, data brokers, or any third party.",
+      "Lyric does not use voice artist materials to train third-party AI models without the corresponding artist's explicit consent.",
+      "Lyric does not use brand-uploaded content to train AI models without the brand's explicit consent.",
+    ],
   },
   {
-    title: "10. Changes to This Policy",
-    body: "We may update this Privacy Policy from time to time. When we do, we will revise the Effective Date above. For significant changes, we will notify you by email or in-app notice. Your continued use of the Platform constitutes acceptance of the updated policy.",
+    title: "7. Data Retention",
+    subsections: [
+      {
+        subtitle: "7.1 Brand Data",
+        body: "Brand account and billing data are retained for the duration of the active relationship plus the period required by tax, accounting, and regulatory obligations.",
+      },
+      {
+        subtitle: "7.2 Opus Usage Data",
+        body: "Opus usage data, including scripts, conversational input, and parameter configurations, is retained for the duration of the active relationship plus a reasonable period for audit and dispute resolution. Brands may request earlier deletion in accordance with Section 8.",
+      },
+      {
+        subtitle: "7.3 Voice Artist Materials",
+        body: "Voice artist materials are retained for the duration of the Artist Partnership plus the audit period defined in that partnership. Artist deletion rights upon withdrawal are described in Section 9.",
+      },
+    ],
   },
   {
-    title: "11. Contact Us",
-    body: "Lyric Voices\nEmail: info@lyricvoices.ai",
+    title: "8. Brand Data Rights",
+    body: "Brand contacts and authorized users may request:",
+    list: [
+      "Access to the personal information Lyric holds about them",
+      "Correction of inaccurate or incomplete information",
+      "Deletion of personal information, subject to legal and contractual retention requirements",
+      "Portability of personal information in a structured, machine-readable format where applicable",
+    ],
+    note: "To exercise any of these rights, email info@lyricvoices.ai. Lyric will respond within 30 days.",
+  },
+  {
+    title: "9. Voice Artist Data Rights",
+    body: "Voice artists who partner with Lyric have rights specifically defined in the Artist Partnership at /imprint/agreement, including:",
+    list: [
+      "Access to their own voice materials and performance metadata at any time",
+      "Audit rights covering usage of their voice across the platform",
+      "Deletion rights upon withdrawal from the partnership, subject to the wind-down period described in that document",
+      "Compensation transparency for licensed deployments of their voice",
+    ],
+    note: "For matters specific to artist data, please reference the Artist Partnership or contact info@lyricvoices.ai.",
+  },
+  {
+    title: "10. Security",
+    body: "Lyric implements technical and organizational measures appropriate to the nature of the information processed, including:",
+    list: [
+      "Encryption of data in transit and at rest",
+      "Access controls limiting infrastructure and data access to personnel with a documented business need",
+      "Audit logging for access to voice artist materials",
+      "Documented security policies reviewed periodically",
+    ],
+    note: "No system can be guaranteed perfectly secure. Lyric will notify affected brands or artists of any unauthorized access to their data without undue delay and in accordance with applicable law. If you believe an account or asset has been compromised, contact info@lyricvoices.ai immediately.",
+  },
+  {
+    title: "11. International Data Handling",
+    body: "Lyric works with brands and voice artists internationally. Information may be processed in the regions where the underlying service infrastructure operates, including the United States and the European Union. Where required by law, Lyric implements appropriate safeguards for cross-border data transfers.",
+  },
+  {
+    title: "12. Changes to This Policy",
+    body: "Lyric may update this Privacy Policy from time to time. The 'Last updated' date above will reflect the date of the most recent revision. For material changes, Lyric will notify brand account contacts by email and post a notice on this page. Voice artists will be notified through the notification channel defined in the Artist Partnership.",
+  },
+  {
+    title: "13. Contact",
+    body: "Lyric Voices, Inc.\nEmail: info@lyricvoices.ai\n\nFor matters specific to voice artist rights and protections, please reference the Artist Partnership at /imprint/agreement.",
   },
 ]
 
@@ -113,116 +189,262 @@ export default function PrivacyPage() {
   return (
     <>
       {/* Header */}
-      <section style={{ background: LIGHT, borderBottom: `1px solid ${BORDER}`, padding: "80px 48px 48px" }}>
+      <section
+        style={{
+          background: C.bg,
+          borderBottom: `1px solid ${C.border}`,
+          padding: "80px 48px 48px",
+        }}
+      >
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <p style={{
-            fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em",
-            textTransform: "uppercase", color: TEXT3, marginBottom: "16px",
-          }}>
+          <DraftBadge />
+
+          <p
+            style={{
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: C.textFaint,
+              margin: "0 0 16px",
+            }}
+          >
             Legal
           </p>
-          <h1 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(32px, 4vw, 52px)",
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-            lineHeight: 0.95,
-            color: TEXT1,
-            margin: "0 0 20px",
-          }}>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(32px, 4vw, 52px)",
+              fontWeight: 500,
+              letterSpacing: "0",
+              lineHeight: 1.02,
+              color: C.text,
+              margin: "0 0 20px",
+            }}
+          >
             Privacy Policy
           </h1>
-          <p style={{ fontSize: "13px", color: TEXT3, margin: "0 0 16px" }}>
-            Effective Date: March 12, 2026
+          <p
+            style={{
+              fontSize: "13px",
+              color: C.textFaint,
+              margin: "0 0 24px",
+              letterSpacing: "0.04em",
+            }}
+          >
+            Last updated: [TBD before publication]
           </p>
-          <p style={{ fontSize: "15px", color: TEXT2, lineHeight: 1.7, margin: 0, maxWidth: "600px" }}>
-            At Lyric Voices, we take your privacy seriously. This Privacy Policy explains what information we collect, how we use it, and the choices you have. We&apos;ve written this to be read by actual humans — not just lawyers.
+          <p
+            style={{
+              fontSize: "15px",
+              color: C.textMuted,
+              lineHeight: 1.7,
+              margin: 0,
+              maxWidth: "640px",
+            }}
+          >
+            This Privacy Policy explains how Lyric Voices, Inc. (&ldquo;Lyric&rdquo;) collects, uses,
+            and protects information when brands, agencies, and AI labs use our products, and when
+            voice artists partner with our imprint. Lyric is an enterprise voice AI imprint. This
+            policy reflects that focus. Voice artists should also read the{" "}
+            <Link
+              href="/imprint/agreement"
+              style={{ color: C.text, textDecoration: "underline", textUnderlineOffset: "3px" }}
+            >
+              Artist Partnership
+            </Link>{" "}
+            for rights and protections specific to the artist relationship.
           </p>
         </div>
       </section>
 
       {/* Body */}
-      <section style={{ background: LIGHT, padding: "64px 48px 100px" }}>
+      <section style={{ background: C.bg, padding: "64px 48px 100px" }}>
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
           {sections.map((s, i) => (
-            <div
-              key={i}
-              style={{
-                paddingTop: i === 0 ? "0" : "40px",
-                marginTop: i === 0 ? "0" : "40px",
-                borderTop: i === 0 ? "none" : `1px solid ${BORDER}`,
-              }}
-            >
-              <h2 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "22px",
-                fontWeight: 600,
-                color: TEXT1,
-                letterSpacing: "-0.01em",
-                margin: "0 0 16px",
-                lineHeight: 1.2,
-              }}>
-                {s.title}
-              </h2>
-
-              {"subsections" in s && s.subsections ? (
-                s.subsections.map((sub, j) => (
-                  <div key={j} style={{ marginBottom: "24px" }}>
-                    <p style={{ fontSize: "13px", fontWeight: 600, color: TEXT1, margin: "0 0 8px" }}>
-                      {sub.subtitle}
-                    </p>
-                    {sub.body && (
-                      <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, margin: "0 0 8px" }}>
-                        {sub.body}
-                      </p>
-                    )}
-                    {sub.list && (
-                      <ul style={{ margin: 0, padding: "0 0 0 18px" }}>
-                        {sub.list.map((item, k) => (
-                          <li key={k} style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, marginBottom: "4px" }}>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))
-              ) : (
-                <>
-                  {"body" in s && s.body && s.body.split("\n\n").map((para, j) => (
-                    <p key={j} style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, margin: "0 0 12px" }}>
-                      {para}
-                    </p>
-                  ))}
-                  {"list" in s && s.list && (
-                    <ul style={{ margin: "0 0 12px", padding: "0 0 0 18px" }}>
-                      {s.list.map((item, j) => (
-                        <li key={j} style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.75, marginBottom: "6px" }}>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {"note" in s && s.note && (
-                    <p style={{
-                      fontSize: "13px", color: TEXT2, lineHeight: 1.7,
-                      borderLeft: `2px solid ${BORDER}`, paddingLeft: "16px", margin: "16px 0 0",
-                    }}>
-                      {s.note}
-                    </p>
-                  )}
-                </>
-              )}
-            </div>
+            <SectionBlock key={i} section={s} index={i} />
           ))}
 
-          {/* Footer nav */}
-          <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: `1px solid ${BORDER}`, display: "flex", gap: "24px" }}>
-            <Link href="/terms" style={{ fontSize: "13px", color: TEXT3 }}>Terms of Use →</Link>
-            <Link href="/" style={{ fontSize: "13px", color: TEXT3 }}>Back to home →</Link>
+          {/* Cross-policy nav */}
+          <div
+            style={{
+              marginTop: "64px",
+              paddingTop: "32px",
+              borderTop: `1px solid ${C.border}`,
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "28px",
+            }}
+          >
+            <PolicyNavLink href="/terms" label="Terms of Use" />
+            <PolicyNavLink href="/imprint/agreement" label="Artist Partnership" />
+            <PolicyNavLink href="/" label="Back to home" />
           </div>
         </div>
       </section>
     </>
+  )
+}
+
+function DraftBadge() {
+  return (
+    <p
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "10px",
+        background: C.gold,
+        color: C.olive,
+        padding: "6px 14px",
+        borderRadius: "999px",
+        fontFamily: "var(--font-body)",
+        fontSize: "10px",
+        fontWeight: 700,
+        letterSpacing: "0.16em",
+        textTransform: "uppercase",
+        margin: "0 0 28px",
+      }}
+    >
+      <span>Draft. Pending legal review.</span>
+    </p>
+  )
+}
+
+function PolicyNavLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      style={{
+        fontSize: "13px",
+        color: C.textMuted,
+        textDecoration: "underline",
+        textUnderlineOffset: "3px",
+        textDecorationColor: C.border,
+      }}
+    >
+      {label} →
+    </Link>
+  )
+}
+
+function SectionBlock({ section: s, index }: { section: Section; index: number }) {
+  return (
+    <div
+      style={{
+        paddingTop: index === 0 ? "0" : "40px",
+        marginTop: index === 0 ? "0" : "40px",
+        borderTop: index === 0 ? "none" : `1px solid ${C.border}`,
+      }}
+    >
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "22px",
+          fontWeight: 500,
+          color: C.text,
+          letterSpacing: "0",
+          margin: "0 0 16px",
+          lineHeight: 1.2,
+        }}
+      >
+        {s.title}
+      </h2>
+
+      {s.subsections ? (
+        s.subsections.map((sub, j) => (
+          <div key={j} style={{ marginBottom: "24px" }}>
+            <p
+              style={{
+                fontSize: "13px",
+                fontWeight: 700,
+                color: C.text,
+                margin: "0 0 8px",
+                letterSpacing: "0.01em",
+              }}
+            >
+              {sub.subtitle}
+            </p>
+            {sub.body && (
+              <p
+                style={{
+                  fontSize: "14px",
+                  color: C.textMuted,
+                  lineHeight: 1.75,
+                  margin: "0 0 8px",
+                }}
+              >
+                {sub.body}
+              </p>
+            )}
+            {sub.list && (
+              <ul style={{ margin: 0, padding: "0 0 0 18px" }}>
+                {sub.list.map((item, k) => (
+                  <li
+                    key={k}
+                    style={{
+                      fontSize: "14px",
+                      color: C.textMuted,
+                      lineHeight: 1.75,
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      ) : (
+        <>
+          {s.body &&
+            s.body.split("\n\n").map((para, j) => (
+              <p
+                key={j}
+                style={{
+                  fontSize: "14px",
+                  color: C.textMuted,
+                  lineHeight: 1.75,
+                  margin: "0 0 12px",
+                  whiteSpace: "pre-line",
+                }}
+              >
+                {para}
+              </p>
+            ))}
+          {s.list && (
+            <ul style={{ margin: "0 0 12px", padding: "0 0 0 18px" }}>
+              {s.list.map((item, j) => (
+                <li
+                  key={j}
+                  style={{
+                    fontSize: "14px",
+                    color: C.textMuted,
+                    lineHeight: 1.75,
+                    marginBottom: "6px",
+                  }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.note && (
+            <p
+              style={{
+                fontSize: "13px",
+                color: C.textMuted,
+                lineHeight: 1.7,
+                borderLeft: `2px solid ${C.border}`,
+                paddingLeft: "16px",
+                margin: "16px 0 0",
+              }}
+            >
+              {s.note}
+            </p>
+          )}
+        </>
+      )}
+    </div>
   )
 }
