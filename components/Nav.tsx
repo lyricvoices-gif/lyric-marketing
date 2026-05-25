@@ -22,11 +22,9 @@ const NAV_ITEMS: NavItem[] = [
     type: "dropdown",
     label: "Products",
     items: [
-      { href: "/composer", label: "Composer" },
       { href: "/imprint", label: "Imprint" },
+      { href: "/opus", label: "Opus" },
       { href: "/score", label: "Score" },
-      { href: "/timbre", label: "Timbre" },
-      { href: "/briefing", label: "The Lyric Briefing" },
     ],
   },
   { type: "link", href: "/notes", label: "Notes" },

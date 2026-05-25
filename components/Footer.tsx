@@ -63,32 +63,45 @@ const SOCIAL = [
 export default function Footer() {
   const DARK = "#2b2a25"
 
-  /* Footer columns mirror the global nav so destinations stay
-     consistent. Products lists every entry from the nav dropdown;
-     Company carries the editorial / corporate routes. */
+  /* Footer columns reflect the three-product imprint structure plus
+     editorial, partner, and legal entry points. Products mirrors the
+     global nav dropdown (Imprint / Opus / Score). Company carries the
+     editorial routes. For partners is the conversion path (artist
+     application / brand licensing / artist agreement). Legal groups
+     the three policy documents. */
   const cols = [
-    {
-      heading: "Company",
-      links: [
-        { label: "About", href: "/about" },
-        { label: "Notes", href: "/notes" },
-      ],
-    },
     {
       heading: "Products",
       links: [
-        { label: "Composer",           href: "/composer" },
-        { label: "Imprint",            href: "/imprint" },
-        { label: "Score",              href: "/score" },
-        { label: "Timbre",             href: "/timbre" },
-        { label: "The Lyric Briefing", href: "/briefing" },
+        { label: "Imprint", href: "/imprint" },
+        { label: "Opus",    href: "/opus" },
+        { label: "Score",   href: "/score" },
+      ],
+    },
+    {
+      heading: "Company",
+      links: [
+        { label: "About",    href: "/about" },
+        { label: "Notes",    href: "/notes" },
+        {
+          label: "Briefing",
+          href: "https://thelyricbriefing.substack.com",
+        },
+      ],
+    },
+    {
+      heading: "For partners",
+      links: [
+        { label: "Apply to the Imprint",   href: "/imprint/apply" },
+        { label: "License from the Imprint", href: "/imprint/license" },
+        { label: "Artist Partnership",      href: "/imprint/agreement" },
       ],
     },
     {
       heading: "Legal",
       links: [
-        { label: "Privacy",            href: "/privacy" },
-        { label: "Terms",              href: "/terms" },
+        { label: "Privacy Policy",     href: "/privacy" },
+        { label: "Terms of Use",       href: "/terms" },
         { label: "Artist Partnership", href: "/imprint/agreement" },
       ],
     },
