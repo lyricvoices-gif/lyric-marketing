@@ -763,146 +763,109 @@ main:has(.lv-hero) { padding-top: 0; }
   opacity: 0.6;
 }
 
-/* Score waveform — Morgan's actual voice rendered by wavesurfer.js
-   (see components/products/ScoreVisual.tsx). The hand-coded scrolling
-   bar strip from the earlier pass has been retired; the bars now come
-   from the real audio file at /audio/morgan-sample.wav, which means
-   the silhouette is naturally asymmetric and voice-shaped. The track
-   keeps its edge-fade mask, the datasheet keeps its position, and a
-   custom gold cursor traverses the waveform on a linear loop. */
-.lv-score-wave-track {
+/* Score orb — a slow breathing gold sphere that represents the voice
+   itself, not a timeline. The earlier passes tried a literal waveform
+   (hand-coded, then wavesurfer.js, then the ElevenLabs UI Waveform
+   component fed by Morgan's real audio); none of them landed as
+   elegant, and a moving cursor over non-playing audio was visually
+   dishonest. The orb reuses the same orb-breathe keyframe used on the
+   editions page's Edition 02 section so the brand reads consistently
+   across surfaces. The dark glass-morphism datasheet card overlays the
+   top-left corner of the orb's glow, keeping the metadata legible
+   while the orb's outer halo extends beneath it. */
+/* Stage — vertical composition holding the orb and the metadata strip
+   beneath it, both centered horizontally and the whole composition
+   centered vertically in the visual frame. Replaces the older split
+   layout where the orb sat centered and a corner-card datasheet
+   floated in the top-left, which read as two unrelated elements
+   sharing a frame. */
+.lv-score-stage {
   position: absolute;
-  inset: auto 0 0 0;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 40px 32px;
   z-index: 1;
-  height: 56%;
-  overflow: hidden;
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    black 10%,
-    black 90%,
+}
+
+.lv-score-orb {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(243, 209, 113, 0.42) 0%,
+    rgba(243, 209, 113, 0.18) 40%,
+    rgba(243, 209, 113, 0.04) 70%,
     transparent 100%
   );
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
+  animation: lv-score-orb-breathe 4.5s ease-in-out infinite;
+  will-change: transform, box-shadow;
 }
 
-/* Waveform host — fills the track horizontally; the ElevenLabs UI
-   Waveform component (installed at components/ui/waveform.tsx, fed
-   amplitude data computed from /audio/morgan-sample.wav) renders its
-   canvas inside this element at the component's reference height
-   (128px). Vertical centering parks the bars on the waveform's
-   horizontal axis regardless of the host's height. The child > div
-   selector targets the component's outer wrapper and stretches it to
-   the host width. */
-.lv-score-wave-host {
-  position: absolute;
-  inset: 0;
+@keyframes lv-score-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 48px rgba(243, 209, 113, 0.12),
+      inset 0 0 32px rgba(243, 209, 113, 0.08);
+  }
+  50% {
+    transform: scale(1.09);
+    box-shadow:
+      0 0 88px rgba(243, 209, 113, 0.24),
+      inset 0 0 56px rgba(243, 209, 113, 0.16);
+  }
+}
+
+/* Performance metadata strip — horizontal credit line beneath the orb.
+   Each field is a mono uppercase label + italic display value stacked
+   vertically. Reads as a film credit row rather than a glass-morphism
+   data card. No background, no border — the gold orb's glow extends
+   beneath and the strip floats on the dark olive ground. */
+.lv-score-metadata {
+  margin: 0;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 22px;
+  max-width: 100%;
 }
 
-/* The cream base waveform fills horizontally. The :not selector keeps
-   this rule from hitting the gold overlay (which has its own absolute
-   layout and clip animation). */
-.lv-score-wave-host > div:not(.lv-score-wave-progress) {
-  width: 100%;
-}
-
-/* Gold "played" overlay — same waveform rendered in brand gold,
-   stacked on top of the cream base and clipped from the right via a
-   clip-path animation that reveals left-to-right in sync with the gold
-   cursor. The clip-path goes from inset(0 100% 0 0) (everything clipped
-   from the right = invisible) to inset(0 0% 0 0) (nothing clipped =
-   fully visible) over the same 10s as the cursor's traversal, so the
-   gold fill always extends exactly to where the cursor is. */
-.lv-score-wave-progress {
-  position: absolute;
-  inset: 0;
+.lv-score-metadata > div {
   display: flex;
-  align-items: center;
-  animation: lv-score-wave-fill 10s linear infinite;
-  pointer-events: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
 }
 
-.lv-score-wave-progress > div {
-  width: 100%;
-}
-
-@keyframes lv-score-wave-fill {
-  0%   { clip-path: inset(0 100% 0 0); opacity: 0; }
-  6%   { clip-path: inset(0 94% 0 0);  opacity: 1; }
-  94%  { clip-path: inset(0 0% 0 0);   opacity: 1; }
-  98%  { clip-path: inset(0 0% 0 0);   opacity: 0; }
-  100% { clip-path: inset(0 100% 0 0); opacity: 0; }
-}
-
-/* Gold cursor removed: the gold "played" overlay's leading edge does
-   the same job, and a moving cursor line over a non-playing waveform
-   is faux-functional UI — every real instance of that pattern (Logic,
-   Pro Tools, Audacity, Spotify, podcast players) ties to actual audio
-   playback at that position. Ours wasn't, so it went. */
-
-.lv-score-datasheet {
-  position: absolute;
-  top: 28px;
-  left: 36px;
-  z-index: 2;
-  background: rgba(20, 19, 15, 0.78);
-  border: 1px solid rgba(255, 248, 236, 0.14);
-  border-radius: 8px;
-  padding: 16px 18px;
-  min-width: 200px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.lv-score-datasheet-label {
-  margin: 0 0 10px;
+.lv-score-metadata dt {
+  margin: 0;
   font-family: var(--font-body);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold);
+  line-height: 1;
 }
 
-.lv-score-datasheet-list {
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 6px;
-}
-
-.lv-score-datasheet-list > div {
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  font-size: 12px;
-  line-height: 1.4;
-  color: rgba(255, 248, 236, 0.86);
-}
-
-.lv-score-datasheet-list dt {
-  font-family: var(--font-body);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: rgba(255, 248, 236, 0.5);
-  text-transform: uppercase;
-  font-size: 10px;
-  align-self: center;
-}
-
-.lv-score-datasheet-list dd {
+.lv-score-metadata dd {
   margin: 0;
   font-family: var(--font-display);
   font-style: italic;
   font-size: 14px;
   font-weight: 400;
+  line-height: 1.2;
+  color: rgba(255, 248, 236, 0.92);
+  white-space: nowrap;
 }
 
 /* ─── Opus visual ──────────────────────────────────────────────────────
@@ -1201,13 +1164,11 @@ main:has(.lv-hero) { padding-top: 0; }
     transition: none !important;
   }
 
-  /* The waveform itself (Morgan's voice) stays exactly as it is. The
-     gold "played" overlay parks at a fixed 33% reveal so the static
-     composition still reads as "analyzed up to here." */
-  .lv-score-wave-progress {
+  /* The Score orb stops breathing under reduced motion and parks at
+     its rest state (scale 1, low-glow box-shadow), keeping the still
+     composition legible without movement. */
+  .lv-score-orb {
     animation: none !important;
-    clip-path: inset(0 67% 0 0) !important;
-    opacity: 1 !important;
   }
 }
 

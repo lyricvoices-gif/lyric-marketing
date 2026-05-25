@@ -34,7 +34,7 @@ type Round = {
 const SCRIPT: readonly Round[] = [
   {
     agent:
-      "Hi. I help shape how your AI voice performs. How can I help you direct?",
+      "I’m Atlas, your voice‑direction guide. Tell me how you want your AI voice to sound, and I’ll help shape it.",
     chips: ["Direct a scene", "Build a brand voice", "Shape an emotional take"],
     pick: 0,
   },
