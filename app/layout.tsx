@@ -6,6 +6,7 @@ import AudioPlayerProvider from "@/components/audio/AudioPlayerProvider"
 import PersistentPlaybackBar from "@/components/audio/PersistentPlaybackBar"
 import Footer from "@/components/Footer"
 import Nav from "@/components/Nav"
+import SiteChrome from "@/components/SiteChrome"
 import SmoothScroll from "@/components/SmoothScroll"
 
 // Display + body faces (GT Super, GT America) load via @font-face in
@@ -48,10 +49,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AudioPlayerProvider>
           <SmoothScroll />
-          <Nav />
-          <main>{children}</main>
-          <Footer />
-          <PersistentPlaybackBar />
+          <SiteChrome
+            nav={<Nav />}
+            footer={<Footer />}
+            playbackBar={<PersistentPlaybackBar />}
+          >
+            {children}
+          </SiteChrome>
         </AudioPlayerProvider>
         <Analytics />
       </body>
