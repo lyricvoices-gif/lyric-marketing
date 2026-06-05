@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import CaseStudyImage from "@/components/CaseStudyImage"
 import ScrollReveal from "@/components/ScrollReveal"
 
 export const metadata: Metadata = {
@@ -583,8 +584,7 @@ function Vignette({ src, aspect }: { src: string; aspect: string }) {
 function Frame({ src, alt }: { src: string; alt: string }) {
   return (
     <div style={{ width: "100%", overflow: "hidden", background: OLIVE }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <CaseStudyImage
         src={src}
         alt={alt}
         style={{ display: "block", width: "100%", height: "auto" }}
