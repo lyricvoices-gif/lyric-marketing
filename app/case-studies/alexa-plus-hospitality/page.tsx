@@ -384,7 +384,7 @@ export default function AlexaHospitalityCaseStudy() {
       {/* ════════════════════════════════════════════════════════════════════
           DINING — list + detail, then the checkout moment
       ════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: "56px 24px 0" }}>
+      <section style={{ padding: "96px 24px 0" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <ScrollReveal>
             <div className="cs-pair">
