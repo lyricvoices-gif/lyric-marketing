@@ -264,7 +264,7 @@ export default function ArtistStory() {
                 fontSize: "clamp(36px, 5vw, 58px)",
                 fontWeight: 600,
                 lineHeight: 0.95,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: TEXT1,
                 margin: "0 0 24px",
               }}
@@ -315,7 +315,7 @@ export default function ArtistStory() {
                 fontSize: "clamp(28px, 3.5vw, 42px)",
                 fontWeight: 600,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: TEXT1,
                 margin: "0 0 32px",
               }}
@@ -380,7 +380,7 @@ export default function ArtistStory() {
                 lineHeight: 1.3,
                 color: "#f5f3ef",
                 margin: "0 0 20px",
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               &ldquo;We don&apos;t cast voices. We cast performers.
@@ -412,7 +412,7 @@ export default function ArtistStory() {
                 fontSize: "clamp(28px, 3.5vw, 42px)",
                 fontWeight: 600,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: TEXT1,
                 margin: "0 0 48px",
               }}
@@ -473,7 +473,7 @@ export default function ArtistStory() {
                         fontWeight: 600,
                         color: TEXT1,
                         margin: "0 0 10px",
-                        letterSpacing: "-0.02em",
+                        letterSpacing: "0",
                         lineHeight: 1.3,
                       }}
                     >
@@ -520,7 +520,7 @@ export default function ArtistStory() {
                 fontSize: "clamp(28px, 3.5vw, 42px)",
                 fontWeight: 600,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: TEXT1,
                 margin: "0 0 16px",
               }}
@@ -579,7 +579,7 @@ export default function ArtistStory() {
                 fontSize: "clamp(28px, 3.5vw, 42px)",
                 fontWeight: 600,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: "#f5f3ef",
                 margin: "0 0 40px",
               }}
@@ -674,7 +674,7 @@ export default function ArtistStory() {
                 fontSize: "clamp(28px, 3.5vw, 42px)",
                 fontWeight: 600,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: TEXT1,
                 margin: "0 0 32px",
               }}
@@ -730,7 +730,7 @@ export default function ArtistStory() {
                       fontWeight: 600,
                       color: TEXT1,
                       margin: "0 0 6px",
-                      letterSpacing: "-0.01em",
+                      letterSpacing: "0",
                     }}
                   >
                     {item.point}
@@ -771,7 +771,7 @@ export default function ArtistStory() {
               color: "#f5f3ef",
               margin: "0 auto 20px",
               lineHeight: 0.95,
-              letterSpacing: "-0.02em",
+              letterSpacing: "0",
               maxWidth: "600px",
             }}
           >
@@ -815,7 +815,7 @@ export default function ArtistStory() {
                 fontWeight: 500,
                 background: "#f5f3ef",
                 color: DARK,
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               Try the composer
@@ -830,7 +830,7 @@ export default function ArtistStory() {
                 background: "rgba(245,243,239,0.07)",
                 color: "rgba(245,243,239,0.6)",
                 border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               Browse Edition 01

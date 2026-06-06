@@ -41,7 +41,7 @@ export default function ListenNowButton({ src }: { src: string }) {
           background: DARK,
           color: LIGHT,
           whiteSpace: "nowrap",
-          letterSpacing: "-0.01em",
+          letterSpacing: "0",
           flexShrink: 0,
           border: "none",
           cursor: "pointer",

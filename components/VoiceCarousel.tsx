@@ -151,7 +151,7 @@ export default function VoiceCarousel() {
           fontFamily: "var(--font-display)",
           fontSize: "clamp(72px, 9vw, 120px)",
           fontWeight: 400,
-          letterSpacing: "-0.03em",
+          letterSpacing: "0",
           lineHeight: 0.9,
           color: LIGHT,
           margin: "0 0 32px",
@@ -165,7 +165,7 @@ export default function VoiceCarousel() {
           color: "rgba(245,243,239,0.5)",
           lineHeight: 1.6,
           margin: "0 0 32px",
-          letterSpacing: "-0.01em",
+          letterSpacing: "0",
         }}>
           {voice.description}
         </p>
@@ -208,7 +208,7 @@ export default function VoiceCarousel() {
             cursor: "pointer",
             transition: "all 0.2s",
             fontFamily: "inherit",
-            letterSpacing: "-0.01em",
+            letterSpacing: "0",
           }}
         >
           <span style={{ fontSize: "9px" }}>{isPlaying ? "⏸" : "▶"}</span>

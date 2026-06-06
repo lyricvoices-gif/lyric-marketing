@@ -9,6 +9,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import ArtistIndex from "@/components/listen/ArtistIndex"
 import ScrollReveal from "@/components/ScrollReveal"
+import ScrollHighlightText from "@/components/ScrollHighlightText"
+import TwoPathsForward from "@/components/TwoPathsForward"
 import { artists } from "@/components/listen/data"
 
 export const metadata: Metadata = {
@@ -227,176 +229,95 @@ export default function ImprintPage() {
       </section>
 
       {/* Section 4 — How brands license voices.
-          Dark olive ground (matches the home page Products section)
-          gives the brand/licensing story commercial weight. Same
-          two-column anchor + numbered list pattern as the artist
-          section, mirrored visually by the inverted color register. */}
+          Dark olive ground. Centered Final-CTA-style header (eyebrow,
+          large display headline with italic completion, two pill
+          buttons) mirrors the home page's voice-first-era bookend.
+          The three-up licensing tier row sits beneath a hairline rule
+          so the licensing detail still has its own moment. */}
       <section
         style={{
           background: "#2b2a25",
           color: C.bg,
-          padding: "120px 24px",
+          padding: "128px 24px",
           borderTop: "1px solid rgba(255, 248, 236, 0.08)",
           borderBottom: "1px solid rgba(255, 248, 236, 0.08)",
         }}
       >
         <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <div className="lv-imprint-anchor-grid">
-            <div>
-              <ScrollReveal>
-                <DarkEyebrow label="For brands" />
-              </ScrollReveal>
-              <ScrollReveal delay={120}>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(32px, 4.4vw, 52px)",
-                    fontWeight: 500,
-                    lineHeight: 1.02,
-                    letterSpacing: "-0.005em",
-                    color: C.bg,
-                    margin: "0 0 22px",
-                  }}
+          <div className="lv-imprint-brands-cta">
+            <ScrollReveal>
+              <DarkEyebrow label="For brands" />
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <h2 className="lv-imprint-brands-headline">
+                Build a sonic identity. <em>License a Lyric voice.</em>
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={220}>
+              <div className="lv-cta-row lv-cta-row-center lv-imprint-brands-ctas">
+                <Link
+                  href="/imprint/license"
+                  className="lv-cta lv-cta-light"
+                  style={pillStyle("light")}
                 >
-                  How brands <em>license</em> voices.
-                </h2>
-              </ScrollReveal>
-              <ScrollReveal delay={220}>
-                <p
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: 1.7,
-                    color: "rgba(255, 248, 236, 0.78)",
-                    margin: "0 0 18px",
-                  }}
-                >
-                  Three licensing tiers, each designed for a different
-                  commercial need. Every licensed voice comes with access
-                  to{" "}
-                  <Link
-                    href="/opus"
-                    style={{
-                      color: C.bg,
-                      textDecoration: "underline",
-                      textUnderlineOffset: "3px",
-                    }}
-                  >
-                    Opus
-                  </Link>
-                  , our enterprise creative environment for directing
-                  performances and configuring voice parameters for
-                  deployment.
-                </p>
-                <Link href="/opus" className="lv-link-cta">
-                  Learn about Opus <span aria-hidden="true">&rarr;</span>
+                  Inquire about licensing
                 </Link>
-              </ScrollReveal>
-            </div>
-
-            <ScrollReveal delay={320}>
-              <NumberedList
-                items={[
-                  {
-                    n: "01",
-                    label: "Non-exclusive",
-                    body: "The voice can be licensed to multiple non-competing brands simultaneously. Best for utility deployments, content production, and broad commercial use.",
-                  },
-                  {
-                    n: "02",
-                    label: "Industry-exclusive",
-                    body: "The voice is exclusive within a specific industry vertical for the term of the agreement. Best for brands seeking differentiation within their category.",
-                  },
-                  {
-                    n: "03",
-                    label: "Brand-exclusive",
-                    body: "The voice is used exclusively by one brand globally. Premium tier for brands building a signature sonic identity.",
-                  },
-                ]}
-                onDark={true}
-              />
+                <Link
+                  href="/opus"
+                  className="lv-cta lv-cta-outline"
+                  style={pillStyle("outline")}
+                >
+                  Learn about Opus
+                </Link>
+              </div>
             </ScrollReveal>
           </div>
-        </div>
-      </section>
 
-      {/* Section 5 — Two paths forward.
-          Cream ground sits between the dark sections above and the
-          dark closing below, giving the conversion choice point room
-          to breathe. The earlier PathCard treatment (card frames,
-          body paragraphs, eyebrow + italic headline + body + CTA) read
-          as SaaS and triple-stated content sections 3 and 4 already
-          covered. New treatment is editorial two-column with just a
-          label, an italic display headline, and a single arrow CTA.
-          Hairline top borders on each column echo the numbered-list
-          rule pattern from sections 3 and 4 without re-using cards. */}
-      <section style={{ padding: "120px 24px" }}>
-        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <ScrollReveal>
-            <Eyebrow label="Two paths forward" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(32px, 4.4vw, 52px)",
-                fontWeight: 500,
-                lineHeight: 1.02,
-                letterSpacing: "-0.005em",
-                color: C.olive,
-                margin: "0 0 64px",
-                maxWidth: "640px",
-              }}
-            >
-              Pick the path that fits.
-            </h2>
-          </ScrollReveal>
-
+          {/* Hairline divider then 3-up licensing tier row */}
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "64px",
+              borderTop: "1px solid rgba(255, 248, 236, 0.14)",
+              marginTop: "104px",
+              paddingTop: "56px",
             }}
           >
-            <ScrollReveal delay={220}>
-              <PathLine
-                label="For artists"
-                headline={
-                  <>
-                    Apply to the <em>Imprint</em>.
-                  </>
-                }
-                ctaHref="/imprint/apply"
-                ctaLabel="Apply now"
-              />
-            </ScrollReveal>
-            <ScrollReveal delay={320}>
-              <PathLine
-                label="For brands"
-                headline={
-                  <>
-                    License from the <em>Imprint</em>.
-                  </>
-                }
-                ctaHref="/imprint/license"
-                ctaLabel="Inquire about licensing"
-              />
-            </ScrollReveal>
+            <div className="lv-imprint-tiers-grid">
+              {[
+                {
+                  n: "01",
+                  label: "Non-exclusive",
+                  body: "The voice can be licensed to multiple non-competing brands simultaneously. Best for utility deployments, content production, and broad commercial use.",
+                },
+                {
+                  n: "02",
+                  label: "Industry-exclusive",
+                  body: "The voice is exclusive within a specific industry vertical for the term of the agreement. Best for brands seeking differentiation within their category.",
+                },
+                {
+                  n: "03",
+                  label: "Brand-exclusive",
+                  body: "The voice is used exclusively by one brand globally. Premium tier for brands building a signature sonic identity.",
+                },
+              ].map((tier, i) => (
+                <ScrollReveal key={tier.n} delay={i * 80}>
+                  <div className="lv-imprint-tier">
+                    <p className="lv-imprint-tier-index">{tier.n}</p>
+                    <h4 className="lv-imprint-tier-label">{tier.label}</h4>
+                    <p className="lv-imprint-tier-body">{tier.body}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 6 — Closing.
-          Dark olive ground as the editorial bookend, matching the home
-          page's Final CTA chapter-break pattern. The closing line in
-          italic display reads as the page's emotional close. */}
-      <section
-        style={{
-          background: "#2b2a25",
-          color: C.bg,
-          padding: "144px 24px",
-        }}
-      >
+      {/* Section 5 — Closing quote.
+          Cream ground breaks up the dark wall between For brands above
+          and Two paths forward below. Italic display quote in
+          ScrollHighlightText reads as the page's emotional close
+          before the conversion bookend. */}
+      <section style={{ padding: "144px 24px" }}>
         <div
           style={{
             maxWidth: "760px",
@@ -404,26 +325,30 @@ export default function ImprintPage() {
             textAlign: "center",
           }}
         >
-          <ScrollReveal>
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(24px, 3vw, 34px)",
-                fontWeight: 400,
-                lineHeight: 1.36,
-                color: C.bg,
-                margin: 0,
-              }}
-            >
-              Voice is not a commodity. Voice is artistry. The Imprint
-              exists because voice artists deserve what music artists
-              fought for: attribution, rights, ongoing compensation. We
-              built Lyric to be the model the industry needs.
-            </p>
-          </ScrollReveal>
+          <ScrollHighlightText
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(24px, 3vw, 34px)",
+              fontWeight: 400,
+              lineHeight: 1.36,
+              color: C.olive,
+              margin: 0,
+            }}
+          >
+            Voice is not a commodity. Voice is artistry. The Imprint
+            exists because voice artists deserve what music artists
+            fought for: attribution, rights, ongoing compensation. We
+            built Lyric to be the model the industry needs.
+          </ScrollHighlightText>
         </div>
       </section>
+
+      {/* Section 6 — Two paths forward.
+          Final dark FLORET bookend — the conversion moment, sized in
+          the same register as the home page's Final CTA. Shared
+          component, also used at the bottom of /opus. */}
+      <TwoPathsForward />
     </main>
   )
 }
@@ -500,12 +425,12 @@ function DarkEyebrow({ label }: { label: string }) {
   )
 }
 
-/* Numbered list with hairline separators, layout-mirrored from the
-   "Breaking down what we do" reference: item body left, index right.
-   Used in /imprint's For artists and For brands sections as the right
-   column of the two-column anchor grid. Color tokens flip between
-   cream-on-sage (onDark=false) and cream-on-dark (onDark=true) so the
-   pattern reads on both grounds. */
+/* Numbered list with hairline separators. The index sits on the LEFT
+   of the body copy — the number leads the reader into the item rather
+   than terminating it. Used in /imprint's For artists section as the
+   right column of the two-column anchor grid. Color tokens flip
+   between cream-on-sage (onDark=false) and cream-on-dark (onDark=true)
+   so the pattern reads on both grounds. */
 function NumberedList({
   items,
   onDark,
@@ -525,7 +450,7 @@ function NumberedList({
           key={item.n}
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr auto",
+            gridTemplateColumns: "auto 1fr",
             gap: "32px",
             alignItems: "start",
             padding: "26px 0",
@@ -533,6 +458,19 @@ function NumberedList({
             borderBottom: `1px solid ${ruleColor}`,
           }}
         >
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "14px",
+              fontWeight: 500,
+              color: numberColor,
+              letterSpacing: "0.04em",
+              alignSelf: "start",
+              paddingTop: "2px",
+            }}
+          >
+            {item.n}
+          </span>
           <p
             style={{
               margin: 0,
@@ -551,19 +489,6 @@ function NumberedList({
             </strong>{" "}
             {item.body}
           </p>
-          <span
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: numberColor,
-              letterSpacing: "0.04em",
-              alignSelf: "start",
-              paddingTop: "2px",
-            }}
-          >
-            {item.n}
-          </span>
         </li>
       ))}
     </ol>
@@ -575,49 +500,25 @@ function NumberedList({
    display headline, single arrow CTA. No card frame, no body
    paragraphs. Echoes the numbered-list hairline pattern used in
    sections 3 and 4 without re-using the list itself. */
-function PathLine({
-  label,
-  headline,
-  ctaHref,
-  ctaLabel,
-}: {
-  label: string
-  headline: React.ReactNode
-  ctaHref: string
-  ctaLabel: string
-}) {
-  return (
-    <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "32px" }}>
-      <p
-        style={{
-          fontFamily: "var(--font-body)",
-          fontSize: "11px",
-          fontWeight: 700,
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          color: C.olive,
-          opacity: 0.7,
-          margin: "0 0 16px",
-        }}
-      >
-        {label}
-      </p>
-      <h3
-        style={{
-          fontFamily: "var(--font-display)",
-          fontStyle: "italic",
-          fontSize: "clamp(26px, 3vw, 36px)",
-          fontWeight: 500,
-          lineHeight: 1.08,
-          color: C.olive,
-          margin: "0 0 24px",
-        }}
-      >
-        {headline}
-      </h3>
-      <Link href={ctaHref} className="lv-link-cta">
-        {ctaLabel} <span aria-hidden="true">&rarr;</span>
-      </Link>
-    </div>
-  )
+/* Pill button style helper for the For brands centered CTA pair.
+   Mirrors the home page Final CTA's CTA component (light = filled
+   cream pill, outline = transparent with hairline border). Inlined
+   here rather than imported because /imprint doesn't otherwise need
+   the home page page.tsx's CTA component. */
+function pillStyle(variant: "light" | "outline"): React.CSSProperties {
+  return {
+    minHeight: "54px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 28px",
+    borderRadius: "100px",
+    fontSize: "15px",
+    fontWeight: 500,
+    letterSpacing: "0",
+    background: variant === "light" ? "var(--bg-light)" : "transparent",
+    color: variant === "light" ? "var(--olive)" : "var(--bg-light)",
+    border: variant === "outline" ? "1px solid rgba(255, 248, 236, 0.6)" : "1px solid transparent",
+    transition: "background 0.22s ease, color 0.22s ease",
+  }
 }

@@ -272,15 +272,16 @@ export default function AboutPage() {
               </p>
 
               <p>
-                One example. In 2024, Mike led the consumer voice experience
-                design for JBL Authentics, the first consumer device to host
-                both Alexa and Google Assistant simultaneously. The system
-                won a CES Innovation Award. The onboarding flow he designed
-                reached over ninety percent opt-in for voice setup. That
-                kind of result doesn&apos;t come from model performance. It
-                comes from treating voice as a craft problem: how the system
-                speaks, when it speaks, what it asks for, and how it earns
-                the user&apos;s permission to keep speaking.
+                Here&apos;s one example. In 2024, Mike led the consumer voice
+                experience design for JBL Authentics, the first consumer
+                speaker to host Alexa and Google Assistant simultaneously.
+                The product and its companion app earned a CES Innovation
+                Award. The onboarding flow he designed achieved over ninety
+                percent opt-in for voice setup. That result didn&apos;t come
+                from model performance. It came from treating voice as a
+                craft problem: how the system speaks, when it speaks, what
+                it asks for, and how it earns the user&apos;s permission to
+                keep speaking.
               </p>
 
               <p>

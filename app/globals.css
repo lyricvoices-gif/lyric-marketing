@@ -275,6 +275,25 @@ main:has(.lv-hero) { padding-top: 0; }
   border-bottom-color: var(--gold);
 }
 
+/* Disabled CTA variant — used when a pillar's destination page is
+   not yet live. Reads as a quiet status marker rather than an
+   actionable link: no border, no hover affordance, muted weight. */
+.lv-link-cta-disabled {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-bottom: none;
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: currentColor;
+  background: rgba(255, 248, 236, 0.08);
+  border: 1px solid rgba(255, 248, 236, 0.18);
+  opacity: 0.78;
+  cursor: default;
+}
+
 /* Legacy single-portrait visual — no longer used (replaced by the corner
    videos above). Left in for any consumer that still references the class. */
 .lv-hero-visual {
@@ -814,6 +833,270 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
+/* ─── For brands centered CTA layout ──────────────────────────────
+   The For brands section's top half is now a centered Final-CTA-style
+   header (eyebrow + large italic display headline + two pill buttons),
+   mirroring the home page's voice-first-era bookend register. The
+   three-up licensing tier row sits below a hairline rule. */
+.lv-imprint-brands-cta {
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lv-imprint-brands-headline {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5.4vw, 64px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+  margin: 0 0 40px;
+  max-width: 760px;
+}
+
+.lv-imprint-brands-headline em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255, 248, 236, 0.68);
+}
+
+.lv-imprint-brands-ctas {
+  margin-top: 8px;
+}
+
+/* Hub-and-spoke diagram itself. Four corner panels surround a
+   central "Voice" node; dashed lines (an absolutely-positioned SVG
+   overlay) connect the corners to the center. The whole component
+   sits inside a 1:1 frame so the diagram reads as a balanced
+   editorial graphic. */
+.lv-imprint-hub {
+  position: relative;
+  aspect-ratio: 1 / 0.86;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.lv-imprint-hub-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+}
+
+.lv-imprint-hub-corner {
+  background: rgba(255, 248, 236, 0.04);
+  border: 1px solid rgba(255, 248, 236, 0.14);
+  border-radius: 4px;
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.lv-imprint-hub-corner-heading {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bg-light);
+  margin: 0;
+}
+
+.lv-imprint-hub-corner-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lv-imprint-hub-corner-items li {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(255, 248, 236, 0.55);
+}
+
+/* Center "Voice" node — sits above the dashed connector overlay. */
+.lv-imprint-hub-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 108px;
+  height: 108px;
+  background: var(--bg-light);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  z-index: 2;
+}
+
+.lv-imprint-hub-center-label {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0;
+}
+
+.lv-imprint-hub-center-mark {
+  color: var(--olive);
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lv-imprint-hub-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── For brands tiers row (under the hub diagram) ─────────────────
+   Three-up licensing tier row that sits beneath a hairline rule.
+   Same numbered + label + body shape as NumberedList but laid out as
+   columns instead of stacked rows. */
+.lv-imprint-tiers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 769px) {
+  .lv-imprint-tiers-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px;
+  }
+}
+
+.lv-imprint-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lv-imprint-tier-index {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255, 248, 236, 0.45);
+  margin: 0;
+}
+
+.lv-imprint-tier-label {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--bg-light);
+  margin: 0;
+}
+
+.lv-imprint-tier-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 248, 236, 0.74);
+  margin: 0;
+}
+
+/* ─── Two paths forward (full-bleed FLORET overlay) ────────────────
+   Editorial moment with a darkened FLORET 12_1 ground standing in
+   for an architectural moody backdrop. Content overlays on the left;
+   the right side breathes. The PathLine elements sit on a dark
+   register so their hairlines and italic display headlines read
+   against the imagery. */
+.lv-imprint-twopaths {
+  position: relative;
+  overflow: hidden;
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 144px 24px;
+  isolation: isolate;
+}
+
+.lv-imprint-twopaths-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(20, 20, 18, 0.94) 0%,
+      rgba(20, 20, 18, 0.82) 38%,
+      rgba(20, 20, 18, 0.56) 72%,
+      rgba(20, 20, 18, 0.42) 100%
+    ),
+    url("/images/floret-twopaths.jpg");
+  background-size: cover;
+  background-position: center right;
+  z-index: -1;
+}
+
+.lv-imprint-twopaths-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.lv-imprint-twopaths-content {
+  max-width: 560px;
+}
+
+.lv-imprint-twopaths-headline {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+  margin: 0 0 56px;
+}
+
+.lv-imprint-twopaths-headline em {
+  font-style: italic;
+  color: rgba(255, 248, 236, 0.62);
+  font-weight: 400;
+}
+
+.lv-imprint-twopaths-paths {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 600px) {
+  .lv-imprint-twopaths-paths {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+}
+
+@media (min-width: 769px) {
+  .lv-imprint-twopaths {
+    padding: 176px 48px;
+  }
+}
+
 /* ─── Opus storyboard ("Direction is part of the format") ───────────
    Four looping MP4s pulled from composer.lyricvoices.ai's "What you'll
    make" section, sitting on a dark olive ground inside /opus so the
@@ -1306,12 +1589,16 @@ main:has(.lv-hero) { padding-top: 0; }
    rhythm so this relationship-routing surface reads as its own
    editorial beat. All text inherits cream from the section root. */
 .lv-audiences {
-  padding: 88px 20px;
+  padding: 88px 24px;
   color: var(--bg-light);
 }
 
+/* Inner content is constrained to 1120px to match the editorial
+   max-width used on /imprint (Edition 01, For artists, For brands).
+   Horizontal padding of 24px also matches those sections so the
+   left edge of the content reads consistent across pages. */
 .lv-audiences-inner {
-  max-width: 1280px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
@@ -2030,7 +2317,10 @@ main:has(.lv-hero) { padding-top: 0; }
      padding so the dark interlude has the same breathing room as the
      cream sections it sits between. Three equal columns at 64px gap. */
   .lv-audiences {
-    padding: 128px 48px;
+    /* Horizontal padding stays at 24px to match /imprint section
+       insets; vertical padding scales up for the dark-ground
+       editorial breath. */
+    padding: 128px 24px;
   }
 
   /* Header → grid gap: bumped to 72px on desktop so the rest between
@@ -2162,13 +2452,16 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-listen {
   background: var(--bg-light);
   color: var(--olive);
-  padding: 88px 20px;
+  padding: 88px 24px;
 }
 
 /* Two-column editorial split: section header anchors the left, the
-   artist index runs down the right. Stacks on mobile. */
+   artist index runs down the right. Stacks on mobile. Max-width
+   and horizontal padding match /imprint's editorial sections (1120
+   max-width, 24px horizontal) so the content's left edge reads
+   consistent across pages. */
 .lv-listen-layout {
-  max-width: 1280px;
+  max-width: 1120px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -3053,7 +3346,9 @@ main:has(.lv-hero) { padding-top: 0; }
 
 @media (min-width: 769px) {
   .lv-listen {
-    padding: 128px 48px;
+    /* Horizontal padding stays at 24px to match /imprint section
+       insets; vertical scales up for desktop breath. */
+    padding: 128px 24px;
   }
 
   /* Two-column split: header column on the left, artist index on the

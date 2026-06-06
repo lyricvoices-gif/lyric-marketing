@@ -57,7 +57,7 @@ export default function StoriesIndex() {
                 fontSize: "clamp(36px, 5vw, 64px)",
                 fontWeight: 600,
                 lineHeight: 0.95,
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 color: TEXT1,
                 margin: "0 0 20px",
                 maxWidth: "640px",
@@ -125,7 +125,7 @@ export default function StoriesIndex() {
                         fontSize: "clamp(26px, 3vw, 38px)",
                         fontWeight: 600,
                         lineHeight: 1.1,
-                        letterSpacing: "-0.02em",
+                        letterSpacing: "0",
                         color: TEXT1,
                         margin: "0 0 12px",
                       }}

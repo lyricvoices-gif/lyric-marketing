@@ -68,7 +68,7 @@ export default function PricingPage() {
               fontFamily: "var(--font-display)",
               fontSize: "clamp(36px, 4vw, 58px)",
               fontWeight: 600,
-              letterSpacing: "-0.02em",
+              letterSpacing: "0",
               color: LIGHT,
               margin: "0 0 24px",
               lineHeight: 0.95,
@@ -142,7 +142,7 @@ export default function PricingPage() {
                     fontWeight: 600,
                     color: TEXT1,
                     margin: "0 0 12px",
-                    letterSpacing: "-0.02em",
+                    letterSpacing: "0",
                     lineHeight: 1.3,
                   }}>
                     {card.title}
@@ -197,7 +197,7 @@ export default function PricingPage() {
             color: LIGHT,
             margin: "0 auto 20px",
             lineHeight: 0.95,
-            letterSpacing: "-0.02em",
+            letterSpacing: "0",
             maxWidth: "720px",
           }}>
             Ready to hear Lyric
@@ -225,7 +225,7 @@ export default function PricingPage() {
                 fontWeight: 500,
                 background: LIGHT,
                 color: DARK,
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               Try the composer
@@ -240,7 +240,7 @@ export default function PricingPage() {
                 background: "rgba(245,243,239,0.07)",
                 color: "rgba(245,243,239,0.6)",
                 border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               Learn more

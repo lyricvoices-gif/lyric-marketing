@@ -25,6 +25,10 @@ type Pillar = {
   body: React.ReactNode
   href: string
   cta: string
+  /* When true, the CTA renders as a static "Coming soon" marker
+     instead of an active link — used while a pillar's destination
+     page is still being built. */
+  comingSoon?: boolean
   Visual: () => React.ReactNode
 }
 
@@ -105,7 +109,8 @@ const PILLARS: Pillar[] = [
       </>
     ),
     href: "/score",
-    cta: "Explore Score",
+    cta: "Coming soon",
+    comingSoon: true,
     Visual: ScoreVisual,
   },
   {
@@ -165,9 +170,15 @@ export default function ProductsSection() {
                   <p className="lv-pillar-index">{p.index} · Pillar</p>
                   <h3 className="lv-pillar-name">{p.name}</h3>
                   <p className="lv-pillar-body">{p.body}</p>
-                  <Link href={p.href} className="lv-link-cta">
-                    {p.cta} <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                  {p.comingSoon ? (
+                    <span className="lv-link-cta lv-link-cta-disabled" aria-disabled="true">
+                      {p.cta}
+                    </span>
+                  ) : (
+                    <Link href={p.href} className="lv-link-cta">
+                      {p.cta} <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  )}
                 </div>
               </article>
             </ScrollReveal>

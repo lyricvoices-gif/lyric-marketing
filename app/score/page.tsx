@@ -7,6 +7,7 @@
 
 import type { Metadata } from "next"
 import ScrollReveal from "@/components/ScrollReveal"
+import ScrollHighlightText from "@/components/ScrollHighlightText"
 
 export const metadata: Metadata = {
   title: "Score",
@@ -229,24 +230,22 @@ export default function ScorePage() {
             textAlign: "center",
           }}
         >
-          <ScrollReveal>
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(22px, 2.8vw, 30px)",
-                fontWeight: 400,
-                lineHeight: 1.4,
-                color: C.olive,
-                margin: 0,
-              }}
-            >
-              The voice AI industry runs on training data. Lyric believes
-              that data should come from real performances by real
-              artists, with real consent and real compensation. Score is
-              the result.
-            </p>
-          </ScrollReveal>
+          <ScrollHighlightText
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(22px, 2.8vw, 30px)",
+              fontWeight: 400,
+              lineHeight: 1.4,
+              color: C.olive,
+              margin: 0,
+            }}
+          >
+            The voice AI industry runs on training data. Lyric believes
+            that data should come from real performances by real
+            artists, with real consent and real compensation. Score is
+            the result.
+          </ScrollHighlightText>
         </div>
       </section>
     </main>

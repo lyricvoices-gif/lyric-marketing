@@ -114,7 +114,7 @@ export default function VariantComparisons() {
                   fontStyle: "italic",
                   color: isPlaying ? TEXT1 : "rgba(26,26,24,0.38)",
                   lineHeight: 1.25,
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "0",
                   margin: 0,
                   transition: "color 0.3s",
                 }}>

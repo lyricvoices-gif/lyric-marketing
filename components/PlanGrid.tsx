@@ -262,7 +262,7 @@ export default function PlanGrid() {
                       fontVariantNumeric: "tabular-nums",
                       fontSize: "48px",
                       fontWeight: 600,
-                      letterSpacing: "-0.03em",
+                      letterSpacing: "0",
                       color: plan.highlight ? LIGHT : TEXT1,
                       lineHeight: 1,
                     }}
@@ -310,7 +310,7 @@ export default function PlanGrid() {
                     background: plan.highlight ? LIGHT : DARK,
                     color: plan.highlight ? DARK : LIGHT,
                     marginBottom: "20px",
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "0",
                     textDecoration: "none",
                   }}
                 >

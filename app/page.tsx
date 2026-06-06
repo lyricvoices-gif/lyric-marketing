@@ -223,9 +223,9 @@ export default function HomePage() {
                   range, full performance metadata. Every dataset is
                   defensibly sourced.
                 </p>
-                <Link href="/score" className="lv-link-cta">
-                  Explore Score <span aria-hidden="true">&rarr;</span>
-                </Link>
+                <span className="lv-link-cta lv-link-cta-disabled" aria-disabled="true">
+                  Coming soon
+                </span>
               </ScrollReveal>
             </div>
           </div>

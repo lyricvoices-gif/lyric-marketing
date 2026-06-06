@@ -83,7 +83,7 @@ export default function BriefingPage() {
                 fontSize: "clamp(38px, 5vw, 72px)",
                 fontWeight: 600,
                 fontStyle: "normal",
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 lineHeight: 0.95,
                 color: LIGHT,
                 margin: "0 0 28px",
@@ -121,7 +121,7 @@ export default function BriefingPage() {
                 fontWeight: 500,
                 background: LIGHT,
                 color: DARK,
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
                 width: "fit-content",
               }}
             >
@@ -209,7 +209,7 @@ export default function BriefingPage() {
                   fontSize: "clamp(32px, 4vw, 52px)",
                   fontWeight: 600,
                   fontStyle: "normal",
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "0",
                   lineHeight: 0.95,
                   color: TEXT1,
                   margin: "0 0 28px",
@@ -299,7 +299,7 @@ export default function BriefingPage() {
                 href={SUBSTACK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: "13px", color: TEXT3, letterSpacing: "-0.01em" }}
+                style={{ fontSize: "13px", color: TEXT3, letterSpacing: "0" }}
               >
                 Browse all →
               </a>
@@ -353,7 +353,7 @@ export default function BriefingPage() {
                         fontFamily: "var(--font-display)",
                         fontSize: "clamp(22px, 2.5vw, 32px)",
                         fontWeight: 500,
-                        letterSpacing: "-0.01em",
+                        letterSpacing: "0",
                         lineHeight: 1.2,
                         color: LIGHT,
                         margin: "0 0 14px",
@@ -415,7 +415,7 @@ export default function BriefingPage() {
                             fontFamily: "var(--font-display)",
                             fontSize: "clamp(15px, 1.4vw, 18px)",
                             fontWeight: 500,
-                            letterSpacing: "-0.01em",
+                            letterSpacing: "0",
                             lineHeight: 1.25,
                             color: LIGHT,
                             margin: 0,
@@ -446,7 +446,7 @@ export default function BriefingPage() {
                 fontSize: "clamp(28px, 3.5vw, 44px)",
                 fontWeight: 600,
                 fontStyle: "normal",
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 lineHeight: 0.95,
                 color: TEXT1,
                 margin: "0 0 64px",
@@ -494,7 +494,7 @@ export default function BriefingPage() {
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(20px, 2vw, 26px)",
                       fontWeight: 500,
-                      letterSpacing: "-0.01em",
+                      letterSpacing: "0",
                       lineHeight: 1.2,
                       color: TEXT1,
                       margin: "0 0 16px",
@@ -546,7 +546,7 @@ export default function BriefingPage() {
                 fontSize: "clamp(36px, 5vw, 72px)",
                 fontWeight: 600,
                 fontStyle: "normal",
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 lineHeight: 0.95,
                 color: LIGHT,
                 margin: "0 auto 24px",
@@ -586,7 +586,7 @@ export default function BriefingPage() {
                   fontWeight: 500,
                   background: LIGHT,
                   color: DARK,
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "0",
                 }}
               >
                 Subscribe on Substack

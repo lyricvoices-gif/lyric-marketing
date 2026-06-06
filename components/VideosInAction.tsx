@@ -400,7 +400,7 @@ export default function VideosInAction() {
                         color: "#ffffff",
                         margin: "0 0 16px",
                         lineHeight: 1.08,
-                        letterSpacing: "-0.01em",
+                        letterSpacing: "0",
                       }}>
                         {card.headline}
                       </h3>
@@ -418,7 +418,7 @@ export default function VideosInAction() {
                           fontSize: "13px",
                           fontWeight: 500,
                           color: DARK,
-                          letterSpacing: "-0.01em",
+                          letterSpacing: "0",
                           pointerEvents: "auto",
                         }}
                       >
@@ -520,7 +520,7 @@ function MobileCarouselCard({ card, onWatch }: { card: Card; onWatch: () => void
           color: "#ffffff",
           margin: "0 0 14px",
           lineHeight: 1.08,
-          letterSpacing: "-0.01em",
+          letterSpacing: "0",
         }}>
           {card.headline}
         </h3>
@@ -538,7 +538,7 @@ function MobileCarouselCard({ card, onWatch }: { card: Card; onWatch: () => void
             fontSize: "13px",
             fontWeight: 500,
             color: DARK,
-            letterSpacing: "-0.01em",
+            letterSpacing: "0",
           }}
         >
           <svg width="9" height="10" viewBox="0 0 9 10" fill="none">

@@ -121,19 +121,36 @@ export default function VignettesCaseStudy() {
       <header style={{ padding: "72px 24px 0" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <ScrollReveal>
-            <p
+            <div
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: DEEP_GOLD,
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
                 margin: "0 0 32px",
               }}
             >
-              Case Study — The Vignettes
-            </p>
+              <span
+                aria-hidden="true"
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  background: DEEP_GOLD,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  fontWeight: 400,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: OLIVE,
+                }}
+              >
+                The Vignettes
+              </span>
+            </div>
             <h1
               style={{
                 fontFamily: "var(--font-display)",

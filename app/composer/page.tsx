@@ -39,7 +39,7 @@ export default function ComposerPage() {
               fontSize: "clamp(38px, 5vw, 72px)",
               fontWeight: 600,
               fontStyle: "normal",
-              letterSpacing: "-0.02em",
+              letterSpacing: "0",
               lineHeight: 0.95,
               color: LIGHT,
               margin: "0 auto 24px",
@@ -86,7 +86,7 @@ export default function ComposerPage() {
                 fontSize: "clamp(32px, 4vw, 52px)",
                 fontWeight: 600,
                 fontStyle: "normal",
-                letterSpacing: "-0.02em",
+                letterSpacing: "0",
                 lineHeight: 0.95,
                 color: TEXT1,
                 margin: 0,
@@ -142,7 +142,7 @@ export default function ComposerPage() {
                   fontSize: "clamp(28px, 3.5vw, 44px)",
                   fontWeight: 600,
                   fontStyle: "normal",
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "0",
                   lineHeight: 0.95,
                   color: LIGHT,
                   margin: 0,
@@ -190,7 +190,7 @@ export default function ComposerPage() {
               fontSize: "clamp(30px, 3.5vw, 46px)",
               fontWeight: 600,
               fontStyle: "normal",
-              letterSpacing: "-0.02em",
+              letterSpacing: "0",
               lineHeight: 1.0,
               color: TEXT1,
               margin: "0 0 64px",
@@ -252,7 +252,7 @@ export default function ComposerPage() {
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(20px, 2vw, 26px)",
                       fontWeight: 500,
-                      letterSpacing: "-0.01em",
+                      letterSpacing: "0",
                       lineHeight: 1.2,
                       color: TEXT1,
                       margin: "0 0 16px",
@@ -282,7 +282,7 @@ export default function ComposerPage() {
             color: LIGHT,
             margin: "0 auto 20px",
             lineHeight: 0.95,
-            letterSpacing: "-0.02em",
+            letterSpacing: "0",
             maxWidth: "720px",
           }}>
             Ready to hear Lyric
@@ -312,7 +312,7 @@ export default function ComposerPage() {
                 fontWeight: 500,
                 background: LIGHT,
                 color: DARK,
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               Try the composer
@@ -327,7 +327,7 @@ export default function ComposerPage() {
                 background: "rgba(245,243,239,0.07)",
                 color: "rgba(245,243,239,0.6)",
                 border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               View pricing

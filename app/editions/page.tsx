@@ -128,7 +128,7 @@ export default function EditionsPage() {
               fontFamily: "var(--font-display)",
               fontSize: "clamp(38px, 5vw, 72px)",
               fontWeight: 600,
-              letterSpacing: "-0.02em",
+              letterSpacing: "0",
               lineHeight: 0.95,
               color: LIGHT,
               margin: "0 0 32px",
@@ -162,7 +162,7 @@ export default function EditionsPage() {
               width: "7px", height: "7px", borderRadius: "50%",
               background: GOLD, flexShrink: 0,
             }} />
-            <span style={{ fontSize: "12px", fontWeight: 600, color: TEXT1, letterSpacing: "-0.01em" }}>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: TEXT1, letterSpacing: "0" }}>
               Edition 01
             </span>
             <span style={{ fontSize: "12px", color: TEXT3 }}>· 5 voices · Available now</span>
@@ -237,7 +237,7 @@ export default function EditionsPage() {
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(52px, 6vw, 84px)",
                       fontWeight: 500,
-                      letterSpacing: "-0.02em",
+                      letterSpacing: "0",
                       lineHeight: 0.9,
                       color: TEXT1,
                       margin: "0 0 28px",
@@ -323,7 +323,7 @@ export default function EditionsPage() {
                       fontWeight: 400,
                       color: TEXT1,
                       lineHeight: 0.9,
-                      letterSpacing: "-0.03em",
+                      letterSpacing: "0",
                       flexShrink: 0,
                       fontVariantNumeric: "lining-nums",
                       fontFeatureSettings: '"lnum" 1',
@@ -399,7 +399,7 @@ export default function EditionsPage() {
                     fontStyle: "italic",
                     color: TEXT1,
                     lineHeight: 1.3,
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "0",
                     margin: 0,
                   }}>
                     &ldquo;Voice represents the most significant interface<br />shift since smartphones.&rdquo;
@@ -432,7 +432,7 @@ export default function EditionsPage() {
                 width: "7px", height: "7px", borderRadius: "50%",
                 background: "rgba(245,243,239,0.2)", flexShrink: 0,
               }} />
-              <span style={{ fontSize: "12px", fontWeight: 600, color: "rgba(245,243,239,0.35)", letterSpacing: "-0.01em" }}>
+              <span style={{ fontSize: "12px", fontWeight: 600, color: "rgba(245,243,239,0.35)", letterSpacing: "0" }}>
                 Edition 02
               </span>
               <span style={{ fontSize: "12px", color: "rgba(245,243,239,0.2)" }}>· In development</span>
@@ -597,7 +597,7 @@ export default function EditionsPage() {
                     <span style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "28px", fontWeight: 500,
-                      color: "rgba(245,243,239,0.3)", letterSpacing: "-0.02em",
+                      color: "rgba(245,243,239,0.3)", letterSpacing: "0",
                     }}>
                       {v.name}
                     </span>
@@ -659,7 +659,7 @@ export default function EditionsPage() {
                 <div>
                   <p style={{
                     fontSize: "16px", fontWeight: 600, color: TEXT1,
-                    margin: "0 0 4px", letterSpacing: "-0.01em",
+                    margin: "0 0 4px", letterSpacing: "0",
                   }}>
                     The Edition 01 Story
                   </p>
@@ -694,7 +694,7 @@ export default function EditionsPage() {
                   fontFamily: "var(--font-display)",
                   fontSize: "clamp(32px, 3.5vw, 48px)",
                   fontWeight: 600,
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "0",
                   lineHeight: 1.05,
                   color: TEXT1,
                   margin: "0 0 20px",
@@ -728,7 +728,7 @@ export default function EditionsPage() {
             color: LIGHT,
             margin: "0 auto 20px",
             lineHeight: 0.95,
-            letterSpacing: "-0.02em",
+            letterSpacing: "0",
             maxWidth: "720px",
           }}>
             Ready to hear Lyric
@@ -758,7 +758,7 @@ export default function EditionsPage() {
                 fontWeight: 500,
                 background: LIGHT,
                 color: DARK,
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               Try the composer
@@ -773,7 +773,7 @@ export default function EditionsPage() {
                 background: "rgba(245,243,239,0.07)",
                 color: "rgba(245,243,239,0.6)",
                 border: "1px solid rgba(245,243,239,0.12)",
-                letterSpacing: "-0.01em",
+                letterSpacing: "0",
               }}
             >
               View pricing

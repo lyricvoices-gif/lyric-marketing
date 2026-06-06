@@ -40,7 +40,7 @@ export default function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
               color: TEXT1,
               margin: 0,
               lineHeight: 1.5,
-              letterSpacing: "-0.01em",
+              letterSpacing: "0",
             }}>
               {faq.q}
             </p>

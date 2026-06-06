@@ -115,7 +115,7 @@ export default function HowItWorksAnimations() {
         <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: TEXT3, margin: "0 0 20px" }}>
           Begin here
         </p>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: 600, letterSpacing: "-0.01em", color: TEXT1, margin: "0 0 12px", lineHeight: 1.2 }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: 600, letterSpacing: "0", color: TEXT1, margin: "0 0 12px", lineHeight: 1.2 }}>
           Choose the character.
         </h3>
         <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>
@@ -151,7 +151,7 @@ export default function HowItWorksAnimations() {
         <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: TEXT3, margin: "0 0 20px" }}>
           Then this
         </p>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: 600, letterSpacing: "-0.01em", color: TEXT1, margin: "0 0 12px", lineHeight: 1.2 }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: 600, letterSpacing: "0", color: TEXT1, margin: "0 0 12px", lineHeight: 1.2 }}>
           Set the intent.
         </h3>
         <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>
@@ -190,7 +190,7 @@ export default function HowItWorksAnimations() {
         <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: TEXT3, margin: "0 0 20px" }}>
           Now write
         </p>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: 600, letterSpacing: "-0.01em", color: TEXT1, margin: "0 0 12px", lineHeight: 1.2 }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: 600, letterSpacing: "0", color: TEXT1, margin: "0 0 12px", lineHeight: 1.2 }}>
           Direct as you compose.
         </h3>
         <p style={{ fontSize: "14px", color: TEXT2, lineHeight: 1.7, margin: "0 0 40px" }}>

@@ -7,6 +7,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
+import ScrollHighlightText from "@/components/ScrollHighlightText"
 
 export const metadata: Metadata = {
   title: "Opus",
@@ -353,26 +354,85 @@ export default function OpusPage() {
             textAlign: "center",
           }}
         >
-          <ScrollReveal>
-            <p
+          <ScrollHighlightText
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(22px, 2.8vw, 30px)",
+              fontWeight: 400,
+              lineHeight: 1.4,
+              color: C.olive,
+              margin: 0,
+            }}
+          >
+            Brands know what they want their voice to sound like. They
+            know how it should feel to their customers. What most brands
+            lack is the expertise to translate that creative vision
+            into the technical parameters that make it real. Opus is
+            where that translation happens.
+          </ScrollHighlightText>
+        </div>
+      </section>
+
+      {/* Section 7 — Two paths forward.
+          Final dark CTA section, formatted to mirror the home page's
+          "voice-first era is here" Final CTA exactly: dark olive
+          ground, centered gold-dot eyebrow, stacked italic display
+          headline, and two pill buttons — one for artists, one for
+          brands. The home page Final CTA reuses .lv-final + .lv-cta-row
+          so we lean on the same classes for visual parity. */}
+      <section className="lv-final" style={{ background: "#2b2a25" }}>
+        <ScrollReveal>
+          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>Two paths forward</span>
+          </div>
+          <h2>
+            Pick the path that <em>fits.</em>
+          </h2>
+          <div className="lv-cta-row lv-cta-row-center">
+            <Link
+              href="/imprint/license"
+              className="lv-cta lv-cta-light"
               style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(22px, 2.8vw, 30px)",
-                fontWeight: 400,
-                lineHeight: 1.4,
-                color: C.olive,
-                margin: 0,
+                minHeight: "54px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0 28px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 500,
+                background: "var(--bg-light)",
+                color: "var(--olive)",
+                border: "1px solid transparent",
+                transition: "background 0.22s ease, color 0.22s ease",
               }}
             >
-              Brands know what they want their voice to sound like. They
-              know how it should feel to their customers. What most brands
-              lack is the expertise to translate that creative vision
-              into the technical parameters that make it real. Opus is
-              where that translation happens.
-            </p>
-          </ScrollReveal>
-        </div>
+              License a voice
+            </Link>
+            <Link
+              href="/imprint/apply"
+              className="lv-cta lv-cta-outline"
+              style={{
+                minHeight: "54px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0 28px",
+                borderRadius: "100px",
+                fontSize: "15px",
+                fontWeight: 500,
+                background: "transparent",
+                color: "var(--bg-light)",
+                border: "1px solid rgba(255, 248, 236, 0.6)",
+                transition: "background 0.22s ease, color 0.22s ease",
+              }}
+            >
+              Partner with Lyric
+            </Link>
+          </div>
+        </ScrollReveal>
       </section>
     </main>
   )
