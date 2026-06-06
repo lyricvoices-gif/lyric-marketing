@@ -80,7 +80,7 @@ export default function AlexaHospitalityCaseStudy() {
           font-size: 124px;
           line-height: 0.66;
           font-weight: 500;
-          padding: 20px 16px 0 0;
+          padding: 20px 8px 0 0;
           color: ${INK};
         }
         p.cs-caption {

@@ -74,10 +74,10 @@ export default function LyricCaseStudy() {
         .cs-lede::first-letter {
           font-family: var(--font-display);
           float: left;
-          font-size: 155px;
+          font-size: 140px;
           line-height: 0.66;
           font-weight: 500;
-          margin: 5px 16px 0 6px;
+          margin: 5px 8px 0 6px;
           color: ${OLIVE};
         }
         p.cs-caption {
