@@ -195,10 +195,14 @@ export default function ImprintPage() {
                   control, compensation. The full agreement lives at the
                   Artist Partnership.
                 </p>
-                <Link href="/imprint/agreement" className="lv-link-cta">
+                <a
+                  href="/lyric-artist-partnership-agreement.pdf"
+                  download
+                  className="lv-link-cta"
+                >
                   Read the full Artist Partnership{" "}
                   <span aria-hidden="true">&rarr;</span>
-                </Link>
+                </a>
               </ScrollReveal>
             </div>
 

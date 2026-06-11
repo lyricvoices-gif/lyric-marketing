@@ -95,7 +95,7 @@ export default function Footer() {
       links: [
         { label: "Apply to the Imprint",   href: "/imprint/apply" },
         { label: "License from the Imprint", href: "/imprint/license" },
-        { label: "Artist Partnership",      href: "/imprint/agreement" },
+        { label: "Artist Partnership",      href: "/lyric-artist-partnership-agreement.pdf", download: true },
       ],
     },
     {
@@ -103,7 +103,7 @@ export default function Footer() {
       links: [
         { label: "Privacy Policy",     href: "/privacy" },
         { label: "Terms of Use",       href: "/terms" },
-        { label: "Artist Partnership", href: "/imprint/agreement" },
+        { label: "Artist Partnership", href: "/lyric-artist-partnership-agreement.pdf", download: true },
       ],
     },
   ]
@@ -211,6 +211,7 @@ export default function Footer() {
                   {col.links.map((link) => {
                     const isMailto = link.href.startsWith("mailto:")
                     const isExternal = link.href.startsWith("http")
+                    const isDownload = "download" in link && link.download
                     const sharedStyle: React.CSSProperties = {
                       fontSize: "13px",
                       color: "rgba(245,243,239,0.55)",
@@ -220,11 +221,13 @@ export default function Footer() {
                       <div key={link.label} style={{ marginBottom: "10px" }}>
                         <a
                           href={link.href}
-                          {...(isExternal
-                            ? { target: "_blank", rel: "noopener noreferrer" }
-                            : isMailto
-                              ? {}
-                              : {})}
+                          {...(isDownload
+                            ? { download: true }
+                            : isExternal
+                              ? { target: "_blank", rel: "noopener noreferrer" }
+                              : isMailto
+                                ? {}
+                                : {})}
                           style={{
                             ...sharedStyle,
                             display: "inline-flex",
