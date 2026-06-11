@@ -511,12 +511,12 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-cycler-mark.is-shown {
   transform: translateY(0);
-  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lv-cycler-mark.is-out {
   transform: translateY(-220%);
-  transition: transform 0.35s cubic-bezier(0.5, 0, 0.75, 0.5);
+  transition: transform 0.45s cubic-bezier(0.5, 0, 0.75, 0.5);
 }
 
 .lv-cycler-mark.is-below {

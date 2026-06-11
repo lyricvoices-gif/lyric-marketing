@@ -46,12 +46,12 @@ const BRANDS: Brand[] = [
 const SLOT_COUNT = 4
 /* Gap between consecutive slot swaps — sets the speed of the wave and,
    with SLOT_COUNT, how long each mark holds (SLOT_COUNT × STAGGER_MS
-   per slot, ≈4.4s). */
-const STAGGER_MS = 1100
+   per slot, ≈5.6s). */
+const STAGGER_MS = 1400
 /* Exit + empty-slot beat before the next mark enters. The enter
    duration itself lives in CSS (.lv-cycler-mark transitions). */
-const EXIT_MS = 350
-const EMPTY_MS = 420
+const EXIT_MS = 450
+const EMPTY_MS = 450
 
 type Phase = "shown" | "out" | "below"
 type Slot = { brand: number; phase: Phase }
