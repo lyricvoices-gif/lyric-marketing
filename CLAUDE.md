@@ -48,7 +48,7 @@ Per-voice identity colors: Atlas `#7A9B82`, Hex `#E0834A`, Morgan `#F3D171`, Nov
 ## Home Page (`app/page.tsx`) — section order
 1. `HomeHero` — type-led cream hero, gradient ground
 2. **Manifesto** — `ScrollHighlightText` movements on cream
-3. `LogoMarquee` — brand logos ticker
+3. `LogoCycler` — brand logos, vertical cycling lockup
 4. `ProductsSection` — **scrollytelling pillars** (see below)
 5. `ListenSection` — artist index with audio playback (persistent playback bar in layout)
 6. **Audiences / Work with us** — dark interlude, 3 columns (artists / brands / researchers)
@@ -77,7 +77,7 @@ Olive chapter break with a hard cream→olive edge. Centered header ("Three pill
 |---|---|
 | `/` | Home — see section order above |
 | `/about` | Brand story, locations, briefing promo |
-| `/imprint` (+ `/apply`, `/license`) | Pillar 01 — roster, for-artists/for-brands sections |
+| `/imprint` (+ `/apply`, `/license`, `/agreement`) | Pillar 01 — roster, for-artists/for-brands sections |
 | `/opus` | Pillar 03 — Direction + Composer modes |
 | `/score` | Pillar 02 — datasets (nav marks it "coming soon") |
 | `/notes` (+ `[slug]`) | Editorial notes |
