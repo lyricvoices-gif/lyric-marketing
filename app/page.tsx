@@ -2,7 +2,7 @@ import Link from "next/link"
 import type React from "react"
 import HomeHero from "@/components/HomeHero"
 import ListenSection from "@/components/ListenSection"
-import LogoMarquee from "@/components/LogoMarquee"
+import LogoCycler from "@/components/LogoCycler"
 import MobileStickyCTA from "@/components/MobileStickyCTA"
 import NotesSection from "@/components/NotesSection"
 import ProductsSection from "@/components/ProductsSection"
@@ -139,7 +139,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <LogoMarquee />
+      <LogoCycler />
 
       <ProductsSection />
 

@@ -531,6 +531,64 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
+/* ─── Logo cycler ──────────────────────────────────────────────────────────
+   Staggered slot-swap variant of the logo strip (home page). A row of
+   fixed slots shares the marquee's section shell (.lv-logos) and mark
+   treatment (.lv-logos-mark); each slot is an overflow clip that its
+   logo slides vertically through. Phase classes are driven by
+   LogoCycler.tsx: "out" sends the current mark up past the clip,
+   "below" parks the next mark under it with no transition, "shown"
+   releases it up into place. Exit eases in (accelerating away), enter
+   starts fast and settles long — the mark decelerates into its resting
+   position like a counter tumbling to a stop. */
+.lv-cycler {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 24px;
+}
+
+.lv-cycler-slot {
+  position: relative;
+  /* Clip window. Tall enough that a centered mark plus its travel
+     stays inside the slot's own bounds, so the hard mask edge is
+     never visible against the cream ground. */
+  height: calc(var(--logo-h) * 2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Travel distance is relative to the mark's own height; 220% clears
+   the clip even for the smallest-scaled marks (whose height is well
+   under the slot's). */
+.lv-cycler-mark {
+  max-width: 100%;
+  width: auto;
+}
+
+.lv-cycler-mark.is-shown {
+  transform: translateY(0);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lv-cycler-mark.is-out {
+  transform: translateY(-220%);
+  transition: transform 0.35s cubic-bezier(0.5, 0, 0.75, 0.5);
+}
+
+.lv-cycler-mark.is-below {
+  transform: translateY(220%);
+  transition: none;
+}
+
+@media (min-width: 769px) {
+  .lv-cycler {
+    gap: 48px;
+  }
+}
+
 /* ─── Products section ─────────────────────────────────────────────────────
    Asymmetric tile grid drawing on Sandbar's About-page card pattern. Four
    tiles, each with its own ground color (cream / black / sage / cream
