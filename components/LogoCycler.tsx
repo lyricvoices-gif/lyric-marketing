@@ -46,12 +46,17 @@ const BRANDS: Brand[] = [
 const SLOT_COUNT = 4
 /* Gap between consecutive slot swaps — sets the speed of the wave and,
    with SLOT_COUNT, how long each mark holds (SLOT_COUNT × STAGGER_MS
-   per slot, ≈5.6s). */
-const STAGGER_MS = 1400
-/* Exit + empty-slot beat before the next mark enters. The enter
-   duration itself lives in CSS (.lv-cycler-mark transitions). */
-const EXIT_MS = 450
-const EMPTY_MS = 450
+   per slot, ≈4.8s). The full swap (exit + empty beat + enter, ≈2.1s
+   with the CSS durations) deliberately outlasts this gap, so the next
+   slot lifts off while the previous mark is still settling — the
+   motion hands off slot to slot and reads as one wave traveling
+   left to right, never as isolated pops. */
+const STAGGER_MS = 1200
+/* Exit + empty-slot beat before the next mark enters. The exit and
+   enter durations themselves live in CSS (.lv-cycler-mark
+   transitions) and must stay in step with these. */
+const EXIT_MS = 550
+const EMPTY_MS = 550
 
 type Phase = "shown" | "out" | "below"
 type Slot = { brand: number; phase: Phase }
@@ -80,7 +85,7 @@ export default function LogoCycler() {
     const setSlot = (i: number, patch: Partial<Slot>) =>
       setSlots((prev) => prev.map((s, j) => (j === i ? { ...s, ...patch } : s)))
 
-    const interval = window.setInterval(() => {
+    const fire = () => {
       const slot = swap % SLOT_COUNT
       swap += 1
       const pick = Math.floor(Math.random() * hidden.length)
@@ -99,12 +104,41 @@ export default function LogoCycler() {
           })
         )
       }, EXIT_MS + EMPTY_MS)
-    }, STAGGER_MS)
+    }
+
+    let interval: number | undefined
+    const start = () => {
+      if (interval === undefined) interval = window.setInterval(fire, STAGGER_MS)
+    }
+    const stop = () => {
+      if (interval !== undefined) {
+        window.clearInterval(interval)
+        interval = undefined
+      }
+      timeouts.forEach((id) => window.clearTimeout(id))
+      timeouts.clear()
+    }
+
+    /* Background tabs suspend requestAnimationFrame and throttle timers,
+       which can strand a slot mid-swap and then replay the backlog in a
+       burst on return — scrambling the left-to-right order. Instead,
+       halt the loop on hide, settle every slot on its assigned brand
+       while nothing is being painted, and resume cleanly on return. */
+    const onVisibility = () => {
+      if (document.hidden) {
+        stop()
+        setSlots(visible.map((brand) => ({ brand, phase: "shown" })))
+      } else {
+        start()
+      }
+    }
+    document.addEventListener("visibilitychange", onVisibility)
+    start()
 
     return () => {
       cancelled = true
-      window.clearInterval(interval)
-      timeouts.forEach((id) => window.clearTimeout(id))
+      document.removeEventListener("visibilitychange", onVisibility)
+      stop()
     }
   }, [])
 
