@@ -134,8 +134,13 @@ html {
   scroll-behavior: smooth;
   /* Prevent the page itself from scrolling horizontally on any device.
      Carousels manage their own touch handlers + inner overflow:hidden,
-     so this only locks down the document, not them. */
+     so this only locks down the document, not them. `clip` (with a
+     `hidden` fallback for older engines) because `overflow-x: hidden`
+     turns html/body into scroll containers, which silently breaks
+     position: sticky for every descendant — the pinned Products
+     scrollytelling depends on this. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -146,7 +151,9 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* clip, not hidden — see the html rule above re: position: sticky. */
   overflow-x: hidden;
+  overflow-x: clip;
   /* Kill the iOS/Chrome horizontal swipe-back / rubber-band on the page
      so a finger drag inside (or just over) a carousel never escapes to
      navigate the browser. */
@@ -592,35 +599,47 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 540px;
 }
 
-/* Three-pillar editorial moments — replaces the older row-of-cards
-   layout. Each pillar is a full-width alternating two-column block with
-   a custom visual on one side and a copy column on the other. Ample
-   vertical breathing room between blocks so each pillar reads as its
-   own moment. All visuals are pure CSS + inline SVG; per-pillar ambient
-   motion (drift, pulse, blink, breathing) is wrapped in a
-   prefers-reduced-motion gate at the bottom of this block. */
+/* Scrollytelling pillars — replaces the older alternating two-column
+   blocks. One pinned frame, three movements: a copy rail on the left,
+   a single visual stage on the right that cross-fades between the
+   per-pillar compositions as the reader scrolls. Mobile-first styles
+   here are the stacked (unpinned) fallback; the pinned layout lives in
+   the min-width media block further down. All visuals are pure CSS +
+   inline SVG; ambient motion is wrapped in the prefers-reduced-motion
+   gate at the bottom of this block. Markup + scroll mechanics:
+   components/products/ProductsScrolly.tsx. */
 
-.lv-products-pillars {
+.lv-sp {
+  position: relative;
+}
+
+.lv-sp-grid {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+.lv-sp-rail {
+  position: relative;
   display: flex;
   flex-direction: column;
-  /* Substantial breathing room so each pillar reads as its own moment
-     and its ScrollReveal fade-up fires as the reader scrolls past, the
-     same beat-by-beat pacing used elsewhere on the site. */
-  gap: 144px;
+  /* Stacked fallback rhythm — each pillar (visual + copy) is its own
+     beat, matching the pacing the old alternating blocks had. */
+  gap: 88px;
 }
 
-.lv-pillar {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  align-items: center;
+/* Gold progress hairline — desktop-only chrome for the pinned rail. */
+.lv-sp-progress {
+  display: none;
 }
 
-.lv-pillar-media {
-  position: relative;
-  width: 100%;
+/* Per-item visual — shown only in the stacked fallback; on desktop the
+   shared stage renders the visuals instead. */
+.lv-sp-item-visual {
+  margin: 0 0 28px;
+}
+
+.lv-sp-stage {
+  display: none;
 }
 
 .lv-pillar-visual {
@@ -642,14 +661,7 @@ main:has(.lv-hero) { padding-top: 0; }
   z-index: 0;
 }
 
-.lv-pillar-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 4px 0;
-}
-
-.lv-pillar-index {
+.lv-sp-item-index {
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 700;
@@ -659,9 +671,9 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0 0 14px;
 }
 
-.lv-pillar-name {
+.lv-sp-item-name {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4.4vw, 52px);
+  font-size: clamp(32px, 4.4vw, 44px);
   font-weight: 500;
   line-height: 1.02;
   color: var(--bg-light);
@@ -669,7 +681,20 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: -0.005em;
 }
 
-.lv-pillar-body {
+/* Detail (body + CTA) collapses for inactive pillars on desktop via
+   the 0fr→1fr grid-rows trick; in the stacked fallback it is always
+   expanded. visibility rides along so the collapsed CTA can't take
+   keyboard focus while invisible. */
+.lv-sp-item-detail {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.lv-sp-item-detail-inner {
+  overflow: hidden;
+}
+
+.lv-sp-item-body {
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.55;
@@ -682,24 +707,20 @@ main:has(.lv-hero) { padding-top: 0; }
    this file (see "Editorial link CTA"). All call sites now reference
    .lv-link-cta. */
 
-/* ─── Imprint visual ───────────────────────────────────────────────────
-   Warm cream-gold gradient ground evoking the FLORET palette without
-   needing an image. Foreground: vertical stack of five voice plaques
-   with per-voice color dots. Each dot breathes on a staggered offset
-   so the dots ripple as a slow wave. */
+/* ─── Imprint visual — the Lyric mobile app ───────────────────────────
+   Dark stage matching Score's and Opus's grounds (the three visuals
+   read as one family), warm gold glow rising from the top-left. Two
+   CSS-built phone mockups bottom-anchored and cropped by the panel
+   edge: front phone = Edition 01 roster screen, back phone = a live
+   Atlas session screen. Markup: components/products/ImprintVisual.tsx. */
 .lv-pillar-bg-imprint {
   background:
     radial-gradient(
-      120% 90% at 50% 0%,
-      rgba(243, 209, 113, 0.42) 0%,
-      rgba(193, 193, 126, 0.18) 35%,
-      rgba(43, 42, 37, 0.0) 70%
+      90% 70% at 30% 0%,
+      rgba(243, 209, 113, 0.16) 0%,
+      rgba(43, 42, 37, 0.0) 65%
     ),
-    linear-gradient(
-      180deg,
-      rgba(255, 248, 236, 0.10) 0%,
-      rgba(255, 248, 236, 0.0) 100%
-    );
+    linear-gradient(180deg, #2a2924 0%, #1f1e1a 100%);
 }
 
 .lv-pillar-bg-imprint::after {
@@ -717,64 +738,245 @@ main:has(.lv-hero) { padding-top: 0; }
   pointer-events: none;
 }
 
-.lv-imprint-roster {
+.lv-imprint-phones {
   position: relative;
   z-index: 1;
-  list-style: none;
-  margin: 0;
-  padding: 32px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
   width: 100%;
   height: 100%;
-  justify-content: center;
 }
 
-.lv-imprint-plaque {
-  display: grid;
-  grid-template-columns: 14px 1fr auto;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
-  background: rgba(255, 248, 236, 0.06);
-  border: 1px solid rgba(255, 248, 236, 0.10);
-  border-radius: 6px;
+/* Phone frame — a plain rounded container so a real app screenshot can
+   replace the CSS screen later. Both phones are top-positioned taller
+   than the stage and crop at the panel's bottom edge (overflow:hidden
+   on .lv-pillar-visual), the classic app-marketing "rising into frame"
+   posture. */
+.lv-phone {
+  position: absolute;
+  border-radius: 32px;
+  padding: 9px;
+  background: #12110d;
+  border: 1px solid rgba(255, 248, 236, 0.2);
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.45);
 }
 
-.lv-imprint-plaque-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: block;
-  animation: lv-pillar-breathe 2.4s ease-in-out infinite;
-  animation-delay: var(--breath-delay, 0s);
-  box-shadow: 0 0 0 0 currentColor;
+.lv-phone-front {
+  left: 14%;
+  top: 10%;
+  height: 100%;
+  width: clamp(200px, 42%, 256px);
+  z-index: 2;
+  transform: rotate(-1.5deg);
 }
 
-.lv-imprint-plaque-name {
+.lv-phone-back {
+  right: 12%;
+  top: 24%;
+  height: 100%;
+  width: clamp(180px, 37%, 230px);
+  z-index: 1;
+  opacity: 0.92;
+  transform: rotate(2deg);
+}
+
+.lv-phone-notch {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 16px;
+  border-radius: 999px;
+  background: #0c0b09;
+  z-index: 3;
+}
+
+.lv-phone-screen {
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #211f1a 0%, #191813 100%);
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  padding: 46px 16px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Roster screen (front phone) */
+.lv-phone-screen-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 14px;
+}
+
+.lv-phone-wordmark {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: var(--bg-light);
   line-height: 1;
 }
 
-.lv-imprint-plaque-role {
+.lv-phone-screen-label {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.lv-phone-roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+
+.lv-phone-row {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  background: rgba(255, 248, 236, 0.05);
+  border: 1px solid rgba(255, 248, 236, 0.09);
+  border-radius: 12px;
+}
+
+.lv-phone-row-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: block;
+  animation: lv-pillar-breathe 2.4s ease-in-out infinite;
+  animation-delay: var(--breath-delay, 0s);
+}
+
+.lv-phone-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.lv-phone-row-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bg-light);
+  line-height: 1;
+}
+
+.lv-phone-row-role {
+  font-family: var(--font-body);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.5);
+}
+
+.lv-phone-tabbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 11px 4px 2px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 248, 236, 0.08);
+}
+
+.lv-phone-tab {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.4);
+}
+
+.lv-phone-tab.is-active {
+  color: var(--gold);
+}
+
+/* Session screen (back phone) */
+.lv-phone-kicker {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 10px;
+}
+
+.lv-phone-voice-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 27px;
+  font-weight: 500;
+  color: var(--bg-light);
+  line-height: 1;
+  margin: 0 0 7px;
+}
+
+.lv-phone-voice-role {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 248, 236, 0.55);
+  margin: 0;
+}
+
+.lv-phone-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 46px;
+  margin: 20px 0 16px;
+}
+
+.lv-phone-wave-bar {
+  flex: 1;
+  height: var(--h, 60%);
+  border-radius: 2px;
+  background: var(--gold);
+  transform-origin: center;
+  animation: lv-phone-wave 1.8s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes lv-phone-wave {
+  0%, 100% { transform: scaleY(0.55); opacity: 0.55; }
+  50%      { transform: scaleY(1);    opacity: 0.95; }
+}
+
+.lv-phone-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lv-phone-chip {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 248, 236, 0.16);
+  color: rgba(255, 248, 236, 0.7);
 }
 
 .lv-imprint-caption {
   position: absolute;
-  bottom: 18px;
-  left: 36px;
-  z-index: 1;
+  top: 20px;
+  right: 24px;
+  z-index: 2;
   margin: 0;
   font-family: var(--font-body);
   font-size: 10px;
@@ -1537,7 +1739,8 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-imprint-plaque-dot,
+  .lv-phone-row-dot,
+  .lv-phone-wave-bar,
   .lv-opus-chip-dot,
   .lv-opus-msg,
   .lv-opus-round,
@@ -1546,6 +1749,15 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-opus-conversation,
   .lv-opus-typing-caret {
     animation: none !important;
+    transition: none !important;
+  }
+
+  /* Scroll-driven pillar swaps become instant cuts — the cross-fade
+     and detail expansion are the only transitions tied to scroll. */
+  .lv-sp-frame,
+  .lv-sp-item-detail,
+  .lv-sp-item-index,
+  .lv-sp-item-name {
     transition: none !important;
   }
 
@@ -2264,44 +2476,133 @@ main:has(.lv-hero) { padding-top: 0; }
     margin-bottom: 72px;
   }
 
-  /* Three-pillar stack at desktop — vertical sequence of alternating
-     two-column moments. Visual half + copy half swap sides every other
-     pillar via the data-orient attribute. Generous gap between
-     moments so each one reads as its own beat and the scroll-reveal
-     fade-up fires distinctly for each pillar as the reader scrolls
-     down. */
-  .lv-products-pillars {
-    gap: 224px;
+  /* Pinned scrollytelling pillars at desktop. The outer .lv-sp is tall
+     (~3 segments of scroll travel); the inner panel sticks for the
+     duration, copy rail left, shared visual stage right. The active
+     segment index comes from ProductsScrolly via .is-active classes;
+     scroll progress arrives as --sp-progress on .lv-sp and drives the
+     rail's gold fill. */
+  .lv-sp {
+    height: 340vh;
+  }
+
+  .lv-sp-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Top padding clears the 64px fixed nav. */
+    padding: 84px 0 32px;
+  }
+
+  .lv-sp-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: clamp(48px, 6vw, 88px);
+    align-items: center;
     padding: 0 32px;
   }
 
-  .lv-pillar {
-    grid-template-columns: 1.15fr 1fr;
-    gap: 64px;
+  .lv-sp-rail {
+    gap: 40px;
+    padding-left: 30px;
   }
 
-  /* When the visual is on the right, mirror the column tracks so the
-     visual always occupies the wider (1.15fr) track, not just the
-     left-side one. Without this the Score pillar's visual would render
-     narrower than Imprint's and Opus's. */
-  .lv-pillar[data-orient="visual-right"] {
-    grid-template-columns: 1fr 1.15fr;
+  .lv-sp-progress {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: rgba(255, 248, 236, 0.16);
   }
 
-  .lv-pillar[data-orient="visual-right"] .lv-pillar-media {
-    order: 2;
+  .lv-sp-progress-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform-origin: top;
+    transform: scaleY(var(--sp-progress, 0));
   }
 
-  .lv-pillar[data-orient="visual-right"] .lv-pillar-copy {
-    order: 1;
+  .lv-sp-item-visual {
+    display: none;
   }
 
-  .lv-pillar-copy {
-    padding: 12px 0;
+  .lv-sp-item-index {
+    opacity: 0.45;
+    transition: opacity 0.45s ease;
   }
 
-  .lv-pillar-body {
+  .lv-sp-item-name {
+    font-size: clamp(28px, 3vw, 40px);
+    margin-bottom: 0;
+    opacity: 0.32;
+    transition: opacity 0.45s ease;
+  }
+
+  .lv-sp-item.is-active .lv-sp-item-index,
+  .lv-sp-item.is-active .lv-sp-item-name {
+    opacity: 1;
+  }
+
+  .lv-sp-item-detail {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.5s ease,
+      visibility 0.65s;
+  }
+
+  .lv-sp-item.is-active .lv-sp-item-detail {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lv-sp-item-body {
     font-size: 18px;
+    padding-top: 16px;
+    margin-bottom: 24px;
+  }
+
+  .lv-sp-stage {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 240px);
+    min-height: 360px;
+    max-height: 560px;
+  }
+
+  .lv-sp-frame {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    transition:
+      opacity 0.55s ease,
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .lv-sp-frame.is-active {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  /* Inside the stage the frame's box sets the size — the visual fills
+     it rather than imposing its own 4:3 (which still applies in the
+     stacked fallback where the visual sizes itself). */
+  .lv-sp-frame .lv-pillar-visual {
+    height: 100%;
+    aspect-ratio: auto;
   }
 
   .lv-roster,
