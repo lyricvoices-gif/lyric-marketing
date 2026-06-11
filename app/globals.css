@@ -378,14 +378,13 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
 }
 
-/* ─── Logo marquee ─────────────────────────────────────────────────────────
-   Modeled after brand.ai's "Built with brand leaders from" strip — left-
-   aligned sentence-case eyebrow, large monochrome logos in a continuous
-   horizontal scroll. The track holds two copies of the list; translateX
-   (-50%) over a long linear duration produces a seamless loop. Edge masks
-   fade the row into the cream so the seam is never visible. SVG marks are
-   forced to a uniform mid-grey via a brightness/invert filter so brand
-   colors don't compete with the editorial palette. */
+/* ─── Logo strip shell ─────────────────────────────────────────────────────
+   Founder credit line + brand strip, used below the manifesto on the home
+   page and under the narrative on /about. Left-aligned sentence-case
+   credit, large monochrome logos to its right (the cycler, styled in the
+   next block). SVG marks are forced to a uniform mid-grey via a
+   brightness/invert filter so brand colors don't compete with the
+   editorial palette. */
 .lv-logos {
   background: var(--bg-light);
   /* The credit line and logo row read as a single unified block —
@@ -400,11 +399,11 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* Row container. At mobile this is a stacked layout (credit above
-   marquee); at desktop (min-width: 769px below) it switches to a
+   strip); at desktop (min-width: 769px below) it switches to a
    two-column grid: credit on the left (at its intrinsic width, anchored
    to the content max-width's left edge so its x-position matches the
-   pre-redesign placement), marquee viewport filling the remaining
-   space on the right. */
+   pre-redesign placement), the cycler filling the remaining space on
+   the right. */
 .lv-logos-row {
   max-width: 1320px;
   margin: 0 auto;
@@ -428,45 +427,6 @@ main:has(.lv-hero) { padding-top: 0; }
   white-space: nowrap;
 }
 
-/* Marquee viewport. Mask-image fades both edges into the cream ground
-   so logos materialize as they enter from the right and dissolve as
-   they exit on the left. At desktop the left mask edge sits right
-   next to the "at" word, so each logo fades out before it would
-   collide with the credit line. */
-.lv-logos-viewport {
-  position: relative;
-  overflow: hidden;
-  min-width: 0;
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 8%,
-    #000 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 8%,
-    #000 92%,
-    transparent 100%
-  );
-}
-
-.lv-logos-track {
-  display: flex;
-  align-items: center;
-  gap: 64px;
-  width: max-content;
-  /* Marquee — translate the full track left by exactly half its width
-     (the duplicated copy slides into place seamlessly). */
-  animation: lv-logos-scroll 56s linear infinite;
-}
-
-.lv-logos-track:hover {
-  animation-play-state: paused;
-}
-
 /* Logo row — credentials, not interactive. Height is driven by an
    inline `height: calc(var(--logo-h) * scale)` so each mark is
    optically balanced (wide wordmarks scale down, square icons scale
@@ -482,17 +442,6 @@ main:has(.lv-hero) { padding-top: 0; }
   opacity: 0.85;
 }
 
-@keyframes lv-logos-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lv-logos-track {
-    animation: none;
-  }
-}
-
 @media (min-width: 769px) {
   .lv-logos {
     /* Asymmetric padding — the credit + marquee row is anchored to the
@@ -506,14 +455,11 @@ main:has(.lv-hero) { padding-top: 0; }
     --logo-h: 32px;
   }
 
-  /* Desktop layout: same y-axis for credit + marquee. Grid runs
+  /* Desktop layout: same y-axis for credit + strip. Grid runs
      auto | 1fr — credit takes its intrinsic width on the left
      (anchored to the content padding's left edge, matching the
-     original pre-redesign x-position of the line), marquee viewport
-     fills the remaining width on the right. The marquee track flows
-     from right to left and fades out on its left edge, which sits
-     just past the "at" word, so each logo dissolves before colliding
-     with the credit. */
+     original pre-redesign x-position of the line), the cycler fills
+     the remaining width on the right. */
   .lv-logos-row {
     padding: 0 48px;
     display: grid;
@@ -525,17 +471,12 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-logos-credit {
     font-size: 15px;
   }
-
-  .lv-logos-track {
-    gap: 88px;
-  }
 }
 
 /* ─── Logo cycler ──────────────────────────────────────────────────────────
-   Staggered slot-swap variant of the logo strip (home page). A row of
-   fixed slots shares the marquee's section shell (.lv-logos) and mark
-   treatment (.lv-logos-mark); each slot is an overflow clip that its
-   logo slides vertically through. Phase classes are driven by
+   The strip itself — a row of fixed slots inside the section shell
+   (.lv-logos) sharing the mark treatment (.lv-logos-mark); each slot
+   is an overflow clip that its logo slides vertically through. Phase classes are driven by
    LogoCycler.tsx: "out" sends the current mark up past the clip,
    "below" parks the next mark under it with no transition, "shown"
    releases it up into place. Exit eases in (accelerating away), enter

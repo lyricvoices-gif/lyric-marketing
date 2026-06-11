@@ -2,10 +2,11 @@
 
 import React from "react"
 
-/* Founder credit line + cycling brand slots. Same section shell as
-   LogoMarquee (credit anchored left, logos filling the width to its
-   right at desktop, stacked at mobile) but the strip itself is a row
-   of fixed slots instead of a continuous scroll.
+/* Founder credit line + cycling brand slots, used below the manifesto
+   on the home page and under the narrative on /about. The credit
+   anchors left with the strip filling the width to its right at
+   desktop, stacked at mobile; the strip is a row of fixed slots
+   rather than a continuous scroll.
 
    Each slot swaps its logo with a masked vertical pass: the current
    mark slides straight up out of the slot's overflow clip, the slot
@@ -15,8 +16,9 @@ import React from "react"
    the strip always reads as a settled credit line with exactly one
    brand in motion.
 
-   Brand order and per-logo optical scales match LogoMarquee. Each
-   incoming mark is drawn at random from the off-stage pool and the
+   Brand order and per-logo optical scales carry over from the
+   retired marquee version of this strip. Each incoming mark is
+   drawn at random from the off-stage pool and the
    outgoing mark returns to it, so no brand ever appears in two slots
    at once — and slots don't ping-pong between a fixed pair (which is
    what any uniform rotation would do with 8 brands over 4 slots). */

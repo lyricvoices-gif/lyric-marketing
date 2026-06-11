@@ -14,7 +14,7 @@
      8. Closing — full-bleed dark olive, large italic. Bookends Section 3. */
 
 import type { Metadata } from "next"
-import LogoMarquee from "@/components/LogoMarquee"
+import LogoCycler from "@/components/LogoCycler"
 import ScrollReveal from "@/components/ScrollReveal"
 import SmoothAnchor from "@/components/SmoothAnchor"
 
@@ -297,7 +297,7 @@ export default function AboutPage() {
       </section>
 
       {/* Logo strip — repeats the credentials anchor under the narrative. */}
-      <LogoMarquee />
+      <LogoCycler />
 
       {/* Section 5 — Locations.
           Sage accent ground. Each location leads with a photograph of the
