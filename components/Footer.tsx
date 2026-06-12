@@ -119,22 +119,20 @@ export default function Footer() {
             padding: "64px 48px 44px",
           }}
         >
-          {/* Top row: brand + nav columns */}
-          <div
-            className="lyric-footer-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto",
-              gap: "80px",
-              marginBottom: "56px",
-              alignItems: "start",
-            }}
-          >
+          {/* Top row: brand + nav columns. Layout (grid placement, rhythm,
+              alignment) lives in globals.css under "Global footer" — on
+              desktop this is one shared 4-row grid so each link row
+              baseline-aligns with a brand row (headings ↔ isotype base,
+              links ↔ tagline / email / social icons). */}
+          <div className="lyric-footer-grid">
             {/* Brand block — Isotype, eyebrow signature, contact, social */}
-            <div>
-              <Isotype size={36} color="#f5f3ef" style={{ marginBottom: "16px" }} />
+            <div className="lyric-footer-brand">
+              <div className="lyric-footer-isotype">
+                <Isotype size={36} color="#f5f3ef" />
+              </div>
 
               <p
+                className="lyric-footer-tagline"
                 style={{
                   fontFamily: "var(--font-accent)",
                   fontSize: "20px",
@@ -142,7 +140,6 @@ export default function Footer() {
                   color: "rgba(245,243,239,0.6)",
                   lineHeight: 1.3,
                   maxWidth: "260px",
-                  margin: "0 0 18px",
                   letterSpacing: "0",
                 }}
               >
@@ -150,13 +147,13 @@ export default function Footer() {
               </p>
 
               <a
+                className="lyric-footer-email"
                 href="mailto:hi@lyricvoices.ai"
                 style={{
                   display: "block",
                   fontSize: "13px",
                   color: "rgba(245,243,239,0.4)",
                   letterSpacing: "0",
-                  marginBottom: "20px",
                 }}
               >
                 hi@lyricvoices.ai
@@ -164,7 +161,10 @@ export default function Footer() {
 
               {/* Social icons — natural sizing with a 16px gap so the
                   icons sit close like the live lyricvoices.ai footer. */}
-              <div style={{ display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap" }}>
+              <div
+                className="lyric-footer-social"
+                style={{ display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap" }}
+              >
                 {SOCIAL.map((s) => (
                   <a
                     key={s.label}
@@ -193,17 +193,17 @@ export default function Footer() {
             </div>
 
             {/* Nav columns */}
-            <div className="lyric-footer-cols" style={{ display: "flex", gap: "64px" }}>
+            <div className="lyric-footer-cols">
               {cols.map((col) => (
-                <div key={col.heading}>
+                <div key={col.heading} className="lyric-footer-col">
                   <p
+                    className="lyric-footer-colhead"
                     style={{
                       fontSize: "10px",
                       fontWeight: 700,
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
                       color: "rgba(245,243,239,0.3)",
-                      margin: "0 0 16px",
                     }}
                   >
                     {col.heading}
@@ -218,7 +218,7 @@ export default function Footer() {
                       letterSpacing: "0",
                     }
                     return (
-                      <div key={link.label} style={{ marginBottom: "10px" }}>
+                      <div key={link.label} className="lyric-footer-link">
                         <a
                           href={link.href}
                           {...(isDownload

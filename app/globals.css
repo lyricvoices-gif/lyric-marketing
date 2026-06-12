@@ -5015,3 +5015,71 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
+
+/* ─── Global footer ─────────────────────────────────────────────────────
+   Layout for components/Footer.tsx (typography/colors stay inline there).
+
+   Mobile: brand block stacks above the wrapping link columns.
+
+   Desktop: one shared 5-column × 4-row grid. The brand wrapper and the
+   columns wrapper flatten away via display:contents; each brand element
+   takes a row in column 1 and each link column is a subgrid spanning
+   the same four rows. Every row is baseline-aligned across the footer:
+   column headings sit on the isotype's base, then link rows pair with
+   the tagline, the email line, and the social icons. Because the rows
+   are shared tracks, the correspondence holds if any copy changes size.
+   (Browsers without subgrid fall back to per-column auto rows — the
+   columns still render, just without the cross-footer row lock.) */
+
+.lyric-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+
+.lyric-footer-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 40px;
+}
+
+.lyric-footer-isotype { margin-bottom: 16px; }
+.lyric-footer-tagline { margin: 0 0 18px; }
+.lyric-footer-email   { margin-bottom: 20px; }
+.lyric-footer-colhead { margin: 0 0 16px; }
+.lyric-footer-link    { margin-bottom: 10px; }
+
+@media (min-width: 769px) {
+  .lyric-footer-grid {
+    grid-template-columns: 1fr auto auto auto auto;
+    grid-template-rows: repeat(4, auto);
+    column-gap: 64px;
+    row-gap: 18px;
+    align-items: baseline;
+    margin-bottom: 56px;
+  }
+
+  .lyric-footer-brand,
+  .lyric-footer-cols {
+    display: contents;
+  }
+
+  .lyric-footer-isotype { grid-column: 1; grid-row: 1; margin: 0; }
+  .lyric-footer-tagline { grid-column: 1; grid-row: 2; margin: 0; }
+  .lyric-footer-email   { grid-column: 1; grid-row: 3; margin: 0; }
+  .lyric-footer-social  { grid-column: 1; grid-row: 4; }
+
+  .lyric-footer-col {
+    display: grid;
+    grid-row: 1 / 5;
+    grid-template-rows: subgrid;
+    row-gap: 18px;
+    align-items: baseline;
+  }
+
+  .lyric-footer-colhead,
+  .lyric-footer-link {
+    margin: 0;
+  }
+}
