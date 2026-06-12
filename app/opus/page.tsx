@@ -198,24 +198,157 @@ export default function OpusPage() {
         </div>
       </section>
 
-      {/* Section 3 — Direction */}
-      <ToolSection
-        eyebrow="Direction"
-        headline={<>Configure the <em>deployment</em>.</>}
-        body="Direction is for fine-tuning a Lyric voice to your specific implementation context. Tell us how you want the voice to sound, where it will be deployed, and what edge cases it needs to handle. Through a conversational interface you can type to or speak to, Direction translates your creative vision into the exact voice parameters your engineering team needs to deploy consistently across mobile apps, call centers, customer service systems, and any other dynamic voice application."
-        useCases={[
-          "Call center and customer service voice agents",
-          "Mobile app conversational interfaces",
-          "Property management and hospitality voice systems",
-          "In-product voice assistants",
-          "Any deployment requiring real-time, dynamic voice generation with consistent character",
-        ]}
-        howItWorks={[
-          "Tell us how you want the voice to sound and where it will be deployed.",
-          "Our AI agent collaborates with you in real time to refine the parameters.",
-          "Receive a locked configuration ready for your engineering team to implement.",
-        ]}
-      />
+      {/* Section 3 — Direction.
+          An editorial bridge into the DirectionShowcase below, not a
+          spec sheet. The old treatment (dense paragraph + two bullet
+          lists) read as SaaS documentation between two strong dark
+          moments; this one states the trade in a breath, walks the
+          three-step process as numbered editorial columns, and folds
+          the use cases into a single mono-labeled line. */}
+      <section
+        style={{
+          padding: "96px 24px 110px",
+          borderBottom: `1px solid ${C.border}`,
+        }}
+      >
+        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
+          <ScrollReveal>
+            <Eyebrow label="Direction" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(28px, 4.6vw, 52px)",
+                fontWeight: 500,
+                lineHeight: 1.04,
+                color: C.olive,
+                margin: "0 0 24px",
+                maxWidth: "720px",
+              }}
+            >
+              Creative direction in.{" "}
+              <em>Deployment spec out.</em>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={220}>
+            <p
+              style={{
+                fontSize: "17px",
+                lineHeight: 1.7,
+                color: C.text,
+                opacity: 0.82,
+                margin: "0 0 64px",
+                maxWidth: "640px",
+              }}
+            >
+              Tell Direction where the voice will live and how it needs
+              to feel. It returns a locked configuration your
+              engineering team can deploy without interpretation.
+            </p>
+          </ScrollReveal>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "40px",
+              borderTop: `1px solid ${C.border}`,
+              paddingTop: "40px",
+              marginBottom: "64px",
+            }}
+          >
+            {[
+              {
+                num: "01",
+                title: "Describe",
+                line: "Where the voice lives, what it must carry, the edge cases it will meet. Type it or say it.",
+              },
+              {
+                num: "02",
+                title: "Refine",
+                line: "The agent translates creative language into parameters. Hear previews, adjust, repeat.",
+              },
+              {
+                num: "03",
+                title: "Lock",
+                line: "One locked JSON specification, versioned and ready for engineering.",
+              },
+            ].map((step, i) => (
+              <ScrollReveal key={step.num} delay={i * 80}>
+                <div>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "11px",
+                      fontWeight: 500,
+                      letterSpacing: "0.14em",
+                      color: C.gold,
+                      margin: "0 0 14px",
+                    }}
+                  >
+                    {step.num}
+                  </p>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontStyle: "italic",
+                      fontSize: "24px",
+                      fontWeight: 400,
+                      color: C.olive,
+                      margin: "0 0 10px",
+                    }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      lineHeight: 1.65,
+                      color: C.text,
+                      opacity: 0.78,
+                      margin: 0,
+                      maxWidth: "300px",
+                    }}
+                  >
+                    {step.line}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal delay={240}>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "14px",
+                lineHeight: 1.9,
+                color: C.text,
+                opacity: 0.72,
+                maxWidth: "880px",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  fontWeight: 500,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: C.olive,
+                  marginRight: "16px",
+                }}
+              >
+                Where it deploys
+              </span>
+              Call centers · Customer service agents · Mobile apps ·
+              Hospitality systems · In-product assistants · Any real-time
+              voice surface that has to stay in character
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* Section 3.5 — Direction in session. The symmetrical dark moment
           to Composer's storyboard: a full-scale CSS recreation of the
@@ -448,139 +581,5 @@ function StoryboardTile({
       </div>
       <figcaption className="lv-opus-storyboard-caption">{caption}</figcaption>
     </figure>
-  )
-}
-
-function ToolSection({
-  eyebrow,
-  headline,
-  body,
-  useCases,
-  howItWorks,
-}: {
-  eyebrow: string
-  headline: React.ReactNode
-  body: string
-  useCases: string[]
-  howItWorks?: string[]
-}) {
-  return (
-    <section
-      style={{
-        padding: "96px 24px",
-        borderBottom: `1px solid ${C.border}`,
-      }}
-    >
-      <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-        <ScrollReveal>
-          <Eyebrow label={eyebrow} />
-        </ScrollReveal>
-        <ScrollReveal delay={120}>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(28px, 4.6vw, 52px)",
-              fontWeight: 500,
-              lineHeight: 1.04,
-              color: C.olive,
-              margin: "0 0 24px",
-              maxWidth: "720px",
-            }}
-          >
-            {headline}
-          </h2>
-        </ScrollReveal>
-        <ScrollReveal delay={220}>
-          <p
-            style={{
-              fontSize: "17px",
-              lineHeight: 1.7,
-              color: C.text,
-              opacity: 0.82,
-              margin: "0 0 48px",
-              maxWidth: "720px",
-            }}
-          >
-            {body}
-          </p>
-        </ScrollReveal>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: howItWorks
-              ? "repeat(auto-fit, minmax(280px, 1fr))"
-              : "1fr",
-            gap: "48px",
-          }}
-        >
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: C.gold,
-                margin: "0 0 16px",
-              }}
-            >
-              Use cases
-            </p>
-            <ul style={{ margin: 0, padding: "0 0 0 20px" }}>
-              {useCases.map((u, i) => (
-                <li
-                  key={i}
-                  style={{
-                    fontSize: "15px",
-                    lineHeight: 1.7,
-                    color: C.text,
-                    opacity: 0.82,
-                    marginBottom: "10px",
-                  }}
-                >
-                  {u}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {howItWorks && (
-            <div>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: C.gold,
-                  margin: "0 0 16px",
-                }}
-              >
-                How it works
-              </p>
-              <ol style={{ margin: 0, padding: "0 0 0 20px" }}>
-                {howItWorks.map((s, i) => (
-                  <li
-                    key={i}
-                    style={{
-                      fontSize: "15px",
-                      lineHeight: 1.7,
-                      color: C.text,
-                      opacity: 0.82,
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {s}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
   )
 }
