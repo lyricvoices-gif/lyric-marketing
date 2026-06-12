@@ -476,13 +476,23 @@ main:has(.lv-hero) { padding-top: 0; }
 /* ─── Logo cycler ──────────────────────────────────────────────────────────
    The strip itself — a row of fixed slots inside the section shell
    (.lv-logos) sharing the mark treatment (.lv-logos-mark); each slot
-   is an overflow clip that its logo slides vertically through. Phase classes are driven by
-   LogoCycler.tsx: "out" sends the current mark up past the clip,
-   "below" parks the next mark under it with no transition, "shown"
-   releases it up into place. Exit eases in (accelerating away), enter
-   starts fast and settles long — the mark decelerates into its resting
-   position like a counter tumbling to a stop. */
+   is an overflow clip that its logo slides through. Phase classes are
+   driven by LogoCycler.tsx: "out" sends the current mark past the
+   clip, "parked" holds the next mark off-stage with no transition,
+   "shown" releases it into place. Exit eases in (accelerating away),
+   enter starts fast and settles long — the mark decelerates into its
+   resting position like a counter tumbling to a stop.
+
+   Each slot has its own exit direction and (deliberately mismatched)
+   enter direction, set as data-out / data-in attributes by
+   LogoCycler.tsx — the scattered choreography of the reference, where
+   a mark leaves sideways and its replacement drops in from above.
+   Travel distances are tied to --logo-h so they scale with the strip:
+   the vertical throw clears the slot's 2×logo-h clip window, the
+   horizontal throw clears the widest mark in the widest slot. */
 .lv-cycler {
+  --cyc-y: calc(var(--logo-h) * 2.4);
+  --cyc-x: calc(var(--logo-h) * 7);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
@@ -501,9 +511,6 @@ main:has(.lv-hero) { padding-top: 0; }
   justify-content: center;
 }
 
-/* Travel distance is relative to the mark's own height; 220% clears
-   the clip even for the smallest-scaled marks (whose height is well
-   under the slot's). */
 .lv-cycler-mark {
   max-width: 100%;
   width: auto;
@@ -515,19 +522,27 @@ main:has(.lv-hero) { padding-top: 0; }
    begins — the handoff that makes the row read as one traveling
    wave rather than isolated pops. */
 .lv-cycler-mark.is-shown {
-  transform: translateY(0);
+  transform: translate(0, 0);
   transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lv-cycler-mark.is-out {
-  transform: translateY(-220%);
   transition: transform 0.55s cubic-bezier(0.5, 0, 0.75, 0.5);
 }
 
-.lv-cycler-mark.is-below {
-  transform: translateY(220%);
+.lv-cycler-mark.is-parked {
   transition: none;
 }
+
+.lv-cycler-slot[data-out="up"]    .lv-cycler-mark.is-out { transform: translateY(calc(-1 * var(--cyc-y))); }
+.lv-cycler-slot[data-out="down"]  .lv-cycler-mark.is-out { transform: translateY(var(--cyc-y)); }
+.lv-cycler-slot[data-out="left"]  .lv-cycler-mark.is-out { transform: translateX(calc(-1 * var(--cyc-x))); }
+.lv-cycler-slot[data-out="right"] .lv-cycler-mark.is-out { transform: translateX(var(--cyc-x)); }
+
+.lv-cycler-slot[data-in="top"]    .lv-cycler-mark.is-parked { transform: translateY(calc(-1 * var(--cyc-y))); }
+.lv-cycler-slot[data-in="bottom"] .lv-cycler-mark.is-parked { transform: translateY(var(--cyc-y)); }
+.lv-cycler-slot[data-in="left"]   .lv-cycler-mark.is-parked { transform: translateX(calc(-1 * var(--cyc-x))); }
+.lv-cycler-slot[data-in="right"]  .lv-cycler-mark.is-parked { transform: translateX(var(--cyc-x)); }
 
 @media (min-width: 769px) {
   .lv-cycler {

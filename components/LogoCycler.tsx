@@ -8,13 +8,16 @@ import React from "react"
    desktop, stacked at mobile; the strip is a row of fixed slots
    rather than a continuous scroll.
 
-   Each slot swaps its logo with a masked vertical pass: the current
-   mark slides straight up out of the slot's overflow clip, the slot
-   sits empty for a beat, then the next mark rises into place from
-   below. Swaps fire round-robin left to right, so a slow wave of
-   change moves across the row while the other slots hold still —
-   the strip always reads as a settled credit line with exactly one
-   brand in motion.
+   Each slot swaps its logo with a masked pass through its overflow
+   clip: the current mark slides out, the slot sits empty for a beat,
+   then the next mark slides into place. Every slot has its own fixed
+   exit direction and a deliberately mismatched enter direction (a
+   mark leaves sideways, its replacement drops in from above) —
+   sampled from the reference choreography, where the varied axes are
+   what keep the row feeling alive rather than mechanical. Swaps fire
+   round-robin left to right, so a slow wave of change moves across
+   the row while the other slots hold still — the strip always reads
+   as a settled credit line with exactly one brand in motion.
 
    Brand order and per-logo optical scales carry over from the
    retired marquee version of this strip. Each incoming mark is
@@ -43,7 +46,18 @@ const BRANDS: Brand[] = [
   { name: "Meta",            src: "/images/logos/meta.svg",           scale: 1.3  },
 ]
 
-const SLOT_COUNT = 4
+/* Exit / enter direction per slot, rendered as data attributes that
+   the .lv-cycler-slot[data-out] / [data-in] CSS rules key off. Four of
+   the reference's six pairs, chosen so both horizontal exits, both
+   vertical exits, and all four enter directions each appear once. */
+const DIRECTIONS = [
+  { out: "left",  in: "top" },
+  { out: "down",  in: "right" },
+  { out: "up",    in: "left" },
+  { out: "right", in: "bottom" },
+] as const
+
+const SLOT_COUNT = DIRECTIONS.length
 /* Gap between consecutive slot swaps — sets the speed of the wave and,
    with SLOT_COUNT, how long each mark holds (SLOT_COUNT × STAGGER_MS
    per slot, ≈4.8s). The full swap (exit + empty beat + enter, ≈2.1s
@@ -58,7 +72,7 @@ const STAGGER_MS = 1200
 const EXIT_MS = 550
 const EMPTY_MS = 550
 
-type Phase = "shown" | "out" | "below"
+type Phase = "shown" | "out" | "parked"
 type Slot = { brand: number; phase: Phase }
 
 export default function LogoCycler() {
@@ -95,9 +109,10 @@ export default function LogoCycler() {
 
       setSlot(slot, { phase: "out" })
       later(() => {
-        /* Park the incoming mark below the clip without a transition,
-           let that position paint, then release it into view. */
-        setSlot(slot, { brand: next, phase: "below" })
+        /* Park the incoming mark off-stage (on the slot's enter side)
+           without a transition, let that position paint, then release
+           it into view. */
+        setSlot(slot, { brand: next, phase: "parked" })
         requestAnimationFrame(() =>
           requestAnimationFrame(() => {
             if (!cancelled) setSlot(slot, { phase: "shown" })
@@ -151,7 +166,12 @@ export default function LogoCycler() {
           {slots.map((slot, i) => {
             const brand = BRANDS[slot.brand]
             return (
-              <div key={i} className="lv-cycler-slot">
+              <div
+                key={i}
+                className="lv-cycler-slot"
+                data-out={DIRECTIONS[i].out}
+                data-in={DIRECTIONS[i].in}
+              >
                 <img
                   className={`lv-logos-mark lv-cycler-mark is-${slot.phase}`}
                   src={brand.src}
