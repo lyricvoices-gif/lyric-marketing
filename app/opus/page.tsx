@@ -8,6 +8,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
+import TwoPathsForward from "@/components/TwoPathsForward"
 
 export const metadata: Metadata = {
   title: "Opus",
@@ -375,65 +376,13 @@ export default function OpusPage() {
       </section>
 
       {/* Section 7 — Two paths forward.
-          Final dark CTA section, formatted to mirror the home page's
-          "voice-first era is here" Final CTA exactly: dark olive
-          ground, centered gold-dot eyebrow, stacked italic display
-          headline, and two pill buttons — one for artists, one for
-          brands. The home page Final CTA reuses .lv-final + .lv-cta-row
-          so we lean on the same classes for visual parity. */}
-      <section className="lv-final" style={{ background: "#2b2a25" }}>
-        <ScrollReveal>
-          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
-            <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>Two paths forward</span>
-          </div>
-          <h2>
-            Pick the path that <em>fits.</em>
-          </h2>
-          <div className="lv-cta-row lv-cta-row-center">
-            <Link
-              href="/imprint/license"
-              className="lv-cta lv-cta-light"
-              style={{
-                minHeight: "54px",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "0 28px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 500,
-                background: "var(--bg-light)",
-                color: "var(--olive)",
-                border: "1px solid transparent",
-                transition: "background 0.22s ease, color 0.22s ease",
-              }}
-            >
-              License a voice
-            </Link>
-            <Link
-              href="/imprint/apply"
-              className="lv-cta lv-cta-outline"
-              style={{
-                minHeight: "54px",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "0 28px",
-                borderRadius: "100px",
-                fontSize: "15px",
-                fontWeight: 500,
-                background: "transparent",
-                color: "var(--bg-light)",
-                border: "1px solid rgba(255, 248, 236, 0.6)",
-                transition: "background 0.22s ease, color 0.22s ease",
-              }}
-            >
-              Partner with Lyric
-            </Link>
-          </div>
-        </ScrollReveal>
-      </section>
+          The shared conversion bookend (components/TwoPathsForward.tsx),
+          identical to the one closing /imprint: full-bleed dark ground,
+          gold-dot eyebrow, italic display headline, two hairline-ruled
+          path lines (For artists / For brands) with link CTAs. Replaces
+          an earlier inline pill-button Final CTA that didn't match the
+          imprint page's composition. */}
+      <TwoPathsForward />
     </main>
   )
 }
