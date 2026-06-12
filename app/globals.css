@@ -821,6 +821,21 @@ main:has(.lv-hero) { padding-top: 0; }
   flex-direction: column;
 }
 
+/* Screenshot variant — a real app screen fills the frame edge to edge.
+   Padding is dropped so the captured screen meets the rounded screen mask;
+   the centered notch overlays it like a Dynamic Island. */
+.lv-phone-screen-shot {
+  padding: 0;
+}
+
+.lv-phone-shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
 /* Roster screen (front phone) */
 .lv-phone-screen-head {
   display: flex;
