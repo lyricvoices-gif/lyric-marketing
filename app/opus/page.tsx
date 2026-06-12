@@ -9,6 +9,7 @@ import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import TwoPathsForward from "@/components/TwoPathsForward"
+import DirectionShowcase from "@/components/opus/DirectionShowcase"
 
 export const metadata: Metadata = {
   title: "Opus",
@@ -93,9 +94,8 @@ export default function OpusPage() {
           chapter break (mirrors the home page Products / Audiences /
           Final CTA rhythm). The videos ARE Composer here, not a
           separate "what you'll make" splash — they're the section's
-          visualization. Direction (next section) stays text-only until
-          its own video treatment exists; when that lands, it gets a
-          symmetrical dark moment. */}
+          visualization. Direction gets its symmetrical dark moment two
+          sections down (DirectionShowcase, studio-ink ground). */}
       <section
         style={{
           background: "#2b2a25",
@@ -202,7 +202,7 @@ export default function OpusPage() {
       <ToolSection
         eyebrow="Direction"
         headline={<>Configure the <em>deployment</em>.</>}
-        body="Direction is for fine-tuning a Lyric voice to your specific implementation context. Tell us how you want the voice to sound, where it will be deployed, and what edge cases it needs to handle. Through a real-time conversational interface, Direction translates your creative vision into the exact voice parameters your engineering team needs to deploy consistently across mobile apps, call centers, customer service systems, and any other dynamic voice application."
+        body="Direction is for fine-tuning a Lyric voice to your specific implementation context. Tell us how you want the voice to sound, where it will be deployed, and what edge cases it needs to handle. Through a conversational interface you can type to or speak to, Direction translates your creative vision into the exact voice parameters your engineering team needs to deploy consistently across mobile apps, call centers, customer service systems, and any other dynamic voice application."
         useCases={[
           "Call center and customer service voice agents",
           "Mobile app conversational interfaces",
@@ -216,6 +216,11 @@ export default function OpusPage() {
           "Receive a locked configuration ready for your engineering team to implement.",
         ]}
       />
+
+      {/* Section 3.5 — Direction in session. The symmetrical dark moment
+          to Composer's storyboard: a full-scale CSS recreation of the
+          Direction canvas on the product's own studio-ink ground. */}
+      <DirectionShowcase />
 
       {/* Section 4 — Direction is exclusive to Lyric voices.
           Dark olive ground (the second rhythm break on this page)

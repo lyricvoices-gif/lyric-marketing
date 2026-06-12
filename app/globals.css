@@ -1312,6 +1312,331 @@ main:has(.lv-hero) { padding-top: 0; }
   color: rgba(255, 248, 236, 0.86);
 }
 
+/* ─── Direction showcase (/opus) ───────────────────────────────────────
+   Direction's symmetrical dark moment: a full-scale CSS recreation of
+   the reimagined session canvas on the studio-ink ground (the product's
+   own palette, not the legacy #2b2a25). Tokens mirror the Direction app:
+   ink #14130F, parchment #F0E8D5, sage and gold accents. */
+.lv-dirshow {
+  background:
+    radial-gradient(circle at 50% -10%, rgba(193, 193, 126, 0.05), rgba(20, 19, 15, 0) 44%),
+    radial-gradient(circle at 84% 16%, rgba(243, 209, 113, 0.05), rgba(20, 19, 15, 0) 36%),
+    #14130f;
+  color: #f0e8d5;
+  padding: 120px 24px;
+  border-top: 1px solid rgba(240, 232, 213, 0.08);
+  border-bottom: 1px solid rgba(240, 232, 213, 0.08);
+}
+
+.lv-dirshow-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.lv-dirshow-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 22px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lv-dirshow-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.lv-dirshow-headline {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  margin: 0 0 22px;
+  max-width: 780px;
+}
+
+.lv-dirshow-headline em {
+  color: var(--gold);
+}
+
+.lv-dirshow-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(240, 232, 213, 0.78);
+  margin: 0 0 56px;
+  max-width: 640px;
+}
+
+/* The frame — the product canvas at honest proportions: one centered
+   conversation column, dock at the bottom, no side rails. */
+.lv-dirshow-frame {
+  max-width: 880px;
+  margin: 0 auto;
+  border: 1px solid rgba(240, 232, 213, 0.12);
+  border-radius: 14px;
+  background: rgba(20, 19, 15, 0.6);
+  box-shadow: 0 32px 64px -40px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.lv-dirshow-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(240, 232, 213, 0.1);
+}
+
+.lv-dirshow-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lv-dirshow-brand-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.lv-dirshow-brand-product {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 232, 213, 0.38);
+  margin-top: 2px;
+}
+
+.lv-dirshow-session {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid rgba(240, 232, 213, 0.18);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(240, 232, 213, 0.38);
+}
+
+.lv-dirshow-session-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sage);
+  animation: lv-pillar-breathe 2.4s ease-in-out infinite;
+}
+
+.lv-dirshow-thread {
+  display: grid;
+  gap: 26px;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 36px 24px 30px;
+}
+
+.lv-dirshow-turn-agent {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.lv-dirshow-turn p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(15px, 1.7vw, 18px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(240, 232, 213, 0.92);
+}
+
+.lv-dirshow-turn-brand {
+  border-left: 1px solid rgba(193, 193, 126, 0.55);
+  margin-left: 28px;
+  padding: 2px 0 2px 14px;
+}
+
+.lv-dirshow-turn-brand p {
+  color: rgba(240, 232, 213, 0.66);
+  font-size: clamp(14px, 1.5vw, 16px);
+}
+
+.lv-dirshow-turn-body {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.lv-dirshow-snapshot {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(240, 232, 213, 0.16);
+  border-radius: 10px;
+  background: rgba(240, 232, 213, 0.035);
+}
+
+.lv-dirshow-snapshot > div {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.lv-dirshow-snapshot dt {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(240, 232, 213, 0.38);
+}
+
+.lv-dirshow-snapshot dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #f0e8d5;
+}
+
+.lv-dirshow-locked {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  border: 1px solid rgba(243, 209, 113, 0.4);
+  border-radius: 10px;
+  background: rgba(243, 209, 113, 0.06);
+  color: var(--gold);
+}
+
+.lv-dirshow-locked-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 15px;
+}
+
+.lv-dirshow-locked-meta {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(243, 209, 113, 0.72);
+}
+
+.lv-dirshow-dock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  border: 1px solid rgba(240, 232, 213, 0.16);
+  border-radius: 18px;
+  background: rgba(27, 25, 21, 0.85);
+  margin-bottom: 26px;
+}
+
+.lv-dirshow-dock-glyph {
+  color: rgba(240, 232, 213, 0.38);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.lv-dirshow-dock-placeholder {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(240, 232, 213, 0.34);
+}
+
+.lv-dirshow-dock-icon,
+.lv-dirshow-dock-send {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: rgba(240, 232, 213, 0.4);
+}
+
+.lv-dirshow-dock-send {
+  color: #14130f;
+  background: var(--sage);
+}
+
+.lv-dirshow-captions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px 40px;
+  max-width: 880px;
+  margin: 40px auto 0;
+}
+
+@media (min-width: 769px) {
+  .lv-dirshow-captions {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.lv-dirshow-caption {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 17px);
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(240, 232, 213, 0.78);
+}
+
+@media (max-width: 768px) {
+  .lv-dirshow {
+    padding: 88px 18px;
+  }
+
+  .lv-dirshow-snapshot > div {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .lv-dirshow-thread {
+    padding: 28px 16px 22px;
+  }
+
+  .lv-dirshow-dock {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-dirshow-session-dot {
+    animation: none !important;
+  }
+}
+
 /* Score orb — a slow breathing gold sphere that represents the voice
    itself, not a timeline. The earlier passes tried a literal waveform
    (hand-coded, then wavesurfer.js, then the ElevenLabs UI Waveform
@@ -1624,23 +1949,43 @@ main:has(.lv-hero) { padding-top: 0; }
   50%, 100% { opacity: 0; }
 }
 
-/* User turn — gold pill, the same accent the selected suggestion chip
-   used a moment earlier, so the chip-tap → message lineage reads. */
+/* Brand turn — sage-bordered editorial quote, mirroring the real
+   Direction canvas (free-text replies, not chip pills). Left-aligned
+   beneath the agent message the way the product thread reads. */
 .lv-opus-msg-user {
-  align-self: flex-end;
+  align-self: flex-start;
+  border-left: 1px solid rgba(193, 193, 126, 0.55);
+  padding: 2px 0 2px 12px;
 }
 
 .lv-opus-msg-user .lv-opus-msg-text {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(13px, 1.3vw, 15px);
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255, 248, 236, 0.72);
+}
+
+/* Locked-configuration line — the gold payoff beat of the loop. */
+.lv-opus-locked {
   display: inline-flex;
-  padding: 7px 14px;
-  border-radius: 999px;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(243, 209, 113, 0.4);
+  background: rgba(243, 209, 113, 0.07);
+  color: var(--gold);
+}
+
+.lv-opus-locked span {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0;
-  color: #2a2924;
-  background: var(--gold);
-  border: 1px solid var(--gold);
+  letter-spacing: 0.02em;
 }
 
 .lv-opus-chips {
@@ -1686,10 +2031,92 @@ main:has(.lv-hero) { padding-top: 0; }
     border-color 0.9s ease;
 }
 
+/* The lock chip is the only chip in the loop, and it carries the gold
+   accent from the moment it appears — chips are rare accelerants in the
+   product, and this one is the accept-the-proposal moment. */
+.lv-opus-chip-suggestion.is-accent {
+  color: var(--gold);
+  border-color: rgba(243, 209, 113, 0.45);
+}
+
 .lv-opus-chip-suggestion.is-selected {
   color: #2a2924;
   background: var(--gold);
   border-color: var(--gold);
+}
+
+/* ─── Direction mini dock ──────────────────────────────────────────────
+   Miniature of the product's persistent input: replies type here before
+   sending, the mic breathes sage during the voice beat. */
+.lv-opus-dock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 248, 236, 0.14);
+  border-radius: 14px;
+  background: rgba(20, 19, 15, 0.5);
+}
+
+.lv-opus-dock-glyph {
+  color: rgba(255, 248, 236, 0.38);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.lv-opus-dock-field {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lv-opus-dock-text {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  color: rgba(255, 248, 236, 0.88);
+}
+
+.lv-opus-dock-placeholder {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 11.5px;
+  color: rgba(255, 248, 236, 0.34);
+}
+
+.lv-opus-dock-listening {
+  font-family: var(--font-mono, var(--font-body));
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage);
+  animation: lv-pillar-breathe 1.6s ease-in-out infinite;
+}
+
+.lv-opus-dock-mic,
+.lv-opus-dock-send {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  color: rgba(255, 248, 236, 0.4);
+  transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+.lv-opus-dock-mic.is-live {
+  color: #14130f;
+  background: var(--sage);
+  animation: lv-pillar-breathe 1.6s ease-in-out infinite;
+}
+
+.lv-opus-dock-send.is-ready {
+  color: #14130f;
+  background: var(--sage);
 }
 
 /* ─── Pillar motion keyframes ──────────────────────────────────────────
@@ -1709,7 +2136,10 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-opus-chips,
   .lv-opus-chip-suggestion,
   .lv-opus-conversation,
-  .lv-opus-typing-caret {
+  .lv-opus-typing-caret,
+  .lv-opus-dock-mic,
+  .lv-opus-dock-send,
+  .lv-opus-dock-listening {
     animation: none !important;
     transition: none !important;
   }
