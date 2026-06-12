@@ -24,7 +24,7 @@ export default function ImprintVisual() {
           <div className="lv-phone-screen lv-phone-screen-shot">
             <img
               className="lv-phone-shot"
-              src="/app-screens/home.png"
+              src="/app-screens/home.webp"
               alt=""
               loading="lazy"
               decoding="async"
@@ -38,7 +38,7 @@ export default function ImprintVisual() {
           <div className="lv-phone-screen lv-phone-screen-shot">
             <img
               className="lv-phone-shot"
-              src="/app-screens/profile.png"
+              src="/app-screens/profile.webp"
               alt=""
               loading="lazy"
               decoding="async"
