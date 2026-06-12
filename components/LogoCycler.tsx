@@ -49,11 +49,18 @@ const BRANDS: Brand[] = [
 /* Exit / enter direction per slot, rendered as data attributes that
    the .lv-cycler-slot[data-out] / [data-in] CSS rules key off. Four of
    the reference's six pairs, chosen so both horizontal exits, both
-   vertical exits, and all four enter directions each appear once. */
+   vertical exits, and all four enter directions each appear once.
+
+   Ordering constraint: the wave handoff overlaps slot i's enter with
+   slot i+1's exit (cyclically — slot 4's enter overlaps slot 1's next
+   exit), so a slot's enter motion must never equal the next slot's
+   exit motion or two marks travel the same direction at once. As
+   motions: enters are top→down, bottom→up, left→right, right→left.
+   Current pairs check out as D/U, R/D, L/R, U/L around the cycle. */
 const DIRECTIONS = [
   { out: "left",  in: "top" },
-  { out: "down",  in: "right" },
   { out: "up",    in: "left" },
+  { out: "down",  in: "right" },
   { out: "right", in: "bottom" },
 ] as const
 
