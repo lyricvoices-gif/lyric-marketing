@@ -3689,16 +3689,17 @@ main:has(.lv-hero) { padding-top: 0; }
   /* Two-column split: header column on the left, artist index on the
      right. The right column is given the wider share so beat
      descriptors fit cleanly on a single line without orphan words.
-     The header sticks to the top of the section so the page keeps
-     its anchor as the visitor scrolls down the index. */
+     The header sits in normal flow — it briefly had position: sticky,
+     which lay dormant while overflow-x: hidden on body broke sticky
+     site-wide; when the overflow fix re-enabled it, the header pinning
+     and then sliding away at the section's end read as a glitch, not
+     an anchor. */
   .lv-listen-layout {
     grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.55fr);
     gap: 64px;
   }
 
   .lv-listen-header {
-    position: sticky;
-    top: 96px;
     padding-right: 16px;
   }
 
