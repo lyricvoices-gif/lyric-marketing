@@ -376,12 +376,10 @@ export default function OpusPage() {
       </section>
 
       {/* Section 7 — Two paths forward.
-          The shared conversion bookend (components/TwoPathsForward.tsx),
-          identical to the one closing /imprint: full-bleed dark ground,
-          gold-dot eyebrow, italic display headline, two hairline-ruled
-          path lines (For artists / For brands) with link CTAs. Replaces
-          an earlier inline pill-button Final CTA that didn't match the
-          imprint page's composition. */}
+          The shared conversion bookend (components/TwoPathsForward.tsx):
+          dark olive Final-CTA composition with two pill buttons,
+          mirroring the home page's "voice-first era" close. Also used
+          at the bottom of /imprint. */}
       <TwoPathsForward />
     </main>
   )

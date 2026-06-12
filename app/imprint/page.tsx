@@ -349,9 +349,9 @@ export default function ImprintPage() {
       </section>
 
       {/* Section 6 — Two paths forward.
-          Final dark FLORET bookend — the conversion moment, sized in
-          the same register as the home page's Final CTA. Shared
-          component, also used at the bottom of /opus. */}
+          Final dark bookend — the conversion moment, in the same
+          register as the home page's Final CTA (pill buttons on dark
+          olive). Shared component, also used at the bottom of /opus. */}
       <TwoPathsForward />
     </main>
   )
