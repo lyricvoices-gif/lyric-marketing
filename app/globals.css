@@ -1317,15 +1317,18 @@ main:has(.lv-hero) { padding-top: 0; }
    the reimagined session canvas on the studio-ink ground (the product's
    own palette, not the legacy #2b2a25). Tokens mirror the Direction app:
    ink #14130F, parchment #F0E8D5, sage and gold accents. */
+/* Dark-olive ground (#2b2a25) matches Composer's section exactly, so the
+   two tools read as matching dark chapters. Subtle sage/gold radials keep
+   it alive; the ink product frame below sits on top as a glowing screen. */
 .lv-dirshow {
   background:
-    radial-gradient(circle at 50% -10%, rgba(193, 193, 126, 0.05), rgba(20, 19, 15, 0) 44%),
-    radial-gradient(circle at 84% 16%, rgba(243, 209, 113, 0.05), rgba(20, 19, 15, 0) 36%),
-    #14130f;
+    radial-gradient(circle at 50% -10%, rgba(193, 193, 126, 0.06), rgba(43, 42, 37, 0) 44%),
+    radial-gradient(circle at 84% 16%, rgba(243, 209, 113, 0.05), rgba(43, 42, 37, 0) 36%),
+    #2b2a25;
   color: #f0e8d5;
   padding: 120px 24px;
-  border-top: 1px solid rgba(240, 232, 213, 0.08);
-  border-bottom: 1px solid rgba(240, 232, 213, 0.08);
+  border-top: 1px solid rgba(255, 248, 236, 0.08);
+  border-bottom: 1px solid rgba(255, 248, 236, 0.08);
 }
 
 .lv-dirshow-inner {
@@ -1375,13 +1378,17 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* The frame — the product canvas at honest proportions: one centered
    conversation column, dock at the bottom, no side rails. */
+/* Solid ink interior so the frame reads as a lit screen against the
+   olive ground (the product's own studio palette). */
 .lv-dirshow-frame {
   max-width: 880px;
   margin: 0 auto;
   border: 1px solid rgba(240, 232, 213, 0.12);
   border-radius: 14px;
-  background: rgba(20, 19, 15, 0.6);
-  box-shadow: 0 32px 64px -40px rgba(0, 0, 0, 0.6);
+  background:
+    radial-gradient(circle at 50% -8%, rgba(193, 193, 126, 0.05), rgba(20, 19, 15, 0) 46%),
+    #14130f;
+  box-shadow: 0 36px 72px -40px rgba(0, 0, 0, 0.7);
   overflow: hidden;
 }
 
@@ -1586,29 +1593,94 @@ main:has(.lv-hero) { padding-top: 0; }
   background: var(--sage);
 }
 
-.lv-dirshow-captions {
+/* Process steps — double as the frame's captions. Each maps to a beat
+   the composition above just showed (describe, refine, lock). */
+.lv-dirshow-steps {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px 40px;
+  gap: 32px 40px;
   max-width: 880px;
-  margin: 40px auto 0;
+  margin: 48px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 248, 236, 0.12);
 }
 
 @media (min-width: 769px) {
-  .lv-dirshow-captions {
+  .lv-dirshow-steps {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-.lv-dirshow-caption {
-  margin: 0;
-  text-align: center;
+.lv-dirshow-step-num {
+  margin: 0 0 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+.lv-dirshow-step-title {
+  margin: 0 0 10px;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(15px, 1.5vw, 17px);
+  font-size: 24px;
   font-weight: 400;
-  line-height: 1.45;
-  color: rgba(240, 232, 213, 0.78);
+  color: #f0e8d5;
+}
+
+.lv-dirshow-step-line {
+  margin: 0;
+  max-width: 300px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(240, 232, 213, 0.74);
+}
+
+/* Use cases, compressed into one mono-labeled line. */
+.lv-dirshow-deploys {
+  max-width: 880px;
+  margin: 40px auto 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(240, 232, 213, 0.7);
+}
+
+.lv-dirshow-deploys-label {
+  margin-right: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f0e8d5;
+}
+
+/* Exclusivity coda — the strategic anchor, condensed from its former
+   standalone section into the tail of this one. */
+.lv-dirshow-coda {
+  max-width: 720px;
+  margin: 56px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 248, 236, 0.12);
+}
+
+.lv-dirshow-coda-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lv-dirshow-coda-body {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(240, 232, 213, 0.82);
 }
 
 @media (max-width: 768px) {
