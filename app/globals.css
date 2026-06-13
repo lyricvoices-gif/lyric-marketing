@@ -1317,18 +1317,19 @@ main:has(.lv-hero) { padding-top: 0; }
    the reimagined session canvas on the studio-ink ground (the product's
    own palette, not the legacy #2b2a25). Tokens mirror the Direction app:
    ink #14130F, parchment #F0E8D5, sage and gold accents. */
-/* Dark-olive ground (#2b2a25) matches Composer's section exactly, so the
-   two tools read as matching dark chapters. Subtle sage/gold radials keep
-   it alive; the ink product frame below sits on top as a glowing screen. */
+/* Studio-ink ground (#14130F) — Direction's own product palette, and a
+   clear step darker than Composer's dark olive so the two chapters read
+   as distinct rooms. Subtle sage/gold radials keep it alive; the raised
+   frame below sits on top as the lit session screen. */
 .lv-dirshow {
   background:
-    radial-gradient(circle at 50% -10%, rgba(193, 193, 126, 0.06), rgba(43, 42, 37, 0) 44%),
-    radial-gradient(circle at 84% 16%, rgba(243, 209, 113, 0.05), rgba(43, 42, 37, 0) 36%),
-    #2b2a25;
+    radial-gradient(circle at 50% -10%, rgba(193, 193, 126, 0.07), rgba(20, 19, 15, 0) 46%),
+    radial-gradient(circle at 84% 14%, rgba(243, 209, 113, 0.05), rgba(20, 19, 15, 0) 36%),
+    #14130f;
   color: #f0e8d5;
   padding: 120px 24px;
-  border-top: 1px solid rgba(255, 248, 236, 0.08);
-  border-bottom: 1px solid rgba(255, 248, 236, 0.08);
+  border-top: 1px solid rgba(240, 232, 213, 0.08);
+  border-bottom: 1px solid rgba(240, 232, 213, 0.08);
 }
 
 .lv-dirshow-inner {
@@ -1377,19 +1378,29 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* The frame — the product canvas at honest proportions: one centered
-   conversation column, dock at the bottom, no side rails. */
-/* Solid ink interior so the frame reads as a lit screen against the
-   olive ground (the product's own studio palette). */
+   conversation column, dock at the bottom, no side rails. Raised ink
+   (#1B1915) with a light hairline and a top sheen so it reads as a lit
+   panel sitting above the darker #14130F ground. */
 .lv-dirshow-frame {
   max-width: 880px;
   margin: 0 auto;
-  border: 1px solid rgba(240, 232, 213, 0.12);
+  border: 1px solid rgba(240, 232, 213, 0.14);
   border-radius: 14px;
   background:
-    radial-gradient(circle at 50% -8%, rgba(193, 193, 126, 0.05), rgba(20, 19, 15, 0) 46%),
-    #14130f;
-  box-shadow: 0 36px 72px -40px rgba(0, 0, 0, 0.7);
+    radial-gradient(circle at 50% -8%, rgba(193, 193, 126, 0.06), rgba(27, 25, 21, 0) 46%),
+    #1b1915;
+  box-shadow: 0 36px 72px -44px rgba(0, 0, 0, 0.8);
   overflow: hidden;
+}
+
+/* The live canvas resets between loops: fade the whole frame body out,
+   then the React state clears and the next session types in. */
+.lv-dirshow-frame-live {
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lv-dirshow-frame-live.is-resetting {
+  opacity: 0;
 }
 
 .lv-dirshow-bar {
@@ -1448,9 +1459,41 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-dirshow-thread {
   display: grid;
   gap: 26px;
+  align-content: start;
   max-width: 620px;
+  /* Reserve the full-session height so the frame holds steady as turns
+     type in and the loop resets, instead of growing and snapping back. */
+  min-height: 420px;
   margin: 0 auto;
   padding: 36px 24px 30px;
+}
+
+/* Each turn / snapshot / lock card rises in as it lands in the thread. */
+.lv-dirshow-in {
+  animation: lv-dirshow-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lv-dirshow-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Streaming caret — blinks at the end of partial text while either the
+   agent or the dock is typing. */
+.lv-dirshow-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.92em;
+  margin-left: 2px;
+  background: rgba(240, 232, 213, 0.8);
+  vertical-align: baseline;
+  transform: translateY(2px);
+  animation: lv-dirshow-caret 0.9s steps(2, end) infinite;
+}
+
+@keyframes lv-dirshow-caret {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .lv-dirshow-turn-agent {
@@ -1566,16 +1609,37 @@ main:has(.lv-hero) { padding-top: 0; }
   line-height: 1;
 }
 
-.lv-dirshow-dock-placeholder {
+/* Field wrapper holds whichever dock state is live (placeholder, typed
+   text, or the listening label) and owns the single-line truncation. */
+.lv-dirshow-dock-field {
   flex: 1;
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.lv-dirshow-dock-placeholder {
   font-family: var(--font-display);
   font-style: italic;
   font-size: 13px;
   color: rgba(240, 232, 213, 0.34);
+}
+
+.lv-dirshow-dock-text {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(240, 232, 213, 0.9);
+}
+
+.lv-dirshow-dock-listening {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage);
+  animation: lv-pillar-breathe 1.6s ease-in-out infinite;
 }
 
 .lv-dirshow-dock-icon,
@@ -1586,9 +1650,18 @@ main:has(.lv-hero) { padding-top: 0; }
   height: 26px;
   border-radius: 999px;
   color: rgba(240, 232, 213, 0.4);
+  transition: color 0.4s ease, background-color 0.4s ease;
 }
 
-.lv-dirshow-dock-send {
+/* Mic goes live (breathing sage) during the voice-reply beat. */
+.lv-dirshow-dock-icon.is-live {
+  color: #14130f;
+  background: var(--sage);
+  animation: lv-pillar-breathe 1.6s ease-in-out infinite;
+}
+
+/* Send fills sage only once a reply is ready to fire. */
+.lv-dirshow-dock-send.is-ready {
   color: #14130f;
   background: var(--sage);
 }
@@ -1704,8 +1777,14 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-dirshow-session-dot {
+  .lv-dirshow-session-dot,
+  .lv-dirshow-in,
+  .lv-dirshow-caret,
+  .lv-dirshow-dock-listening,
+  .lv-dirshow-dock-icon.is-live,
+  .lv-dirshow-frame-live {
     animation: none !important;
+    transition: none !important;
   }
 }
 

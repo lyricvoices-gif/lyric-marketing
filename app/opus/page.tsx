@@ -198,11 +198,38 @@ export default function OpusPage() {
         </div>
       </section>
 
-      {/* Section 3 — Direction. One consolidated dark chapter mirroring
-          Composer's: same dark-olive ground, eyebrow + headline + body,
-          the session-canvas frame as the visualization, three numbered
-          steps doubling as captions, the deploys line, and the
-          exclusivity coda that previously held its own section. */}
+      {/* Interlude — the translation quote, moved up to sit between the
+          two product chapters. A cream breather that frames both tools
+          and gives Composer (dark olive) and Direction (dark ink) clear
+          separation and air. */}
+      <section style={{ padding: "120px 24px" }}>
+        <div style={{ maxWidth: "760px", margin: "0 auto", textAlign: "center" }}>
+          <ScrollHighlightText
+            style={{
+              fontFamily: "var(--font-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(22px, 2.8vw, 30px)",
+              fontWeight: 400,
+              lineHeight: 1.4,
+              color: C.olive,
+              margin: 0,
+            }}
+          >
+            Brands know what they want their voice to sound like. They
+            know how it should feel to their customers. What most brands
+            lack is the expertise to translate that creative vision
+            into the technical parameters that make it real. Opus is
+            where that translation happens.
+          </ScrollHighlightText>
+        </div>
+      </section>
+
+      {/* Section 3 — Direction. Consolidated dark chapter, now on the
+          studio-ink ground (the product's own palette) to differentiate
+          it from Composer's dark olive. Eyebrow + headline + body, the
+          live session canvas as the visualization, three numbered steps
+          doubling as captions, the deploys line, and the exclusivity
+          coda that previously held its own section. */}
       <DirectionShowcase />
 
       {/* Section 5 — Access */}
@@ -249,35 +276,6 @@ export default function OpusPage() {
               <span aria-hidden="true">&rarr;</span>
             </Link>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Section 6 — Closing */}
-      <section style={{ padding: "120px 24px" }}>
-        <div
-          style={{
-            maxWidth: "760px",
-            margin: "0 auto",
-            textAlign: "center",
-          }}
-        >
-          <ScrollHighlightText
-            style={{
-              fontFamily: "var(--font-display)",
-              fontStyle: "italic",
-              fontSize: "clamp(22px, 2.8vw, 30px)",
-              fontWeight: 400,
-              lineHeight: 1.4,
-              color: C.olive,
-              margin: 0,
-            }}
-          >
-            Brands know what they want their voice to sound like. They
-            know how it should feel to their customers. What most brands
-            lack is the expertise to translate that creative vision
-            into the technical parameters that make it real. Opus is
-            where that translation happens.
-          </ScrollHighlightText>
         </div>
       </section>
 
