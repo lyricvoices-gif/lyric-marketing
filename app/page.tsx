@@ -1,21 +1,28 @@
 import Link from "next/link"
 import type React from "react"
 import HomeHero from "@/components/HomeHero"
-import ListenSection from "@/components/ListenSection"
 import LogoCycler from "@/components/LogoCycler"
 import MobileStickyCTA from "@/components/MobileStickyCTA"
-import NotesSection from "@/components/NotesSection"
-import ProductsSection from "@/components/ProductsSection"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
+/* Homepage — Lyric as a brand-governance layer for AI agents.
+
+   Voice and TTS generation have commoditized; governing brand personality
+   across an enterprise's agents has not. The page makes that argument in
+   order: the drift problem, where Lyric sits (the control plane), how it
+   works, and what it governs.
+
+   The previous voice-artist-platform sections are preserved, not deleted:
+     - the original hero / manifesto / audiences / final CTA copy lives in
+       components/home-archive/HomeVoiceArtistSections.tsx
+     - the Imprint / Score / Opus scrollytelling (ProductsSection), the
+       artist index (ListenSection), and the editorial teaser (NotesSection)
+       remain as their own component files, simply no longer imported here.
+   Opus is kept live: it is the Direction product, and "See how it works"
+   points to /opus. */
+
 const DARK = "#2b2a25"
-const LIGHT = "#f5f3ef"
-const GOLD = "#c9a96e"
-const TEXT1 = "#1a1a18"
-const TEXT2 = "#4a4a45"
-const TEXT3 = "#8b8378"
-const BORDER = "#ded7ca"
 
 const label = {
   fontSize: "11px",
@@ -35,10 +42,10 @@ function CTA({
 }) {
   const isMail = href.startsWith("mailto:")
   const isExternal = href.startsWith("http")
-  /* Light-variant pills sit on dark grounds (Work With Us, final CTA).
-     Filled with warm off-white and set in dark olive — the brand-palette
-     equivalent of the prompt's olive-on-cream pill, inverted for dark
-     backgrounds where olive-on-dark lands too low-contrast. */
+  /* Light-variant pills sit on dark grounds (final CTA). Filled with warm
+     off-white and set in dark olive — the brand-palette equivalent of an
+     olive-on-cream pill, inverted for dark backgrounds where olive-on-dark
+     lands too low-contrast. */
   const style = {
     minHeight: "54px",
     display: "inline-flex",
@@ -92,73 +99,144 @@ export default function HomePage() {
     <>
       <HomeHero />
 
-      <section id="manifesto" className="lv-philosophy">
+      {/* The problem: brand voice drift. Per-line ScrollHighlightText lifts
+          each line word-by-word as the reader scrolls past it — the same
+          editorial pacing the manifesto used, now carrying the thesis. */}
+      <section id="thesis" className="lv-philosophy">
         <ScrollReveal>
           <div className="lv-philosophy-eyebrow">
             <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>Manifesto</span>
+            <span>The problem</span>
           </div>
         </ScrollReveal>
 
-        {/* Per-paragraph ScrollHighlightText: words start dim and lift to
-            full opacity tied to scroll position — each line "highlights"
-            word-by-word as the reader scrolls past it. Editorial pacing
-            for the manifesto specifically; not used elsewhere on the page. */}
         <div className="lv-philosophy-flow">
           <div className="lv-philosophy-movement">
-            <ScrollHighlightText>The voice layer of AI is being commoditized.</ScrollHighlightText>
-            <ScrollHighlightText>Most platforms treat it as a feature, an afterthought, a string to ship under a button.</ScrollHighlightText>
-            <ScrollHighlightText><em>We don&apos;t agree with that. Neither do brands.</em></ScrollHighlightText>
-            <ScrollHighlightText>Nearly 80% say AI voices should come from real, attributed voice artists. The market is already moving toward what we&apos;ve been building.</ScrollHighlightText>
+            <ScrollHighlightText>Enterprises are deploying AI agents faster than they can govern them.</ScrollHighlightText>
+            <ScrollHighlightText>A web assistant. A phone line. An in-app helper.</ScrollHighlightText>
+            <ScrollHighlightText>Each one was built by a different team, on a different model, with a different voice.</ScrollHighlightText>
+            <ScrollHighlightText>To the customer, they sound like <em>different companies</em>.</ScrollHighlightText>
           </div>
 
           <div className="lv-philosophy-movement">
-            <ScrollHighlightText>Voice deserves craft. Voice deserves artistry.</ScrollHighlightText>
-            <ScrollHighlightText>And voice artists deserve what music artists fought for in the streaming age.</ScrollHighlightText>
-            <ScrollHighlightText>Attribution, rights, ongoing compensation in the systems they power.</ScrollHighlightText>
-            <ScrollHighlightText>That&apos;s why Lyric is built on the <em>NAVA framework</em> of consent, control, and compensation.</ScrollHighlightText>
+            <ScrollHighlightText>Generating speech has become cheap and good.</ScrollHighlightText>
+            <ScrollHighlightText>Any team can ship a fluent voice in an afternoon.</ScrollHighlightText>
+            <ScrollHighlightText>What has not been solved is <em>consistency</em>.</ScrollHighlightText>
+            <ScrollHighlightText>Brand voice drift is now the default state of an enterprise&apos;s agents.</ScrollHighlightText>
           </div>
 
           <div className="lv-philosophy-movement">
-            <ScrollHighlightText>But ethics is the floor, not the ceiling.</ScrollHighlightText>
-            <ScrollHighlightText>The real shift is from voice as utility to voice as <em>identity</em>.</ScrollHighlightText>
-            <ScrollHighlightText>A casted voice is a transaction. A composed voice is a <em>brand</em>.</ScrollHighlightText>
-            <ScrollHighlightText>We build voices as ongoing identities with their own creative lives, directed by real artists who shape how they perform and evolve.</ScrollHighlightText>
-          </div>
-
-          <div className="lv-philosophy-movement">
-            <ScrollHighlightText>We&apos;re not just building voices. We&apos;re setting the standard for how voice AI should be implemented.</ScrollHighlightText>
-            <ScrollHighlightText>How a brand uses voice AI shapes how the people who hear it perceive AI itself.</ScrollHighlightText>
-          </div>
-
-          <div className="lv-philosophy-movement">
-            <ScrollHighlightText>Done badly, voice AI flattens, cheapens, and reinforces the rhetoric that AI is here to replace people.</ScrollHighlightText>
-            <ScrollHighlightText>Done well, with human artistry at the center, AI elevates rather than replaces.</ScrollHighlightText>
-            <ScrollHighlightText>That isn&apos;t a marketing position. It&apos;s a stance on <em>what AI should be</em>.</ScrollHighlightText>
+            <ScrollHighlightText>A brand is a promise about how it will behave.</ScrollHighlightText>
+            <ScrollHighlightText>When every agent keeps that promise differently, the promise erodes.</ScrollHighlightText>
+            <ScrollHighlightText>Governance is the part that did not get easier.</ScrollHighlightText>
+            <ScrollHighlightText><em>So we built for it.</em></ScrollHighlightText>
           </div>
         </div>
       </section>
 
       <LogoCycler />
 
-      <ProductsSection />
+      {/* The control plane + how it works. Olive chapter break (the hard
+          cream→olive edge carries over from the old Products section). The
+          centered header states where Lyric sits; the three blocks below
+          give the mechanism. Reuses the audiences grid on the olive ground:
+          the audience-block styles are cream-on-dark and read on olive. */}
+      <section className="lv-products">
+        <div className="lv-products-header">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>The control plane</span>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-products-headline">
+              We direct the engines. We are not <em>one of them</em>.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={220}>
+            <p className="lv-products-supporting">
+              Lyric sits above the language model and the speech engine. It does
+              not generate text or audio. It codifies a brand&apos;s persona into
+              a portable spec and holds every agent to it. We do not compete on
+              inference quality. We are the layer that keeps the systems on
+              brand.
+            </p>
+          </ScrollReveal>
+        </div>
 
-      <ListenSection />
+        <div className="lv-audiences-inner">
+          <div className="lv-audiences-grid">
+            <div className="lv-audience-block">
+              <ScrollReveal>
+                <span className="lv-audience-number">01</span>
+                <p className="lv-audience-label" style={label}>
+                  Codify
+                </p>
+                <h2>
+                  Capture the <em>persona</em>.
+                </h2>
+                <p className="lv-audience-body">
+                  Pronunciation of brand and industry terms, pacing, emotional
+                  register, word choice, disclosure rules. One source of truth,
+                  versioned, for how the brand should sound and speak.
+                </p>
+              </ScrollReveal>
+            </div>
 
+            <div className="lv-audience-block">
+              <ScrollReveal delay={90}>
+                <span className="lv-audience-number">02</span>
+                <p className="lv-audience-label" style={label}>
+                  Govern
+                </p>
+                <h2>
+                  Hold every agent in <em>tolerance</em>.
+                </h2>
+                <p className="lv-audience-body">
+                  Every agent runs against the spec. Output that drifts outside
+                  brand tolerance is caught and corrected before a customer
+                  hears it. The same standard, applied everywhere.
+                </p>
+              </ScrollReveal>
+            </div>
+
+            <div className="lv-audience-block">
+              <ScrollReveal delay={180}>
+                <span className="lv-audience-number">03</span>
+                <p className="lv-audience-label" style={label}>
+                  Port
+                </p>
+                <h2>
+                  Stay <em>vendor agnostic</em>.
+                </h2>
+                <p className="lv-audience-body">
+                  The spec is portable. Move from one speech provider to another
+                  and the brand voice holds. ElevenLabs, Hume, Microsoft, and
+                  whatever comes next.
+                </p>
+              </ScrollReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Lyric governs — the two dimensions, sound and communication,
+          made concrete as three control surfaces. Dark interlude. */}
       <section className="lv-audiences" style={{ background: DARK }}>
         <div className="lv-audiences-inner">
           <ScrollReveal>
             <div className="lv-audiences-header">
               <div className="lv-philosophy-eyebrow">
                 <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>Work with us</span>
+                <span>What it governs</span>
               </div>
               <h2 className="lv-audiences-headline">
-                Three ways to <em>partner</em>.
+                How it <em>sounds</em>. How it <em>communicates</em>.
               </h2>
               <p className="lv-audiences-subline">
-                For artists, brands, and researchers ready to build something
-                with Lyric.
+                Two dimensions, held to the same brand spec across every agent
+                and every engine.
               </p>
             </div>
           </ScrollReveal>
@@ -168,20 +246,16 @@ export default function HomePage() {
               <ScrollReveal>
                 <span className="lv-audience-number">01</span>
                 <p className="lv-audience-label" style={label}>
-                  For artists
+                  How it sounds
                 </p>
                 <h2>
-                  Your voice <em>belongs</em> to you.
+                  Say the <em>words</em> right.
                 </h2>
                 <p className="lv-audience-body">
-                  Lyric brings real voice artists into the AI era as creative
-                  partners on the imprint. You direct the performance, retain
-                  your rights, and earn as your voice carries forward.
+                  Brand names and industry terms, pronounced correctly every
+                  time. The vocabulary that signals an agent knows the domain it
+                  is speaking in.
                 </p>
-                <Link href="/for-artists" className="lv-link-cta">
-                  Apply to the Imprint{" "}
-                  <span aria-hidden="true">&rarr;</span>
-                </Link>
               </ScrollReveal>
             </div>
 
@@ -189,22 +263,16 @@ export default function HomePage() {
               <ScrollReveal delay={90}>
                 <span className="lv-audience-number">02</span>
                 <p className="lv-audience-label" style={label}>
-                  For brands
+                  How it sounds
                 </p>
                 <h2>
-                  License the <em>artist</em>.
-                  <br />
-                  Not the <em>algorithm</em>.
+                  Hold the <em>register</em>.
                 </h2>
                 <p className="lv-audience-body">
-                  Build sonic identity with voices from the imprint. Directed
-                  by professional artists, documented consent, transparent
-                  sourcing, and clear rights for deployment.
+                  Pacing, emphasis, and emotional range kept within a defined
+                  band. Calm where it should be calm. Never flat, never
+                  overplayed.
                 </p>
-                <Link href="/for-brands" className="lv-link-cta">
-                  License from the Imprint{" "}
-                  <span aria-hidden="true">&rarr;</span>
-                </Link>
               </ScrollReveal>
             </div>
 
@@ -212,41 +280,35 @@ export default function HomePage() {
               <ScrollReveal delay={180}>
                 <span className="lv-audience-number">03</span>
                 <p className="lv-audience-label" style={label}>
-                  For researchers
+                  How it communicates
                 </p>
                 <h2>
-                  Performance-grade <em>voice datasets</em>.
+                  Stay on <em>message</em>.
                 </h2>
                 <p className="lv-audience-body">
-                  Score is a dataset product built from real voice artist
-                  sessions on the imprint. Anchor passages, directed emotional
-                  range, full performance metadata. Every dataset is
-                  defensibly sourced.
+                  Word choice, tone, and the handling of disclosure. What an
+                  agent says, and what it must not, kept inside brand and inside
+                  policy.
                 </p>
-                <span className="lv-link-cta lv-link-cta-disabled" aria-disabled="true">
-                  Coming soon
-                </span>
               </ScrollReveal>
             </div>
           </div>
         </div>
       </section>
 
-      <NotesSection />
-
       <section className="lv-final" style={{ background: DARK }}>
         <ScrollReveal>
           <div className="lv-philosophy-eyebrow lv-final-eyebrow">
             <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>AI-era voice artistry</span>
+            <span>The brand-governance layer for AI agents</span>
           </div>
-          <h2>The voice-first era is here. <em>Build it differently.</em></h2>
+          <h2>The engines are commoditized. The <em>brand</em> is not.</h2>
           <div className="lv-cta-row lv-cta-row-center">
-            <CTA href="/for-brands" variant="light">
-              License a voice
+            <CTA href="mailto:info@lyricvoices.ai?subject=Lyric%20access" variant="light">
+              Request access
             </CTA>
-            <CTA href="/for-artists" variant="outline">
-              Partner with Lyric
+            <CTA href="/opus" variant="outline">
+              See how it works
             </CTA>
           </div>
         </ScrollReveal>
