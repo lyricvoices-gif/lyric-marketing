@@ -1,4 +1,4 @@
-import SmoothAnchor from "@/components/SmoothAnchor"
+import Link from "next/link"
 
 export default function HomeHero() {
   return (
@@ -11,15 +11,17 @@ export default function HomeHero() {
       />
       <div className="lv-hero-statement">
         <h1>
-          Voice <em>artistry</em> in the age of AI.
+          One brand voice across every <em>agent</em>.
         </h1>
         <p className="lv-hero-supporting">
-          79% of brands say AI voices should come from real, attributed voice
-          artists. We built Lyric that way from the start.
+          Enterprises now run AI agents on the web, on the phone, and in their
+          apps. Each one speaks to customers. Lyric is the governance layer that
+          keeps all of them on brand, whatever model or speech engine runs
+          underneath.
         </p>
-        <SmoothAnchor targetId="manifesto" offset={64} className="lv-link-cta">
-          Read the manifesto <span aria-hidden="true">&rarr;</span>
-        </SmoothAnchor>
+        <Link href="/opus" className="lv-link-cta">
+          See how it works <span aria-hidden="true">&rarr;</span>
+        </Link>
       </div>
     </section>
   )
