@@ -81,7 +81,8 @@ type Step = { kind: "msg" | "note"; index: number; delay: number }
    measured from the previous one. Tuned to read at a calm, natural pace:
    longer turns get more dwell so nothing feels rushed, short turns move
    along so it never drags. The first agent turn is shown at load, so the
-   machine starts after it (INITIAL_STEPS), beginning with its note. */
+   machine starts after them (INITIAL_STEPS): the first agent turn and its
+   governance note are both in place at load, beginning with the caller. */
 const STEPS: readonly Step[] = [
   { kind: "msg", index: 0, delay: 0 }, // present at load
   { kind: "note", index: 0, delay: 900 },
@@ -93,7 +94,7 @@ const STEPS: readonly Step[] = [
   { kind: "note", index: 4, delay: 800 },
 ] as const
 
-const INITIAL_STEPS = 1
+const INITIAL_STEPS = 2
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false)
