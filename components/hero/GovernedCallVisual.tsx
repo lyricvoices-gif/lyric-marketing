@@ -2,21 +2,26 @@
 
 /* Governed conversation — the home hero's animated mockup.
 
-   A live customer call rendered as a clean, readable transcript (the kind
-   of thing anyone understands at a glance), with one quiet layer on top
-   that shows what Lyric governs. The conversation reads first; the
-   product's work whispers in beside the agent's turns, a beat after each
-   message lands, so it never competes with the line you are reading.
+   A live customer call rendered as a clean, readable transcript, with one
+   quiet layer on top that shows what Lyric governs. The conversation reads
+   first; the product's work whispers in beside the agent's turns, a beat
+   after each message lands, so it never competes with the line you are
+   reading.
 
-   Three governed beats, drawn from a real bank call: a brand term
-   pronounced on brand (how it sounds), tone held under stress (how it
-   sounds), and a required disclosure added (how it communicates).
+   On load the header and the first agent turn are already in their final
+   position, as if the call is already in progress. The remaining turns
+   settle in one at a time. Every turn is rendered from the start so its
+   space is reserved: nothing reflows or re-centers as the call plays, so
+   each turn can animate smoothly with opacity and transform alone.
 
-   Motion is CSS transforms and opacity only. It plays once when the hero
-   scrolls into view, then settles and holds. Mirrors the OpusVisual
-   pattern: a useReducedMotion hook, a one-shot IntersectionObserver, and a
-   small setTimeout step machine. Reduced-motion users get the full
-   transcript and notes, static, with no streaming. */
+   Three governed beats, from a real bank call: a brand term pronounced on
+   brand (how it sounds), tone held under stress (how it sounds), and a
+   required disclosure added (how it communicates).
+
+   Plays once when the hero scrolls into view, then settles and holds.
+   Mirrors the OpusVisual pattern: a useReducedMotion hook, a one-shot
+   IntersectionObserver, and a small setTimeout step machine. Reduced-motion
+   users get the full transcript and notes, static. */
 
 import { useEffect, useRef, useState } from "react"
 
@@ -72,17 +77,23 @@ const MESSAGES: readonly Msg[] = [
 
 type Step = { kind: "msg" | "note"; index: number; delay: number }
 
-/* The reveal order: each message, then its governance note a beat later.
-   Caller turns land a little quicker than the agent's longer turns. */
-const STEPS: Step[] = (() => {
-  const s: Step[] = []
-  MESSAGES.forEach((m, i) => {
-    const delay = i === 0 ? 500 : m.role === "caller" ? 1500 : 2200
-    s.push({ kind: "msg", index: i, delay })
-    if (m.note) s.push({ kind: "note", index: i, delay: 700 })
-  })
-  return s
-})()
+/* The reveal order and cadence. `delay` is the pause before each step,
+   measured from the previous one. Tuned to read at a calm, natural pace:
+   longer turns get more dwell so nothing feels rushed, short turns move
+   along so it never drags. The first agent turn is shown at load, so the
+   machine starts after it (INITIAL_STEPS), beginning with its note. */
+const STEPS: readonly Step[] = [
+  { kind: "msg", index: 0, delay: 0 }, // present at load
+  { kind: "note", index: 0, delay: 900 },
+  { kind: "msg", index: 1, delay: 1800 },
+  { kind: "msg", index: 2, delay: 2600 },
+  { kind: "note", index: 2, delay: 800 },
+  { kind: "msg", index: 3, delay: 2800 },
+  { kind: "msg", index: 4, delay: 2200 },
+  { kind: "note", index: 4, delay: 800 },
+] as const
+
+const INITIAL_STEPS = 1
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false)
@@ -100,7 +111,7 @@ export default function GovernedCallVisual() {
   const reduced = useReducedMotion()
   const rootRef = useRef<HTMLDivElement>(null)
   const [hasEntered, setHasEntered] = useState(false)
-  const [stepIdx, setStepIdx] = useState(0)
+  const [stepIdx, setStepIdx] = useState(INITIAL_STEPS)
   const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
@@ -161,10 +172,15 @@ export default function GovernedCallVisual() {
         </span>
       </div>
 
+      {/* Every turn is rendered from the start so its space is reserved and
+          nothing reflows as the call plays. The first turn is static; the
+          rest fade and settle in when revealed. */}
       <div className="lv-conv-thread">
-        {MESSAGES.map((m, i) =>
-          msgVisible(i) ? (
-            <div key={i} className={`lv-conv-row is-${m.role}`}>
+        {MESSAGES.map((m, i) => {
+          const rowState =
+            i === 0 ? " is-static" : msgVisible(i) ? " is-enter" : ""
+          return (
+            <div key={i} className={`lv-conv-row is-${m.role}${rowState}`}>
               <div className="lv-conv-bubble">
                 <div className="lv-conv-meta">
                   <span className="lv-conv-role">
@@ -191,8 +207,8 @@ export default function GovernedCallVisual() {
                 </span>
               )}
             </div>
-          ) : null,
-        )}
+          )
+        })}
       </div>
     </div>
   )
