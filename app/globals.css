@@ -5701,10 +5701,12 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 12px;
 }
 
+/* Every turn is rendered from the start (space reserved, no reflow). Hidden
+   by default; the first turn is static at load, later turns settle in. */
 .lv-conv-row {
   display: flex;
   flex-direction: column;
-  animation: lv-conv-in 0.5s ease both;
+  opacity: 0;
 }
 
 .lv-conv-row.is-agent {
@@ -5713,6 +5715,14 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-conv-row.is-caller {
   align-items: flex-end;
+}
+
+.lv-conv-row.is-static {
+  opacity: 1;
+}
+
+.lv-conv-row.is-enter {
+  animation: lv-conv-in 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .lv-conv-bubble {
@@ -5781,8 +5791,9 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0.04em;
   color: rgba(90, 94, 67, 0.72);
   opacity: 0;
-  transform: translateY(2px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(3px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lv-conv-note.is-shown {
@@ -5804,14 +5815,18 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @keyframes lv-conv-in {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
 }
 
 /* Reduced motion: the component renders the full transcript and notes; here
-   we drop the entrance animation, the pulse, and the note fade. */
+   we drop the entrance animation, the pulse, and the note fade, and force
+   every turn visible (the entrance keyframe otherwise leaves them at 0). */
 @media (prefers-reduced-motion: reduce) {
-  .lv-conv-row,
+  .lv-conv-row {
+    opacity: 1 !important;
+    animation: none !important;
+  }
   .lv-conv-head-dot {
     animation: none !important;
   }
