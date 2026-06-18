@@ -146,7 +146,7 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="lv-philosophy-eyebrow">
               <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>The control plane</span>
+              <span>Brand Governance Layer</span>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={120}>
@@ -157,10 +157,10 @@ export default function HomePage() {
           <ScrollReveal delay={220}>
             <p className="lv-products-supporting">
               Lyric sits above the language model and the speech engine. It does
-              not generate text or audio. It codifies a brand&apos;s persona into
-              a portable spec and holds every agent to it. We do not compete on
-              inference quality. We are the layer that keeps the systems on
-              brand.
+              not generate text or audio. Instead, it codifies your brand&apos;s
+              persona into a portable specification and ensures every agent
+              adheres to it. Lyric doesn&apos;t compete on inference quality; it
+              serves as the governance layer that keeps your systems on brand.
             </p>
           </ScrollReveal>
         </div>
@@ -178,8 +178,9 @@ export default function HomePage() {
                 </h2>
                 <p className="lv-audience-body">
                   Pronunciation of brand and industry terms, pacing, emotional
-                  register, word choice, disclosure rules. One source of truth,
-                  versioned, for how the brand should sound and speak.
+                  register, word choice, and disclosure rules define an
+                  agent&apos;s voice and tone. This is the single, versioned
+                  source of truth for how your brand should sound and speak.
                 </p>
               </ScrollReveal>
             </div>
