@@ -1,68 +1,88 @@
 "use client"
 
-/* Governed call visual — the home hero's single animated mockup.
+/* Governed conversation — the home hero's animated mockup.
 
-   An inbound voice call passing through Lyric's governance layer in real
-   time. The motion demonstrates the mechanism, not decoration: a call
-   arrives, connects, Lyric's persona spec engages, then the agent's reply
-   streams in already governed. Two governed beats land as it speaks:
+   A live customer call rendered as a clean, readable transcript (the kind
+   of thing anyone understands at a glance), with one quiet layer on top
+   that shows what Lyric governs. The conversation reads first; the
+   product's work whispers in beside the agent's turns, a beat after each
+   message lands, so it never competes with the line you are reading.
 
-     - SOUND: the brand term gets a gold underline and a phonetic chip
-       ("kal-DAIR-uh · on brand") — pronunciation held to the spec.
-     - COMMUNICATE: a "disclosure added" marker — word choice and required
-       disclosure held to the spec.
+   Three governed beats, drawn from a real bank call: a brand term
+   pronounced on brand (how it sounds), tone held under stress (how it
+   sounds), and a required disclosure added (how it communicates).
 
-   The waveform sits inside two faint tolerance guides, so pacing and tone
-   read as held within brand tolerance the whole time.
-
-   Motion is CSS transforms and opacity only. The sequence plays once when
-   the hero scrolls into view (effectively on load, since it sits at the
-   top), then settles and freezes. No loop. Reduced-motion users get the
-   settled end-state with no streaming, pulsing, caret, or wave motion.
-
-   Built to mirror components/products/OpusVisual.tsx: a useReducedMotion
-   hook, a one-shot IntersectionObserver start, and a small setTimeout
-   phase machine. No libraries, no images. */
+   Motion is CSS transforms and opacity only. It plays once when the hero
+   scrolls into view, then settles and holds. Mirrors the OpusVisual
+   pattern: a useReducedMotion hook, a one-shot IntersectionObserver, and a
+   small setTimeout step machine. Reduced-motion users get the full
+   transcript and notes, static, with no streaming. */
 
 import { useEffect, useRef, useState } from "react"
 
-type Token = string | { term: string; phon: string }
+type Seg = { t: string; term?: boolean }
+type Msg = { role: "agent" | "caller"; time: string; segs: Seg[]; note?: string }
 
-/* The agent's reply. The brand term is one token so its underline and
-   phonetic chip can animate as a unit. "Caldera Bank" / "kal-DAIR-uh" is a
-   neutral placeholder — swap for any brand or industry term. */
-const TOKENS: readonly Token[] = [
-  "Thanks",
-  "for",
-  "calling",
-  { term: "Caldera Bank.", phon: "kal-DAIR-uh" },
-  "I",
-  "can",
-  "help",
-  "with",
-  "that",
-  "right",
-  "away.",
+const MESSAGES: readonly Msg[] = [
+  {
+    role: "agent",
+    time: "2:14:00 AM",
+    segs: [
+      { t: "Thank you for calling " },
+      { t: "Caldera Bank", term: true },
+      { t: ". This is Avery. How can I help?" },
+    ],
+    note: "“Caldera” pronounced on brand",
+  },
+  {
+    role: "caller",
+    time: "2:14:03 AM",
+    segs: [
+      {
+        t: "There’s a charge I don’t recognize. Five hundred dollars. I’m kind of panicking.",
+      },
+    ],
+  },
+  {
+    role: "agent",
+    time: "2:14:07 AM",
+    segs: [
+      {
+        t: "I understand. We will sort this out together. I can see the charge and I am placing a hold on it now.",
+      },
+    ],
+    note: "tone held within brand",
+  },
+  {
+    role: "caller",
+    time: "2:14:12 AM",
+    segs: [{ t: "Okay. Thank you." }],
+  },
+  {
+    role: "agent",
+    time: "2:14:15 AM",
+    segs: [
+      {
+        t: "Of course. For your security, this call is recorded and I will verify a few details before we go on.",
+      },
+    ],
+    note: "disclosure added by spec",
+  },
 ] as const
 
-const TERM_INDEX = TOKENS.findIndex((t) => typeof t !== "string")
+type Step = { kind: "msg" | "note"; index: number; delay: number }
 
-const PHASE_MS = {
-  ringing: 1600,
-  connected: 1000,
-  spec: 900,
-  afterLine: 800,
-  afterDisclosure: 1400,
-}
-
-/* Calm speaking pace. A longer dwell after the brand term so the underline
-   and phonetic chip read; a small breath at punctuation. */
-function wordDelay(justRevealed: number): number {
-  const tok = TOKENS[justRevealed]
-  if (tok && typeof tok !== "string") return 850
-  if (typeof tok === "string" && /[.,]$/.test(tok)) return 520
-  return 280
-}
+/* The reveal order: each message, then its governance note a beat later.
+   Caller turns land a little quicker than the agent's longer turns. */
+const STEPS: Step[] = (() => {
+  const s: Step[] = []
+  MESSAGES.forEach((m, i) => {
+    const delay = i === 0 ? 500 : m.role === "caller" ? 1500 : 2200
+    s.push({ kind: "msg", index: i, delay })
+    if (m.note) s.push({ kind: "note", index: i, delay: 700 })
+  })
+  return s
+})()
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false)
@@ -76,16 +96,12 @@ function useReducedMotion() {
   return reduced
 }
 
-type Phase = "idle" | "ringing" | "connected" | "spec" | "speaking" | "settled"
-
 export default function GovernedCallVisual() {
   const reduced = useReducedMotion()
-  const [phase, setPhase] = useState<Phase>("idle")
-  const [words, setWords] = useState(0)
-  const [discShown, setDiscShown] = useState(false)
-
   const rootRef = useRef<HTMLDivElement>(null)
   const [hasEntered, setHasEntered] = useState(false)
+  const [stepIdx, setStepIdx] = useState(0)
+  const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
     if (hasEntered) return
@@ -106,145 +122,77 @@ export default function GovernedCallVisual() {
 
   useEffect(() => {
     if (reduced) {
-      // Static fallback: park at the settled, fully governed end-state.
-      setPhase("settled")
-      setWords(TOKENS.length)
-      setDiscShown(true)
+      setStepIdx(STEPS.length)
       return
     }
-    if (!hasEntered) return
+    if (!hasEntered || stepIdx >= STEPS.length) return
+    const t = window.setTimeout(() => setStepIdx((s) => s + 1), STEPS[stepIdx].delay)
+    return () => window.clearTimeout(t)
+  }, [reduced, hasEntered, stepIdx])
 
-    if (phase === "idle") {
-      const t = window.setTimeout(() => setPhase("ringing"), 400)
-      return () => window.clearTimeout(t)
-    }
-    if (phase === "ringing") {
-      const t = window.setTimeout(() => setPhase("connected"), PHASE_MS.ringing)
-      return () => window.clearTimeout(t)
-    }
-    if (phase === "connected") {
-      const t = window.setTimeout(() => setPhase("spec"), PHASE_MS.connected)
-      return () => window.clearTimeout(t)
-    }
-    if (phase === "spec") {
-      const t = window.setTimeout(() => setPhase("speaking"), PHASE_MS.spec)
-      return () => window.clearTimeout(t)
-    }
-    if (phase === "speaking") {
-      if (words < TOKENS.length) {
-        const t = window.setTimeout(() => setWords((w) => w + 1), wordDelay(words - 1))
-        return () => window.clearTimeout(t)
-      }
-      if (!discShown) {
-        const t = window.setTimeout(() => setDiscShown(true), PHASE_MS.afterLine)
-        return () => window.clearTimeout(t)
-      }
-      const t = window.setTimeout(() => setPhase("settled"), PHASE_MS.afterDisclosure)
-      return () => window.clearTimeout(t)
-    }
-  }, [reduced, hasEntered, phase, words, discShown])
+  const done = stepIdx >= STEPS.length
 
-  const connected = phase !== "idle" && phase !== "ringing"
-  const specActive = phase === "spec" || phase === "speaking" || phase === "settled"
-  const speaking = phase === "speaking"
-  const waveActive = phase === "speaking" || phase === "settled"
-  const termActive = words > TERM_INDEX
-  const caret = speaking && words < TOKENS.length
+  // Live call timer — runs while the call plays, stops once it settles.
+  useEffect(() => {
+    if (reduced) {
+      setSeconds(12)
+      return
+    }
+    if (!hasEntered || done) return
+    const id = window.setInterval(() => setSeconds((x) => x + 1), 1000)
+    return () => window.clearInterval(id)
+  }, [reduced, hasEntered, done])
 
-  const revealed = TOKENS.slice(0, words)
+  const completed = STEPS.slice(0, stepIdx)
+  const msgVisible = (i: number) =>
+    completed.some((s) => s.kind === "msg" && s.index === i)
+  const noteVisible = (i: number) =>
+    completed.some((s) => s.kind === "note" && s.index === i)
 
-  /* Deterministic per-bar timing so the waveform reads organic but stable
-     across renders. Heights stay inside the tolerance band by construction. */
-  const bars = Array.from({ length: 13 })
+  const mmss = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`
 
   return (
-    <div
-      ref={rootRef}
-      className={[
-        "lv-hcall",
-        `is-${phase}`,
-        connected ? "is-connected" : "",
-        specActive ? "is-spec" : "",
-        waveActive ? "is-wave" : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      aria-hidden="true"
-    >
-      <div className="lv-hcall-panel">
-        <div className="lv-hcall-head">
-          <span className="lv-hcall-kicker">Inbound call</span>
-          <span className="lv-hcall-status">
-            <span className="lv-hcall-status-dot" />
-            <span className="lv-hcall-status-label">
-              {connected ? "Connected" : "Ringing"}
-            </span>
-          </span>
-        </div>
-
-        <div className="lv-hcall-caller">+1 (415) 555 0148 · 0:03</div>
-
-        <div className="lv-hcall-band">
-          <div className="lv-hcall-band-row">
-            <span className="lv-hcall-band-label">Persona spec · on brand</span>
-            <span className="lv-hcall-band-check" aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                <path d="M5 13l4 4L19 7" />
-              </svg>
-            </span>
-          </div>
-          <span className="lv-hcall-band-rule" />
-        </div>
-
-        <div className="lv-hcall-transcript">
-          <p className="lv-hcall-line">
-            {revealed.map((tok, i) =>
-              typeof tok === "string" ? (
-                <span key={i} className="lv-hcall-word">
-                  {tok}{" "}
-                </span>
-              ) : (
-                <span key={i} className="lv-hcall-word">
-                  <span className={`lv-hcall-term${termActive ? " is-active" : ""}`}>
-                    {tok.term}
-                    <span className="lv-hcall-term-rule" />
-                  </span>{" "}
-                </span>
-              ),
-            )}
-            {caret && <span className="lv-hcall-caret" />}
-          </p>
-
-          <span className={`lv-hcall-phon${termActive ? " is-shown" : ""}`}>
-            {TERM_INDEX >= 0 && typeof TOKENS[TERM_INDEX] !== "string"
-              ? (TOKENS[TERM_INDEX] as { phon: string }).phon
-              : ""}
-            <span className="lv-hcall-phon-tag"> · pronounced on brand</span>
-          </span>
-        </div>
-
-        <div className="lv-hcall-wave">
-          <span className="lv-hcall-wave-bound lv-hcall-wave-bound-top" />
-          <span className="lv-hcall-wave-bound lv-hcall-wave-bound-bottom" />
-          <div className="lv-hcall-bars">
-            {bars.map((_, i) => (
-              <span
-                key={i}
-                className="lv-hcall-bar"
-                style={{
-                  animationDelay: `${(i * 137) % 900}ms`,
-                  animationDuration: `${1400 + ((i * 211) % 700)}ms`,
-                }}
-              />
-            ))}
-          </div>
-          <span className="lv-hcall-wave-label">pace and tone · within tolerance</span>
-        </div>
-
-        <span className={`lv-hcall-disclosure${discShown ? " is-shown" : ""}`}>
-          <span className="lv-hcall-disclosure-dot" aria-hidden="true" />
-          disclosure added
+    <div ref={rootRef} className="lv-conv" aria-hidden="true">
+      <div className="lv-conv-head">
+        <span className="lv-conv-head-label">Governed by Lyric</span>
+        <span className="lv-conv-head-live">
+          <span className={`lv-conv-head-dot${done ? "" : " is-live"}`} />
+          LIVE {mmss}
         </span>
+      </div>
+
+      <div className="lv-conv-thread">
+        {MESSAGES.map((m, i) =>
+          msgVisible(i) ? (
+            <div key={i} className={`lv-conv-row is-${m.role}`}>
+              <div className="lv-conv-bubble">
+                <div className="lv-conv-meta">
+                  <span className="lv-conv-role">
+                    {m.role === "agent" ? "Agent" : "Caller"}
+                  </span>
+                  <span className="lv-conv-time">{m.time}</span>
+                </div>
+                <p className="lv-conv-text">
+                  {m.segs.map((seg, j) =>
+                    seg.term ? (
+                      <span key={j} className="lv-conv-term">
+                        {seg.t}
+                      </span>
+                    ) : (
+                      <span key={j}>{seg.t}</span>
+                    ),
+                  )}
+                </p>
+              </div>
+              {m.note && (
+                <span className={`lv-conv-note${noteVisible(i) ? " is-shown" : ""}`}>
+                  <span className="lv-conv-note-dot" />
+                  {m.note}
+                </span>
+              )}
+            </div>
+          ) : null,
+        )}
       </div>
     </div>
   )
