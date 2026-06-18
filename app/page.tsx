@@ -113,7 +113,7 @@ export default function HomePage() {
         <div className="lv-philosophy-flow">
           <div className="lv-philosophy-movement">
             <ScrollHighlightText>Enterprises are deploying AI agents faster than they can govern them.</ScrollHighlightText>
-            <ScrollHighlightText>A web assistant. A phone line. An in-app helper.</ScrollHighlightText>
+            <ScrollHighlightText>Answers billing questions. Qualifies new leads. Takes the after-hours calls.</ScrollHighlightText>
             <ScrollHighlightText>Each one was built by a different team, on a different model, with a different voice.</ScrollHighlightText>
             <ScrollHighlightText>To the customer, they sound like <em>different companies</em>.</ScrollHighlightText>
           </div>
