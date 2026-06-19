@@ -5888,6 +5888,10 @@ main:has(.lv-hero) { padding-top: 0; }
   font-style: italic;
   font-weight: inherit;
   color: inherit;
+  /* Optical kern: GT Super italic carries extra left side-bearing, which
+     reads as a wide gap after the period. Pull it back so "Verified" sits an
+     even space after "inline." */
+  margin-left: -0.05em;
 }
 
 .lv-eval-supporting {
