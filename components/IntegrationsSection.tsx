@@ -12,8 +12,48 @@
 
 import ScrollReveal from "@/components/ScrollReveal"
 
-const INFRA = ["Twilio", "Five9", "NICE CXone", "Salesforce"]
-const SYNTH = ["Hume", "ElevenLabs", "Fish Audio"]
+/* Real logos for the brands we have assets for; NICE CXone has no asset yet,
+   so it stays a text wordmark. Per-logo scale balances optical weight across
+   marks and wordmarks (same idea as the founders cycler). Logos render in
+   their own colors. */
+type Mark = { name: string; src?: string; scale?: number }
+
+const INFRA: Mark[] = [
+  { name: "Twilio", src: "/images/logos/twilio.svg", scale: 1 },
+  { name: "Five9", src: "/images/logos/five9.svg", scale: 1.05 },
+  { name: "NICE CXone" },
+  { name: "Salesforce", src: "/images/logos/salesforce.svg", scale: 1.15 },
+]
+
+const SYNTH: Mark[] = [
+  { name: "Hume", src: "/images/logos/hume.svg", scale: 1.1 },
+  { name: "ElevenLabs", src: "/images/logos/elevenlabs.svg", scale: 1 },
+  { name: "Fish Audio", src: "/images/logos/fish-audio.svg", scale: 1.1 },
+]
+
+const LOGO_BASE = 24
+
+function Marks({ items }: { items: Mark[] }) {
+  return (
+    <>
+      {items.map((m) =>
+        m.src ? (
+          <span key={m.name} className="lv-int-mark lv-int-mark-logo">
+            <img
+              src={m.src}
+              alt={m.name}
+              style={{ height: `${LOGO_BASE * (m.scale ?? 1)}px` }}
+            />
+          </span>
+        ) : (
+          <span key={m.name} className="lv-int-mark">
+            {m.name}
+          </span>
+        ),
+      )}
+    </>
+  )
+}
 
 const POINTS = [
   {
@@ -63,11 +103,7 @@ export default function IntegrationsSection() {
                 <span className="lv-int-tier-sub">telephony, contact center, CRM</span>
               </div>
               <div className="lv-int-marks">
-                {INFRA.map((name) => (
-                  <span key={name} className="lv-int-mark">
-                    {name}
-                  </span>
-                ))}
+                <Marks items={INFRA} />
               </div>
             </div>
 
@@ -77,11 +113,7 @@ export default function IntegrationsSection() {
                 <span className="lv-int-tier-sub">the voice models Lyric governs</span>
               </div>
               <div className="lv-int-marks">
-                {SYNTH.map((name) => (
-                  <span key={name} className="lv-int-mark">
-                    {name}
-                  </span>
-                ))}
+                <Marks items={SYNTH} />
                 <span className="lv-int-mark lv-int-mark-own">or your own models</span>
               </div>
             </div>
