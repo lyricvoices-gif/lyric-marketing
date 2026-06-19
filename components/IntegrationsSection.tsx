@@ -21,14 +21,14 @@ type Mark = { name: string; src?: string; scale?: number }
 const INFRA: Mark[] = [
   { name: "Twilio", src: "/images/logos/twilio.svg", scale: 1 },
   { name: "Five9", src: "/images/logos/five9.svg", scale: 1.05 },
-  { name: "NICE CXone" },
+  { name: "NICE CXone", src: "/images/logos/nice-cxone.svg", scale: 1 },
   { name: "Salesforce", src: "/images/logos/salesforce.svg", scale: 1.15 },
 ]
 
 const SYNTH: Mark[] = [
-  { name: "Hume", src: "/images/logos/hume.svg", scale: 1.1 },
+  { name: "Hume", src: "/images/logos/hume.svg", scale: 1.3 },
   { name: "ElevenLabs", src: "/images/logos/elevenlabs.svg", scale: 1 },
-  { name: "Fish Audio", src: "/images/logos/fish-audio.svg", scale: 1.1 },
+  { name: "Fish Audio", src: "/images/logos/fish-audio.svg", scale: 1.3 },
 ]
 
 const LOGO_BASE = 24
@@ -54,21 +54,6 @@ function Marks({ items }: { items: Mark[] }) {
     </>
   )
 }
-
-const POINTS = [
-  {
-    label: "Infrastructure Ready",
-    body: "Built to integrate with your existing contact-center stack via Twilio, Five9, NICE CXone, and Salesforce.",
-  },
-  {
-    label: "Model Agnostic",
-    body: "Route your calls through your preferred synthesis engines, Hume, ElevenLabs, Fish Audio, or your own proprietary models, while maintaining your brand’s unique identity.",
-  },
-  {
-    label: "Open Governance API",
-    body: "Use our REST API and webhooks to configure emotional adjustments, pronunciation overrides, and brand safety checks across your call flow.",
-  },
-]
 
 export default function IntegrationsSection() {
   return (
@@ -119,17 +104,6 @@ export default function IntegrationsSection() {
             </div>
           </div>
         </ScrollReveal>
-
-        <div className="lv-int-points">
-          {POINTS.map((p, i) => (
-            <ScrollReveal key={p.label} delay={120 + i * 80}>
-              <div className="lv-int-point-block">
-                <span className="lv-int-point-label">{p.label}</span>
-                <p className="lv-int-point">{p.body}</p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
 
         <ScrollReveal delay={160}>
           <p className="lv-int-note">Open API and webhooks cover the rest.</p>
