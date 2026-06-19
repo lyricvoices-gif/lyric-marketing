@@ -11,11 +11,7 @@
 import type React from "react"
 import ScrollReveal from "@/components/ScrollReveal"
 import VerticalCard from "@/components/verticals/VerticalCard"
-import {
-  ComplianceMockup,
-  HealthcareMockup,
-  RegisterMockup,
-} from "@/components/verticals/mockups"
+import { ComplianceMockup, RegisterMockup } from "@/components/verticals/mockups"
 
 type Vertical = {
   label: string
@@ -37,13 +33,6 @@ const VERTICALS: Vertical[] = [
     headline: "Financial Services",
     body: "Support, fraud and disputes, and account servicing are different jobs with different stakes. Lyric keeps one brand across all of them, stays firm and calm when a customer is under stress, says financial terms correctly, and holds compliance-sensitive disclosures to the spec every time.",
     Mockup: ComplianceMockup,
-  },
-  {
-    label: "Consistency in Every Patient Moment",
-    headline: "Healthcare",
-    body: "Scheduling, billing, and nurse lines are different jobs with different stakes. Lyric keeps one brand across them, stays warm and clear, says clinical and benefits terms correctly, and holds privacy disclosures to the spec on every channel.",
-    Mockup: HealthcareMockup,
-    comingSoon: true,
   },
 ]
 
