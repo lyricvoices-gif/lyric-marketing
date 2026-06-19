@@ -6264,3 +6264,195 @@ main:has(.lv-hero) { padding-top: 0; }
     transition: none !important;
   }
 }
+
+/* ─── Integrations (section 7) ────────────────────────────────────────────
+   Ecosystem compatibility. A "between" composition: infrastructure on top,
+   the Lyric governance layer in the middle, synthesis engines below, joined
+   by faint connectors. Two groups kept visually distinct. Off-white ground
+   so the text wordmarks read cleanly and the section is distinct from the
+   cream eval section above. Scoped lv-int-* classes only; reveals use the
+   shared ScrollReveal, connectors are static hairlines. */
+
+.lv-int-section {
+  background: #faf9f6;
+  padding: 96px 24px;
+}
+
+.lv-int-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.lv-int-header {
+  max-width: 640px;
+  margin: 0 0 44px;
+}
+
+.lv-int-header .lv-philosophy-eyebrow {
+  margin: 0 0 20px;
+}
+
+.lv-int-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 16px;
+}
+
+.lv-int-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-1);
+  opacity: 0.85;
+  margin: 0;
+  max-width: 560px;
+}
+
+.lv-int-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.lv-int-tier,
+.lv-int-core {
+  background: #ffffff;
+  border: 1px solid rgba(90, 94, 67, 0.14);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 16px 40px -34px rgba(43, 42, 37, 0.35);
+}
+
+/* The Lyric layer is the middle, between the two groups. A faint olive tint
+   and the display-type name mark it as the product, not a vendor. */
+.lv-int-core {
+  background: rgba(90, 94, 67, 0.04);
+  border-color: rgba(90, 94, 67, 0.2);
+}
+
+.lv-int-tier-head,
+.lv-int-core-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.lv-int-tier-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.lv-int-tier-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: rgba(90, 94, 67, 0.5);
+}
+
+.lv-int-core-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--olive);
+}
+
+.lv-int-core-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.55);
+}
+
+.lv-int-marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+/* Text wordmarks (no official logo assets in the repo). Uniform cells; a
+   real SVG can drop in later without changing the layout. */
+.lv-int-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 16px;
+  border: 1px solid rgba(90, 94, 67, 0.18);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #2b2a25;
+  background: #ffffff;
+}
+
+/* "or your own models" is not a vendor; a dashed, quieter cell. */
+.lv-int-mark-own {
+  border-style: dashed;
+  font-weight: 400;
+  color: rgba(90, 94, 67, 0.65);
+}
+
+.lv-int-point {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(43, 42, 37, 0.82);
+  margin: 0;
+}
+
+.lv-int-point-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-bottom: 6px;
+}
+
+/* Whisper-subtle connector between tiers: a faint hairline that fades at both
+   ends so it reads as flow, not a hard rule. */
+.lv-int-connector {
+  display: block;
+  width: 1px;
+  height: 24px;
+  margin: 0 auto;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(90, 94, 67, 0.22),
+    transparent
+  );
+}
+
+.lv-int-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: rgba(90, 94, 67, 0.55);
+  text-align: center;
+  margin: 22px 0 0;
+}
+
+@media (min-width: 769px) {
+  .lv-int-section {
+    padding: 128px 48px;
+  }
+  .lv-int-tier,
+  .lv-int-core {
+    padding: 22px 24px;
+  }
+}
