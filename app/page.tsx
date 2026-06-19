@@ -102,7 +102,7 @@ export default function HomePage() {
       {/* The problem: brand voice drift. Per-line ScrollHighlightText lifts
           each line word-by-word as the reader scrolls past it — the same
           editorial pacing the manifesto used, now carrying the thesis. */}
-      <section id="thesis" className="lv-philosophy">
+      <section id="thesis" className="lv-philosophy lv-floret-ground">
         <ScrollReveal>
           <div className="lv-philosophy-eyebrow">
             <span className="lv-eyebrow-dot" aria-hidden="true" />
@@ -134,7 +134,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <LogoCycler />
+      <LogoCycler className="lv-floret-ground" />
 
       {/* The control plane + how it works. Olive chapter break (the hard
           cream→olive edge carries over from the old Products section). The

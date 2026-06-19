@@ -82,7 +82,7 @@ const EMPTY_MS = 550
 type Phase = "shown" | "out" | "parked"
 type Slot = { brand: number; phase: Phase }
 
-export default function LogoCycler() {
+export default function LogoCycler({ className = "" }: { className?: string }) {
   const [slots, setSlots] = React.useState<Slot[]>(() =>
     Array.from({ length: SLOT_COUNT }, (_, i) => ({ brand: i, phase: "shown" }))
   )
@@ -165,7 +165,7 @@ export default function LogoCycler() {
   }, [])
 
   return (
-    <section className="lv-logos">
+    <section className={`lv-logos${className ? ` ${className}` : ""}`}>
       <div className="lv-logos-row">
         <p className="lv-logos-credit">Our founders shaped voice AI at</p>
 
