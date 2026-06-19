@@ -6361,13 +6361,14 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 10px;
 }
 
-/* Text wordmarks (no official logo assets in the repo). Uniform cells; a
-   real SVG can drop in later without changing the layout. */
+/* Uniform cells holding either a real logo or, where no asset exists yet, a
+   text wordmark. Fixed min-height keeps logo and wordmark cells level. */
 .lv-int-mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 9px 16px;
+  min-height: 46px;
+  padding: 9px 18px;
   border: 1px solid rgba(90, 94, 67, 0.18);
   border-radius: 8px;
   font-family: var(--font-body);
@@ -6376,6 +6377,14 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0;
   color: #2b2a25;
   background: #ffffff;
+}
+
+/* Logo cells: the image is centered; height is set per logo inline for
+   optical balance. Width follows the aspect ratio. */
+.lv-int-mark-logo img {
+  display: block;
+  width: auto;
+  max-width: 140px;
 }
 
 /* "or your own models" is not a vendor; a dashed, quieter cell. */
