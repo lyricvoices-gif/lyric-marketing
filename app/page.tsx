@@ -4,6 +4,7 @@ import HomeHero from "@/components/HomeHero"
 import LogoCycler from "@/components/LogoCycler"
 import MobileStickyCTA from "@/components/MobileStickyCTA"
 import MeasurementSection from "@/components/MeasurementSection"
+import IntegrationsSection from "@/components/IntegrationsSection"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -305,9 +306,12 @@ export default function HomePage() {
       </section>
 
       {/* How we verify it — proof behind the governance claim. Sits before
-          the final CTA; an integrations section will later slot between this
-          and the CTA. */}
+          the integrations section and the final CTA. */}
       <MeasurementSection />
+
+      {/* Integrations — ecosystem compatibility, between infrastructure and
+          synthesis engines. Sits between measurement and the final CTA. */}
+      <IntegrationsSection />
 
       <section className="lv-final" style={{ background: DARK }}>
         <ScrollReveal>
