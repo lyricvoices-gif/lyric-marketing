@@ -6432,3 +6432,259 @@ main:has(.lv-hero) { padding-top: 0; }
     gap: 28px;
   }
 }
+
+/* ─── Who it's for / verticals (section 5) ────────────────────────────────
+   The only section about specific industries. A card grid: each card shows
+   how Lyric's governance applies to one vertical, with an illustrative,
+   clearly-labeled mockup. Two cards now; the grid uses auto-fit so more drop
+   in without restructuring. Off-white ground; white cards with a nested
+   off-white mockup panel. Two mockup motifs (register pills vs compliance
+   checklist) kept visually distinct. Scoped lv-vert-* classes only; reveals
+   use the shared ScrollReveal. */
+
+.lv-vert-section {
+  background: #faf9f6;
+  padding: 96px 24px;
+}
+
+.lv-vert-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.lv-vert-header {
+  max-width: 640px;
+  margin: 0 0 48px;
+}
+
+.lv-vert-header .lv-philosophy-eyebrow {
+  margin: 0 0 20px;
+}
+
+.lv-vert-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 16px;
+}
+
+.lv-vert-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-1);
+  opacity: 0.85;
+  margin: 0;
+  max-width: 560px;
+}
+
+.lv-vert-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Equal-height cards even though each card is wrapped in a ScrollReveal. */
+.lv-vert-grid > * {
+  height: 100%;
+}
+
+.lv-vert-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(90, 94, 67, 0.14);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 16px 40px -34px rgba(43, 42, 37, 0.35);
+}
+
+.lv-vert-card-visual {
+  margin-bottom: 18px;
+}
+
+.lv-vert-card-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.6);
+  margin: 0 0 8px;
+}
+
+.lv-vert-card-headline {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 12px;
+}
+
+.lv-vert-card-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(43, 42, 37, 0.82);
+  margin: 0;
+}
+
+/* Nested mockup panel on the white card. Built so a real visual can drop in
+   later without changing the card layout. */
+.lv-vert-mock {
+  background: #faf9f6;
+  border: 1px solid rgba(90, 94, 67, 0.12);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.lv-vert-mock-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.lv-vert-mock-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.6);
+  border: 1px solid rgba(90, 94, 67, 0.25);
+  border-radius: 100px;
+  padding: 3px 9px;
+}
+
+.lv-vert-mock-spec {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: rgba(90, 94, 67, 0.5);
+}
+
+.lv-vert-mock-div {
+  height: 1px;
+  background: rgba(90, 94, 67, 0.12);
+  margin: 12px 0;
+}
+
+.lv-vert-check {
+  width: 13px;
+  height: 13px;
+  color: var(--olive);
+  flex: none;
+}
+
+/* Register motif (property): context + register pill per row. */
+.lv-vert-reg-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lv-vert-reg-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lv-vert-reg-ctx {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #2b2a25;
+}
+
+.lv-vert-reg-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--olive);
+  background: rgba(122, 155, 130, 0.16);
+  border-radius: 100px;
+  padding: 3px 9px;
+}
+
+.lv-vert-mock-checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lv-vert-mock-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: rgba(90, 94, 67, 0.72);
+}
+
+/* Compliance motif (banking): checklist with right-aligned status. */
+.lv-vert-comp-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lv-vert-comp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lv-vert-comp-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #2b2a25;
+}
+
+.lv-vert-comp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: rgba(90, 94, 67, 0.72);
+}
+
+.lv-vert-comp-contexts {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(90, 94, 67, 0.55);
+  margin: 0;
+}
+
+@media (min-width: 769px) {
+  .lv-vert-section {
+    padding: 128px 48px;
+  }
+  .lv-vert-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .lv-vert-card {
+    padding: 22px 24px;
+  }
+}
