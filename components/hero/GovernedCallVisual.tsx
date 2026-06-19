@@ -17,8 +17,8 @@
    The call demonstrates two governance capabilities across one bank call.
    The greeting carries the recording disclosure (how it communicates) and
    the brand name pronounced on brand (how it sounds). The agent then holds
-   tone under stress, and the closing pronounces an industry term, ACH, on
-   brand, so terminology pronunciation shows up twice across the call.
+   tone under stress, and the closing pronounces the product name, Caldera
+   One, on brand, so terminology pronunciation shows up twice across the call.
 
    Plays once when the hero scrolls into view, then settles and holds.
    Mirrors the OpusVisual pattern: a useReducedMotion hook, a one-shot
@@ -46,7 +46,7 @@ const MESSAGES: readonly Msg[] = [
     time: "2:14:04 AM",
     segs: [
       {
-        t: "There’s a charge I don’t recognize. Five hundred dollars. I’m kind of panicking.",
+        t: "There’s a $500 charge on my credit card that I don’t recognize. I’m kind of panicking.",
       },
     ],
   },
@@ -69,11 +69,11 @@ const MESSAGES: readonly Msg[] = [
     role: "agent",
     time: "2:14:16 AM",
     segs: [
-      { t: "I am submitting the dispute through the " },
-      { t: "ACH", term: true },
-      { t: " network now. You will see the hold reflected within one business day." },
+      { t: "I’ve opened a dispute on your behalf and ordered a new card for you. A provisional credit will appear in your " },
+      { t: "Caldera One", term: true },
+      { t: " account within one business day." },
     ],
-    notes: ["“ACH” pronounced on brand"],
+    notes: ["“Caldera One” pronounced on brand"],
   },
 ] as const
 
@@ -95,8 +95,8 @@ const STEPS: readonly Step[] = [
   { kind: "note", index: 2, delay: 800 },
   { kind: "msg", index: 3, delay: 2800 },
   { kind: "msg", index: 4, delay: 2200 },
-  // The closing ACH beat is the second key moment; give it a clear pause so
-  // it reads before the call settles.
+  // The closing "Caldera One" beat is the second key moment; give it a clear
+  // pause so it reads before the call settles.
   { kind: "note", index: 4, delay: 1000 },
 ] as const
 
