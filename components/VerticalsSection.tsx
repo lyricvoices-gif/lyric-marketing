@@ -14,14 +14,14 @@ import { ComplianceMockup, RegisterMockup } from "@/components/verticals/mockups
 
 const VERTICALS = [
   {
-    label: "Property management",
-    headline: "One brand across every resident touchpoint.",
+    label: "Consistency at Every Touchpoint",
+    headline: "Property Management",
     body: "A property manager runs agents for leasing, maintenance, and collections, across phone, portal, SMS, and email. Each needs its own register: warm in leasing, calm in maintenance, firm but fair in collections, while sounding like one brand. Lease and property terms are said correctly, and required disclosures are handled the same way on every channel.",
     Mockup: RegisterMockup,
   },
   {
-    label: "Banking and financial services",
-    headline: "One brand across every account moment.",
+    label: "Consistency in Every Account Moment",
+    headline: "Financial Services",
     body: "Support, fraud and disputes, and account servicing are different jobs with different stakes. Lyric keeps one brand across all of them, stays firm and calm when a customer is under stress, says financial terms correctly, and holds compliance-sensitive disclosures to the spec every time.",
     Mockup: ComplianceMockup,
   },
