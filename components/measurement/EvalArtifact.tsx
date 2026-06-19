@@ -86,7 +86,7 @@ export default function EvalArtifact() {
           <span className="lv-eval-tag">Example</span>
         </div>
         <p className="lv-eval-meta">
-          out of band · runs in CI and monitoring, not in the call path
+          runs in testing and monitoring, not during the live call.
         </p>
 
         <p className="lv-eval-group-label">Exact</p>
