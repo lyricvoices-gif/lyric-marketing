@@ -5604,13 +5604,20 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* Floret-sampled ground, kept deliberately subtle and airy: a faint gold
    glow (upper right), a barely-there sage bloom (lower left), over a soft
-   cream base that lifts to white. Shared by the hero, the problem section,
-   and the founders strip so the top of the page reads as one warm ground. */
+   cream base that lifts to white. Applied to a single wrapper around the
+   hero, the problem section, and the founders strip so the top of the page
+   reads as one continuous warm ground, with no per-section seams. */
 .lv-floret-ground {
   background:
     radial-gradient(120% 90% at 80% 6%, rgba(243, 209, 113, 0.16) 0%, rgba(243, 209, 113, 0) 50%),
     radial-gradient(110% 95% at 8% 100%, rgba(193, 193, 126, 0.1) 0%, rgba(193, 193, 126, 0) 55%),
     linear-gradient(172deg, #FBF4E2 0%, #FFFBF2 55%, #FFFFFF 100%);
+}
+
+/* Sections that sit on the shared ground stay transparent so the single
+   gradient reads through them as one continuous wash. */
+.lv-on-floret {
+  background: transparent;
 }
 
 .lv-hero-product {

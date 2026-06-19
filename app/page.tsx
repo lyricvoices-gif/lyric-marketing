@@ -97,44 +97,50 @@ function CTA({
 export default function HomePage() {
   return (
     <>
-      <HomeHero />
+      {/* One continuous floret gradient spans the hero, the problem section,
+          and the founders strip: the wrapper paints the gradient once and the
+          sections sit transparent on top, so there are no per-section seams
+          before the olive chapter break. */}
+      <div className="lv-floret-ground">
+        <HomeHero />
 
-      {/* The problem: brand voice drift. Per-line ScrollHighlightText lifts
-          each line word-by-word as the reader scrolls past it — the same
-          editorial pacing the manifesto used, now carrying the thesis. */}
-      <section id="thesis" className="lv-philosophy lv-floret-ground">
-        <ScrollReveal>
-          <div className="lv-philosophy-eyebrow">
-            <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>The problem</span>
+        {/* The problem: brand voice drift. Per-line ScrollHighlightText lifts
+            each line word-by-word as the reader scrolls past it — the same
+            editorial pacing the manifesto used, now carrying the thesis. */}
+        <section id="thesis" className="lv-philosophy lv-on-floret">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>The problem</span>
+            </div>
+          </ScrollReveal>
+
+          <div className="lv-philosophy-flow">
+            <div className="lv-philosophy-movement">
+              <ScrollHighlightText>Enterprises are deploying AI agents faster than they can govern them.</ScrollHighlightText>
+              <ScrollHighlightText>Answers billing questions. Qualifies new leads. Takes the after-hours calls.</ScrollHighlightText>
+              <ScrollHighlightText>Each one was built by a different team, on a different model, with a different voice.</ScrollHighlightText>
+              <ScrollHighlightText>To the customer, they sound like <em>different companies</em>.</ScrollHighlightText>
+            </div>
+
+            <div className="lv-philosophy-movement">
+              <ScrollHighlightText>Generating speech has become cheap and good.</ScrollHighlightText>
+              <ScrollHighlightText>Any team can ship a fluent voice in an afternoon.</ScrollHighlightText>
+              <ScrollHighlightText>What has not been solved is <em>consistency</em>.</ScrollHighlightText>
+              <ScrollHighlightText>Brand voice drift is now the default state of an enterprise&apos;s agents.</ScrollHighlightText>
+            </div>
+
+            <div className="lv-philosophy-movement">
+              <ScrollHighlightText>A brand is a promise about how it will behave.</ScrollHighlightText>
+              <ScrollHighlightText>When every agent keeps that promise differently, the promise erodes.</ScrollHighlightText>
+              <ScrollHighlightText>Governance is the part that did not get easier.</ScrollHighlightText>
+              <ScrollHighlightText><em>So we built for it.</em></ScrollHighlightText>
+            </div>
           </div>
-        </ScrollReveal>
+        </section>
 
-        <div className="lv-philosophy-flow">
-          <div className="lv-philosophy-movement">
-            <ScrollHighlightText>Enterprises are deploying AI agents faster than they can govern them.</ScrollHighlightText>
-            <ScrollHighlightText>Answers billing questions. Qualifies new leads. Takes the after-hours calls.</ScrollHighlightText>
-            <ScrollHighlightText>Each one was built by a different team, on a different model, with a different voice.</ScrollHighlightText>
-            <ScrollHighlightText>To the customer, they sound like <em>different companies</em>.</ScrollHighlightText>
-          </div>
-
-          <div className="lv-philosophy-movement">
-            <ScrollHighlightText>Generating speech has become cheap and good.</ScrollHighlightText>
-            <ScrollHighlightText>Any team can ship a fluent voice in an afternoon.</ScrollHighlightText>
-            <ScrollHighlightText>What has not been solved is <em>consistency</em>.</ScrollHighlightText>
-            <ScrollHighlightText>Brand voice drift is now the default state of an enterprise&apos;s agents.</ScrollHighlightText>
-          </div>
-
-          <div className="lv-philosophy-movement">
-            <ScrollHighlightText>A brand is a promise about how it will behave.</ScrollHighlightText>
-            <ScrollHighlightText>When every agent keeps that promise differently, the promise erodes.</ScrollHighlightText>
-            <ScrollHighlightText>Governance is the part that did not get easier.</ScrollHighlightText>
-            <ScrollHighlightText><em>So we built for it.</em></ScrollHighlightText>
-          </div>
-        </div>
-      </section>
-
-      <LogoCycler className="lv-floret-ground" />
+        <LogoCycler className="lv-on-floret" />
+      </div>
 
       {/* The control plane + how it works. Olive chapter break (the hard
           cream→olive edge carries over from the old Products section). The

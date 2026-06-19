@@ -13,7 +13,7 @@ import GovernedCallVisual from "@/components/hero/GovernedCallVisual"
 
 export default function HomeHero() {
   return (
-    <section className="lv-hero lv-hero-product lv-floret-ground">
+    <section className="lv-hero lv-hero-product lv-on-floret">
       <div className="lv-hero-grid">
         <div className="lv-hero-copy">
           <h1>
