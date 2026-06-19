@@ -5845,3 +5845,418 @@ main:has(.lv-hero) { padding-top: 0; }
     transition: none !important;
   }
 }
+
+/* ─── Measurement / How we verify it ─────────────────────────────────────
+   Proof section. A hand-built eval artifact (CSS + inline SVG, no chart
+   library) showing how Lyric verifies an agent against the brand spec out of
+   band. Hard measures read as exact pass/value; soft measures read as ranges
+   and flags, never a single composite score. Light cream ground and a light
+   card so it reads as genuine product UI. Scoped lv-eval-* classes only.
+   Subtle reveal on scroll, static end-state under reduced motion. */
+
+.lv-eval-section {
+  background: var(--bg-light);
+  padding: 96px 24px;
+}
+
+.lv-eval-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.lv-eval-header {
+  max-width: 640px;
+  margin: 0 0 44px;
+}
+
+.lv-eval-header .lv-philosophy-eyebrow {
+  margin: 0 0 20px;
+}
+
+.lv-eval-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0 0 16px;
+}
+
+.lv-eval-headline em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.lv-eval-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-1);
+  opacity: 0.85;
+  margin: 0;
+  max-width: 560px;
+}
+
+.lv-eval-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: rgba(90, 94, 67, 0.6);
+  margin: 18px auto 0;
+  max-width: 680px;
+}
+
+/* ── Artifact ── */
+.lv-eval {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.lv-eval-card {
+  background: #fffdf8;
+  border: 1px solid rgba(90, 94, 67, 0.14);
+  border-radius: 16px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 24px 50px -34px rgba(43, 42, 37, 0.4);
+}
+
+.lv-eval-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lv-eval-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.lv-eval-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.6);
+  border: 1px solid rgba(90, 94, 67, 0.25);
+  border-radius: 100px;
+  padding: 3px 9px;
+}
+
+.lv-eval-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: rgba(90, 94, 67, 0.55);
+  margin: 7px 0 20px;
+}
+
+.lv-eval-group-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.5);
+  margin: 0 0 8px;
+}
+
+.lv-eval-group-note {
+  text-transform: none;
+  letter-spacing: 0;
+  color: rgba(90, 94, 67, 0.45);
+}
+
+.lv-eval-rows {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+}
+
+.lv-eval-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.08);
+}
+
+.lv-eval-row:last-child {
+  border-bottom: 0;
+}
+
+.lv-eval-dim {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #2b2a25;
+}
+
+.lv-eval-result {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lv-eval-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(90, 94, 67, 0.7);
+}
+
+.lv-eval-pass {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.lv-eval-pass svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Pacing: a value sitting inside a target band. */
+.lv-eval-range {
+  position: relative;
+  width: 116px;
+  height: 6px;
+  border-radius: 100px;
+  background: rgba(90, 94, 67, 0.1);
+}
+
+.lv-eval-range-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 37.5%;
+  width: 37.5%;
+  border-radius: 100px;
+  background: rgba(122, 155, 130, 0.45);
+}
+
+.lv-eval-range-marker {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 57.5%;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--olive);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.35s;
+}
+
+.lv-eval.is-revealed .lv-eval-range-marker {
+  opacity: 1;
+}
+
+/* Voice consistency: deviation from spec target across the output. */
+.lv-eval-consistency-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lv-eval-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #c26b4a;
+}
+
+.lv-eval-flag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c26b4a;
+}
+
+.lv-eval-consistency-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(90, 94, 67, 0.5);
+  margin: 5px 0 10px;
+}
+
+.lv-eval-spark {
+  position: relative;
+  width: 100%;
+}
+
+.lv-eval-spark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lv-eval-spark-band {
+  fill: rgba(122, 155, 130, 0.14);
+}
+
+.lv-eval-spark-target {
+  stroke: rgba(90, 94, 67, 0.3);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.lv-eval-spark-line {
+  fill: none;
+  stroke: var(--olive);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.lv-eval-spark-outlier {
+  fill: #c26b4a;
+}
+
+.lv-eval-spark-outlier-ring {
+  fill: rgba(194, 107, 74, 0.22);
+}
+
+.lv-eval-spark-cover {
+  position: absolute;
+  inset: 0;
+  background: #fffdf8;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+.lv-eval.is-revealed .lv-eval-spark-cover {
+  transform: scaleX(0);
+}
+
+.lv-eval-spark-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(90, 94, 67, 0.45);
+  margin-top: 4px;
+}
+
+/* ── Cross-channel strip ── */
+.lv-eval-channels {
+  margin-top: 18px;
+}
+
+.lv-eval-channels-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.lv-eval-channels-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.5);
+}
+
+.lv-eval-channels-legend {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: rgba(90, 94, 67, 0.4);
+}
+
+.lv-eval-channel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lv-eval-channel {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 2px;
+  border-top: 1px solid rgba(90, 94, 67, 0.1);
+}
+
+.lv-eval-channel-name {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #2b2a25;
+}
+
+.lv-eval-channel-checks {
+  display: inline-flex;
+  gap: 10px;
+  color: var(--olive);
+}
+
+.lv-eval-check svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+}
+
+.lv-eval-channel-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(90, 94, 67, 0.7);
+  white-space: nowrap;
+}
+
+.lv-eval-channel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(122, 155, 130, 0.85);
+}
+
+.lv-eval-channel-status.is-flagged {
+  color: #c26b4a;
+}
+
+.lv-eval-channel-status.is-flagged .lv-eval-channel-dot {
+  background: #c26b4a;
+}
+
+@media (min-width: 769px) {
+  .lv-eval-section {
+    padding: 128px 48px;
+  }
+  .lv-eval-card {
+    padding: 24px 26px 26px;
+  }
+}
+
+/* Reduced motion: the artifact already renders its final state; drop the
+   reveal transitions so nothing animates. */
+@media (prefers-reduced-motion: reduce) {
+  .lv-eval-spark-cover,
+  .lv-eval-range-marker {
+    transition: none !important;
+  }
+}
