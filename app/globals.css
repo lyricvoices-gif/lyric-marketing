@@ -6507,13 +6507,58 @@ main:has(.lv-hero) { padding-top: 0; }
   margin-bottom: 18px;
 }
 
+.lv-vert-card-labelrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 8px;
+}
+
 .lv-vert-card-label {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(90, 94, 67, 0.6);
-  margin: 0 0 8px;
+  margin: 0;
+}
+
+/* Coming-soon badge: a quiet gold-tinted pill beside the label. The card's
+   mockup is muted so it reads as a preview, not a live vertical. */
+.lv-vert-card-soon {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+  background: rgba(243, 209, 113, 0.22);
+  border: 1px solid rgba(201, 169, 110, 0.45);
+  border-radius: 100px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.lv-vert-card.is-coming-soon .lv-vert-card-visual {
+  opacity: 0.55;
+}
+
+/* Healthcare motif: contexts as a chip row. */
+.lv-vert-ctx-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.lv-vert-ctx-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #2b2a25;
+  border: 1px solid rgba(90, 94, 67, 0.18);
+  border-radius: 100px;
+  padding: 5px 11px;
 }
 
 .lv-vert-card-headline {
