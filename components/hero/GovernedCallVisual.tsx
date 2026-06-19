@@ -55,7 +55,7 @@ const MESSAGES: readonly Msg[] = [
     time: "2:14:08 AM",
     segs: [
       {
-        t: "I understand. We will sort this out together. I can see the charge and I am placing a hold on it now.",
+        t: "I appreciate you flagging this. Give me a moment while I look into this for you.",
       },
     ],
     notes: ["tone held within brand"],
@@ -69,7 +69,7 @@ const MESSAGES: readonly Msg[] = [
     role: "agent",
     time: "2:14:16 AM",
     segs: [
-      { t: "I’ve opened a dispute on your behalf and ordered a new card for you. A provisional credit will appear in your " },
+      { t: "I’ve opened a dispute on your behalf and ordered a new card. You’ll see a provisional credit in your " },
       { t: "Caldera One", term: true },
       { t: " account within one business day." },
     ],
