@@ -14,9 +14,11 @@
    space is reserved: nothing reflows or re-centers as the call plays, so
    each turn can animate smoothly with opacity and transform alone.
 
-   Three governed beats, from a real bank call: a brand term pronounced on
-   brand (how it sounds), tone held under stress (how it sounds), and a
-   required disclosure added (how it communicates).
+   The call demonstrates two governance capabilities across one bank call.
+   The greeting carries the recording disclosure (how it communicates) and
+   the brand name pronounced on brand (how it sounds). The agent then holds
+   tone under stress, and the closing pronounces an industry term, ACH, on
+   brand, so terminology pronunciation shows up twice across the call.
 
    Plays once when the hero scrolls into view, then settles and holds.
    Mirrors the OpusVisual pattern: a useReducedMotion hook, a one-shot
@@ -26,7 +28,7 @@
 import { useEffect, useRef, useState } from "react"
 
 type Seg = { t: string; term?: boolean }
-type Msg = { role: "agent" | "caller"; time: string; segs: Seg[]; note?: string }
+type Msg = { role: "agent" | "caller"; time: string; segs: Seg[]; notes?: string[] }
 
 const MESSAGES: readonly Msg[] = [
   {
@@ -35,13 +37,13 @@ const MESSAGES: readonly Msg[] = [
     segs: [
       { t: "Thank you for calling " },
       { t: "Caldera Bank", term: true },
-      { t: ". This is Avery. How can I help?" },
+      { t: ". This call may be recorded for quality and security. This is Avery, how can I help?" },
     ],
-    note: "“Caldera” pronounced on brand",
+    notes: ["disclosure added by spec", "“Caldera” pronounced on brand"],
   },
   {
     role: "caller",
-    time: "2:14:03 AM",
+    time: "2:14:04 AM",
     segs: [
       {
         t: "There’s a charge I don’t recognize. Five hundred dollars. I’m kind of panicking.",
@@ -50,28 +52,28 @@ const MESSAGES: readonly Msg[] = [
   },
   {
     role: "agent",
-    time: "2:14:07 AM",
+    time: "2:14:08 AM",
     segs: [
       {
         t: "I understand. We will sort this out together. I can see the charge and I am placing a hold on it now.",
       },
     ],
-    note: "tone held within brand",
+    notes: ["tone held within brand"],
   },
   {
     role: "caller",
-    time: "2:14:12 AM",
+    time: "2:14:13 AM",
     segs: [{ t: "Okay. Thank you." }],
   },
   {
     role: "agent",
-    time: "2:14:15 AM",
+    time: "2:14:16 AM",
     segs: [
-      {
-        t: "Of course. For your security, this call is recorded and I will verify a few details before we go on.",
-      },
+      { t: "I am submitting the dispute through the " },
+      { t: "ACH", term: true },
+      { t: " network now. You will see the hold reflected within one business day." },
     ],
-    note: "disclosure added by spec",
+    notes: ["“ACH” pronounced on brand"],
   },
 ] as const
 
@@ -85,13 +87,17 @@ type Step = { kind: "msg" | "note"; index: number; delay: number }
    governance note are both in place at load, beginning with the caller. */
 const STEPS: readonly Step[] = [
   { kind: "msg", index: 0, delay: 0 }, // present at load
-  { kind: "note", index: 0, delay: 900 },
-  { kind: "msg", index: 1, delay: 1800 },
+  { kind: "note", index: 0, delay: 900 }, // both greeting notes, present at load
+  // Longer greeting carrying two annotations (disclosure + Caldera) gets a
+  // longer dwell so both can be read before the caller replies.
+  { kind: "msg", index: 1, delay: 3200 },
   { kind: "msg", index: 2, delay: 2600 },
   { kind: "note", index: 2, delay: 800 },
   { kind: "msg", index: 3, delay: 2800 },
   { kind: "msg", index: 4, delay: 2200 },
-  { kind: "note", index: 4, delay: 800 },
+  // The closing ACH beat is the second key moment; give it a clear pause so
+  // it reads before the call settles.
+  { kind: "note", index: 4, delay: 1000 },
 ] as const
 
 const INITIAL_STEPS = 2
@@ -201,12 +207,18 @@ export default function GovernedCallVisual() {
                   )}
                 </p>
               </div>
-              {m.note && (
-                <span className={`lv-conv-note${noteVisible(i) ? " is-shown" : ""}`}>
+              {/* A turn can carry more than one annotation (the greeting
+                  carries both the disclosure and the pronunciation note).
+                  Each is a flex-column child of the row, so they stack. */}
+              {m.notes?.map((note, k) => (
+                <span
+                  key={k}
+                  className={`lv-conv-note${noteVisible(i) ? " is-shown" : ""}`}
+                >
                   <span className="lv-conv-note-dot" />
-                  {m.note}
+                  {note}
                 </span>
-              )}
+              ))}
             </div>
           )
         })}
