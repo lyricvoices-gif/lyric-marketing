@@ -8,11 +8,24 @@
    carries an illustrative, clearly-labeled mockup specific to its vertical.
    Off-white ground; reveals use the shared ScrollReveal. */
 
+import type React from "react"
 import ScrollReveal from "@/components/ScrollReveal"
 import VerticalCard from "@/components/verticals/VerticalCard"
-import { ComplianceMockup, RegisterMockup } from "@/components/verticals/mockups"
+import {
+  ComplianceMockup,
+  HealthcareMockup,
+  RegisterMockup,
+} from "@/components/verticals/mockups"
 
-const VERTICALS = [
+type Vertical = {
+  label: string
+  headline: string
+  body: string
+  Mockup: React.ComponentType
+  comingSoon?: boolean
+}
+
+const VERTICALS: Vertical[] = [
   {
     label: "Consistency at Every Touchpoint",
     headline: "Property Management",
@@ -24,6 +37,13 @@ const VERTICALS = [
     headline: "Financial Services",
     body: "Support, fraud and disputes, and account servicing are different jobs with different stakes. Lyric keeps one brand across all of them, stays firm and calm when a customer is under stress, says financial terms correctly, and holds compliance-sensitive disclosures to the spec every time.",
     Mockup: ComplianceMockup,
+  },
+  {
+    label: "Consistency in Every Patient Moment",
+    headline: "Healthcare",
+    body: "Scheduling, billing, and nurse lines are different jobs with different stakes. Lyric keeps one brand across them, stays warm and clear, says clinical and benefits terms correctly, and holds privacy disclosures to the spec on every channel.",
+    Mockup: HealthcareMockup,
+    comingSoon: true,
   },
 ]
 
@@ -55,7 +75,12 @@ export default function VerticalsSection() {
             const Mockup = v.Mockup
             return (
               <ScrollReveal key={v.label} delay={120 + i * 90}>
-                <VerticalCard label={v.label} headline={v.headline} body={v.body}>
+                <VerticalCard
+                  label={v.label}
+                  headline={v.headline}
+                  body={v.body}
+                  comingSoon={v.comingSoon}
+                >
                   <Mockup />
                 </VerticalCard>
               </ScrollReveal>

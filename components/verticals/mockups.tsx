@@ -95,3 +95,37 @@ export function ComplianceMockup() {
     </div>
   )
 }
+
+/* Healthcare motif: contexts as a chip row up top, then a short checklist.
+   A third arrangement so it does not read like the property or banking
+   mockups. */
+const CARE_CONTEXTS = ["Scheduling", "Billing", "Nurse line"]
+
+export function HealthcareMockup() {
+  return (
+    <div className="lv-vert-mock lv-vert-mock-healthcare">
+      <MockHead />
+      <div className="lv-vert-ctx-chips">
+        {CARE_CONTEXTS.map((c) => (
+          <span key={c} className="lv-vert-ctx-chip">
+            {c}
+          </span>
+        ))}
+      </div>
+      <div className="lv-vert-mock-div" />
+      <ul className="lv-vert-mock-checks">
+        <li className="lv-vert-mock-check">
+          <span>privacy disclosure present</span>
+          <Check />
+        </li>
+        <li className="lv-vert-mock-check">
+          <span>“formulary” said on brand</span>
+          <Check />
+        </li>
+        <li className="lv-vert-mock-check">
+          <span>tone · warm, clear</span>
+        </li>
+      </ul>
+    </div>
+  )
+}
