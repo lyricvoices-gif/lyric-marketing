@@ -6394,32 +6394,6 @@ main:has(.lv-hero) { padding-top: 0; }
   color: rgba(90, 94, 67, 0.65);
 }
 
-/* Supporting points below the wall: brief text, not anchored to a tier. */
-.lv-int-points {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.lv-int-point {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.55;
-  color: rgba(43, 42, 37, 0.82);
-  margin: 0;
-}
-
-.lv-int-point-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--olive);
-  margin-bottom: 6px;
-}
-
 .lv-int-note {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -6435,10 +6409,6 @@ main:has(.lv-hero) { padding-top: 0; }
   }
   .lv-int-wall {
     padding: 24px 26px;
-  }
-  .lv-int-points {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
   }
 }
 
