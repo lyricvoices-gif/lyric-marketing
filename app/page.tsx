@@ -6,6 +6,7 @@ import MobileStickyCTA from "@/components/MobileStickyCTA"
 import MeasurementSection from "@/components/MeasurementSection"
 import IntegrationsSection from "@/components/IntegrationsSection"
 import VerticalsSection from "@/components/VerticalsSection"
+import DimensionsVisual from "@/components/governance/DimensionsVisual"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -231,75 +232,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What Lyric governs — the two dimensions, sound and communication,
-          made concrete as three control surfaces. Dark interlude. */}
+      {/* What Lyric governs — the two dimensions, sound and communication.
+          Two-column: the copy and three points on the left, a split-view
+          artifact on the right that shows one output evaluated on both
+          dimensions. Dark interlude. New lv-gov-* classes keep this scoped to
+          section 4; the shared lv-audiences styles (used by section 3) are
+          untouched. */}
       <section className="lv-audiences" style={{ background: DARK }}>
         <div className="lv-audiences-inner">
-          <ScrollReveal>
-            <div className="lv-audiences-header">
-              <div className="lv-philosophy-eyebrow">
-                <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>What it governs</span>
-              </div>
-              <h2 className="lv-audiences-headline">
-                How it <em>sounds</em>. How it <em>communicates</em>.
-              </h2>
-              <p className="lv-audiences-subline">
-                Two dimensions, held to the same brand spec across every agent
-                and every engine.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="lv-audiences-grid">
-            <div className="lv-audience-block">
+          <div className="lv-gov-grid">
+            <div className="lv-gov-copy">
               <ScrollReveal>
-                <span className="lv-audience-number">01</span>
-                <p className="lv-audience-label" style={label}>
-                  How it sounds
-                </p>
-                <h2>
-                  Say the <em>words</em> right.
-                </h2>
-                <p className="lv-audience-body">
-                  Brand names and industry terms, pronounced correctly every
-                  time. The vocabulary that signals an agent knows the domain it
-                  is speaking in.
-                </p>
+                <div className="lv-audiences-header">
+                  <div className="lv-philosophy-eyebrow">
+                    <span className="lv-eyebrow-dot" aria-hidden="true" />
+                    <span>What it governs</span>
+                  </div>
+                  <h2 className="lv-audiences-headline">
+                    How it <em>sounds</em>. How it <em>communicates</em>.
+                  </h2>
+                  <p className="lv-audiences-subline">
+                    Two dimensions, held to the same brand spec across every
+                    agent and every engine.
+                  </p>
+                </div>
               </ScrollReveal>
+
+              <div className="lv-gov-points">
+                <ScrollReveal delay={90}>
+                  <div className="lv-gov-point">
+                    <span className="lv-gov-point-label">How it sounds</span>
+                    <h3 className="lv-gov-point-head">
+                      Say the <em>words</em> right.
+                    </h3>
+                    <p className="lv-gov-point-body">
+                      Brand names and industry terms, pronounced correctly every
+                      time. The vocabulary that signals an agent knows the domain
+                      it is speaking in.
+                    </p>
+                  </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={150}>
+                  <div className="lv-gov-point">
+                    <span className="lv-gov-point-label">How it sounds</span>
+                    <h3 className="lv-gov-point-head">
+                      Hold the <em>register</em>.
+                    </h3>
+                    <p className="lv-gov-point-body">
+                      Pacing, emphasis, and emotional range kept within a defined
+                      band. Calm where it should be calm. Never flat, never
+                      overplayed.
+                    </p>
+                  </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={210}>
+                  <div className="lv-gov-point">
+                    <span className="lv-gov-point-label">How it communicates</span>
+                    <h3 className="lv-gov-point-head">
+                      Stay on <em>message</em>.
+                    </h3>
+                    <p className="lv-gov-point-body">
+                      Word choice, tone, and the handling of disclosure. What an
+                      agent says, and what it must not, kept inside brand and
+                      inside policy.
+                    </p>
+                  </div>
+                </ScrollReveal>
+              </div>
             </div>
 
-            <div className="lv-audience-block">
-              <ScrollReveal delay={90}>
-                <span className="lv-audience-number">02</span>
-                <p className="lv-audience-label" style={label}>
-                  How it sounds
-                </p>
-                <h2>
-                  Hold the <em>register</em>.
-                </h2>
-                <p className="lv-audience-body">
-                  Pacing, emphasis, and emotional range kept within a defined
-                  band. Calm where it should be calm. Never flat, never
-                  overplayed.
-                </p>
-              </ScrollReveal>
-            </div>
-
-            <div className="lv-audience-block">
-              <ScrollReveal delay={180}>
-                <span className="lv-audience-number">03</span>
-                <p className="lv-audience-label" style={label}>
-                  How it communicates
-                </p>
-                <h2>
-                  Stay on <em>message</em>.
-                </h2>
-                <p className="lv-audience-body">
-                  Word choice, tone, and the handling of disclosure. What an
-                  agent says, and what it must not, kept inside brand and inside
-                  policy.
-                </p>
+            <div className="lv-gov-visual">
+              <ScrollReveal delay={120}>
+                <DimensionsVisual />
               </ScrollReveal>
             </div>
           </div>
