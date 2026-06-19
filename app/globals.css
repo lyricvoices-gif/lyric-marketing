@@ -6266,12 +6266,13 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* ─── Integrations (section 7) ────────────────────────────────────────────
-   Ecosystem compatibility. A "between" composition: infrastructure on top,
-   the Lyric governance layer in the middle, synthesis engines below, joined
-   by faint connectors. Two groups kept visually distinct. Off-white ground
-   so the text wordmarks read cleanly and the section is distinct from the
-   cream eval section above. Scoped lv-int-* classes only; reveals use the
-   shared ScrollReveal, connectors are static hairlines. */
+   Ecosystem compatibility, as a calm flat wall. One bordered container holds
+   two clearly-labeled groups (infrastructure and synthesis engines); the
+   three points sit below as brief supporting text. The "between" idea is
+   carried by the headline and body, not diagrammed in the layout. Off-white
+   ground so the text wordmarks read cleanly and the section is distinct from
+   the cream eval section above. Scoped lv-int-* classes only; reveals use the
+   shared ScrollReveal. */
 
 .lv-int-section {
   background: #faf9f6;
@@ -6312,30 +6313,26 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 560px;
 }
 
-.lv-int-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.lv-int-tier,
-.lv-int-core {
+/* Flat wall: one bordered container holding two clearly-labeled groups. The
+   "between" idea is carried by the headline and body, so the layout no longer
+   diagrams it (no middle band, no connectors). */
+.lv-int-wall {
   background: #ffffff;
   border: 1px solid rgba(90, 94, 67, 0.14);
   border-radius: 14px;
-  padding: 18px 20px;
+  padding: 20px 22px;
   box-shadow: 0 16px 40px -34px rgba(43, 42, 37, 0.35);
 }
 
-/* The Lyric layer is the middle, between the two groups. A faint olive tint
-   and the display-type name mark it as the product, not a vendor. */
-.lv-int-core {
-  background: rgba(90, 94, 67, 0.04);
-  border-color: rgba(90, 94, 67, 0.2);
+/* Two groups separated by a hairline so a telephony vendor is never confused
+   with a synthesis engine. */
+.lv-int-group + .lv-int-group {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(90, 94, 67, 0.12);
 }
 
-.lv-int-tier-head,
-.lv-int-core-head {
+.lv-int-tier-head {
   display: flex;
   align-items: baseline;
   gap: 10px;
@@ -6358,27 +6355,10 @@ main:has(.lv-hero) { padding-top: 0; }
   color: rgba(90, 94, 67, 0.5);
 }
 
-.lv-int-core-name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 0;
-  color: var(--olive);
-}
-
-.lv-int-core-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(90, 94, 67, 0.55);
-}
-
 .lv-int-marks {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 16px;
 }
 
 /* Text wordmarks (no official logo assets in the repo). Uniform cells; a
@@ -6405,6 +6385,14 @@ main:has(.lv-hero) { padding-top: 0; }
   color: rgba(90, 94, 67, 0.65);
 }
 
+/* Supporting points below the wall: brief text, not anchored to a tier. */
+.lv-int-points {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+
 .lv-int-point {
   font-family: var(--font-body);
   font-size: 14px;
@@ -6423,36 +6411,24 @@ main:has(.lv-hero) { padding-top: 0; }
   margin-bottom: 6px;
 }
 
-/* Whisper-subtle connector between tiers: a faint hairline that fades at both
-   ends so it reads as flow, not a hard rule. */
-.lv-int-connector {
-  display: block;
-  width: 1px;
-  height: 24px;
-  margin: 0 auto;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(90, 94, 67, 0.22),
-    transparent
-  );
-}
-
 .lv-int-note {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.02em;
   color: rgba(90, 94, 67, 0.55);
   text-align: center;
-  margin: 22px 0 0;
+  margin: 28px 0 0;
 }
 
 @media (min-width: 769px) {
   .lv-int-section {
     padding: 128px 48px;
   }
-  .lv-int-tier,
-  .lv-int-core {
-    padding: 22px 24px;
+  .lv-int-wall {
+    padding: 24px 26px;
+  }
+  .lv-int-points {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
   }
 }
