@@ -5,6 +5,7 @@ import LogoCycler from "@/components/LogoCycler"
 import MobileStickyCTA from "@/components/MobileStickyCTA"
 import MeasurementSection from "@/components/MeasurementSection"
 import IntegrationsSection from "@/components/IntegrationsSection"
+import VerticalsSection from "@/components/VerticalsSection"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -304,6 +305,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Who it's for — verticals card grid. Sits after "How it sounds /
+          How it communicates" and before the eval section. */}
+      <VerticalsSection />
 
       {/* How we verify it — proof behind the governance claim. Sits before
           the integrations section and the final CTA. */}
