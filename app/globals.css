@@ -6712,3 +6712,226 @@ main:has(.lv-hero) { padding-top: 0; }
     padding: 22px 24px;
   }
 }
+
+/* ─── Section 4 — "How it sounds / How it communicates" ───────────────────
+   Two-column rework: copy and three points on the left, a split-view artifact
+   on the right showing one output evaluated on both dimensions. Dark ground
+   (the section keeps .lv-audiences for padding; these lv-gov-* classes are
+   scoped to section 4 so the shared lv-audiences grid/blocks used by section 3
+   are untouched). The artifact pairs with section 3's visual: same EXAMPLE
+   pill, mono labels, hairline card chrome, restraint. Transforms and opacity
+   only; subtle reveal, static under reduced motion. */
+
+.lv-gov-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .lv-gov-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 64px;
+  }
+}
+
+/* Left column: header (reuses .lv-audiences-header) plus the three points,
+   given a compact treatment so the column balances the artifact. Copy is
+   unchanged. */
+.lv-gov-points {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.lv-gov-point-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0 0 6px;
+}
+
+.lv-gov-point-head {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--bg-light);
+  margin: 0 0 8px;
+}
+
+.lv-gov-point-head em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.lv-gov-point-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.78);
+  margin: 0;
+}
+
+/* Right column: the split-view artifact (dark card on the dark ground). */
+.lv-gov-card {
+  background: rgba(255, 248, 236, 0.04);
+  border: 1px solid rgba(255, 248, 236, 0.12);
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.5);
+}
+
+.lv-gov-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.lv-gov-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.7);
+  border: 1px solid rgba(255, 248, 236, 0.25);
+  border-radius: 100px;
+  padding: 3px 9px;
+}
+
+.lv-gov-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 248, 236, 0.5);
+}
+
+.lv-gov-line {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--bg-light);
+  margin: 0 0 14px;
+}
+
+.lv-gov-term {
+  border-bottom: 1.5px solid var(--sage);
+  padding-bottom: 1px;
+}
+
+.lv-gov-rule {
+  height: 1px;
+  background: rgba(255, 248, 236, 0.12);
+  margin: 0 0 16px;
+}
+
+.lv-gov-split {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lv-gov-dim + .lv-gov-dim {
+  border-top: 1px solid rgba(255, 248, 236, 0.1);
+  padding-top: 16px;
+}
+
+@media (min-width: 560px) {
+  .lv-gov-split {
+    flex-direction: row;
+    gap: 0;
+  }
+  .lv-gov-dim {
+    flex: 1;
+    min-width: 0;
+  }
+  .lv-gov-dim + .lv-gov-dim {
+    border-top: 0;
+    border-left: 1px solid rgba(255, 248, 236, 0.1);
+    padding-top: 0;
+    padding-left: 20px;
+    margin-left: 20px;
+  }
+}
+
+.lv-gov-dim-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0 0 10px;
+}
+
+.lv-gov-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lv-gov-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lv-gov-row-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255, 248, 236, 0.92);
+}
+
+.lv-gov-row-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 248, 236, 0.6);
+  white-space: nowrap;
+}
+
+.lv-gov-check {
+  width: 12px;
+  height: 12px;
+  color: var(--sage);
+  flex: none;
+}
+
+/* Subtle reveal: the two dimension columns settle in once on scroll. */
+.lv-gov-dim {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.lv-gov-art.is-revealed .lv-gov-dim {
+  opacity: 1;
+  transform: none;
+}
+
+.lv-gov-art.is-revealed .lv-gov-dim + .lv-gov-dim {
+  transition-delay: 0.12s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-gov-dim {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
