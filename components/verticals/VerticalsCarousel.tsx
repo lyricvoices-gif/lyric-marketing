@@ -20,11 +20,13 @@ type Vertical = {
   tone: string
 }
 
+/* Three industries shown on the homepage. Two further verticals (Healthcare,
+   Insurance) were moved to future-verticals.ts for a later industries page. */
 const VERTICALS: Vertical[] = [
   {
     label: "Consistency at Every Touchpoint",
     headline: "Property Management",
-    body: "A property manager runs agents for leasing, maintenance, and collections, across phone, portal, SMS, and email. Each needs its own register while sounding like one brand. Lease and property terms are said correctly, and required disclosures are handled the same way on every channel.",
+    body: "Residents hear from you across leasing, maintenance, and collections, and those are three different emotional jobs. The leasing voice that wins a lease sounds wrong chasing late rent. Lyric lets each context have its own register while a resident still recognizes one company, and keeps lease and fee terminology right on every channel.",
     accent: "#7A9B82",
     contexts: ["Leasing", "Maintenance", "Collections"],
     term: "CAM charges",
@@ -34,7 +36,7 @@ const VERTICALS: Vertical[] = [
   {
     label: "Cohesion in Every Account Moment",
     headline: "Financial Services",
-    body: "Support, fraud and disputes, and account servicing are different jobs with different stakes. Lyric keeps one brand across all of them, stays firm and calm when a customer is under stress, says financial terms correctly, and holds compliance-sensitive disclosures to the spec every time.",
+    body: "In a dispute or a fraud call, the customer is already stressed, and the wrong tone makes it worse. The voice has to stay firm and calm under pressure, get financial terms exactly right, and deliver compliance disclosures the same way every time. There is little room for an agent that drifts.",
     accent: "#F3D171",
     contexts: ["Support", "Disputes", "Servicing"],
     term: "APR",
@@ -44,32 +46,12 @@ const VERTICALS: Vertical[] = [
   {
     label: "Harmony in Every Guest Moment",
     headline: "Travel & Hospitality",
-    body: "Reservations, concierge, and loyalty each carry a different promise. Lyric keeps one brand across them, stays warm and gracious, says property and loyalty terms correctly, and handles rate and policy disclosures the same way on every channel.",
+    body: "A guest's first impression and their loyalty both run through the same voice. Reservations, concierge, and loyalty each carry a different promise, and a clipped or off-brand moment undercuts the experience you sell. Lyric keeps the voice warm and gracious across all of them, and handles rate and policy disclosures consistently.",
     accent: "#E0834A",
     contexts: ["Reservations", "Concierge", "Loyalty"],
     term: "folio",
     disclosure: "rate disclosure",
     tone: "warm, gracious",
-  },
-  {
-    label: "Alignment in Every Patient Moment",
-    headline: "Healthcare",
-    body: "Scheduling, billing, and nurse lines are different jobs with different stakes. Lyric keeps one brand across them, stays warm and clear, says clinical and benefits terms correctly, and holds privacy disclosures to the spec on every channel.",
-    accent: "#B5C19E",
-    contexts: ["Scheduling", "Billing", "Nurse line"],
-    term: "formulary",
-    disclosure: "privacy disclosure",
-    tone: "warm, clear",
-  },
-  {
-    label: "Continuity in Every Claim Moment",
-    headline: "Insurance",
-    body: "Claims, policy service, and billing each carry different stakes. Lyric keeps one brand across them, stays calm and reassuring under pressure, says policy and coverage terms correctly, and holds required disclosures to the spec on every channel.",
-    accent: "#B5634D",
-    contexts: ["Claims", "Policy", "Billing"],
-    term: "deductible",
-    disclosure: "recording disclosure",
-    tone: "calm, reassuring",
   },
 ]
 
