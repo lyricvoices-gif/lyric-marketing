@@ -6675,9 +6675,15 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* Left column: header (reuses .lv-audiences-header) plus the two governed
-   dimensions. With the per-point heads removed, the mono dimension label is
-   each point's anchor; the spacing pairs the two points against the three
-   clips in the player so the column reads balanced. */
+   dimensions. With the subline removed, the section-4 header sits tighter to
+   the points so the copy reads as one group (scoped here, not on the shared
+   .lv-audiences-header used elsewhere). With the per-point heads removed, the
+   mono dimension label is each point's anchor; the spacing pairs the two
+   points against the three clips in the player so the column reads balanced. */
+.lv-gov-copy .lv-audiences-header {
+  margin-bottom: 32px;
+}
+
 .lv-gov-points {
   display: flex;
   flex-direction: column;

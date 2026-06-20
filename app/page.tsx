@@ -249,12 +249,8 @@ export default function HomePage() {
                     <span>What it governs</span>
                   </div>
                   <h2 className="lv-audiences-headline">
-                    How it <em>sounds</em>. How it <em>communicates</em>.
+                    How it <em>sounds</em>.<br />How it <em>communicates</em>.
                   </h2>
-                  <p className="lv-audiences-subline">
-                    Two dimensions, held to the same brand spec across every
-                    agent and every engine.
-                  </p>
                 </div>
               </ScrollReveal>
 
