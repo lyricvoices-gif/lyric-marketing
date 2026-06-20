@@ -6789,39 +6789,29 @@ main:has(.lv-hero) { padding-top: 0; }
   min-width: 0;
 }
 
-.lv-aud-claims {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* Title over description, the Edition 01 listen-row hierarchy: a display-type
+   category as the anchor, a roman "listen as..." line beneath. */
+.lv-aud-title {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2vw, 19px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--bg-light);
+  margin: 0 0 5px;
 }
 
-.lv-aud-claim {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+.lv-aud-desc {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.4;
-  color: rgba(255, 248, 236, 0.72);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 248, 236, 0.62);
   transition: color 0.25s ease;
 }
 
-.lv-aud-dot {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 248, 236, 0.3);
-  transition: background 0.25s ease;
-}
-
-.lv-aud-row.is-playing .lv-aud-claim {
-  color: var(--bg-light);
-}
-
-.lv-aud-row.is-playing .lv-aud-dot {
-  background: var(--gold);
+.lv-aud-row.is-playing .lv-aud-desc {
+  color: rgba(255, 248, 236, 0.92);
 }
 
 .lv-aud-track {

@@ -13,22 +13,27 @@
 
 import { useEffect, useRef, useState } from "react"
 
-type Clip = { src: string; annotations: string[] }
+type Clip = { src: string; title: string; desc: string }
 
 /* "Greeting+Disclosure.wav" carries a literal "+"; reference it URL-encoded
-   (%2B) so it loads reliably. The other two are plain names. */
+   (%2B) so it loads reliably. The other two are plain names. Each row has a
+   title (the governance category) over a "listen as..." description, the same
+   hierarchy as the Edition 01 listen rows. */
 const CLIPS: Clip[] = [
   {
     src: "/Greeting%2BDisclosure.wav",
-    annotations: ["“Caldera” pronounced on brand", "Required disclosure, delivered to spec"],
+    title: "Pronunciation + Disclosure",
+    desc: "Listen as the agent pronounces “Caldera” on brand, and discloses the call may be recorded.",
   },
   {
     src: "/Register.wav",
-    annotations: ["Register held calm under stress"],
+    title: "Register",
+    desc: "Listen as the agent holds a calm register under stress.",
   },
   {
     src: "/Terminology.wav",
-    annotations: ["“provisional credit” said on brand"],
+    title: "Terminology",
+    desc: "Listen as the agent says “provisional credit” on brand.",
   },
 ]
 
@@ -115,14 +120,8 @@ export default function AudioSamples() {
                 {isOn ? <PauseGlyph /> : <PlayGlyph />}
               </button>
               <div className="lv-aud-body">
-                <div className="lv-aud-claims">
-                  {c.annotations.map((a) => (
-                    <p key={a} className="lv-aud-claim">
-                      <span className="lv-aud-dot" aria-hidden="true" />
-                      {a}
-                    </p>
-                  ))}
-                </div>
+                <h3 className="lv-aud-title">{c.title}</h3>
+                <p className="lv-aud-desc">{c.desc}</p>
                 <div className="lv-aud-track" aria-hidden="true">
                   <span
                     className="lv-aud-fill"
