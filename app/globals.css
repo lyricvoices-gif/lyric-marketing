@@ -6670,7 +6670,7 @@ main:has(.lv-hero) { padding-top: 0; }
 @media (min-width: 900px) {
   .lv-gov-grid {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 64px;
+    gap: 96px;
   }
 }
 
@@ -6679,7 +6679,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-gov-points {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 44px;
   margin-top: 8px;
 }
 
@@ -6721,7 +6721,10 @@ main:has(.lv-hero) { padding-top: 0; }
 /* Right column: the "hear it" audio player. Playable rows, deliberately
    unlike the eval/verticals cards. The annotations are always visible
    (silent-state legible); the active row lights while its clip plays. Dark
-   ground. The progress fill reflects real playback. */
+   ground. All playback feedback lives on the button — a gold progress arc
+   rings the play/pause glyph — so the rows carry no separate progress line
+   and no dividers, only generous spacing. The column centers in the grid
+   cell so the three rows balance vertically against the left copy. */
 .lv-aud {
   width: 100%;
 }
@@ -6732,55 +6735,88 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 248, 236, 0.5);
-  margin: 0 0 6px;
+  margin: 0 0 28px;
 }
 
 .lv-aud-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .lv-aud-row {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 22px 0;
-  border-top: 1px solid rgba(255, 248, 236, 0.1);
+  gap: 20px;
 }
 
-.lv-aud-row:first-child {
-  border-top: 0;
-}
-
+/* The button is a 48px ring: a faint track circle, a gold progress arc that
+   sweeps as the clip plays, and a centered play/pause glyph. No border or
+   fill chrome — the arc is the only progress feedback. */
 .lv-aud-play {
   flex: none;
-  width: 46px;
-  height: 46px;
+  position: relative;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: 1px solid rgba(255, 248, 236, 0.25);
+  border: 0;
   border-radius: 100px;
   background: transparent;
   color: var(--bg-light);
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.lv-aud-play svg {
+.lv-aud-ring {
+  position: absolute;
+  inset: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.lv-aud-ring-track {
+  fill: none;
+  stroke: rgba(255, 248, 236, 0.22);
+  stroke-width: 1.5;
+}
+
+.lv-aud-ring-prog {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 24px 24px;
+  transition: stroke-dashoffset 0.12s linear;
+}
+
+.lv-aud-glyph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lv-aud-glyph svg {
   width: 16px;
   height: 16px;
 }
 
 .lv-aud-play:hover {
-  background: rgba(255, 248, 236, 0.06);
-  border-color: rgba(255, 248, 236, 0.45);
+  color: var(--bg-light);
 }
 
-.lv-aud-row.is-playing .lv-aud-play {
-  border-color: var(--gold);
+.lv-aud-play:hover .lv-aud-ring-track {
+  stroke: rgba(255, 248, 236, 0.4);
+}
+
+.lv-aud-play.is-playing {
   color: var(--gold);
 }
 
@@ -6814,26 +6850,8 @@ main:has(.lv-hero) { padding-top: 0; }
   color: rgba(255, 248, 236, 0.92);
 }
 
-.lv-aud-track {
-  margin-top: 12px;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 248, 236, 0.12);
-  overflow: hidden;
-}
-
-.lv-aud-fill {
-  display: block;
-  height: 100%;
-  border-radius: 2px;
-  background: var(--gold);
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 0.12s linear;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .lv-aud-fill {
+  .lv-aud-ring-prog {
     transition: none;
   }
 }
