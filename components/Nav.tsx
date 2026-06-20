@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
-import Wordmark from "@/components/Wordmark"
 
 /* Nav items — primary structure for both desktop bar and mobile overlay.
    Products is the only dropdown; About and Notes are simple links.
@@ -144,7 +143,7 @@ export default function Nav() {
             "opacity 0.6s ease-out, filter 0.6s ease-out, background-color 0.36s ease, border-color 0.28s ease",
         }}
       >
-        {/* Brand wordmark — links home */}
+        {/* Brand logo — official Lyric imagotype (icon + wordmark), links home */}
         <Link
           href="/"
           className="lyric-wordmark-link"
@@ -156,7 +155,12 @@ export default function Nav() {
             zIndex: 102,
           }}
         >
-          <Wordmark height={36} color="var(--olive)" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/logos/Lyric_Logo_Imagotype-2-Black.svg"
+            alt="Lyric"
+            style={{ height: "34px", width: "auto", display: "block" }}
+          />
         </Link>
 
         {/* Desktop links */}
