@@ -249,7 +249,9 @@ export default function HomePage() {
                     <span>What it governs</span>
                   </div>
                   <h2 className="lv-audiences-headline">
-                    How it <em>sounds</em>.<br />How it <em>communicates</em>.
+                    <span className="lv-gov-headline-line">How it <em>sounds</em>.</span>
+                    <br />
+                    <span className="lv-gov-headline-line">How it <em>communicates</em>.</span>
                   </h2>
                 </div>
               </ScrollReveal>

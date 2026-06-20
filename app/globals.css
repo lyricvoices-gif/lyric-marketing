@@ -6684,6 +6684,17 @@ main:has(.lv-hero) { padding-top: 0; }
   margin-bottom: 32px;
 }
 
+/* Section 4 headline — break at the sentence boundary, not on column width.
+   The <br/> in the markup sets the boundary; at desktop each sentence is held
+   on a single line so "communicates." is never stranded alone. On mobile the
+   left column is full width, so wrapping stays enabled and a sentence may flow
+   to more lines (acceptable) rather than overflowing a narrow viewport. */
+@media (min-width: 900px) {
+  .lv-gov-headline-line {
+    white-space: nowrap;
+  }
+}
+
 .lv-gov-points {
   display: flex;
   flex-direction: column;
