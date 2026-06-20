@@ -2420,10 +2420,12 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* Brand Governance Layer (control plane) reuses the audiences grid but wants
-   more air between the 01 Codify / 02 Govern / 03 Port blocks than the shared
-   grid. Scoped to the control-plane section so other uses are untouched. */
+   a little more air between the 01 Codify / 02 Govern / 03 Port blocks than the
+   shared grid. Scoped to the control-plane section so other uses are untouched.
+   Kept modest so the equal columns read as evenly distributed rather than
+   floating apart. */
 .lv-products .lv-audiences-grid {
-  gap: 88px;
+  gap: 72px;
 }
 
 .lv-audience-number {
@@ -6486,6 +6488,23 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-vert-track::-webkit-scrollbar {
   display: none;
+}
+
+/* There are three cards. On desktop, show all three in one view: the track
+   stops scrolling and the cards share the row evenly instead of one being
+   cropped at the edge. Below this width the scroll carousel still applies, with
+   the peek of the next card as the affordance. */
+@media (min-width: 1080px) {
+  .lv-vert-track {
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
+  .lv-vert-card {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
 }
 
 /* ── Card (fixed width so the set stays uniform in the track; the peek of the
