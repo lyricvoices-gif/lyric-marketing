@@ -303,7 +303,7 @@ export default function HomePage() {
             <span className="lv-eyebrow-dot" aria-hidden="true" />
             <span>The brand-governance layer for AI agents</span>
           </div>
-          <h2>The engines are commoditized. The <em>brand</em> is not.</h2>
+          <h2>The engines are commoditized.<br /> The <em>brand</em> is not.</h2>
           <div className="lv-cta-row lv-cta-row-center">
             <CTA href="mailto:info@lyricvoices.ai?subject=Lyric%20access" variant="light">
               Request access
