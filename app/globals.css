@@ -6664,7 +6664,7 @@ main:has(.lv-hero) { padding-top: 0; }
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  align-items: center;
+  align-items: start;
 }
 
 @media (min-width: 900px) {
@@ -6708,8 +6708,9 @@ main:has(.lv-hero) { padding-top: 0; }
    (silent-state legible); the active row lights while its clip plays. Dark
    ground. All playback feedback lives on the button — a gold progress arc
    rings the play/pause glyph — so the rows carry no separate progress line.
-   A hairline rule separates each clip. The column centers in the grid cell
-   so the rows balance vertically against the left copy. */
+   A hairline rule separates each clip. The grid top-aligns the columns, so
+   "Hear it" lines up with the "What it governs" eyebrow and both columns
+   descend together. */
 .lv-aud {
   width: 100%;
 }
@@ -6732,8 +6733,8 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-aud-row {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 26px 0;
+  gap: 24px;
+  padding: 28px 0;
   border-top: 1px solid rgba(255, 248, 236, 0.1);
 }
 
@@ -6742,14 +6743,16 @@ main:has(.lv-hero) { padding-top: 0; }
   padding-top: 0;
 }
 
-/* The button is a 48px ring: a faint track circle, a gold progress arc that
+/* The button is a 64px ring: a faint track circle, a gold progress arc that
    sweeps as the clip plays, and a centered play/pause glyph. No border or
-   fill chrome — the arc is the only progress feedback. */
+   fill chrome — the arc is the only progress feedback. The SVG keeps its
+   48-unit viewBox and scales to fit, so the ring geometry and progress math
+   are unchanged. */
 .lv-aud-play {
   flex: none;
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6765,8 +6768,8 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-aud-ring {
   position: absolute;
   inset: 0;
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
 }
 
 .lv-aud-ring-track {
@@ -6793,8 +6796,8 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-aud-glyph svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .lv-aud-play:hover {
