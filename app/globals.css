@@ -6425,7 +6425,9 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-vert-inner {
-  max-width: 1240px;
+  /* Wide enough that three 440px cards fit with a small peek of the fourth on
+     larger laptops; narrower screens show fewer, with the peek as affordance. */
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -6643,7 +6645,7 @@ main:has(.lv-hero) { padding-top: 0; }
 
 @media (min-width: 769px) {
   .lv-vert-section {
-    padding: 128px 48px;
+    padding: 128px 32px;
   }
 }
 
