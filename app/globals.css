@@ -6674,47 +6674,32 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
-/* Left column: header (reuses .lv-audiences-header) plus the three points,
-   compact so the column balances the artifact. Copy unchanged. */
+/* Left column: header (reuses .lv-audiences-header) plus the two governed
+   dimensions. With the per-point heads removed, the mono dimension label is
+   each point's anchor; the spacing pairs the two points against the three
+   clips in the player so the column reads balanced. */
 .lv-gov-points {
   display: flex;
   flex-direction: column;
-  gap: 44px;
+  gap: 40px;
   margin-top: 8px;
 }
 
 .lv-gov-point-label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.55);
-  margin: 0 0 6px;
-}
-
-.lv-gov-point-head {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2.4vw, 24px);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: 0;
-  color: var(--bg-light);
-  margin: 0 0 8px;
-}
-
-.lv-gov-point-head em {
-  font-family: inherit;
-  font-style: italic;
-  font-weight: inherit;
-  color: inherit;
+  color: rgba(255, 248, 236, 0.7);
+  margin: 0 0 12px;
 }
 
 .lv-gov-point-body {
   font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.55;
-  color: rgba(255, 248, 236, 0.78);
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 248, 236, 0.8);
   margin: 0;
 }
 
@@ -6722,9 +6707,9 @@ main:has(.lv-hero) { padding-top: 0; }
    unlike the eval/verticals cards. The annotations are always visible
    (silent-state legible); the active row lights while its clip plays. Dark
    ground. All playback feedback lives on the button — a gold progress arc
-   rings the play/pause glyph — so the rows carry no separate progress line
-   and no dividers, only generous spacing. The column centers in the grid
-   cell so the three rows balance vertically against the left copy. */
+   rings the play/pause glyph — so the rows carry no separate progress line.
+   A hairline rule separates each clip. The column centers in the grid cell
+   so the rows balance vertically against the left copy. */
 .lv-aud {
   width: 100%;
 }
@@ -6735,22 +6720,26 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 248, 236, 0.5);
-  margin: 0 0 28px;
+  margin: 0 0 18px;
 }
 
 .lv-aud-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
 }
 
 .lv-aud-row {
   display: flex;
   align-items: center;
   gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.1);
+}
+
+.lv-aud-row:first-child {
+  border-top: 0;
+  padding-top: 0;
 }
 
 /* The button is a 48px ring: a faint track circle, a gold progress arc that

@@ -262,37 +262,17 @@ export default function HomePage() {
                 <ScrollReveal delay={90}>
                   <div className="lv-gov-point">
                     <span className="lv-gov-point-label">How it sounds</span>
-                    <h3 className="lv-gov-point-head">
-                      Say the <em>words</em> right.
-                    </h3>
                     <p className="lv-gov-point-body">
-                      Brand names and industry terms, pronounced correctly every
-                      time. The vocabulary that signals an agent knows the domain
-                      it is speaking in.
+                      Every brand and industry term is pronounced correctly.
+                      Every moment delivered with the right pacing, emphasis,
+                      and emotional control.
                     </p>
                   </div>
                 </ScrollReveal>
 
                 <ScrollReveal delay={150}>
                   <div className="lv-gov-point">
-                    <span className="lv-gov-point-label">How it sounds</span>
-                    <h3 className="lv-gov-point-head">
-                      Hold the <em>register</em>.
-                    </h3>
-                    <p className="lv-gov-point-body">
-                      Pacing, emphasis, and emotional range kept within a defined
-                      band. Calm where it should be calm. Never flat, never
-                      overplayed.
-                    </p>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={210}>
-                  <div className="lv-gov-point">
                     <span className="lv-gov-point-label">How it communicates</span>
-                    <h3 className="lv-gov-point-head">
-                      Stay on <em>message</em>.
-                    </h3>
                     <p className="lv-gov-point-body">
                       Word choice, tone, and the handling of disclosure. What an
                       agent says, and what it must not, kept inside brand and
