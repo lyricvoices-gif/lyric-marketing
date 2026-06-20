@@ -3194,6 +3194,17 @@ main:has(.lv-hero) { padding-top: 0; }
     gap: 64px;
   }
 
+  /* Control-plane blocks (01 Codify / 02 Govern / 03 Port): force three truly
+     equal columns and one uniform column-gap. The shared rule above uses
+     repeat(3, 1fr) = minmax(auto, 1fr), whose auto minimum lets each column's
+     content width pull the tracks to different sizes, so the 01-02 gutter ends
+     up different from the 02-03 gutter. minmax(0, 1fr) makes the tracks equal,
+     and a single column-gap makes the two gutters identical. */
+  .lv-products .lv-audiences-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 72px;
+  }
+
   .lv-audience-block h2 {
     font-size: clamp(28px, 3vw, 36px);
   }
