@@ -1,14 +1,16 @@
 "use client"
 
 /* Audio samples — section 4's "hear it" player. Three short governance clips,
-   each a playable row whose visible annotation(s) are the governance claim.
-   The claims are always visible, so the section reads fully without sound; the
-   audio rewards a click. One clip plays at a time (a single shared <audio>);
-   play on click only, the button toggles to pause, and a thin progress line
-   fills with real playback. While a clip plays, its row's annotation(s) light.
+   each a playable row whose visible title + description are the governance
+   claim. The claims are always visible, so the section reads fully without
+   sound; the audio rewards a click. One clip plays at a time (a single shared
+   <audio>); play on click only, the button toggles to pause. All playback
+   feedback lives on the button: a gold progress arc rings the play/pause glyph
+   and sweeps with real playback (no separate progress line). While a clip
+   plays, its row's description lights.
 
    This is an audio player, deliberately unlike the eval/verticals cards.
-   prefers-reduced-motion keeps the functional progress fill (it is feedback,
+   prefers-reduced-motion keeps the functional progress arc (it is feedback,
    not decoration) and drops only its smoothing transition. */
 
 import { useEffect, useRef, useState } from "react"
@@ -36,6 +38,10 @@ const CLIPS: Clip[] = [
     desc: "Listen as the agent says “provisional credit” on brand.",
   },
 ]
+
+/* Progress ring circumference (r=22 in the 48x48 button). */
+const RING_R = 22
+const RING_C = 2 * Math.PI * RING_R
 
 function PlayGlyph() {
   return (
@@ -112,22 +118,34 @@ export default function AudioSamples() {
             <li key={c.src} className={`lv-aud-row${isOn ? " is-playing" : ""}`}>
               <button
                 type="button"
-                className="lv-aud-play"
+                className={`lv-aud-play${isOn ? " is-playing" : ""}`}
                 onClick={() => toggle(i)}
                 aria-label={isOn ? "Pause sample" : "Play sample"}
                 aria-pressed={isOn}
               >
-                {isOn ? <PauseGlyph /> : <PlayGlyph />}
+                {/* All playback feedback lives on the button: a play/pause
+                    glyph plus a gold progress arc that fills as the clip
+                    plays. */}
+                <svg className="lv-aud-ring" viewBox="0 0 48 48" aria-hidden="true">
+                  <circle className="lv-aud-ring-track" cx="24" cy="24" r={RING_R} />
+                  <circle
+                    className="lv-aud-ring-prog"
+                    cx="24"
+                    cy="24"
+                    r={RING_R}
+                    style={{
+                      strokeDasharray: RING_C,
+                      strokeDashoffset: RING_C * (1 - (isOn ? progress : 0)),
+                    }}
+                  />
+                </svg>
+                <span className="lv-aud-glyph">
+                  {isOn ? <PauseGlyph /> : <PlayGlyph />}
+                </span>
               </button>
               <div className="lv-aud-body">
                 <h3 className="lv-aud-title">{c.title}</h3>
                 <p className="lv-aud-desc">{c.desc}</p>
-                <div className="lv-aud-track" aria-hidden="true">
-                  <span
-                    className="lv-aud-fill"
-                    style={{ transform: `scaleX(${isOn ? progress : 0})` }}
-                  />
-                </div>
               </div>
             </li>
           )
