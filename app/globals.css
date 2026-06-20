@@ -3205,6 +3205,13 @@ main:has(.lv-hero) { padding-top: 0; }
     column-gap: 72px;
   }
 
+  /* Nudge the middle (02 Govern) block a few pixels left so it reads closer to
+     01 and further from 03, evening out the visual rhythm against the differing
+     headline lengths. Transform only, so the grid tracks/gutters stay equal. */
+  .lv-products .lv-audience-block:nth-child(2) {
+    transform: translateX(-16px);
+  }
+
   .lv-audience-block h2 {
     font-size: clamp(28px, 3vw, 36px);
   }
