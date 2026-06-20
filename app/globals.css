@@ -6718,245 +6718,132 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0;
 }
 
-/* Right column: the two-mode artifact (dark card on the dark ground). */
-.lv-gov-card {
-  background: rgba(255, 248, 236, 0.04);
-  border: 1px solid rgba(255, 248, 236, 0.12);
-  border-radius: 16px;
-  padding: 20px 22px;
-  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.5);
+/* Right column: the "hear it" audio player. Playable rows, deliberately
+   unlike the eval/verticals cards. The annotations are always visible
+   (silent-state legible); the active row lights while its clip plays. Dark
+   ground. The progress fill reflects real playback. */
+.lv-aud {
+  width: 100%;
 }
 
-.lv-gov-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.lv-gov-tag {
+.lv-aud-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.7);
-  border: 1px solid rgba(255, 248, 236, 0.25);
-  border-radius: 100px;
-  padding: 3px 9px;
-}
-
-.lv-gov-sub {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
   color: rgba(255, 248, 236, 0.5);
+  margin: 0 0 6px;
 }
 
-/* ── Mode blocks ── */
-.lv-gov-mode-head {
+.lv-aud-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lv-aud-row {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.1);
 }
 
-.lv-gov-mode-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.55);
+.lv-aud-row:first-child {
+  border-top: 0;
 }
 
-.lv-gov-mode-note {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.04em;
-  color: rgba(255, 248, 236, 0.45);
-}
-
-/* ── Acoustic ── */
-.lv-gov-wave {
-  position: relative;
-}
-
-.lv-gov-wave-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.lv-gov-band {
-  fill: rgba(193, 193, 126, 0.1);
-  stroke: rgba(255, 248, 236, 0.14);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-.lv-gov-bar {
-  fill: rgba(255, 248, 236, 0.16);
-}
-
-.lv-gov-bar-on {
-  fill: var(--sage);
-}
-
-.lv-gov-reg {
-  fill: none;
-  stroke: rgba(255, 248, 236, 0.3);
-  stroke-width: 1.6;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.lv-gov-reg-on {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 1.8;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.lv-gov-wlabel {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  fill: rgba(255, 248, 236, 0.42);
-}
-
-.lv-gov-wlabel.is-hot {
-  fill: var(--gold);
-}
-
-/* Bright overlay revealed left to right, with the playhead at the edge. */
-.lv-gov-wave-active-wrap {
-  position: absolute;
-  inset: 0;
-}
-
-.lv-gov-wave-active {
-  position: absolute;
-  inset: 0;
-  clip-path: inset(0 100% 0 0);
-}
-
-.lv-gov-wave-active.is-static {
-  clip-path: none;
-}
-
-.lv-gov-wave-anim .lv-gov-wave-active {
-  animation: lv-gov-reveal 4.5s linear forwards;
-}
-
-.lv-gov-playhead {
-  position: absolute;
-  top: 0;
-  bottom: 14%;
-  left: 0;
-  width: 2px;
-  background: var(--gold);
-  opacity: 0;
-}
-
-.lv-gov-wave-anim .lv-gov-playhead {
-  animation: lv-gov-playhead 4.5s linear forwards;
-}
-
-@keyframes lv-gov-reveal {
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes lv-gov-playhead {
-  0% {
-    left: 0;
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-/* ── Divider between modes ── */
-.lv-gov-rule {
-  height: 1px;
-  background: rgba(255, 248, 236, 0.12);
-  margin: 18px 0;
-}
-
-/* ── Textual ── */
-.lv-gov-text {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--bg-light);
-  margin: 0 0 14px;
-}
-
-.lv-gov-mark {
-  padding-bottom: 1.5px;
-}
-
-.lv-gov-mark-brand {
-  border-bottom: 2px solid var(--gold);
-}
-
-.lv-gov-mark-disc {
-  border-bottom: 2px solid var(--sage);
-}
-
-.lv-gov-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.lv-gov-leg {
+.lv-aud-play {
+  flex: none;
+  width: 46px;
+  height: 46px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 248, 236, 0.25);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--bg-light);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.lv-aud-play svg {
+  width: 16px;
+  height: 16px;
+}
+
+.lv-aud-play:hover {
+  background: rgba(255, 248, 236, 0.06);
+  border-color: rgba(255, 248, 236, 0.45);
+}
+
+.lv-aud-row.is-playing .lv-aud-play {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.lv-aud-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.lv-aud-claims {
+  display: flex;
+  flex-direction: column;
   gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.6);
 }
 
-.lv-gov-leg-sw {
-  width: 14px;
-  height: 2px;
-  border-radius: 2px;
+.lv-aud-claim {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.4;
+  color: rgba(255, 248, 236, 0.72);
+  transition: color 0.25s ease;
 }
 
-.lv-gov-leg-brand {
+.lv-aud-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 248, 236, 0.3);
+  transition: background 0.25s ease;
+}
+
+.lv-aud-row.is-playing .lv-aud-claim {
+  color: var(--bg-light);
+}
+
+.lv-aud-row.is-playing .lv-aud-dot {
   background: var(--gold);
 }
 
-.lv-gov-leg-disc {
-  background: var(--sage);
+.lv-aud-track {
+  margin-top: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 248, 236, 0.12);
+  overflow: hidden;
 }
 
-.lv-gov-leg-note {
-  text-transform: none;
-  letter-spacing: 0.02em;
-  color: rgba(255, 248, 236, 0.45);
+.lv-aud-fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--gold);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.12s linear;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-gov-wave-active {
-    clip-path: none !important;
-    animation: none !important;
-  }
-  .lv-gov-playhead {
-    animation: none !important;
-    opacity: 0 !important;
+  .lv-aud-fill {
+    transition: none;
   }
 }

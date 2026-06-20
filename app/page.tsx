@@ -6,7 +6,7 @@ import MobileStickyCTA from "@/components/MobileStickyCTA"
 import MeasurementSection from "@/components/MeasurementSection"
 import IntegrationsSection from "@/components/IntegrationsSection"
 import VerticalsSection from "@/components/VerticalsSection"
-import DimensionsVisual from "@/components/governance/DimensionsVisual"
+import AudioSamples from "@/components/governance/AudioSamples"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -305,7 +305,7 @@ export default function HomePage() {
 
             <div className="lv-gov-visual">
               <ScrollReveal delay={120}>
-                <DimensionsVisual />
+                <AudioSamples />
               </ScrollReveal>
             </div>
           </div>
