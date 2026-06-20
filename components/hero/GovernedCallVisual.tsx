@@ -15,10 +15,10 @@
    each turn can animate smoothly with opacity and transform alone.
 
    The call demonstrates two governance capabilities across one bank call.
-   The greeting carries the recording disclosure (how it communicates) and
+   The greeting leads with the recording disclosure (how it communicates) and
    the brand name pronounced on brand (how it sounds). The agent then holds
-   tone under stress, and the closing pronounces the product name, Caldera
-   One, on brand, so terminology pronunciation shows up twice across the call.
+   tone under stress, and the closing pronounces the brand name, Caldera Bank,
+   on brand, so terminology pronunciation shows up twice across the call.
 
    Plays once when the hero scrolls into view, then settles and holds.
    Mirrors the OpusVisual pattern: a useReducedMotion hook, a one-shot
@@ -35,9 +35,9 @@ const MESSAGES: readonly Msg[] = [
     role: "agent",
     time: "2:14:00 AM",
     segs: [
-      { t: "Thank you for calling " },
+      { t: "For quality and training purposes, calls may be recorded. Thank you for calling " },
       { t: "Caldera Bank", term: true },
-      { t: ". This call may be recorded for quality and security. This is Avery, how can I help?" },
+      { t: ". This is Riven. How can I help?" },
     ],
     notes: ["disclosure added by spec", "“Caldera” pronounced on brand"],
   },
@@ -70,10 +70,10 @@ const MESSAGES: readonly Msg[] = [
     time: "2:14:16 AM",
     segs: [
       { t: "I’ve opened a dispute on your behalf and ordered a new card. You’ll see a provisional credit in your " },
-      { t: "Caldera One", term: true },
+      { t: "Caldera Bank", term: true },
       { t: " account within one business day." },
     ],
-    notes: ["“Caldera One” pronounced on brand"],
+    notes: ["“Caldera Bank” pronounced on brand"],
   },
 ] as const
 
