@@ -71,11 +71,9 @@ export default function IntegrationsSection() {
           </ScrollReveal>
           <ScrollReveal delay={220}>
             <p className="lv-int-supporting">
-              Lyric acts as the intelligence layer between your existing
-              telephony infrastructure and your choice of voice synthesis
-              models. Whether you are scaling across Twilio, Five9, or NICE
-              CXone, we ensure your brand voice is consistent, compliant, and
-              perfectly tuned every time.
+              Lyric is the intelligence layer between your telephony and your
+              synthesis models. It governs whichever engine you use, so moving
+              providers never costs you your brand voice.
             </p>
           </ScrollReveal>
         </div>

@@ -187,10 +187,8 @@ export default function HomePage() {
                   Capture the <em>persona</em>.
                 </h2>
                 <p className="lv-audience-body">
-                  Pronunciation of brand and industry terms, pacing, emotional
-                  register, word choice, and disclosure rules define an
-                  agent&apos;s voice and tone. This is the single, versioned
-                  source of truth for how your brand should sound and speak.
+                  Your brand becomes a portable specification. One versioned
+                  source of truth for how every agent should sound and speak.
                 </p>
               </ScrollReveal>
             </div>
@@ -205,9 +203,9 @@ export default function HomePage() {
                   Hold every agent in <em>tolerance</em>.
                 </h2>
                 <p className="lv-audience-body">
-                  Every agent runs against the spec. Output that drifts outside
-                  brand tolerance is caught and corrected before a customer
-                  hears it. The same standard, applied everywhere.
+                  Every agent is conditioned against the spec at the point of
+                  generation, so it stays on brand before a word reaches the
+                  customer. The same standard, applied everywhere.
                 </p>
               </ScrollReveal>
             </div>
@@ -261,9 +259,8 @@ export default function HomePage() {
                   <div className="lv-gov-point">
                     <span className="lv-gov-point-label">How it sounds</span>
                     <p className="lv-gov-point-body">
-                      Every brand and industry term is pronounced correctly.
-                      Every moment delivered with the right pacing, emphasis,
-                      and emotional control.
+                      Brand and industry terms, said right. Pacing, emphasis,
+                      and register held where they belong.
                     </p>
                   </div>
                 </ScrollReveal>
@@ -272,9 +269,8 @@ export default function HomePage() {
                   <div className="lv-gov-point">
                     <span className="lv-gov-point-label">How it communicates</span>
                     <p className="lv-gov-point-body">
-                      Word choice, tone, and the handling of disclosure. What an
-                      agent says, and what it must not, kept inside brand and
-                      inside policy.
+                      Word choice, tone, and disclosure. What an agent says, and
+                      what it must not.
                     </p>
                   </div>
                 </ScrollReveal>
