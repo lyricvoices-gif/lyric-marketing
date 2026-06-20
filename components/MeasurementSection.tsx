@@ -26,7 +26,7 @@ export default function MeasurementSection() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <h2 className="lv-eval-headline">
-              Prevented inline. <em>Verified</em> with evals.
+              Prevented inline.<br /> <em>Verified</em> with evals.
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={220}>

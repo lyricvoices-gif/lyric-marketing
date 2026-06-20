@@ -65,12 +65,30 @@ export default function ImprintPage() {
                 lineHeight: 1.5,
                 color: C.olive,
                 opacity: 0.86,
-                margin: "0 0 28px",
+                margin: "0 0 20px",
                 maxWidth: "640px",
                 fontWeight: 400,
               }}
             >
               Curated AI voice identities, built with real voice artists.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={290}>
+            {/* Brand signature line — relocated here from the global footer,
+                where the tagline changed. Set in the page's display italic
+                olive, the same emphasis treatment as the hero headline and
+                the closing quote, so it fits the existing type and color. */}
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontStyle: "italic",
+                fontSize: "clamp(22px, 2.4vw, 28px)",
+                fontWeight: 500,
+                lineHeight: 1.2,
+                color: C.olive,
+                margin: "0 0 28px",
+              }}
+            >
               Composed, not cloned.
             </p>
           </ScrollReveal>

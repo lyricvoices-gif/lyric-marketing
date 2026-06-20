@@ -161,16 +161,15 @@ export default function HomePage() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <h2 className="lv-products-headline">
-              We direct the engines. We are not <em>one of them</em>.
+              We direct the engines.<br /> We are not <em>one of them</em>.
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={220}>
             <p className="lv-products-supporting">
-              Lyric sits above the language model and the speech engine. It does
-              not generate text or audio. Instead, it codifies your brand&apos;s
-              persona into a portable specification and ensures every agent
-              adheres to it. Lyric doesn&apos;t compete on inference quality; it
-              serves as the governance layer that keeps your systems on brand.
+              Lyric sits above the language model and the speech engine. It
+              doesn&apos;t generate text or audio. It codifies your brand into a
+              portable spec and holds every agent to it, regardless of the engine
+              underneath.
             </p>
           </ScrollReveal>
         </div>

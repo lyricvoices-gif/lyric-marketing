@@ -87,17 +87,18 @@ type Step = { kind: "msg" | "note"; index: number; delay: number }
    governance note are both in place at load, beginning with the caller. */
 const STEPS: readonly Step[] = [
   { kind: "msg", index: 0, delay: 0 }, // present at load
-  { kind: "note", index: 0, delay: 900 }, // both greeting notes, present at load
+  { kind: "note", index: 0, delay: 600 }, // both greeting notes, present at load
   // Longer greeting carrying two annotations (disclosure + Caldera) gets a
-  // longer dwell so both can be read before the caller replies.
-  { kind: "msg", index: 1, delay: 3200 },
-  { kind: "msg", index: 2, delay: 2600 },
-  { kind: "note", index: 2, delay: 800 },
-  { kind: "msg", index: 3, delay: 2800 },
-  { kind: "msg", index: 4, delay: 2200 },
+  // longer dwell so both can be read before the caller replies. The call now
+  // gets moving sooner so the hero doesn't sit still on entry.
+  { kind: "msg", index: 1, delay: 1700 },
+  { kind: "msg", index: 2, delay: 2200 },
+  { kind: "note", index: 2, delay: 700 },
+  { kind: "msg", index: 3, delay: 2300 },
+  { kind: "msg", index: 4, delay: 2000 },
   // The closing "Caldera One" beat is the second key moment; give it a clear
   // pause so it reads before the call settles.
-  { kind: "note", index: 4, delay: 1000 },
+  { kind: "note", index: 4, delay: 900 },
 ] as const
 
 const INITIAL_STEPS = 2

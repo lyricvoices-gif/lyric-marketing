@@ -143,12 +143,12 @@ export default function Footer() {
                   letterSpacing: "0",
                 }}
               >
-                Composed, not cloned.
+                All your agents, one brand voice.
               </p>
 
               <a
                 className="lyric-footer-email"
-                href="mailto:hi@lyricvoices.ai"
+                href="mailto:info@lyricvoices.ai"
                 style={{
                   display: "block",
                   fontSize: "13px",
@@ -156,7 +156,7 @@ export default function Footer() {
                   letterSpacing: "0",
                 }}
               >
-                hi@lyricvoices.ai
+                info@lyricvoices.ai
               </a>
 
               {/* Social icons — natural sizing with a 16px gap so the

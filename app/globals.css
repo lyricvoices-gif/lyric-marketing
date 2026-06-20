@@ -2419,6 +2419,13 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 64px;
 }
 
+/* Brand Governance Layer (control plane) reuses the audiences grid but wants
+   more air between the 01 Codify / 02 Govern / 03 Port blocks than the shared
+   grid. Scoped to the control-plane section so other uses are untouched. */
+.lv-products .lv-audiences-grid {
+  gap: 88px;
+}
+
 .lv-audience-number {
   display: block;
   font-family: var(--font-display);
@@ -5641,10 +5648,12 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* The statement paragraph's base rule centers via auto margins; left-anchor
-   it inside the copy column. */
+   it inside the copy column, and tighten the gap to the "See how it works"
+   link so the CTA sits closer to the paragraph. */
 .lv-hero-copy .lv-hero-supporting {
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 900px) {
@@ -6484,7 +6493,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-vert-card {
   --card-accent: var(--sage);
   flex: 0 0 auto;
-  width: clamp(300px, 82vw, 440px);
+  width: clamp(320px, 84vw, 480px);
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -6670,7 +6679,7 @@ main:has(.lv-hero) { padding-top: 0; }
 @media (min-width: 900px) {
   .lv-gov-grid {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 96px;
+    gap: 120px;
   }
 }
 
