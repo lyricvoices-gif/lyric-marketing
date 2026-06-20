@@ -1,8 +1,9 @@
 /* Reusable verticals card: a visual area (the illustrative mockup), then a
-   small-caps label, a short serif headline, and restrained body. New verticals
-   are added by passing a new entry to VerticalsSection; the card layout does
-   not change. A card can be marked comingSoon, which adds a badge beside the
-   label and mutes the mockup to signal it is a preview, not live. */
+   small-caps eyebrow with an accent dot, a serif headline (the vertical name),
+   and restrained body. The accent is passed as a CSS custom property so both
+   the dot and the nested mockup's chips pick it up. Card dimensions are fixed
+   in CSS so cards stay uniform inside the carousel. New verticals are added in
+   VerticalsCarousel; the card does not change. */
 
 import type React from "react"
 
@@ -10,23 +11,26 @@ export default function VerticalCard({
   label,
   headline,
   body,
-  comingSoon = false,
+  accent,
   children,
 }: {
   label: string
   headline: string
   body: string
-  comingSoon?: boolean
+  accent?: string
   children: React.ReactNode
 }) {
   return (
-    <article className={`lv-vert-card${comingSoon ? " is-coming-soon" : ""}`}>
+    <article
+      className="lv-vert-card"
+      style={accent ? ({ "--card-accent": accent } as React.CSSProperties) : undefined}
+    >
       <div className="lv-vert-card-visual" aria-hidden="true">
         {children}
       </div>
       <div className="lv-vert-card-labelrow">
+        <span className="lv-vert-card-dot" aria-hidden="true" />
         <p className="lv-vert-card-label">{label}</p>
-        {comingSoon && <span className="lv-vert-card-soon">Coming soon</span>}
       </div>
       <h3 className="lv-vert-card-headline">{headline}</h3>
       <p className="lv-vert-card-body">{body}</p>

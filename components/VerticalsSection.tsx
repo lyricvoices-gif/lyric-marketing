@@ -1,40 +1,13 @@
-/* Who it's for — verticals card grid (section 5). The only section about
-   specific industries and their specific pain: multiple agents in different
-   contexts that must sound like one brand, plus the industry's own
-   terminology and disclosure requirements.
+/* Who it's for — verticals carousel (section 5). The only section about
+   specific industries: multiple agents in different contexts that must sound
+   like one brand, plus the industry's own terminology and disclosures.
 
-   Starts with two cards while we validate the style; the grid and the data
-   array are built so more verticals drop in without restructuring. Each card
-   carries an illustrative, clearly-labeled mockup specific to its vertical.
-   Off-white ground; reveals use the shared ScrollReveal. */
+   The cards live in a horizontal carousel (VerticalsCarousel); each card
+   carries one accent color from the brand palette as its pop. Off-white
+   ground; the header uses the shared ScrollReveal. */
 
-import type React from "react"
 import ScrollReveal from "@/components/ScrollReveal"
-import VerticalCard from "@/components/verticals/VerticalCard"
-import { ComplianceMockup, RegisterMockup } from "@/components/verticals/mockups"
-
-type Vertical = {
-  label: string
-  headline: string
-  body: string
-  Mockup: React.ComponentType
-  comingSoon?: boolean
-}
-
-const VERTICALS: Vertical[] = [
-  {
-    label: "Consistency at Every Touchpoint",
-    headline: "Property Management",
-    body: "A property manager runs agents for leasing, maintenance, and collections, across phone, portal, SMS, and email. Each needs its own register: warm in leasing, calm in maintenance, firm but fair in collections, while sounding like one brand. Lease and property terms are said correctly, and required disclosures are handled the same way on every channel.",
-    Mockup: RegisterMockup,
-  },
-  {
-    label: "Consistency in Every Account Moment",
-    headline: "Financial Services",
-    body: "Support, fraud and disputes, and account servicing are different jobs with different stakes. Lyric keeps one brand across all of them, stays firm and calm when a customer is under stress, says financial terms correctly, and holds compliance-sensitive disclosures to the spec every time.",
-    Mockup: ComplianceMockup,
-  },
-]
+import VerticalsCarousel from "@/components/verticals/VerticalsCarousel"
 
 export default function VerticalsSection() {
   return (
@@ -59,23 +32,9 @@ export default function VerticalsSection() {
           </ScrollReveal>
         </div>
 
-        <div className="lv-vert-grid">
-          {VERTICALS.map((v, i) => {
-            const Mockup = v.Mockup
-            return (
-              <ScrollReveal key={v.label} delay={120 + i * 90}>
-                <VerticalCard
-                  label={v.label}
-                  headline={v.headline}
-                  body={v.body}
-                  comingSoon={v.comingSoon}
-                >
-                  <Mockup />
-                </VerticalCard>
-              </ScrollReveal>
-            )
-          })}
-        </div>
+        <ScrollReveal delay={140}>
+          <VerticalsCarousel />
+        </ScrollReveal>
       </div>
     </section>
   )
