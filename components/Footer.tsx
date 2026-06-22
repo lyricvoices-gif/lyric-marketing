@@ -64,12 +64,11 @@ const SOCIAL = [
 export default function Footer() {
   const DARK = "#2b2a25"
 
-  /* Footer columns reflect the three-product imprint structure plus
-     editorial, locations, and legal entry points. Products mirrors the
-     global nav dropdown (Imprint / Opus / Score). Company carries the
-     editorial routes. Locations lists the cities we are based in as
-     read-only text (no links, no full addresses). Legal groups the three
-     policy documents. */
+  /* Footer columns: Products mirrors the global nav dropdown (Opus / Voices &
+     Sounds). Company carries the editorial routes. Locations lists the cities
+     we are based in as read-only text (no links, no full addresses). Legal
+     groups the policy documents. (Imprint is retired from public navigation;
+     its page still resolves but is unlinked.) */
   type FooterLink = {
     label: string
     href?: string
@@ -82,9 +81,8 @@ export default function Footer() {
     {
       heading: "Products",
       links: [
-        { label: "Imprint", href: "/imprint" },
-        { label: "Opus",    href: "/opus" },
-        { label: "Score",   href: "/score", comingSoon: true },
+        { label: "Opus",            href: "/opus" },
+        { label: "Voices & Sounds", href: "/voices" },
       ],
     },
     {

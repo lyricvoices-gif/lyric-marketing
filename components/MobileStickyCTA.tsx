@@ -44,8 +44,8 @@ export default function MobileStickyCTA() {
         pointerEvents: visible ? "auto" : "none",
       }}
     >
-      <a
-        href="mailto:info@lyricvoices.ai?subject=Lyric%20access"
+      <Link
+        href="/start"
         style={{
           flex: 1,
           minHeight: "48px",
@@ -61,8 +61,8 @@ export default function MobileStickyCTA() {
           letterSpacing: "0",
         }}
       >
-        Request access
-      </a>
+        Try for free
+      </Link>
       <Link
         href="/opus"
         style={{
