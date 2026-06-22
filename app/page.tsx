@@ -304,7 +304,9 @@ export default function HomePage() {
             <span>The brand-governance layer for AI agents</span>
           </div>
           <h2>
-            <span className="lv-final-line">The engines are commoditized.</span>
+            <span className="lv-final-line">The engines</span>
+            <br />
+            <span className="lv-final-line">are commoditized.</span>
             <br />
             <span className="lv-final-line">The <em>brand</em> is not.</span>
           </h2>
