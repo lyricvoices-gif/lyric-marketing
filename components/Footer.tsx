@@ -90,10 +90,6 @@ export default function Footer() {
       links: [
         { label: "About",    href: "/about" },
         { label: "Notes",    href: "/notes" },
-        {
-          label: "Briefing",
-          href: "https://thelyricbriefing.substack.com",
-        },
       ],
     },
     {
@@ -106,9 +102,8 @@ export default function Footer() {
     {
       heading: "Legal",
       links: [
-        { label: "Privacy Policy",     href: "/privacy" },
-        { label: "Terms of Use",       href: "/terms" },
-        { label: "Artist Partnership", href: "/lyric-artist-partnership-agreement.pdf", download: true },
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms of Use",   href: "/terms" },
       ],
     },
   ]
