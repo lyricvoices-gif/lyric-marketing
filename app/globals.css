@@ -5653,7 +5653,7 @@ main:has(.lv-hero) { padding-top: 0; }
   background:
     radial-gradient(120% 90% at 80% 6%, rgba(243, 209, 113, 0.16) 0%, rgba(243, 209, 113, 0) 50%),
     radial-gradient(110% 95% at 8% 100%, rgba(193, 193, 126, 0.1) 0%, rgba(193, 193, 126, 0) 55%),
-    linear-gradient(172deg, #FBF4E2 0%, #FFFBF2 55%, #FFFFFF 100%);
+    linear-gradient(172deg, #FBF4E2 0%, #FFFBF2 55%, #FFF8EC 100%);
 }
 
 /* Sections that sit on the shared ground stay transparent so the single
@@ -6319,7 +6319,7 @@ main:has(.lv-hero) { padding-top: 0; }
    shared ScrollReveal. */
 
 .lv-int-section {
-  background: #faf9f6;
+  background: var(--bg-light);
   padding: 96px 24px;
 }
 
@@ -6464,7 +6464,7 @@ main:has(.lv-hero) { padding-top: 0; }
    Scoped lv-vert-* classes only. */
 
 .lv-vert-section {
-  background: #faf9f6;
+  background: var(--bg-light);
   padding: 96px 24px;
 }
 
