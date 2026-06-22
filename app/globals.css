@@ -5147,6 +5147,257 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 
+/* ═══ About — three-movement narrative (rebuild) ════════════════════════════
+   Descending grounds enact the arc: cream (the problem) into olive (what we
+   believe) into near-black (what we built), resolving on the brand line. The
+   grounds are the dividers (no heavy rules), reusing the homepage role-based
+   palette so About reads as part of the same system. The narrative measure
+   stays narrow so long-form prose never reads as a wall. Animation is the
+   shared ScrollReveal only (reduced-motion safe). Older .lv-about-* rules above
+   belong to the retired layout and are no longer referenced by the page. */
+
+.lv-about-m1 {
+  background: var(--bg-light);
+  color: var(--olive);
+  padding: 120px 24px;
+}
+
+.lv-about-m2 {
+  background: var(--olive);
+  color: var(--bg-light);
+  padding: 112px 24px;
+}
+
+.lv-about-m3 {
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 112px 24px 88px;
+}
+
+.lv-about-coda {
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 0 24px 104px;
+}
+
+/* Narrow editorial measure for the narrative prose. */
+.lv-about-col {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Eyebrow color per ground: olive label on cream, cream label + gold dot on the
+   dark grounds (matching the homepage products/audiences eyebrows). */
+.lv-about-m1 .lv-philosophy-eyebrow > span:last-child {
+  color: var(--olive);
+}
+.lv-about-m2 .lv-philosophy-eyebrow > span:last-child,
+.lv-about-m3 .lv-philosophy-eyebrow > span:last-child,
+.lv-about-coda .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+.lv-about-m2 .lv-eyebrow-dot,
+.lv-about-m3 .lv-eyebrow-dot,
+.lv-about-coda .lv-eyebrow-dot {
+  background: var(--gold);
+}
+
+/* Dead-air motif — a quiet static flatline above the hook. No motion. */
+.lv-about-deadair {
+  display: block;
+  width: 56px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(90, 94, 67, 0.35);
+  margin: 0 0 30px;
+}
+
+/* M1 — the hook, the page's display moment. */
+.lv-about-hook {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.6vw, 52px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+  color: var(--olive);
+  margin: 0 0 40px;
+}
+.lv-about-hook em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-about-sublead {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.5;
+  color: var(--olive);
+  opacity: 0.9;
+  margin: 0 0 40px;
+}
+
+/* Body prose uses an alpha color (not element opacity) so the emphasized clause
+   can read fuller than the surrounding text. */
+.lv-about-prose {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.72;
+  color: rgba(90, 94, 67, 0.86);
+  margin: 0;
+}
+.lv-about-prose-emph {
+  color: var(--olive);
+  font-weight: 500;
+}
+
+/* M2 — cream on olive. */
+.lv-about-lead-cream {
+  font-family: var(--font-body);
+  font-size: clamp(19px, 2.3vw, 23px);
+  line-height: 1.5;
+  color: var(--bg-light);
+  margin: 0;
+}
+
+.lv-about-prose-cream {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.72;
+  color: var(--bg-light);
+  opacity: 0.86;
+  margin: 0;
+}
+.lv-about-prose-gap {
+  margin-top: 28px;
+}
+
+/* Conviction line — Instrument Serif italic pull-quote. */
+.lv-about-creed {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.28;
+  color: var(--bg-light);
+  margin: 26px 0;
+}
+
+/* Proof in context — the founders strip, framed as where Lyric began. */
+.lv-about-proof {
+  max-width: 720px;
+  margin: 52px auto 56px;
+}
+.lv-about-proof-line {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--bg-light);
+  opacity: 0.72;
+  margin: 0 0 22px;
+}
+
+/* LogoCycler reused on olive: transparent ground, no built-in credit (the
+   framing line above does that job), marks lifted to cream so they read on the
+   dark ground. */
+.lv-about .lv-about-cred {
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+}
+.lv-about .lv-about-cred .lv-logos-row {
+  display: block;
+  max-width: 720px;
+  padding: 0;
+  margin: 0;
+}
+.lv-about .lv-about-cred .lv-logos-credit {
+  display: none;
+}
+.lv-about .lv-about-cred .lv-logos-mark {
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+}
+
+/* M3 — what we built; resolves on the brand line. */
+.lv-about-built {
+  font-family: var(--font-body);
+  font-size: clamp(19px, 2.3vw, 23px);
+  line-height: 1.55;
+  color: var(--bg-light);
+  opacity: 0.92;
+  margin: 0 0 44px;
+}
+.lv-about-resolve {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+  margin: 0;
+}
+.lv-about-resolve em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* Coda — quiet factual Locations, downshifted under the resolution. */
+.lv-about-coda-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 248, 236, 0.12);
+  padding-top: 52px;
+}
+.lv-about-coda-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  margin-top: 28px;
+}
+.lv-about-loc-city {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--bg-light);
+  margin: 0 0 6px;
+}
+.lv-about-loc-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0 0 14px;
+}
+.lv-about-loc-line {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 248, 236, 0.72);
+  margin: 0;
+}
+
+@media (min-width: 769px) {
+  .lv-about-m1 {
+    padding: 160px 32px 140px;
+  }
+  .lv-about-m2 {
+    padding: 140px 32px;
+  }
+  .lv-about-m3 {
+    padding: 140px 32px 104px;
+  }
+  .lv-about-coda {
+    padding: 0 32px 120px;
+  }
+  .lv-about-coda-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px;
+  }
+}
+
+
 /* ─── Gradient preview ────────────────────────────────────────────────────
    Temporary comparison route at /preview/gradient. Three full-viewport
    hero mockups stacked vertically. Delete this block when a direction
