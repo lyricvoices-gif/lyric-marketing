@@ -5682,14 +5682,46 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 20px;
 }
 .lv-vtile {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border: 1px solid rgba(90, 94, 67, 0.14);
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 16px 40px -34px rgba(43, 42, 37, 0.35);
+  background: transparent;
+  border-radius: 16px;
+  padding: 30px 26px;
+  box-shadow: none;
+  transition: background 0.32s ease, box-shadow 0.32s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Accent hairline at the top — the only color at rest; it brightens and widens
+   as the card wakes. */
+.lv-vtile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 26px;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--voice) 45%, transparent);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+
+/* Wake (hover) and playing share the alive accent treatment; only hover lifts. */
+.lv-vtile:hover,
+.lv-vtile.is-playing {
+  background: color-mix(in srgb, var(--voice) 10%, var(--bg-light));
+  box-shadow: 0 26px 60px -42px color-mix(in srgb, var(--voice) 65%, rgba(43, 42, 37, 0.55));
+}
+.lv-vtile:hover {
+  transform: translateY(-4px);
+}
+.lv-vtile:hover::before,
+.lv-vtile.is-playing::before {
+  width: calc(100% - 52px);
+  background: var(--voice);
+}
+
 .lv-vtile-play {
   position: relative;
   width: 60px;
@@ -5704,11 +5736,30 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
   cursor: pointer;
   margin-bottom: 22px;
-  transition: color 0.2s ease;
+  overflow: visible;
+  transition: color 0.25s ease;
+}
+/* Accent glow behind the control on wake/play. */
+.lv-vtile-play::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--voice) 0%, transparent 72%);
+  opacity: 0;
+  filter: blur(8px);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.lv-vtile:hover .lv-vtile-play::before,
+.lv-vtile.is-playing .lv-vtile-play::before {
+  opacity: 0.5;
 }
 .lv-vtile-ring {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 60px;
   height: 60px;
 }
@@ -5716,29 +5767,36 @@ main:has(.lv-hero) { padding-top: 0; }
   fill: none;
   stroke: rgba(90, 94, 67, 0.22);
   stroke-width: 1.5;
+  transition: stroke 0.25s ease;
 }
+/* Progress arc blooms in the voice's OWN accent (not gold) — the gallery's
+   color logic, distinct from the gold featured stages. */
 .lv-vtile-ring-prog {
   fill: none;
-  stroke: var(--gold);
+  stroke: var(--voice);
   stroke-width: 1.5;
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 30px 30px;
   transition: stroke-dashoffset 0.12s linear;
 }
+.lv-vtile:hover .lv-vtile-ring-track,
+.lv-vtile.is-playing .lv-vtile-ring-track {
+  stroke: color-mix(in srgb, var(--voice) 38%, transparent);
+}
 .lv-vtile-glyph {
   position: relative;
+  z-index: 2;
   display: inline-flex;
 }
 .lv-vtile-glyph svg {
   width: 18px;
   height: 18px;
 }
-.lv-vtile-play:hover .lv-vtile-ring-track {
-  stroke: rgba(90, 94, 67, 0.42);
-}
-.lv-vtile-play.is-playing {
-  color: var(--gold);
+/* The glyph takes the voice accent on wake/play. */
+.lv-vtile:hover .lv-vtile-play,
+.lv-vtile.is-playing .lv-vtile-play {
+  color: var(--voice);
 }
 
 .lv-vtile-namerow {
@@ -5752,13 +5810,15 @@ main:has(.lv-hero) { padding-top: 0; }
   border-radius: 50%;
   background: var(--voice, var(--sage));
   flex: none;
+  opacity: 0.85;
 }
+/* Subtle, abstract "speaking" pulse on the accent dot during playback. */
 .lv-vtile.is-playing .lv-vtile-dot {
-  animation: lv-vtile-pulse 1.6s ease-in-out infinite;
+  animation: lv-vtile-pulse 1.7s ease-in-out infinite;
 }
 @keyframes lv-vtile-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 0.45; transform: scale(0.8); }
 }
 .lv-vtile-name {
   font-family: var(--font-display);
@@ -5785,15 +5845,57 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
   margin: 14px 0 0;
 }
+
+/* Description + engines live here — hidden at rest, revealed on wake/play with
+   an eased height/opacity transition. The grid is align-items: start so only the
+   hovered card grows. */
+.lv-vtile-reveal {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease, margin-top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lv-vtile:hover .lv-vtile-reveal,
+.lv-vtile.is-playing .lv-vtile-reveal {
+  max-height: 340px;
+  opacity: 1;
+  margin-top: 18px;
+}
 .lv-vtile-desc {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.65;
   color: rgba(90, 94, 67, 0.82);
-  margin: 14px 0 0;
+  margin: 0;
 }
 .lv-vtile-engines {
-  margin-top: 22px;
+  margin-top: 20px;
+}
+/* Gallery engine avatars sized up for legibility (Hume only on these three),
+   a touch smaller than the featured stages. */
+.lv-vtile .lv-eng {
+  width: 30px;
+  height: 30px;
+}
+.lv-vtile .lv-eng-hume img {
+  width: 19px;
+  height: 19px;
+}
+
+/* Touch / no-hover: the description stays visible (compact) so it is never
+   trapped behind a hover the device can't perform; the full accent bloom still
+   happens on play. */
+@media (hover: none) {
+  .lv-vtile-reveal {
+    max-height: none;
+    opacity: 1;
+    margin-top: 18px;
+  }
+  .lv-vtile::before {
+    background: color-mix(in srgb, var(--voice) 55%, transparent);
+  }
 }
 
 /* ── Sound packs (near-black) ── */
@@ -5875,6 +5977,7 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-vgallery-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+    align-items: start;
   }
 }
 
@@ -5896,6 +5999,15 @@ main:has(.lv-hero) { padding-top: 0; }
   }
   .lv-vtile.is-playing .lv-vtile-dot {
     animation: none;
+  }
+  /* Gallery cards: reveal/accent appear instantly (no animated grow), and the
+     description stays reachable on hover/play. */
+  .lv-vtile,
+  .lv-vtile::before,
+  .lv-vtile-reveal,
+  .lv-vtile-play::before,
+  .lv-vtile-ring-track {
+    transition: none;
   }
 }
 
