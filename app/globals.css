@@ -5308,6 +5308,336 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 
+/* ═══ Voices & Sounds (/voices) ═════════════════════════════════════════════
+   Cream hero + roster, near-black sound-packs section. The roster player mirrors
+   the homepage "Hear it" conventions (single shared audio, play-on-click, gold
+   progress ring). Engine avatars are uniform circular frames so the monochrome
+   ElevenLabs mark and the colorful Hume mark read as a matched pair. */
+
+.lv-voices {
+  background: var(--bg-light);
+  color: var(--olive);
+}
+
+.lv-voices-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.lv-voices .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+/* Hero + roster sit on cream; sounds flips to near-black. */
+.lv-voices-hero {
+  padding: 128px 24px 72px;
+}
+.lv-voices-section {
+  padding: 24px 24px 120px;
+}
+.lv-voices-sounds {
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 112px 24px;
+}
+
+.lv-voices-headline {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5.4vw, 60px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--olive);
+  margin: 0 0 28px;
+  max-width: 18ch;
+}
+.lv-voices-headline em {
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-voices-framing {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 1.6;
+  color: rgba(90, 94, 67, 0.86);
+  margin: 0 0 36px;
+  max-width: 620px;
+}
+
+/* "Composed, not cloned." — the page's Instrument Serif italic signature. */
+.lv-voices-signature {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  color: var(--olive);
+  margin: 0;
+}
+
+/* ── Roster ── */
+.lv-voices-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lv-voices-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  padding: 44px 0;
+  border-top: 1px solid rgba(90, 94, 67, 0.16);
+}
+.lv-voices-row:first-child {
+  border-top: 0;
+  padding-top: 8px;
+}
+
+.lv-voices-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+/* Play control — gold progress ring, matching the homepage "Hear it" player.
+   Borderless 56px button; the arc is the only progress feedback. */
+.lv-voices-play {
+  flex: none;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--olive);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.lv-voices-ring {
+  position: absolute;
+  inset: 0;
+  width: 56px;
+  height: 56px;
+}
+.lv-voices-ring-track {
+  fill: none;
+  stroke: rgba(90, 94, 67, 0.25);
+  stroke-width: 1.5;
+}
+.lv-voices-ring-prog {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 24px 24px;
+  transition: stroke-dashoffset 0.12s linear;
+}
+.lv-voices-glyph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.lv-voices-glyph svg {
+  width: 18px;
+  height: 18px;
+}
+.lv-voices-play:hover .lv-voices-ring-track {
+  stroke: rgba(90, 94, 67, 0.45);
+}
+.lv-voices-play.is-playing {
+  color: var(--gold);
+}
+
+.lv-voices-id {
+  min-width: 0;
+}
+.lv-voices-namerow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lv-voices-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--voice, var(--sage));
+  flex: none;
+}
+.lv-voices-name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--olive);
+  margin: 0;
+}
+.lv-voices-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.6);
+  margin: 8px 0 0;
+}
+.lv-voices-artist {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(90, 94, 67, 0.78);
+  margin: 4px 0 0;
+}
+
+/* Engine avatars — uniform circular frames normalize the two marks into a
+   matched pair regardless of the source logo's color or aspect. */
+.lv-voices-engines {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.lv-voices-built {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.5);
+}
+.lv-voices-avatars {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lv-voices-engine {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(90, 94, 67, 0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.lv-voices-engine img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  display: block;
+}
+
+.lv-voices-body {
+  min-width: 0;
+}
+.lv-voices-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(90, 94, 67, 0.86);
+  margin: 0;
+}
+.lv-voices-intents {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 0;
+}
+.lv-voices-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  background: rgba(90, 94, 67, 0.07);
+  border: 1px solid rgba(90, 94, 67, 0.14);
+  border-radius: 100px;
+  padding: 6px 12px;
+}
+
+/* ── Sound packs (near-black) ── */
+.lv-voices-sounds .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+.lv-voices-sounds .lv-eyebrow-dot {
+  background: var(--gold);
+}
+.lv-voices-sounds-headline {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.6vw, 48px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+  margin: 0 0 24px;
+  max-width: 16ch;
+}
+.lv-voices-sounds-headline em {
+  font-style: italic;
+  color: inherit;
+}
+.lv-voices-sounds-framing {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 1.6;
+  color: rgba(255, 248, 236, 0.82);
+  margin: 0 0 32px;
+  max-width: 620px;
+}
+.lv-voices-cues {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0 0 28px;
+}
+.lv-voices-soon {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(243, 209, 113, 0.4);
+  border-radius: 100px;
+  padding: 7px 16px;
+  margin: 0;
+}
+
+@media (min-width: 769px) {
+  .lv-voices-hero {
+    padding: 168px 32px 88px;
+  }
+  .lv-voices-section {
+    padding: 24px 32px 152px;
+  }
+  .lv-voices-sounds {
+    padding: 140px 32px;
+  }
+  .lv-voices-row {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 64px;
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-voices-ring-prog {
+    transition: none;
+  }
+}
+
+
 /* ─── Gradient preview ────────────────────────────────────────────────────
    Temporary comparison route at /preview/gradient. Three full-viewport
    hero mockups stacked vertically. Delete this block when a direction
