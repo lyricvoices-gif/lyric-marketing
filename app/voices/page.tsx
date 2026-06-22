@@ -5,13 +5,13 @@
    hero's Instrument Serif italic signature.
 
    Real assets only: the voice samples are the canonical Edition 01 clips served
-   from Lyric's R2 CDN (wired in VoicesList), and the engine avatars reuse the
-   in-repo ElevenLabs/Hume marks. Sound packs are a light coming-soon treatment
-   until the audio assets exist. */
+   from Lyric's R2 CDN (wired in VoicesShowcase), and the engine avatars reuse
+   the in-repo ElevenLabs/Hume marks. Sound packs are a light coming-soon
+   treatment until the audio assets exist. */
 
 import type { Metadata } from "next"
 import ScrollReveal from "@/components/ScrollReveal"
-import VoicesList from "@/components/voices/VoicesList"
+import VoicesShowcase from "@/components/voices/VoicesShowcase"
 
 export const metadata: Metadata = {
   title: "Voices & Sounds",
@@ -53,21 +53,9 @@ export default function VoicesPage() {
         </div>
       </section>
 
-      {/* Voices — cream */}
-      <section className="lv-voices-section">
-        <div className="lv-voices-inner">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Edition 01 · The voices</span>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={120}>
-            <VoicesList />
-          </ScrollReveal>
-        </div>
-      </section>
+      {/* Voices — featured spotlight stages (Morgan, Hex) then the gallery
+          (Nova, Atlas, Riven). The showcase renders its own grounds. */}
+      <VoicesShowcase />
 
       {/* Sound packs — near-black, light coming-soon */}
       <section className="lv-voices-sounds">
