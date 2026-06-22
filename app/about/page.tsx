@@ -151,7 +151,7 @@ export default function AboutPage() {
 
           <ScrollReveal delay={180}>
             <p className="lv-about-resolve">
-              all your agents, <em>one brand voice</em>.
+              all your agents,<br /> <em>one brand voice</em>.
             </p>
           </ScrollReveal>
         </div>
