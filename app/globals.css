@@ -175,6 +175,14 @@ main:has(.lv-hero) { padding-top: 0; }
 .lyric-nav-link {
   position: relative;
 }
+
+/* Primary self-service CTA in the nav ("Try for free"). Base treatment is set
+   inline in Nav.tsx (olive pill, cream label); hover shifts to gold to read as
+   the page's primary action. */
+.lyric-nav-cta:hover {
+  background: var(--gold) !important;
+  color: #2b2a25 !important;
+}
 .lyric-nav-link-active::after {
   content: "";
   position: absolute;

@@ -21,13 +21,18 @@ const NAV_ITEMS: NavItem[] = [
     type: "dropdown",
     label: "Products",
     items: [
-      { href: "/imprint", label: "Imprint" },
       { href: "/opus", label: "Opus" },
-      { href: "/score", label: "Score", comingSoon: true },
+      { href: "/voices", label: "Voices & Sounds" },
     ],
   },
+  { type: "link", href: "/pricing", label: "Pricing" },
   { type: "link", href: "/notes", label: "Notes" },
 ]
+
+/* Primary self-service CTA target. /start is a named placeholder route for the
+   product entry flow (the route may not be built yet); the nav and the mobile
+   sticky CTA both point here, never a dead "#". */
+const TRY_FOR_FREE_HREF = "/start"
 
 export default function Nav() {
   const pathname = usePathname()
@@ -274,6 +279,31 @@ export default function Nav() {
               </div>
             )
           })}
+
+          {/* Primary self-service CTA — filled pill in the brand olive/cream
+              treatment used for primary CTAs elsewhere on the site. */}
+          <Link
+            href={TRY_FOR_FREE_HREF}
+            className="lyric-nav-cta"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "40px",
+              padding: "0 18px",
+              marginLeft: "8px",
+              borderRadius: "100px",
+              fontSize: "13px",
+              fontWeight: 500,
+              letterSpacing: "0",
+              background: "var(--olive)",
+              color: "var(--bg-light)",
+              border: "1px solid transparent",
+              transition: "background 0.2s ease, color 0.2s ease",
+            }}
+          >
+            Try for free
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -450,6 +480,35 @@ export default function Nav() {
               </div>
             )
           })}
+
+          {/* Primary self-service CTA in the mobile overlay. */}
+          <Link
+            href={TRY_FOR_FREE_HREF}
+            onClick={() => setMenuOpen(false)}
+            className="lyric-nav-cta"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "52px",
+              marginTop: "20px",
+              padding: "0 24px",
+              borderRadius: "100px",
+              fontSize: "16px",
+              fontWeight: 500,
+              letterSpacing: "0",
+              background: "var(--olive)",
+              color: "var(--bg-light)",
+              border: "1px solid transparent",
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+              transition:
+                "opacity 0.42s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+              transitionDelay: menuOpen ? "320ms" : "0ms",
+            }}
+          >
+            Try for free
+          </Link>
         </div>
       </div>
     </>
