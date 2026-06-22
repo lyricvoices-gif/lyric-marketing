@@ -5328,12 +5328,10 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0 0 22px;
 }
 
-/* Hero + roster sit on cream; sounds flips to near-black. */
+/* Hero sits on cream; featured stages bring their own dark grounds; the gallery
+   returns to cream; sounds is near-black. */
 .lv-voices-hero {
   padding: 128px 24px 72px;
-}
-.lv-voices-section {
-  padding: 24px 24px 120px;
 }
 .lv-voices-sounds {
   background: #2b2a25;
@@ -5376,39 +5374,265 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0;
 }
 
-/* ── Roster ── */
-.lv-voices-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ══ Featured voice stages (Morgan, Hex) — dark spotlight, one voice owns the
+   screen. The per-voice accent (--stage-accent) washes the ground and lifts on
+   play. The on-play presence is an abstract ambient aura plus emanating rings,
+   never a literal spectrum of the audio. */
+.lv-vstage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 104px 24px;
+}
+.lv-vstage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: min(120vw, 1200px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--stage-accent) 0%, transparent 70%);
+  opacity: 0.18;
+  filter: blur(10px);
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.lv-vstage.is-playing::before {
+  opacity: 0.36;
+  animation: lv-aura-breathe 4.5s ease-in-out infinite;
+}
+@keyframes lv-aura-breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.07); }
 }
 
-.lv-voices-row {
+.lv-vstage-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
-  padding: 44px 0;
-  border-top: 1px solid rgba(90, 94, 67, 0.16);
-}
-.lv-voices-row:first-child {
-  border-top: 0;
-  padding-top: 8px;
+  gap: 40px;
+  align-items: center;
 }
 
-.lv-voices-left {
+.lv-vstage-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 18px;
+}
+.lv-vstage-name {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 13vw, 148px);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: var(--bg-light);
+  margin: 0;
+}
+.lv-vstage-character {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.2;
+  color: var(--stage-accent);
+  margin: 24px 0 0;
+}
+.lv-vstage-credit {
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 28px;
+}
+.lv-vstage-credit-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.62);
+}
+.lv-vstage-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 248, 236, 0.6);
+  max-width: 460px;
+  margin: 28px 0 0;
 }
 
-/* Play control — gold progress ring, matching the homepage "Hear it" player.
-   Borderless 56px button; the arc is the only progress feedback. */
-.lv-voices-play {
-  flex: none;
+/* Instrument — the large play control with ambient pulse rings. */
+.lv-vstage-instrument {
   position: relative;
-  width: 56px;
-  height: 56px;
-  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+.lv-vstage-play {
+  position: relative;
+  z-index: 2;
+  width: 116px;
+  height: 116px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: rgba(255, 248, 236, 0.04);
+  color: var(--bg-light);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.lv-vstage-play:hover {
+  background: rgba(255, 248, 236, 0.09);
+}
+.lv-vstage-ring {
+  position: absolute;
+  inset: 0;
+  width: 116px;
+  height: 116px;
+}
+.lv-vstage-ring-track {
+  fill: none;
+  stroke: rgba(255, 248, 236, 0.2);
+  stroke-width: 1.25;
+}
+.lv-vstage-ring-prog {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 58px 58px;
+  transition: stroke-dashoffset 0.12s linear;
+}
+.lv-vstage-glyph {
+  position: relative;
+  display: inline-flex;
+}
+.lv-vstage-glyph svg {
+  width: 30px;
+  height: 30px;
+}
+.lv-vstage-play.is-playing {
+  color: var(--gold);
+}
+
+.lv-vstage-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  border: 1px solid var(--stage-accent);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.lv-vstage.is-playing .lv-vstage-pulse {
+  animation: lv-vstage-emanate 2.8s ease-out infinite;
+}
+.lv-vstage.is-playing .lv-vstage-pulse-2 {
+  animation-delay: 0.93s;
+}
+.lv-vstage.is-playing .lv-vstage-pulse-3 {
+  animation-delay: 1.86s;
+}
+@keyframes lv-vstage-emanate {
+  0% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
+}
+
+/* ══ Shared engine avatars — uniform circular frames; the heavier ElevenLabs
+   mark renders smaller than the Hume flower so the two read as a matched pair.
+   Source SVGs untouched; the balance is in the container. */
+.lv-eng-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.lv-eng-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.lv-eng-avatars {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lv-eng {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(90, 94, 67, 0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.lv-eng img {
+  object-fit: contain;
+  display: block;
+}
+.lv-eng-elevenlabs img {
+  width: 10px;
+  height: 10px;
+}
+.lv-eng-hume img {
+  width: 16px;
+  height: 16px;
+}
+.lv-vstage .lv-eng-label {
+  color: rgba(255, 248, 236, 0.5);
+}
+.lv-vtile .lv-eng-label {
+  color: rgba(90, 94, 67, 0.5);
+}
+
+/* ══ Gallery (Nova, Atlas, Riven) — lighter, browsable, play-led tiles. ══ */
+.lv-voices-gallery {
+  background: var(--bg-light);
+  color: var(--olive);
+  padding: 104px 24px;
+}
+.lv-voices-gallery .lv-philosophy-eyebrow {
+  margin: 0 0 40px;
+}
+.lv-vgallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.lv-vtile {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(90, 94, 67, 0.14);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 16px 40px -34px rgba(43, 42, 37, 0.35);
+}
+.lv-vtile-play {
+  position: relative;
+  width: 60px;
+  height: 60px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -5418,150 +5642,97 @@ main:has(.lv-hero) { padding-top: 0; }
   background: transparent;
   color: var(--olive);
   cursor: pointer;
+  margin-bottom: 22px;
   transition: color 0.2s ease;
 }
-.lv-voices-ring {
+.lv-vtile-ring {
   position: absolute;
   inset: 0;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
 }
-.lv-voices-ring-track {
+.lv-vtile-ring-track {
   fill: none;
-  stroke: rgba(90, 94, 67, 0.25);
+  stroke: rgba(90, 94, 67, 0.22);
   stroke-width: 1.5;
 }
-.lv-voices-ring-prog {
+.lv-vtile-ring-prog {
   fill: none;
   stroke: var(--gold);
   stroke-width: 1.5;
   stroke-linecap: round;
   transform: rotate(-90deg);
-  transform-origin: 24px 24px;
+  transform-origin: 30px 30px;
   transition: stroke-dashoffset 0.12s linear;
 }
-.lv-voices-glyph {
+.lv-vtile-glyph {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
-.lv-voices-glyph svg {
+.lv-vtile-glyph svg {
   width: 18px;
   height: 18px;
 }
-.lv-voices-play:hover .lv-voices-ring-track {
-  stroke: rgba(90, 94, 67, 0.45);
+.lv-vtile-play:hover .lv-vtile-ring-track {
+  stroke: rgba(90, 94, 67, 0.42);
 }
-.lv-voices-play.is-playing {
+.lv-vtile-play.is-playing {
   color: var(--gold);
 }
 
-.lv-voices-id {
-  min-width: 0;
-}
-.lv-voices-namerow {
+.lv-vtile-namerow {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.lv-voices-dot {
+.lv-vtile-dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: var(--voice, var(--sage));
   flex: none;
 }
-.lv-voices-name {
+.lv-vtile.is-playing .lv-vtile-dot {
+  animation: lv-vtile-pulse 1.6s ease-in-out infinite;
+}
+@keyframes lv-vtile-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+.lv-vtile-name {
   font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(24px, 3vw, 30px);
   font-weight: 500;
   line-height: 1.05;
-  letter-spacing: 0;
   color: var(--olive);
   margin: 0;
 }
-.lv-voices-meta {
+.lv-vtile-credit {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(90, 94, 67, 0.6);
-  margin: 8px 0 0;
+  margin: 10px 0 0;
 }
-.lv-voices-artist {
+.lv-vtile-character {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--olive);
+  margin: 14px 0 0;
+}
+.lv-vtile-desc {
   font-family: var(--font-body);
   font-size: 14px;
-  color: rgba(90, 94, 67, 0.78);
-  margin: 4px 0 0;
+  line-height: 1.65;
+  color: rgba(90, 94, 67, 0.82);
+  margin: 14px 0 0;
 }
-
-/* Engine avatars — uniform circular frames normalize the two marks into a
-   matched pair regardless of the source logo's color or aspect. */
-.lv-voices-engines {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 16px;
-}
-.lv-voices-built {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(90, 94, 67, 0.5);
-}
-.lv-voices-avatars {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.lv-voices-engine {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid rgba(90, 94, 67, 0.16);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.lv-voices-engine img {
-  width: 15px;
-  height: 15px;
-  object-fit: contain;
-  display: block;
-}
-
-.lv-voices-body {
-  min-width: 0;
-}
-.lv-voices-desc {
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  color: rgba(90, 94, 67, 0.86);
-  margin: 0;
-}
-.lv-voices-intents {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 20px 0 0;
-  padding: 0;
-}
-.lv-voices-chip {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--olive);
-  background: rgba(90, 94, 67, 0.07);
-  border: 1px solid rgba(90, 94, 67, 0.14);
-  border-radius: 100px;
-  padding: 6px 12px;
+.lv-vtile-engines {
+  margin-top: 22px;
 }
 
 /* ── Sound packs (near-black) ── */
@@ -5618,22 +5789,47 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-voices-hero {
     padding: 168px 32px 88px;
   }
-  .lv-voices-section {
-    padding: 24px 32px 152px;
-  }
   .lv-voices-sounds {
     padding: 140px 32px;
   }
-  .lv-voices-row {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: 64px;
-    align-items: start;
+  .lv-vstage {
+    padding: 132px 32px;
+  }
+  .lv-vstage-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+  }
+  .lv-vstage[data-reversed] .lv-vstage-inner {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+  .lv-vstage[data-reversed] .lv-vstage-marquee {
+    order: 2;
+  }
+  .lv-vstage[data-reversed] .lv-vstage-instrument {
+    order: 1;
+  }
+  .lv-voices-gallery {
+    padding: 132px 32px;
+  }
+  .lv-vgallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-voices-ring-prog {
+  .lv-vstage-ring-prog,
+  .lv-vtile-ring-prog {
     transition: none;
+  }
+  .lv-vstage.is-playing::before {
+    animation: none;
+  }
+  .lv-vstage.is-playing .lv-vstage-pulse {
+    animation: none;
+  }
+  .lv-vtile.is-playing .lv-vtile-dot {
+    animation: none;
   }
 }
 
