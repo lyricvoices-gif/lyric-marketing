@@ -4,14 +4,12 @@
    dividers, reusing the homepage's role-based palette so About reads as part
    of the same system.
 
-   The founders' collective experience is woven in as proof-in-context inside
-   Movement 2 (the reused LogoCycler strip), framed as where the pattern was
-   seen and Lyric began, rather than a headshot/title/LinkedIn team section. The
-   Locations block is kept as a quiet factual coda after the resolution. No CTA
-   (About stays a credibility surface). Animation is ScrollReveal only. */
+   The founders' collective experience is carried in the prose itself, not as a
+   logo module: the homepage founders strip already does the visual-logo
+   credential job, so About keeps Movement 2 a continuous reading passage. No
+   CTA (About stays a credibility surface). Animation is ScrollReveal only. */
 
 import type { Metadata } from "next"
-import LogoCycler from "@/components/LogoCycler"
 import ScrollReveal from "@/components/ScrollReveal"
 
 export const metadata: Metadata = {
@@ -19,19 +17,6 @@ export const metadata: Metadata = {
   description:
     "We spent years building voice and conversational AI and watched the same pattern repeat: the systems worked, and still the brand came through differently on every agent and every call. So we built Lyric, a governance layer that holds every agent to one brand voice.",
 }
-
-const LOCATIONS = [
-  {
-    city: "Los Angeles",
-    name: "Wilshire",
-    lines: ["915 Wilshire Blvd", "7th & 8th Floor", "Los Angeles, CA 90017"],
-  },
-  {
-    city: "Atlanta",
-    name: "Buckhead",
-    lines: ["3550 Lenox Rd NE", "21st Floor", "Atlanta, GA 30326"],
-  },
-]
 
 export default function AboutPage() {
   return (
@@ -48,7 +33,6 @@ export default function AboutPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={100}>
-            <span className="lv-about-deadair" aria-hidden="true" />
             <p className="lv-about-hook">
               Three seconds of silence on a call, and the caller assumes the
               worst. The system broke. The agent is gone. They say{" "}
@@ -81,9 +65,9 @@ export default function AboutPage() {
       </section>
 
       {/* Movement 2 — what we believe. Olive ground, cream text, gold accents.
-          The collective experience is the proof: the LogoCycler strip framed as
-          where the pattern was seen and Lyric began. The conviction line is
-          pulled out as an Instrument Serif italic creed. */}
+          One continuous reading passage: the credential is carried in the prose
+          (the founders strip lives on the homepage, not here). The conviction
+          line is pulled out as an Instrument Serif italic creed. */}
       <section className="lv-about-m2">
         <div className="lv-about-col">
           <ScrollReveal>
@@ -102,46 +86,37 @@ export default function AboutPage() {
               channel, in every agent, on every call.
             </p>
           </ScrollReveal>
-        </div>
 
-        {/* Proof in context — the collective experience as substantiation, tied
-            to the origin of the idea, not a logo flex. */}
-        <div className="lv-about-proof">
           <ScrollReveal delay={160}>
-            <p className="lv-about-proof-line">
+            <p className="lv-about-prose-cream lv-about-prose-gap">
               The pattern became undeniable across this work, and that is where
               Lyric began.
             </p>
           </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <LogoCycler className="lv-about-cred" />
-          </ScrollReveal>
-        </div>
 
-        <div className="lv-about-col">
-          <ScrollReveal delay={120}>
-            <p className="lv-about-prose-cream">
+          <ScrollReveal delay={200}>
+            <p className="lv-about-prose-cream lv-about-prose-gap">
               Our background is in voice. Production, performance, and the work
               of making a voice feel like it belongs to someone. That taught us
               what the current wave of AI voice keeps missing:
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={160}>
+          <ScrollReveal delay={240}>
             <p className="lv-about-creed">
               a voice is not just audio. It is a brand keeping a promise about
               how it will behave.
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={200}>
+          <ScrollReveal delay={280}>
             <p className="lv-about-prose-cream">
               When every agent keeps that promise differently, the brand erodes,
               one call at a time.
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={240}>
+          <ScrollReveal delay={320}>
             <p className="lv-about-prose-cream lv-about-prose-gap">
               Generating speech has become cheap and good. Anyone can ship a
               fluent voice in an afternoon. The hard part, the part that did not
@@ -178,34 +153,6 @@ export default function AboutPage() {
             <p className="lv-about-resolve">
               all your agents, <em>one brand voice</em>.
             </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Coda — Locations. Quiet factual grounding after the resolution, kept on
-          the near-black so it reads as a downshift, not a second climax. */}
-      <section className="lv-about-coda">
-        <div className="lv-about-coda-inner">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Locations</span>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <div className="lv-about-coda-grid">
-              {LOCATIONS.map((loc) => (
-                <div key={loc.city} className="lv-about-loc">
-                  <h2 className="lv-about-loc-city">{loc.city}</h2>
-                  <p className="lv-about-loc-name">{loc.name}</p>
-                  {loc.lines.map((line) => (
-                    <p key={line} className="lv-about-loc-line">
-                      {line}
-                    </p>
-                  ))}
-                </div>
-              ))}
-            </div>
           </ScrollReveal>
         </div>
       </section>
