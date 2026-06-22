@@ -65,12 +65,20 @@ export default function Footer() {
   const DARK = "#2b2a25"
 
   /* Footer columns reflect the three-product imprint structure plus
-     editorial, partner, and legal entry points. Products mirrors the
+     editorial, locations, and legal entry points. Products mirrors the
      global nav dropdown (Imprint / Opus / Score). Company carries the
-     editorial routes. For partners is the conversion path (artist
-     application / brand licensing / artist agreement). Legal groups
-     the three policy documents. */
-  const cols = [
+     editorial routes. Locations lists the cities we are based in as
+     read-only text (no links, no full addresses). Legal groups the three
+     policy documents. */
+  type FooterLink = {
+    label: string
+    href?: string
+    comingSoon?: boolean
+    download?: boolean
+  }
+  type FooterCol = { heading: string; links: FooterLink[] }
+
+  const cols: FooterCol[] = [
     {
       heading: "Products",
       links: [
@@ -91,11 +99,10 @@ export default function Footer() {
       ],
     },
     {
-      heading: "For partners",
+      heading: "Locations",
       links: [
-        { label: "Apply to the Imprint",   href: "/imprint/apply" },
-        { label: "License from the Imprint", href: "/imprint/license" },
-        { label: "Artist Partnership",      href: "/lyric-artist-partnership-agreement.pdf", download: true },
+        { label: "Los Angeles" },
+        { label: "Atlanta" },
       ],
     },
     {
@@ -209,14 +216,23 @@ export default function Footer() {
                     {col.heading}
                   </p>
                   {col.links.map((link) => {
-                    const isMailto = link.href.startsWith("mailto:")
-                    const isExternal = link.href.startsWith("http")
-                    const isDownload = "download" in link && link.download
                     const sharedStyle: React.CSSProperties = {
                       fontSize: "13px",
                       color: "rgba(245,243,239,0.55)",
                       letterSpacing: "0",
                     }
+                    // Read-only items (e.g. Locations cities) carry no href and
+                    // render as plain text rather than links.
+                    if (!link.href) {
+                      return (
+                        <div key={link.label} className="lyric-footer-link">
+                          <span style={sharedStyle}>{link.label}</span>
+                        </div>
+                      )
+                    }
+                    const isMailto = link.href.startsWith("mailto:")
+                    const isExternal = link.href.startsWith("http")
+                    const isDownload = "download" in link && link.download
                     return (
                       <div key={link.label} className="lyric-footer-link">
                         <a

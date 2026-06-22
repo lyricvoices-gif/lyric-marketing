@@ -5174,12 +5174,6 @@ main:has(.lv-hero) { padding-top: 0; }
   padding: 112px 24px 88px;
 }
 
-.lv-about-coda {
-  background: #2b2a25;
-  color: var(--bg-light);
-  padding: 0 24px 104px;
-}
-
 /* Narrow editorial measure for the narrative prose. */
 .lv-about-col {
   max-width: 720px;
@@ -5192,24 +5186,12 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
 }
 .lv-about-m2 .lv-philosophy-eyebrow > span:last-child,
-.lv-about-m3 .lv-philosophy-eyebrow > span:last-child,
-.lv-about-coda .lv-philosophy-eyebrow > span:last-child {
+.lv-about-m3 .lv-philosophy-eyebrow > span:last-child {
   color: var(--bg-light);
 }
 .lv-about-m2 .lv-eyebrow-dot,
-.lv-about-m3 .lv-eyebrow-dot,
-.lv-about-coda .lv-eyebrow-dot {
+.lv-about-m3 .lv-eyebrow-dot {
   background: var(--gold);
-}
-
-/* Dead-air motif — a quiet static flatline above the hook. No motion. */
-.lv-about-deadair {
-  display: block;
-  width: 56px;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(90, 94, 67, 0.35);
-  margin: 0 0 30px;
 }
 
 /* M1 — the hook, the page's display moment. */
@@ -5282,42 +5264,6 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 26px 0;
 }
 
-/* Proof in context — the founders strip, framed as where Lyric began. */
-.lv-about-proof {
-  max-width: 720px;
-  margin: 52px auto 56px;
-}
-.lv-about-proof-line {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--bg-light);
-  opacity: 0.72;
-  margin: 0 0 22px;
-}
-
-/* LogoCycler reused on olive: transparent ground, no built-in credit (the
-   framing line above does that job), marks lifted to cream so they read on the
-   dark ground. */
-.lv-about .lv-about-cred {
-  background: transparent;
-  padding: 0;
-  overflow: visible;
-}
-.lv-about .lv-about-cred .lv-logos-row {
-  display: block;
-  max-width: 720px;
-  padding: 0;
-  margin: 0;
-}
-.lv-about .lv-about-cred .lv-logos-credit {
-  display: none;
-}
-.lv-about .lv-about-cred .lv-logos-mark {
-  filter: brightness(0) invert(1);
-  opacity: 0.5;
-}
-
 /* M3 — what we built; resolves on the brand line. */
 .lv-about-built {
   font-family: var(--font-body);
@@ -5341,43 +5287,6 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--gold);
 }
 
-/* Coda — quiet factual Locations, downshifted under the resolution. */
-.lv-about-coda-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  border-top: 1px solid rgba(255, 248, 236, 0.12);
-  padding-top: 52px;
-}
-.lv-about-coda-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px;
-  margin-top: 28px;
-}
-.lv-about-loc-city {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.1;
-  color: var(--bg-light);
-  margin: 0 0 6px;
-}
-.lv-about-loc-name {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.55);
-  margin: 0 0 14px;
-}
-.lv-about-loc-line {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.65;
-  color: rgba(255, 248, 236, 0.72);
-  margin: 0;
-}
-
 @media (min-width: 769px) {
   .lv-about-m1 {
     padding: 160px 32px 140px;
@@ -5387,13 +5296,6 @@ main:has(.lv-hero) { padding-top: 0; }
   }
   .lv-about-m3 {
     padding: 140px 32px 104px;
-  }
-  .lv-about-coda {
-    padding: 0 32px 120px;
-  }
-  .lv-about-coda-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 56px;
   }
 }
 
