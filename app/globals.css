@@ -5490,20 +5490,61 @@ main:has(.lv-hero) { padding-top: 0; }
   padding: 0;
   border: 0;
   border-radius: 100px;
-  background: rgba(255, 248, 236, 0.04);
+  background: rgba(255, 248, 236, 0.05);
   color: var(--bg-light);
   cursor: pointer;
+  overflow: visible;
   transition: background 0.2s ease, color 0.2s ease;
 }
-.lv-vstage-play:hover {
-  background: rgba(255, 248, 236, 0.09);
+
+/* RESTING state: a soft accent glow localized to the button, gently breathing,
+   so the control feels alive and invites the click. This is NOT the rings —
+   the rings are reserved for playback. Accent per voice via --stage-accent. */
+.lv-vstage-play::before {
+  content: "";
+  position: absolute;
+  inset: -26%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--stage-accent) 0%, transparent 72%);
+  opacity: 0.5;
+  filter: blur(10px);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  animation: lv-vplay-breathe 3.4s ease-in-out infinite;
 }
+@keyframes lv-vplay-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.46; }
+  50% { transform: scale(1.12); opacity: 0.72; }
+}
+/* Hover (resting only): intensify the ambient glow. */
+.lv-vstage-play:hover {
+  background: rgba(255, 248, 236, 0.08);
+}
+.lv-vstage-play:hover::before {
+  opacity: 0.82;
+}
+
+/* PLAYING state: the rings (track + gold progress arc) are RESERVED FOR
+   PLAYBACK — hidden at rest, shown while the voice is sounding. */
 .lv-vstage-ring {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 116px;
   height: 116px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
+.lv-vstage-play.is-playing .lv-vstage-ring {
+  opacity: 1;
+}
+/* While playing, the resting glow yields to the rings. */
+.lv-vstage-play.is-playing::before {
+  opacity: 0;
+  animation: none;
+}
+
 .lv-vstage-ring-track {
   fill: none;
   stroke: rgba(255, 248, 236, 0.2);
@@ -5520,11 +5561,12 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 .lv-vstage-glyph {
   position: relative;
+  z-index: 2;
   display: inline-flex;
 }
 .lv-vstage-glyph svg {
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
 }
 .lv-vstage-play.is-playing {
   color: var(--gold);
@@ -5598,6 +5640,25 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-eng-hume img {
   width: 16px;
   height: 16px;
+}
+/* On the featured stages the avatars are sized up so both marks are clearly
+   identifiable — Morgan's two-engine portability proof and Hex's single engine.
+   The heavier ElevenLabs mark stays a touch smaller than the Hume flower so the
+   pair stays balanced. Scoped to the stages; the gallery is untouched. */
+.lv-vstage .lv-eng {
+  width: 36px;
+  height: 36px;
+}
+.lv-vstage .lv-eng-elevenlabs img {
+  width: 15px;
+  height: 15px;
+}
+.lv-vstage .lv-eng-hume img {
+  width: 22px;
+  height: 22px;
+}
+.lv-vstage .lv-eng-avatars {
+  gap: 8px;
 }
 .lv-vstage .lv-eng-label {
   color: rgba(255, 248, 236, 0.5);
@@ -5827,6 +5888,11 @@ main:has(.lv-hero) { padding-top: 0; }
   }
   .lv-vstage.is-playing .lv-vstage-pulse {
     animation: none;
+  }
+  /* Resting button glow holds static (no breathing) under reduced motion. */
+  .lv-vstage-play::before {
+    animation: none;
+    opacity: 0.5;
   }
   .lv-vtile.is-playing .lv-vtile-dot {
     animation: none;
