@@ -5404,7 +5404,7 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 .lv-vstage.is-playing::before {
   opacity: 0.36;
-  animation: lv-aura-breathe 4.5s ease-in-out infinite;
+  animation: lv-aura-breathe 5.5s ease-in-out infinite;
 }
 @keyframes lv-aura-breathe {
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
@@ -5586,13 +5586,13 @@ main:has(.lv-hero) { padding-top: 0; }
   pointer-events: none;
 }
 .lv-vstage.is-playing .lv-vstage-pulse {
-  animation: lv-vstage-emanate 2.8s ease-out infinite;
+  animation: lv-vstage-emanate 3.6s ease-out infinite;
 }
 .lv-vstage.is-playing .lv-vstage-pulse-2 {
-  animation-delay: 0.93s;
+  animation-delay: 1.2s;
 }
 .lv-vstage.is-playing .lv-vstage-pulse-3 {
-  animation-delay: 1.86s;
+  animation-delay: 2.4s;
 }
 @keyframes lv-vstage-emanate {
   0% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
@@ -5690,8 +5690,7 @@ main:has(.lv-hero) { padding-top: 0; }
   padding: 30px 26px;
   box-shadow: none;
   overflow: hidden;
-  transition: background 0.32s ease, box-shadow 0.32s ease,
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
 }
 
 /* Accent top-rule — a consistent full-width element in every state. It changes
@@ -5705,7 +5704,7 @@ main:has(.lv-hero) { padding-top: 0; }
   right: 0;
   height: 2px;
   background: color-mix(in srgb, var(--voice) 32%, transparent);
-  transition: background 0.3s ease;
+  transition: background 0.45s ease;
 }
 
 /* Wake (hover) and playing share the alive accent treatment; only hover lifts. */
@@ -5737,7 +5736,7 @@ main:has(.lv-hero) { padding-top: 0; }
   cursor: pointer;
   margin-bottom: 22px;
   overflow: visible;
-  transition: color 0.25s ease;
+  transition: color 0.45s ease;
 }
 /* Accent glow behind the control on wake/play. */
 .lv-vtile-play::before {
@@ -5750,7 +5749,7 @@ main:has(.lv-hero) { padding-top: 0; }
   opacity: 0;
   filter: blur(8px);
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.45s ease;
 }
 .lv-vtile:hover .lv-vtile-play::before,
 .lv-vtile.is-playing .lv-vtile-play::before {
@@ -5767,7 +5766,7 @@ main:has(.lv-hero) { padding-top: 0; }
   fill: none;
   stroke: rgba(90, 94, 67, 0.22);
   stroke-width: 1.5;
-  transition: stroke 0.25s ease;
+  transition: stroke 0.45s ease;
 }
 /* Progress arc blooms in the voice's OWN accent (not gold) — the gallery's
    color logic, distinct from the gold featured stages. */
@@ -5814,11 +5813,11 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 /* Subtle, abstract "speaking" pulse on the accent dot during playback. */
 .lv-vtile.is-playing .lv-vtile-dot {
-  animation: lv-vtile-pulse 1.7s ease-in-out infinite;
+  animation: lv-vtile-pulse 2.8s ease-in-out infinite;
 }
 @keyframes lv-vtile-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(0.8); }
+  50% { opacity: 0.55; transform: scale(0.92); }
 }
 .lv-vtile-name {
   font-family: var(--font-display);
@@ -5846,20 +5845,25 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 14px 0 0;
 }
 
-/* Description + engines live here — hidden at rest, revealed on wake/play with
-   an eased height/opacity transition. The grid is align-items: start so only the
-   hovered card grows. */
+/* Description + engines live here — hidden at rest, revealed on wake/play. Uses
+   a grid-template-rows 0fr -> 1fr reveal (animates the real content height, so
+   the roll on and off is smooth rather than the lumpy max-height approach). The
+   grid is align-items: start so only the hovered card grows. */
 .lv-vtile-reveal {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
-  overflow: hidden;
   margin-top: 0;
-  transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease, margin-top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: grid-template-rows 0.5s ease, opacity 0.4s ease,
+    margin-top 0.5s ease;
+}
+.lv-vtile-reveal-inner {
+  min-height: 0;
+  overflow: hidden;
 }
 .lv-vtile:hover .lv-vtile-reveal,
 .lv-vtile.is-playing .lv-vtile-reveal {
-  max-height: 340px;
+  grid-template-rows: 1fr;
   opacity: 1;
   margin-top: 18px;
 }
@@ -5889,7 +5893,7 @@ main:has(.lv-hero) { padding-top: 0; }
    happens on play. */
 @media (hover: none) {
   .lv-vtile-reveal {
-    max-height: none;
+    grid-template-rows: 1fr;
     opacity: 1;
     margin-top: 18px;
   }

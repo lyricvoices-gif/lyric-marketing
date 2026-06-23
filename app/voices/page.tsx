@@ -45,8 +45,8 @@ export default function VoicesPage() {
               across every channel a customer reaches. The voices carry your
               brand&rsquo;s tone; the sound packs carry its cues, the small
               sounds an agent makes while it thinks, confirms, and resolves. Each
-              voice is built with a real artist and designed to carry across
-              engines. Morgan already runs on both ElevenLabs and Hume.
+              voice is built with a real artist and designed to carry across TTS
+              engines.
             </p>
           </ScrollReveal>
 
