@@ -5619,6 +5619,7 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 6px;
 }
 .lv-eng {
+  position: relative;
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -5627,7 +5628,33 @@ main:has(.lv-hero) { padding-top: 0; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+}
+/* Custom tooltip — appears instantly on hover (the native title attribute has a
+   long, uncontrollable browser delay). Reads on any ground via its own dark
+   chip. The mark sits within the circle without overflow clipping. */
+.lv-eng::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: #2b2a25;
+  color: var(--bg-light);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  z-index: 5;
+}
+.lv-eng:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 .lv-eng img {
   object-fit: contain;

@@ -142,7 +142,7 @@ function EngineRow({ engines }: { engines: Engine[] }) {
       <span className="lv-eng-label">Built for</span>
       <span className="lv-eng-avatars">
         {engines.map((e) => (
-          <span key={e} className={`lv-eng lv-eng-${e}`} title={ENGINES[e].name}>
+          <span key={e} className={`lv-eng lv-eng-${e}`} data-label={ENGINES[e].name}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={ENGINES[e].src} alt={ENGINES[e].name} />
           </span>
