@@ -152,6 +152,24 @@ function EngineRow({ engines }: { engines: Engine[] }) {
   )
 }
 
+/* Licensing CTA → opens the visitor's mail client with a pre-filled inquiry to
+   the licensing team, naming the specific voice. They reply to follow up. */
+function licenseHref(name: string) {
+  const subject = `Licensing inquiry: ${name}`
+  const body = `Hi Lyric team,
+
+I'd like to license the ${name} voice. A bit about our use case:
+
+Company:
+Where we'd use it:
+Timeline:
+
+Thank you.`
+  return `mailto:info@lyricvoices.ai?subject=${encodeURIComponent(
+    subject,
+  )}&body=${encodeURIComponent(body)}`
+}
+
 function FeaturedStage({
   voice,
   reversed,
@@ -184,6 +202,9 @@ function FeaturedStage({
               <EngineRow engines={voice.engines} />
             </div>
             <p className="lv-vstage-desc">{voice.description}</p>
+            <a className="lv-link-cta lv-vstage-license" href={licenseHref(voice.name)}>
+              License this voice <span aria-hidden="true">&rarr;</span>
+            </a>
           </ScrollReveal>
         </div>
 
@@ -273,6 +294,9 @@ function GalleryTile({
           <div className="lv-vtile-engines">
             <EngineRow engines={voice.engines} />
           </div>
+          <a className="lv-link-cta lv-vtile-license" href={licenseHref(voice.name)}>
+            License this voice <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
       </div>
     </div>
