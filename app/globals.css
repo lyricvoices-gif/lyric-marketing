@@ -5404,7 +5404,7 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 .lv-vstage.is-playing::before {
   opacity: 0.36;
-  animation: lv-aura-breathe 5.5s ease-in-out infinite;
+  animation: lv-aura-breathe 6.5s ease-in-out infinite;
 }
 @keyframes lv-aura-breathe {
   0%, 100% { transform: translate(-50%, -50%) scale(1); }
@@ -5586,13 +5586,13 @@ main:has(.lv-hero) { padding-top: 0; }
   pointer-events: none;
 }
 .lv-vstage.is-playing .lv-vstage-pulse {
-  animation: lv-vstage-emanate 3.6s ease-out infinite;
+  animation: lv-vstage-emanate 4.5s ease-out infinite;
 }
 .lv-vstage.is-playing .lv-vstage-pulse-2 {
-  animation-delay: 1.2s;
+  animation-delay: 1.5s;
 }
 .lv-vstage.is-playing .lv-vstage-pulse-3 {
-  animation-delay: 2.4s;
+  animation-delay: 3s;
 }
 @keyframes lv-vstage-emanate {
   0% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
@@ -5813,7 +5813,7 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 /* Subtle, abstract "speaking" pulse on the accent dot during playback. */
 .lv-vtile.is-playing .lv-vtile-dot {
-  animation: lv-vtile-pulse 2.8s ease-in-out infinite;
+  animation: lv-vtile-pulse 3.6s ease-in-out infinite;
 }
 @keyframes lv-vtile-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
