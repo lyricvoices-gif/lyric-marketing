@@ -5470,6 +5470,11 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 460px;
   margin: 28px 0 0;
 }
+/* Licensing CTA — editorial link-cta (inherits currentColor: cream on the dark
+   stage), spaced beneath the description. */
+.lv-vstage-license {
+  margin-top: 26px;
+}
 
 /* Instrument — the large play control with ambient pulse rings. */
 .lv-vstage-instrument {
@@ -5903,6 +5908,10 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 .lv-vtile-engines {
   margin-top: 20px;
+}
+/* Licensing CTA inside the reveal — editorial link-cta (olive on cream). */
+.lv-vtile-license {
+  margin-top: 22px;
 }
 /* Gallery engine avatars sized up for legibility (Hume only on these three),
    a touch smaller than the featured stages. */
