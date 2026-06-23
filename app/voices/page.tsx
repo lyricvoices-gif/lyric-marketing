@@ -34,16 +34,19 @@ export default function VoicesPage() {
 
           <ScrollReveal delay={100}>
             <h1 className="lv-voices-headline">
-              Licensed voices, built with <em>real artists</em>.
+              A brand is <em>more than what it says</em>.
             </h1>
           </ScrollReveal>
 
           <ScrollReveal delay={180}>
             <p className="lv-voices-framing">
-              Every voice here is built with a real artist and signed to the
-              Imprint. Each is built for Hume and designed to carry across
-              engines rather than lock to one. Morgan already runs on both
-              ElevenLabs and Hume.
+              It is how it sounds saying it. Lyric&rsquo;s voices and sound packs
+              give your agents one voice and one sonic identity, consistent
+              across every channel a customer reaches. The voices carry your
+              brand&rsquo;s tone; the sound packs carry its cues, the small
+              sounds an agent makes while it thinks, confirms, and resolves. Each
+              voice is built with a real artist and designed to carry across
+              engines. Morgan already runs on both ElevenLabs and Hume.
             </p>
           </ScrollReveal>
 
