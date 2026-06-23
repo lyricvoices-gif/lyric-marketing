@@ -268,9 +268,11 @@ function GalleryTile({
       <p className="lv-vtile-character">{voice.intents.join(". ")}.</p>
       {/* Hidden at rest; revealed on hover/play (always visible on touch). */}
       <div className="lv-vtile-reveal">
-        <p className="lv-vtile-desc">{voice.description}</p>
-        <div className="lv-vtile-engines">
-          <EngineRow engines={voice.engines} />
+        <div className="lv-vtile-reveal-inner">
+          <p className="lv-vtile-desc">{voice.description}</p>
+          <div className="lv-vtile-engines">
+            <EngineRow engines={voice.engines} />
+          </div>
         </div>
       </div>
     </div>
