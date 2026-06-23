@@ -5689,22 +5689,23 @@ main:has(.lv-hero) { padding-top: 0; }
   border-radius: 16px;
   padding: 30px 26px;
   box-shadow: none;
+  overflow: hidden;
   transition: background 0.32s ease, box-shadow 0.32s ease,
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Accent hairline at the top — the only color at rest; it brightens and widens
-   as the card wakes. */
+/* Accent top-rule — a consistent full-width element in every state. It changes
+   COLOR/brightness (dim at rest, full accent on wake/play), never length. The
+   card clips it to the rounded top corners via overflow: hidden. */
 .lv-vtile::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 26px;
-  width: 40px;
+  left: 0;
+  right: 0;
   height: 2px;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--voice) 45%, transparent);
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+  background: color-mix(in srgb, var(--voice) 32%, transparent);
+  transition: background 0.3s ease;
 }
 
 /* Wake (hover) and playing share the alive accent treatment; only hover lifts. */
@@ -5718,7 +5719,6 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 .lv-vtile:hover::before,
 .lv-vtile.is-playing::before {
-  width: calc(100% - 52px);
   background: var(--voice);
 }
 
