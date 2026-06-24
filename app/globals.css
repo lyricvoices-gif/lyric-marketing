@@ -8158,3 +8158,600 @@ main:has(.lv-hero) { padding-top: 0; }
     transition: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OPUS PRODUCT PAGE (app/opus/page.tsx) — problem-first spine.
+   Six movements, scoped under .lv-opus-* (these names are distinct from the
+   older .lv-opus-storyboard / .lv-opus-panel set still used by
+   components/opus/DirectionShowcase). Live tokens only; no new colors/fonts.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.lv-opus {
+  background: var(--bg-light);
+  color: var(--olive);
+}
+
+.lv-opus-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Eyebrow — reuse the site's editorial dot+label, but pin the margin (the base
+   .lv-philosophy-eyebrow gets a large desktop top-margin elsewhere). */
+.lv-opus .lv-opus-eyebrow {
+  margin: 0 0 22px;
+}
+
+.lv-opus-eyebrow.is-dark > span:last-child {
+  color: var(--bg-light);
+}
+
+/* ── Movement 1 — Hero ────────────────────────────────────────────────────── */
+.lv-opus-hero {
+  padding: 132px 0 84px;
+}
+
+.lv-opus-hero-head {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  color: var(--olive);
+  font-size: clamp(38px, 7vw, 78px);
+  margin: 0 0 26px;
+  max-width: 16ch;
+}
+
+.lv-opus-hero-head em {
+  font-style: italic;
+  color: var(--olive);
+}
+
+.lv-opus-hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 2.2vw, 20px);
+  line-height: 1.55;
+  color: var(--olive);
+  opacity: 0.84;
+  margin: 0 0 32px;
+  max-width: 620px;
+}
+
+/* ── Movement 2 — Hear it ─────────────────────────────────────────────────── */
+.lv-opus-hear {
+  padding: 88px 0;
+  border-top: 1px solid var(--border);
+}
+
+.lv-opus-hear-framing {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.18;
+  color: var(--olive);
+  font-size: clamp(22px, 3vw, 32px);
+  margin: 0 0 44px;
+  max-width: 22ch;
+}
+
+.lv-opus-ab {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.lv-opus-ab-row {
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+}
+
+.lv-opus-ab-q {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--olive);
+  margin: 0 0 18px;
+}
+
+.lv-opus-ab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.lv-opus-ab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 9px 22px 9px 9px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--olive) 4%, transparent);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+}
+
+.lv-opus-ab-btn:hover {
+  border-color: color-mix(in srgb, var(--olive) 45%, transparent);
+  background: color-mix(in srgb, var(--olive) 7%, transparent);
+}
+
+.lv-opus-ab-btn.is-playing {
+  border-color: var(--olive);
+  background: color-mix(in srgb, var(--olive) 9%, transparent);
+}
+
+.lv-opus-ab-control {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--olive) 8%, transparent);
+  transition: background 0.22s ease;
+}
+
+.lv-opus-ab-btn.is-playing .lv-opus-ab-control {
+  background: var(--olive);
+}
+
+.lv-opus-ab-ring {
+  position: absolute;
+  inset: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.lv-opus-ab-ring-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--olive) 16%, transparent);
+  stroke-width: 2;
+}
+
+.lv-opus-ab-ring-prog {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  opacity: 0;
+  transition: stroke-dashoffset 0.12s linear;
+}
+
+.lv-opus-ab-btn.is-playing .lv-opus-ab-ring-prog {
+  opacity: 1;
+}
+
+.lv-opus-ab-glyph {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  color: var(--olive);
+  display: grid;
+  place-items: center;
+}
+
+.lv-opus-ab-glyph svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lv-opus-ab-btn.is-playing .lv-opus-ab-glyph {
+  color: var(--bg-light);
+}
+
+.lv-opus-ab-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lv-opus-ab-variant {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--olive);
+}
+
+.lv-opus-ab-state {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
+}
+
+.lv-opus-ab-caption {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--olive) 72%, transparent);
+  margin: 16px 0 0;
+}
+
+/* Processing-cue placeholder — visual only, audio pending. */
+.lv-opus-think {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 8px;
+  padding: 9px 16px;
+  border: 1px dashed color-mix(in srgb, var(--olive) 32%, transparent);
+  border-radius: 100px;
+}
+
+.lv-opus-think-dots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.lv-opus-think-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.4;
+  animation: lv-opus-think 1.4s ease-in-out infinite;
+}
+
+.lv-opus-think-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.lv-opus-think-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes lv-opus-think {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+.lv-opus-think-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 60%, transparent);
+}
+
+/* ── Movement 3 — How it works (dark chapter) ─────────────────────────────── */
+.lv-opus-how {
+  padding: 108px 0;
+  color: var(--bg-light);
+  border-top: 1px solid rgba(255, 248, 236, 0.08);
+  border-bottom: 1px solid rgba(255, 248, 236, 0.08);
+}
+
+.lv-opus-how-head {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.04;
+  color: var(--bg-light);
+  font-size: clamp(30px, 5vw, 52px);
+  margin: 0 0 56px;
+  max-width: 18ch;
+}
+
+.lv-opus-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+.lv-opus-step-n {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 0.9;
+  color: var(--gold);
+  font-size: clamp(40px, 6vw, 54px);
+  margin: 0 0 18px;
+}
+
+.lv-opus-step-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--bg-light);
+  margin: 0 0 14px;
+}
+
+.lv-opus-step-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 248, 236, 0.78);
+  margin: 0;
+}
+
+.lv-opus-how-position {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.25;
+  color: var(--bg-light);
+  margin: 56px 0 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 248, 236, 0.12);
+}
+
+.lv-opus-how-position em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* ── Movement 4 — Meet Sonic ──────────────────────────────────────────────── */
+.lv-opus-sonic {
+  padding: 108px 0;
+}
+
+.lv-opus-sonic-head {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: var(--olive);
+  font-size: clamp(30px, 5vw, 52px);
+  margin: 0 0 22px;
+  max-width: 18ch;
+}
+
+.lv-opus-sonic-head em {
+  font-style: italic;
+  color: var(--olive);
+}
+
+.lv-opus-sonic-body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--olive);
+  opacity: 0.84;
+  margin: 0;
+  max-width: 640px;
+}
+
+.lv-opus-sonic-mock {
+  display: block;
+  max-width: 640px;
+  margin: 40px 0 32px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
+  text-decoration: none;
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.lv-opus-sonic-mock:hover {
+  border-color: color-mix(in srgb, var(--olive) 45%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(43, 42, 37, 0.08);
+}
+
+.lv-opus-mock-prompt {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: color-mix(in srgb, var(--olive) 75%, transparent);
+  margin: 0 0 18px;
+}
+
+.lv-opus-tiles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.lv-opus-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-light);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.lv-opus-tile.is-selected {
+  border-color: var(--olive);
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
+  box-shadow: inset 0 0 0 1px var(--olive);
+}
+
+.lv-opus-tile-label {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--olive);
+}
+
+.lv-opus-tile-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 52%, transparent);
+}
+
+.lv-opus-mock-note {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 50%, transparent);
+  margin: 20px 0 0;
+}
+
+/* ── Movement 5 — See it in text ──────────────────────────────────────────── */
+.lv-opus-proof {
+  padding: 108px 0;
+  border-top: 1px solid var(--border);
+}
+
+.lv-opus-proof-framing {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.18;
+  color: var(--olive);
+  font-size: clamp(22px, 3vw, 32px);
+  margin: 0 0 44px;
+  max-width: 26ch;
+}
+
+.lv-opus-proof-framing em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--olive);
+}
+
+.lv-opus-proof-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.lv-opus-proof-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
+}
+
+.lv-opus-proof-after {
+  border-color: color-mix(in srgb, var(--olive) 35%, transparent);
+  background: color-mix(in srgb, var(--gold) 7%, var(--bg-light));
+}
+
+.lv-opus-proof-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.lv-opus-proof-label span {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--olive) 60%, transparent);
+}
+
+/* Channel-distinct chat bubbles — on the Lyric palette, deliberately not
+   iMessage blue. SMS reads as a compact tinted speech bubble; web chat reads as
+   a wider bordered panel. */
+.lv-opus-bubble {
+  border-radius: 16px;
+  padding: 12px 15px;
+}
+
+.lv-opus-bubble-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 50%, transparent);
+  margin: 0 0 6px;
+}
+
+.lv-opus-bubble-text {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--olive);
+  margin: 0;
+}
+
+.lv-opus-bubble-sms {
+  align-self: flex-start;
+  max-width: 85%;
+  background: color-mix(in srgb, var(--olive) 9%, var(--bg-light));
+  border-bottom-left-radius: 5px;
+}
+
+.lv-opus-bubble-web {
+  align-self: stretch;
+  width: 100%;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.lv-opus-proof-caption {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--olive) 75%, transparent);
+  margin: 32px 0 0;
+  max-width: 620px;
+}
+
+/* ── Movement 6 — Closing CTA ─────────────────────────────────────────────── */
+.lv-opus-close {
+  padding: 96px 24px;
+}
+
+/* ── Desktop ──────────────────────────────────────────────────────────────── */
+@media (min-width: 769px) {
+  .lv-opus-hero {
+    padding: 156px 0 100px;
+  }
+
+  .lv-opus-steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px;
+  }
+
+  .lv-opus-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lv-opus-proof-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-opus-ab-btn,
+  .lv-opus-ab-control,
+  .lv-opus-ab-ring-prog,
+  .lv-opus-sonic-mock {
+    transition: none;
+  }
+
+  .lv-opus-think-dots span {
+    animation: none;
+    opacity: 0.7;
+  }
+
+  .lv-opus-sonic-mock:hover {
+    transform: none;
+  }
+}

@@ -1,351 +1,352 @@
-/* Opus product page — the enterprise creative environment that comes
-   with every Lyric voice license. Two tools: Composer (audio
-   generation) and Direction (parameter configuration). Direction is
-   exclusive to Lyric imprint voices, which is the strategic anchor.
-   The page closes by routing brands to /imprint/license for inquiry. */
+/* Opus product page — problem-first spine. This is a category-defining page, so
+   it leads with the problem the buyer hasn't named yet (their agents are
+   multiplying and drifting off-brand) and then reveals Opus as the layer that
+   holds all of them to one voice. Six movements:
+
+     1) Hero        — name the problem
+     2) Hear it     — the voice, before/after (the visceral proof)
+     3) How it works— the mechanism (Codify / Govern / Port)
+     4) Meet Sonic  — how you get your spec (the on-ramp; preview, funnels to /start)
+     5) See it in text — cross-agent consistency (text governance, no audio)
+     6) CTA         — funnel to "Try for free"
+
+   Built on the live Lyric tokens only (cream / olive / near-black / gold), the
+   shared GT Super + GT America + Instrument Serif faces, and the existing
+   ScrollReveal + nav + footer. All scoped styles live under .lv-opus-* in
+   globals.css. Copy register: flat, declarative, no em dashes, no exclamation
+   points. The engine-agnostic point is folded into the Port step as one line on
+   purpose; this page does not pull in homepage modules. */
 
 import type { Metadata } from "next"
+import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
-import ScrollHighlightText from "@/components/ScrollHighlightText"
-import TwoPathsForward from "@/components/TwoPathsForward"
-import DirectionShowcase from "@/components/opus/DirectionShowcase"
+import OpusHearIt from "@/components/opus/OpusHearIt"
 
 export const metadata: Metadata = {
   title: "Opus",
   description:
-    "Opus is Lyric's enterprise creative environment. Composer for directed audio generation, Direction for parameter configuration, both for imprint voices.",
+    "Your agents are multiplying. Opus is the layer that holds all of them to one brand voice, across every model and engine you run.",
 }
 
-const C = {
-  bg: "var(--bg-light)",
-  text: "var(--text-1)",
-  olive: "var(--olive)",
-  border: "var(--border)",
-  gold: "var(--gold)",
-  sage: "var(--sage)",
-}
+const DARK = "#2b2a25"
+const START = "/start"
 
-export default function OpusPage() {
+/* Pill CTA, mirroring the homepage / pricing Final CTA buttons so closing and
+   hero CTAs read identically across the site. */
+function CTA({
+  href,
+  children,
+  variant = "dark",
+}: {
+  href: string
+  children: ReactNode
+  variant?: "dark" | "light" | "outline"
+}) {
+  const isExternal = href.startsWith("http") || href.startsWith("mailto:")
+  const style: CSSProperties = {
+    minHeight: "54px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 24px",
+    borderRadius: "100px",
+    fontSize: "15px",
+    fontWeight: 500,
+    letterSpacing: "0",
+    background:
+      variant === "light"
+        ? "var(--bg-light)"
+        : variant === "dark"
+          ? "var(--olive)"
+          : "transparent",
+    color:
+      variant === "light"
+        ? "var(--olive)"
+        : variant === "dark"
+          ? "var(--bg-light)"
+          : "inherit",
+    border: variant === "outline" ? "1px solid currentColor" : "1px solid transparent",
+    transition: "background 0.22s ease, color 0.22s ease, transform 0.22s ease",
+  }
+  const className = `lv-cta lv-cta-${variant}`
+  if (isExternal) {
+    return (
+      <a href={href} className={className} style={style}>
+        {children}
+      </a>
+    )
+  }
   return (
-    <main style={{ background: C.bg, color: C.text }}>
-      {/* Section 1 — Hero */}
-      <section
-        style={{
-          padding: "140px 24px 96px",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
-        <div style={{ maxWidth: "880px", margin: "0 auto" }}>
-          <ScrollReveal>
-            <Eyebrow label="Opus" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h1
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(40px, 6vw, 72px)",
-                fontWeight: 500,
-                lineHeight: 1.02,
-                letterSpacing: "-0.005em",
-                color: C.olive,
-                margin: "0 0 22px",
-              }}
-            >
-              <em>Opus</em>.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p
-              style={{
-                fontSize: "20px",
-                lineHeight: 1.5,
-                color: C.olive,
-                opacity: 0.86,
-                margin: "0 0 28px",
-                maxWidth: "640px",
-              }}
-            >
-              Direct the performance. Configure the deployment.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={320}>
-            <p
-              style={{
-                fontSize: "16px",
-                lineHeight: 1.7,
-                color: C.text,
-                opacity: 0.78,
-                margin: 0,
-                maxWidth: "640px",
-              }}
-            >
-              Opus is Lyric's enterprise creative environment for working
-              with imprint voices. Two tools, one workspace: Composer for
-              generating directed audio content, and Direction for tuning
-              voices to your specific deployment context.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Section 2 — Composer.
-          Dark olive ground gives this section the visual weight of a
-          chapter break (mirrors the home page Products / Audiences /
-          Final CTA rhythm). The videos ARE Composer here, not a
-          separate "what you'll make" splash — they're the section's
-          visualization. Direction gets its symmetrical dark moment in
-          the next section (DirectionShowcase, same dark-olive ground). */}
-      <section
-        style={{
-          background: "#2b2a25",
-          color: C.bg,
-          padding: "120px 24px",
-          borderTop: "1px solid rgba(255, 248, 236, 0.08)",
-          borderBottom: "1px solid rgba(255, 248, 236, 0.08)",
-        }}
-      >
-        <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
-          <ScrollReveal>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                margin: "0 0 22px",
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  background: C.gold,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: C.bg,
-                }}
-              >
-                Composer
-              </span>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(34px, 5vw, 56px)",
-                fontWeight: 500,
-                lineHeight: 1.04,
-                letterSpacing: "-0.005em",
-                color: C.bg,
-                margin: "0 0 22px",
-                maxWidth: "780px",
-              }}
-            >
-              Direction is part of the format.{" "}
-              <em style={{ color: C.gold }}>Not a setting.</em>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p
-              style={{
-                fontSize: "17px",
-                lineHeight: 1.7,
-                color: "rgba(255, 248, 236, 0.82)",
-                margin: 0,
-                maxWidth: "640px",
-              }}
-            >
-              Composer is where voice direction becomes audio output.
-              Most AI voice tools give you a slider. Opus gives you a
-              script you can direct, sentence by sentence. Watch what
-              that looks like.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={320}>
-            <div className="lv-opus-storyboard">
-              <StoryboardTile
-                src="/videos/voice-selection.mp4"
-                aria="Selecting a voice in the Opus Composer"
-                caption="Five real voice artists, ready when you are."
-              />
-              <StoryboardTile
-                src="/videos/script.mp4"
-                aria="Writing a script in the Opus Composer"
-                caption="Your script becomes the canvas."
-              />
-              <StoryboardTile
-                src="/videos/emotional-tag.mp4"
-                aria="Tagging a phrase with an emotion mark"
-                caption="Inline emotion marks."
-              />
-              <StoryboardTile
-                src="/videos/generation.mp4"
-                aria="Generating audio from a directed script"
-                caption="Broadcast-ready audio in seconds."
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Interlude — the translation quote, moved up to sit between the
-          two product chapters. A cream breather that frames both tools
-          and gives Composer (dark olive) and Direction (dark ink) clear
-          separation and air. */}
-      <section style={{ padding: "120px 24px" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto", textAlign: "center" }}>
-          <ScrollHighlightText
-            style={{
-              fontFamily: "var(--font-display)",
-              fontStyle: "italic",
-              fontSize: "clamp(22px, 2.8vw, 30px)",
-              fontWeight: 400,
-              lineHeight: 1.4,
-              color: C.olive,
-              margin: 0,
-            }}
-          >
-            Brands know what they want their voice to sound like. They
-            know how it should feel to their customers. What most brands
-            lack is the expertise to translate that creative vision
-            into the technical parameters that make it real. Opus is
-            where that translation happens.
-          </ScrollHighlightText>
-        </div>
-      </section>
-
-      {/* Section 3 — Direction. Consolidated dark chapter, now on the
-          studio-ink ground (the product's own palette) to differentiate
-          it from Composer's dark olive. Eyebrow + headline + body, the
-          live session canvas as the visualization, three numbered steps
-          doubling as captions, the deploys line, and the exclusivity
-          coda that previously held its own section. */}
-      <DirectionShowcase />
-
-      {/* Section 5 — Access */}
-      <section
-        style={{
-          padding: "96px 24px",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
-        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
-          <ScrollReveal>
-            <Eyebrow label="Access" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(26px, 3.4vw, 36px)",
-                fontWeight: 500,
-                lineHeight: 1.08,
-                color: C.olive,
-                margin: "0 0 22px",
-              }}
-            >
-              How to get into Opus.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p
-              style={{
-                fontSize: "16px",
-                lineHeight: 1.7,
-                color: C.text,
-                opacity: 0.82,
-                margin: "0 0 24px",
-              }}
-            >
-              Opus is included with every Lyric voice licensing agreement.
-              Pricing for licensing is custom-quoted based on tier, scope,
-              and deployment context.
-            </p>
-            <Link href="/imprint/license" className="lv-link-cta">
-              Inquire about licensing{" "}
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Section 7 — Two paths forward.
-          The shared conversion bookend (components/TwoPathsForward.tsx):
-          dark olive Final-CTA composition with two pill buttons,
-          mirroring the home page's "voice-first era" close. Also used
-          at the bottom of /imprint. */}
-      <TwoPathsForward />
-    </main>
+    <Link href={href} className={className} style={style}>
+      {children}
+    </Link>
   )
 }
 
-function Eyebrow({ label }: { label: string }) {
+/* Mono small-caps eyebrow, dot + label, in the site's editorial register. */
+function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean }) {
   return (
-    <div
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "10px",
-        margin: "0 0 22px",
-      }}
-    >
-      <span
-        aria-hidden="true"
-        style={{
-          width: "8px",
-          height: "8px",
-          borderRadius: "50%",
-          background: C.sage,
-        }}
-      />
-      <span
-        style={{
-          fontSize: "11px",
-          fontWeight: 700,
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          color: C.olive,
-        }}
-      >
-        {label}
-      </span>
+    <div className={`lv-philosophy-eyebrow lv-opus-eyebrow${onDark ? " is-dark" : ""}`}>
+      <span className="lv-eyebrow-dot" aria-hidden="true" />
+      <span>{label}</span>
     </div>
   )
 }
 
-function StoryboardTile({
-  src,
-  aria,
-  caption,
-}: {
-  src: string
-  aria: string
-  caption: string
-}) {
+/* Movement 3 — the mechanism. Plain numbered steps, no dimension-list repeats. */
+const STEPS = [
+  {
+    n: "01",
+    title: "Codify",
+    body:
+      "Opus turns your brand's voice into a portable spec. Persona, lexicon, pronunciation, the words you say and the ones you don't.",
+  },
+  {
+    n: "02",
+    title: "Govern",
+    body:
+      "Every agent is held to that spec at the point of generation, so it stays on brand before a word reaches the customer.",
+  },
+  {
+    n: "03",
+    title: "Port",
+    body:
+      "The spec rides above the language model and the speech engine. It works with whatever model and engine you already run. Change either one and the brand voice stays the same.",
+  },
+]
+
+/* Movement 4 — Sonic intake starters. Static mock; the first tile reads as
+   pre-selected to show recognition-over-recall, but nothing is interactive here.
+   The whole section is a preview that funnels to /start. */
+const STARTERS = [
+  { label: "Refi qualifier", hint: "Mortgage", selected: true },
+  { label: "Patient intake", hint: "Healthcare", selected: false },
+  { label: "Claims intake", hint: "Insurance", selected: false },
+  { label: "Custom", hint: "Start blank", selected: false },
+]
+
+/* Movement 5 — channel-distinct chat bubbles. Styled to read as SMS vs web chat
+   while staying on the Lyric palette; deliberately NOT iMessage blue. */
+type Channel = "sms" | "web"
+function Bubble({ channel, children }: { channel: Channel; children: ReactNode }) {
   return (
-    <figure className="lv-opus-storyboard-tile">
-      <div className="lv-opus-storyboard-frame">
-        <video
-          src={src}
-          aria-label={aria}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
-      </div>
-      <figcaption className="lv-opus-storyboard-caption">{caption}</figcaption>
-    </figure>
+    <div className={`lv-opus-bubble lv-opus-bubble-${channel}`}>
+      <span className="lv-opus-bubble-tag">{channel === "sms" ? "SMS" : "Web chat"}</span>
+      <p className="lv-opus-bubble-text">{children}</p>
+    </div>
+  )
+}
+
+export default function OpusPage() {
+  return (
+    <main className="lv-opus">
+      {/* ── Movement 1 — Hero. Name the problem; let the type carry it. ── */}
+      <section className="lv-opus-hero">
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="Opus" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h1 className="lv-opus-hero-head">
+              Your agents are multiplying. They don&rsquo;t sound like the{" "}
+              <em>same company</em>.
+            </h1>
+          </ScrollReveal>
+          <ScrollReveal delay={220}>
+            <p className="lv-opus-hero-sub">
+              Every channel adds another agent. Each one drifts a little further
+              from your brand. Opus is the layer that holds all of them to one
+              voice.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={320}>
+            <div className="lv-cta-row">
+              <CTA href={START} variant="dark">
+                Try for free
+              </CTA>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Movement 2 — Hear it. Before/after voice, the visceral proof. ── */}
+      <section className="lv-opus-hear">
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="Hear it" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <p className="lv-opus-hear-framing">
+              Same bank. Same questions. The agents work. They just don&rsquo;t
+              sound like the same company.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={220}>
+            <OpusHearIt />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Movement 3 — How it works. The mechanism, on a near-black chapter
+            ground for weight. ── */}
+      <section className="lv-opus-how" style={{ background: DARK }}>
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="How it works" onDark />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-opus-how-head">
+              One spec. Every agent held to it.
+            </h2>
+          </ScrollReveal>
+          <div className="lv-opus-steps">
+            {STEPS.map((s, i) => (
+              <ScrollReveal key={s.n} delay={180 + i * 90}>
+                <div className="lv-opus-step">
+                  <span className="lv-opus-step-n">{s.n}</span>
+                  <h3 className="lv-opus-step-title">{s.title}</h3>
+                  <p className="lv-opus-step-body">{s.body}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+          <ScrollReveal delay={460}>
+            <p className="lv-opus-how-position">
+              We direct the engines. <em>We are not one of them.</em>
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Movement 4 — Meet Sonic. The on-ramp. Static preview that funnels
+            to /start; Sonic codifies your brand voice, it does not build agents. ── */}
+      <section className="lv-opus-sonic">
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="Sonic" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-opus-sonic-head">
+              Tell Sonic about your brand. <em>It does the rest.</em>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={200}>
+            <p className="lv-opus-sonic-body">
+              Sonic is the guided intake. It doesn&rsquo;t ask you to describe
+              your voice in adjectives. It shows you options and you pick the ones
+              that sound like you. Your choices become the spec. A few minutes in,
+              you have a governed voice for your first agent.
+            </p>
+          </ScrollReveal>
+
+          {/* Static mock of the intake's first screen: recognition over recall.
+              This is a preview only, not a working intake.
+              links to /start — Sonic intake flow (not yet built). */}
+          <ScrollReveal delay={280}>
+            <Link href={START} className="lv-opus-sonic-mock" aria-label="Preview the Sonic intake, opens Try for free">
+              <span className="lv-opus-mock-prompt">Where should we start?</span>
+              <span className="lv-opus-tiles">
+                {STARTERS.map((t) => (
+                  <span
+                    key={t.label}
+                    className={`lv-opus-tile${t.selected ? " is-selected" : ""}`}
+                  >
+                    <span className="lv-opus-tile-label">{t.label}</span>
+                    <span className="lv-opus-tile-hint">{t.hint}</span>
+                  </span>
+                ))}
+              </span>
+              <span className="lv-opus-mock-note">Preview. The intake opens in Try for free.</span>
+            </Link>
+          </ScrollReveal>
+
+          <ScrollReveal delay={360}>
+            <div className="lv-cta-row">
+              <CTA href={START} variant="dark">
+                Try Sonic free
+              </CTA>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Movement 5 — See it in text. Cross-agent consistency, built as styled
+            markup, no audio. ── */}
+      <section className="lv-opus-proof">
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="In text" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <p className="lv-opus-proof-framing">
+              Same brand. Three agents. One question:{" "}
+              <em>&ldquo;Did my payment go through?&rdquo;</em>
+            </p>
+          </ScrollReveal>
+
+          <div className="lv-opus-proof-grid">
+            <ScrollReveal delay={200}>
+              <div className="lv-opus-proof-col lv-opus-proof-before">
+                <p className="lv-opus-proof-label">
+                  Ungoverned <span>Three agents, three personalities</span>
+                </p>
+                <Bubble channel="sms">yep payment went thru 👍 you&rsquo;re good</Bubble>
+                <Bubble channel="web">
+                  I have confirmed receipt of your remittance. The transaction has
+                  been successfully processed and posted to your account.
+                </Bubble>
+                <Bubble channel="sms">
+                  Hi! So I checked and yes it looks like it went through okay 😊 let
+                  me know if you need anything else!!
+                </Bubble>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={300}>
+              <div className="lv-opus-proof-col lv-opus-proof-after">
+                <p className="lv-opus-proof-label">
+                  Governed <span>Three agents, one brand</span>
+                </p>
+                <Bubble channel="sms">Your payment posted today. You&rsquo;re all set.</Bubble>
+                <Bubble channel="web">
+                  Your payment posted today. You&rsquo;re all set. You can see it in
+                  your account under Activity.
+                </Bubble>
+                <Bubble channel="sms">Your payment posted today. You&rsquo;re all set.</Bubble>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={380}>
+            <p className="lv-opus-proof-caption">
+              Governance adapts to the channel without losing the brand. The web
+              chat can say more. The voice never changes.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Movement 6 — Closing CTA. Funnel to Try for free. Reuses the shared
+            .lv-final composition on a near-black ground. ── */}
+      <section className="lv-final lv-opus-close" style={{ background: DARK }}>
+        <ScrollReveal>
+          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>One brand voice, everywhere</span>
+          </div>
+          <h2>
+            <span className="lv-final-line">All your agents,</span>
+            <br />
+            <span className="lv-final-line">one <em>brand voice</em>.</span>
+          </h2>
+          <div className="lv-cta-row lv-cta-row-center">
+            <CTA href={START} variant="light">
+              Try for free
+            </CTA>
+          </div>
+        </ScrollReveal>
+      </section>
+    </main>
   )
 }
