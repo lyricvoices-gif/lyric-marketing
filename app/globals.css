@@ -8189,18 +8189,32 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ── Movement 1 — Hero ────────────────────────────────────────────────────── */
 .lv-opus-hero {
-  padding: 132px 0 84px;
+  padding: 120px 0 80px;
+}
+
+/* Two-column on desktop: the claim on the left, the drift visual on the right.
+   Single column on mobile (copy, then visual below). Mirrors the home hero
+   grid proportions. */
+.lv-opus-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.lv-opus-hero-copy {
+  max-width: 560px;
 }
 
 .lv-opus-hero-head {
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: -0.01em;
-  line-height: 1.02;
+  line-height: 1.03;
   color: var(--olive);
-  font-size: clamp(38px, 7vw, 78px);
-  margin: 0 0 26px;
-  max-width: 16ch;
+  font-size: clamp(34px, 5.4vw, 60px);
+  margin: 0 0 24px;
+  max-width: 15ch;
 }
 
 .lv-opus-hero-head em {
@@ -8210,12 +8224,196 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-opus-hero-sub {
   font-family: var(--font-body);
-  font-size: clamp(17px, 2.2vw, 20px);
+  font-size: clamp(16px, 2.2vw, 19px);
   line-height: 1.55;
   color: var(--olive);
   opacity: 0.84;
   margin: 0 0 32px;
-  max-width: 620px;
+  max-width: 540px;
+}
+
+/* ── Hero drift visual ── */
+.lv-opus-drift {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+}
+
+.lv-opus-drift-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lv-opus-drift-bar-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 72%, transparent);
+}
+
+.lv-opus-drift-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 58%, transparent);
+}
+
+.lv-opus-drift-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--olive) 40%, transparent);
+}
+
+.lv-opus-drift-live-dot.is-live {
+  background: var(--gold);
+  animation: lv-conv-pulse 1.5s ease-in-out infinite;
+}
+
+/* Shared customer question — present at load, the constant the three agents
+   drift away from. */
+.lv-opus-drift-q {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border-top-right-radius: 5px;
+  background: color-mix(in srgb, var(--olive) 8%, var(--bg-light));
+}
+
+.lv-opus-drift-q-tag {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
+}
+
+.lv-opus-drift-q-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--olive);
+}
+
+.lv-opus-drift-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Cards are rendered from the start so space is reserved and nothing reflows;
+   hidden until revealed, then they settle in (reusing the home hero keyframe). */
+.lv-opus-drift-card {
+  opacity: 0;
+  padding: 13px 15px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  background: var(--bg-light);
+  box-shadow: 0 1px 2px rgba(43, 42, 37, 0.04), 0 14px 30px -22px rgba(43, 42, 37, 0.22);
+}
+
+.lv-opus-drift-card.is-shown {
+  animation: lv-conv-in 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Each channel takes a distinct on-palette accent (sage / gold / olive). The
+   differing accents are part of the point: the agents do not match. */
+.lv-opus-drift-card.is-call {
+  border-left-color: var(--sage);
+}
+
+.lv-opus-drift-card.is-chat {
+  border-left-color: var(--gold);
+}
+
+.lv-opus-drift-card.is-sms {
+  border-left-color: var(--olive);
+}
+
+.lv-opus-drift-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 8px;
+}
+
+.lv-opus-drift-chan {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.lv-opus-drift-chan-icon {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+
+.lv-opus-drift-chan-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.lv-opus-drift-card.is-call .lv-opus-drift-chan-icon {
+  color: color-mix(in srgb, var(--sage) 70%, var(--olive));
+}
+
+.lv-opus-drift-card.is-chat .lv-opus-drift-chan-icon {
+  color: color-mix(in srgb, var(--gold) 60%, var(--olive));
+}
+
+.lv-opus-drift-card.is-sms .lv-opus-drift-chan-icon {
+  color: var(--olive);
+}
+
+.lv-opus-drift-agent {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 48%, transparent);
+}
+
+.lv-opus-drift-reply {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--olive);
+}
+
+.lv-opus-drift-foot {
+  margin: 16px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.lv-opus-drift-foot.is-shown {
+  opacity: 1;
 }
 
 /* ── Movement 2 — Hear it ─────────────────────────────────────────────────── */
@@ -8720,7 +8918,7 @@ main:has(.lv-hero) { padding-top: 0; }
 /* ── Desktop ──────────────────────────────────────────────────────────────── */
 @media (min-width: 769px) {
   .lv-opus-hero {
-    padding: 156px 0 100px;
+    padding: 132px 0 96px;
   }
 
   .lv-opus-steps {
@@ -8735,6 +8933,20 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-opus-proof-grid {
     grid-template-columns: 1fr 1fr;
     gap: 28px;
+  }
+}
+
+/* Hero two-column kicks in a touch wider than the page's main breakpoint so the
+   headline and drift visual each keep enough room before they sit side by side. */
+@media (min-width: 900px) {
+  .lv-opus-hero-grid {
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+    gap: 64px;
+  }
+
+  .lv-opus-drift {
+    margin: 0;
+    margin-left: auto;
   }
 }
 
@@ -8753,5 +8965,20 @@ main:has(.lv-hero) { padding-top: 0; }
 
   .lv-opus-sonic-mock:hover {
     transform: none;
+  }
+
+  /* Drift visual: show all three answers at once, static. */
+  .lv-opus-drift-card {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .lv-opus-drift-foot {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .lv-opus-drift-live-dot.is-live {
+    animation: none !important;
   }
 }

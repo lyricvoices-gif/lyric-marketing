@@ -22,6 +22,7 @@ import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import OpusHearIt from "@/components/opus/OpusHearIt"
+import OpusDriftVisual from "@/components/hero/OpusDriftVisual"
 
 export const metadata: Metadata = {
   title: "Opus",
@@ -141,32 +142,40 @@ function Bubble({ channel, children }: { channel: Channel; children: ReactNode }
 export default function OpusPage() {
   return (
     <main className="lv-opus">
-      {/* ── Movement 1 — Hero. Name the problem; let the type carry it. ── */}
+      {/* ── Movement 1 — Hero. Name the problem. The type carries the claim;
+            the drift visual proves it — three agents answering one question in
+            three voices (call, then chat, then SMS). ── */}
       <section className="lv-opus-hero">
-        <div className="lv-opus-wrap">
-          <ScrollReveal>
-            <Eyebrow label="Opus" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h1 className="lv-opus-hero-head">
-              Your agents are multiplying. They don&rsquo;t sound like the{" "}
-              <em>same company</em>.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p className="lv-opus-hero-sub">
-              Every channel adds another agent. Each one drifts a little further
-              from your brand. Opus is the layer that holds all of them to one
-              voice.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={320}>
-            <div className="lv-cta-row">
-              <CTA href={START} variant="dark">
-                Try for free
-              </CTA>
-            </div>
-          </ScrollReveal>
+        <div className="lv-opus-wrap lv-opus-hero-grid">
+          <div className="lv-opus-hero-copy">
+            <ScrollReveal>
+              <Eyebrow label="Opus" />
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <h1 className="lv-opus-hero-head">
+                Your agents are multiplying. They don&rsquo;t sound like the{" "}
+                <em>same company</em>.
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={220}>
+              <p className="lv-opus-hero-sub">
+                Every channel adds another agent. Each one drifts a little
+                further from your brand. Opus is the layer that holds all of them
+                to one voice.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={320}>
+              <div className="lv-cta-row">
+                <CTA href={START} variant="dark">
+                  Try for free
+                </CTA>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <div className="lv-opus-hero-demo">
+            <OpusDriftVisual />
+          </div>
         </div>
       </section>
 
