@@ -8895,34 +8895,107 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 640px;
 }
 
-/* Sonic preview — an illustrative, interactive card. Picking a starter switches
-   the illustration below; nothing is captured. */
+/* Sonic preview — an illustrative, AUTO-PLAYING canvas. Fully non-interactive;
+   it plays itself and loops. Light Lyric-palette frame. */
 .lv-opus-sp {
   max-width: 660px;
   margin: 40px 0 32px;
-  padding: 26px;
   border: 1px solid var(--border);
   border-radius: 20px;
   background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
+  overflow: hidden;
+  transition: opacity 0.5s ease;
 }
 
-.lv-opus-sp-eyebrow {
-  display: block;
+.lv-opus-sp.is-resetting {
+  opacity: 0.5;
+}
+
+.lv-opus-sp-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lv-opus-sp-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lv-opus-sp-brand-name {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 58%, transparent);
-  margin: 0 0 14px;
+  color: var(--olive);
 }
 
-.lv-opus-sp-tiles {
+.lv-opus-sp-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.lv-opus-sp-dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--olive) 32%, transparent);
+}
+
+/* Both layers share one grid cell so the stage height stays stable as they
+   cross-fade (both remain in the DOM throughout). */
+.lv-opus-sp-stage {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  padding: 24px 24px 16px;
+  min-height: 320px;
+}
+
+.lv-opus-sp-starter,
+.lv-opus-sp-convo {
+  grid-area: 1 / 1;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Starter layer */
+.lv-opus-sp-starter {
+  opacity: 1;
+}
+
+.lv-opus-sp-starter.is-out {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.lv-opus-sp-prompt {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.15;
+  color: var(--olive);
+  margin: 0 0 6px;
+}
+
+.lv-opus-sp-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--olive) 65%, transparent);
+  margin: 0 0 20px;
+}
+
+.lv-opus-sp-cards {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
-.lv-opus-sp-tile {
+.lv-opus-sp-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -8930,75 +9003,132 @@ main:has(.lv-hero) { padding-top: 0; }
   border: 1px solid var(--border);
   border-radius: 13px;
   background: var(--bg-light);
-  text-align: left;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
 }
 
-.lv-opus-sp-tile:hover {
-  border-color: color-mix(in srgb, var(--olive) 40%, transparent);
-}
-
-.lv-opus-sp-tile.is-selected {
+.lv-opus-sp-card.is-picked {
   border-color: var(--olive);
   background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
   box-shadow: inset 0 0 0 1px var(--olive);
 }
 
-.lv-opus-sp-tile-label {
+.lv-opus-sp-card-label {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
   color: var(--olive);
 }
 
-.lv-opus-sp-tile-hint {
+.lv-opus-sp-card-tag {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--olive) 52%, transparent);
 }
 
-/* The illustrative reveal. Re-keyed per selection so it replays. */
-.lv-opus-sp-reveal {
-  margin: 22px 0 0;
-  padding: 20px 0 0;
-  border-top: 1px solid var(--border);
+.lv-opus-sp-card-see {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
 }
 
-.lv-opus-sp-prompt {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(18px, 2.4vw, 22px);
-  line-height: 1.2;
+/* Conversation layer */
+.lv-opus-sp-convo {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.lv-opus-sp-convo.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lv-opus-sp-crumb {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 5px 11px;
+  border-radius: 100px;
+  border: 1px solid color-mix(in srgb, var(--olive) 30%, transparent);
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--olive);
+}
+
+.lv-opus-sp-crumb span {
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
+}
+
+.lv-opus-sp-ask {
+  display: flex;
+  gap: 9px;
   margin: 0 0 16px;
 }
 
-.lv-opus-sp-voices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.lv-opus-sp-ask p {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.25;
+  color: var(--olive);
+  margin: 0;
 }
 
-.lv-opus-sp-voice {
-  display: inline-flex;
+.lv-opus-sp-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--gold);
+  animation: lv-opus-sp-caret 0.9s steps(2, end) infinite;
+}
+
+@keyframes lv-opus-sp-caret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.lv-opus-sp-takes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.lv-opus-sp-take {
+  display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 100px;
+  border-radius: 12px;
   background: var(--bg-light);
   opacity: 0;
   transform: translateY(8px);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.lv-opus-sp-takes.is-shown .lv-opus-sp-take {
   animation: lv-opus-sp-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--d, 0ms);
 }
 
-.lv-opus-sp-voice.is-pick {
+.lv-opus-sp-take.is-picked {
   border-color: var(--olive);
-  background: color-mix(in srgb, var(--gold) 18%, var(--bg-light));
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
   box-shadow: inset 0 0 0 1px var(--olive);
 }
 
@@ -9006,13 +9136,29 @@ main:has(.lv-hero) { padding-top: 0; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.lv-opus-sp-voice-name {
+.lv-opus-sp-take-text {
+  flex: 1;
   font-family: var(--font-body);
   font-size: 14px;
+  line-height: 1.4;
   color: var(--olive);
 }
 
-/* Tiny static waveform glyph — recognition cue, not a player. */
+.lv-opus-sp-take-mark {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--olive) 30%, transparent);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lv-opus-sp-take.is-picked .lv-opus-sp-take-mark {
+  background: var(--olive);
+  border-color: var(--olive);
+}
+
+/* Waveform glyph — recognition cue, not a player. */
 .lv-opus-sp-wave {
   display: inline-flex;
   align-items: center;
@@ -9023,7 +9169,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-opus-sp-wave i {
   width: 2.5px;
   border-radius: 2px;
-  background: color-mix(in srgb, var(--olive) 55%, transparent);
+  background: color-mix(in srgb, var(--olive) 50%, transparent);
 }
 
 .lv-opus-sp-wave i:nth-child(1) { height: 6px; }
@@ -9032,15 +9178,60 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-opus-sp-wave i:nth-child(4) { height: 13px; }
 .lv-opus-sp-wave i:nth-child(5) { height: 7px; }
 
-.lv-opus-sp-voice.is-pick .lv-opus-sp-wave i {
+.lv-opus-sp-take.is-picked .lv-opus-sp-wave i {
   background: var(--olive);
 }
 
-.lv-opus-sp-voice-mark {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--olive);
+/* Spec summary — the pick becomes the brand-voice spec. */
+.lv-opus-sp-spec {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lv-opus-sp-spec.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lv-opus-sp-spec-head {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 60%, transparent);
+  margin: 0 0 10px;
+}
+
+.lv-opus-sp-spec-rows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+}
+
+.lv-opus-sp-spec-rows > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lv-opus-sp-spec-rows dt {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 50%, transparent);
+}
+
+.lv-opus-sp-spec-rows dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--olive);
 }
 
 .lv-opus-sp-note {
@@ -9049,7 +9240,8 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--olive) 52%, transparent);
-  margin: 18px 0 0;
+  margin: 0;
+  padding: 0 24px 20px;
 }
 
 /* ── Movement 5 — See it in text ──────────────────────────────────────────── */
@@ -9246,8 +9438,8 @@ main:has(.lv-hero) { padding-top: 0; }
     border-right-color: var(--gold);
   }
 
-  .lv-opus-sp-tiles {
-    grid-template-columns: repeat(4, 1fr);
+  .lv-opus-sp-cards {
+    grid-template-columns: 1fr 1fr;
   }
 
   .lv-opus-proof-grid {
@@ -9273,8 +9465,7 @@ main:has(.lv-hero) { padding-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .lv-opus-ab-btn,
   .lv-opus-ab-control,
-  .lv-opus-ab-ring-prog,
-  .lv-opus-sp-tile {
+  .lv-opus-ab-ring-prog {
     transition: none;
   }
 
@@ -9302,10 +9493,24 @@ main:has(.lv-hero) { padding-top: 0; }
     transition: none !important;
   }
 
-  /* Sonic preview: reveal the illustration without animation. */
-  .lv-opus-sp-voice {
+  /* Sonic preview: static completed elicitation moment, no animation or loop. */
+  .lv-opus-sp,
+  .lv-opus-sp-starter,
+  .lv-opus-sp-convo,
+  .lv-opus-sp-card,
+  .lv-opus-sp-spec {
+    transition: none !important;
+  }
+
+  .lv-opus-sp-takes.is-shown .lv-opus-sp-take,
+  .lv-opus-sp-take,
+  .lv-opus-sp-spec {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .lv-opus-sp-caret {
     animation: none !important;
   }
 
