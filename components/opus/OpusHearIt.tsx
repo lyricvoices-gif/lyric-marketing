@@ -178,21 +178,6 @@ export default function OpusHearIt() {
         )
       })}
 
-      {/* PLACEHOLDER: processing/dead-air cue — sound pack pending.
-          Visual-only affordance for the agent's "thinking" moment. When the
-          sound pack ships, this indicator is where the audio cue gets paired in;
-          we do NOT synthesize or fabricate a cue here. */}
-      <div className="lv-opus-think" role="note" aria-label="Processing cue placeholder, audio pending">
-        <span className="lv-opus-think-dots" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </span>
-        <span className="lv-opus-think-label">
-          Processing cue &middot; sound pack pending
-        </span>
-      </div>
-
       {/* One shared element: starting any take stops the previous one. */}
       <audio ref={audioRef} preload="none" />
     </div>

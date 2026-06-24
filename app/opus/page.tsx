@@ -23,6 +23,9 @@ import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import OpusHearIt from "@/components/opus/OpusHearIt"
 import OpusDriftVisual from "@/components/hero/OpusDriftVisual"
+import OpusFlow from "@/components/opus/OpusFlow"
+import SonicPreview from "@/components/opus/SonicPreview"
+import InTextProof from "@/components/opus/InTextProof"
 
 export const metadata: Metadata = {
   title: "Opus",
@@ -95,50 +98,6 @@ function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean })
   )
 }
 
-/* Movement 3 — the mechanism. Plain numbered steps, no dimension-list repeats. */
-const STEPS = [
-  {
-    n: "01",
-    title: "Codify",
-    body:
-      "Opus turns your brand's voice into a portable spec. Persona, lexicon, pronunciation, the words you say and the ones you don't.",
-  },
-  {
-    n: "02",
-    title: "Govern",
-    body:
-      "Every agent is held to that spec at the point of generation, so it stays on brand before a word reaches the customer.",
-  },
-  {
-    n: "03",
-    title: "Port",
-    body:
-      "The spec rides above the language model and the speech engine. It works with whatever model and engine you already run. Change either one and the brand voice stays the same.",
-  },
-]
-
-/* Movement 4 — Sonic intake starters. Static mock; the first tile reads as
-   pre-selected to show recognition-over-recall, but nothing is interactive here.
-   The whole section is a preview that funnels to /start. */
-const STARTERS = [
-  { label: "Refi qualifier", hint: "Mortgage", selected: true },
-  { label: "Patient intake", hint: "Healthcare", selected: false },
-  { label: "Claims intake", hint: "Insurance", selected: false },
-  { label: "Custom", hint: "Start blank", selected: false },
-]
-
-/* Movement 5 — channel-distinct chat bubbles. Styled to read as SMS vs web chat
-   while staying on the Lyric palette; deliberately NOT iMessage blue. */
-type Channel = "sms" | "web"
-function Bubble({ channel, children }: { channel: Channel; children: ReactNode }) {
-  return (
-    <div className={`lv-opus-bubble lv-opus-bubble-${channel}`}>
-      <span className="lv-opus-bubble-tag">{channel === "sms" ? "SMS" : "Web chat"}</span>
-      <p className="lv-opus-bubble-text">{children}</p>
-    </div>
-  )
-}
-
 export default function OpusPage() {
   return (
     <main className="lv-opus">
@@ -197,7 +156,8 @@ export default function OpusPage() {
         </div>
       </section>
 
-      {/* ── Movement 3 — How it works. The mechanism, on a near-black chapter
+      {/* ── Movement 3 — How it works. The mechanism as a left-to-right visual
+            flow (OpusFlow); structure and motion over prose. Near-black chapter
             ground for weight. ── */}
       <section className="lv-opus-how" style={{ background: DARK }}>
         <div className="lv-opus-wrap">
@@ -209,18 +169,10 @@ export default function OpusPage() {
               One spec. Every agent held to it.
             </h2>
           </ScrollReveal>
-          <div className="lv-opus-steps">
-            {STEPS.map((s, i) => (
-              <ScrollReveal key={s.n} delay={180 + i * 90}>
-                <div className="lv-opus-step">
-                  <span className="lv-opus-step-n">{s.n}</span>
-                  <h3 className="lv-opus-step-title">{s.title}</h3>
-                  <p className="lv-opus-step-body">{s.body}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-          <ScrollReveal delay={460}>
+
+          <OpusFlow />
+
+          <ScrollReveal delay={120}>
             <p className="lv-opus-how-position">
               We direct the engines. <em>We are not one of them.</em>
             </p>
@@ -228,8 +180,10 @@ export default function OpusPage() {
         </div>
       </section>
 
-      {/* ── Movement 4 — Meet Sonic. The on-ramp. Static preview that funnels
-            to /start; Sonic codifies your brand voice, it does not build agents. ── */}
+      {/* ── Movement 4 — Meet Sonic. The on-ramp. An illustrative, interactive
+            preview (SonicPreview) that demonstrates show-don't-ask without
+            collecting input, then funnels to /start. Sonic codifies your brand
+            voice, it does not build agents. ── */}
       <section className="lv-opus-sonic">
         <div className="lv-opus-wrap">
           <ScrollReveal>
@@ -249,25 +203,8 @@ export default function OpusPage() {
             </p>
           </ScrollReveal>
 
-          {/* Static mock of the intake's first screen: recognition over recall.
-              This is a preview only, not a working intake.
-              links to /start — Sonic intake flow (not yet built). */}
           <ScrollReveal delay={280}>
-            <Link href={START} className="lv-opus-sonic-mock" aria-label="Preview the Sonic intake, opens Try for free">
-              <span className="lv-opus-mock-prompt">Where should we start?</span>
-              <span className="lv-opus-tiles">
-                {STARTERS.map((t) => (
-                  <span
-                    key={t.label}
-                    className={`lv-opus-tile${t.selected ? " is-selected" : ""}`}
-                  >
-                    <span className="lv-opus-tile-label">{t.label}</span>
-                    <span className="lv-opus-tile-hint">{t.hint}</span>
-                  </span>
-                ))}
-              </span>
-              <span className="lv-opus-mock-note">Preview. The intake opens in Try for free.</span>
-            </Link>
+            <SonicPreview />
           </ScrollReveal>
 
           <ScrollReveal delay={360}>
@@ -294,38 +231,7 @@ export default function OpusPage() {
             </p>
           </ScrollReveal>
 
-          <div className="lv-opus-proof-grid">
-            <ScrollReveal delay={200}>
-              <div className="lv-opus-proof-col lv-opus-proof-before">
-                <p className="lv-opus-proof-label">
-                  Ungoverned <span>Three agents, three personalities</span>
-                </p>
-                <Bubble channel="sms">yep payment went thru 👍 you&rsquo;re good</Bubble>
-                <Bubble channel="web">
-                  I have confirmed receipt of your remittance. The transaction has
-                  been successfully processed and posted to your account.
-                </Bubble>
-                <Bubble channel="sms">
-                  Hi! So I checked and yes it looks like it went through okay 😊 let
-                  me know if you need anything else!!
-                </Bubble>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300}>
-              <div className="lv-opus-proof-col lv-opus-proof-after">
-                <p className="lv-opus-proof-label">
-                  Governed <span>Three agents, one brand</span>
-                </p>
-                <Bubble channel="sms">Your payment posted today. You&rsquo;re all set.</Bubble>
-                <Bubble channel="web">
-                  Your payment posted today. You&rsquo;re all set. You can see it in
-                  your account under Activity.
-                </Bubble>
-                <Bubble channel="sms">Your payment posted today. You&rsquo;re all set.</Bubble>
-              </div>
-            </ScrollReveal>
-          </div>
+          <InTextProof />
 
           <ScrollReveal delay={380}>
             <p className="lv-opus-proof-caption">

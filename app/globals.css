@@ -8573,52 +8573,6 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 16px 0 0;
 }
 
-/* Processing-cue placeholder — visual only, audio pending. */
-.lv-opus-think {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  margin-top: 8px;
-  padding: 9px 16px;
-  border: 1px dashed color-mix(in srgb, var(--olive) 32%, transparent);
-  border-radius: 100px;
-}
-
-.lv-opus-think-dots {
-  display: inline-flex;
-  gap: 5px;
-}
-
-.lv-opus-think-dots span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  opacity: 0.4;
-  animation: lv-opus-think 1.4s ease-in-out infinite;
-}
-
-.lv-opus-think-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.lv-opus-think-dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes lv-opus-think {
-  0%, 100% { opacity: 0.3; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-2px); }
-}
-
-.lv-opus-think-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 60%, transparent);
-}
-
 /* ── Movement 3 — How it works (dark chapter) ─────────────────────────────── */
 .lv-opus-how {
   padding: 108px 0;
@@ -8638,38 +8592,260 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 18ch;
 }
 
-.lv-opus-steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 48px;
+/* Visual flow — the spec moving Codify → Govern → Port. Mobile: stacked column
+   with downward connectors. Desktop: a left-to-right row (see the 769px block). */
+.lv-opus-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin: 8px 0 0;
 }
 
-.lv-opus-step-n {
-  display: block;
+.lv-opus-flow-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 1 0;
+  opacity: 0.4;
+  transition: opacity 0.6s ease;
+}
+
+.lv-opus-flow-stage.is-active {
+  opacity: 1;
+}
+
+.lv-opus-flow-num {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
   line-height: 0.9;
   color: var(--gold);
-  font-size: clamp(40px, 6vw, 54px);
+  font-size: clamp(34px, 5vw, 46px);
+  margin: 0 0 16px;
+}
+
+/* The art band — a fixed-height stage so every visual shares a baseline and the
+   row reads as one connected flow. */
+.lv-opus-flow-art {
+  width: 100%;
+  min-height: 116px;
+  display: flex;
+  align-items: center;
   margin: 0 0 18px;
 }
 
-.lv-opus-step-title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 1.1;
-  color: var(--bg-light);
-  margin: 0 0 14px;
+.lv-opus-flow-art-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-.lv-opus-step-body {
+.lv-opus-flow-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--bg-light);
+  margin: 0 0 8px;
+}
+
+.lv-opus-flow-line {
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255, 248, 236, 0.78);
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(255, 248, 236, 0.74);
   margin: 0;
+  max-width: 30ch;
+}
+
+/* Connector — a gold-filling line with an arrowhead. Vertical on mobile,
+   horizontal on desktop. */
+.lv-opus-flow-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: 40px;
+  height: 30px;
+  margin: 2px 0 2px 8px;
+}
+
+.lv-opus-flow-link-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 248, 236, 0.16);
+  overflow: hidden;
+}
+
+.lv-opus-flow-link-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s ease;
+}
+
+.lv-opus-flow-link.is-on .lv-opus-flow-link-line::after {
+  transform: scaleY(1);
+}
+
+.lv-opus-flow-link-head {
+  position: absolute;
+  left: -3px;
+  bottom: -1px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid rgba(255, 248, 236, 0.16);
+  border-bottom: 2px solid rgba(255, 248, 236, 0.16);
+  transform: rotate(45deg);
+  transition: border-color 0.6s ease;
+}
+
+.lv-opus-flow-link.is-on .lv-opus-flow-link-head {
+  border-right-color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* The spec object — same chip in every stage. */
+.lv-opus-spec {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border-radius: 11px;
+  background: rgba(255, 248, 236, 0.06);
+  border: 1px solid rgba(243, 209, 113, 0.5);
+}
+
+.lv-opus-spec-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.lv-opus-spec-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 14px;
+}
+
+.lv-opus-spec-bars i {
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(255, 248, 236, 0.7);
+}
+
+.lv-opus-spec-bars i:nth-child(1) { height: 7px; }
+.lv-opus-spec-bars i:nth-child(2) { height: 13px; }
+.lv-opus-spec-bars i:nth-child(3) { height: 10px; }
+
+.lv-opus-spec.is-pinned {
+  border-color: var(--gold);
+  background: rgba(243, 209, 113, 0.12);
+}
+
+.lv-opus-spec-anchor {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 3px rgba(243, 209, 113, 0.25);
+}
+
+/* Govern — the spec with agents snapping into alignment beneath a guide rule. */
+.lv-opus-govern-rule {
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: rgba(243, 209, 113, 0.5);
+}
+
+.lv-opus-govern-agents {
+  display: inline-flex;
+  gap: 7px;
+}
+
+.lv-opus-govern-agents i {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(255, 248, 236, 0.14);
+  border: 1px solid rgba(255, 248, 236, 0.3);
+  transition: transform 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+}
+
+.lv-opus-flow-stage.is-active .lv-opus-govern-agents i {
+  background: rgba(193, 193, 126, 0.32);
+  border-color: var(--sage);
+}
+
+/* Port — the spec pinned above swappable engine slots. */
+.lv-opus-port-divider {
+  display: block;
+  width: 100%;
+  max-width: 132px;
+  height: 1px;
+  background: rgba(255, 248, 236, 0.16);
+}
+
+.lv-opus-port-engines {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.lv-opus-port-engine {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 7px 9px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 248, 236, 0.05);
+  border: 1px solid rgba(255, 248, 236, 0.14);
+}
+
+.lv-opus-port-engine i {
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(255, 248, 236, 0.55);
+  transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Resting heights, then the swapped heights — the slots reshuffle to read as
+   different engines underneath while the spec above never moves. */
+.lv-opus-port-engine i:nth-child(1) { height: 8px; }
+.lv-opus-port-engine i:nth-child(2) { height: 14px; }
+.lv-opus-port-engine i:nth-child(3) { height: 6px; }
+.lv-opus-port-engine:nth-child(2) i:nth-child(1) { height: 13px; }
+.lv-opus-port-engine:nth-child(2) i:nth-child(2) { height: 7px; }
+.lv-opus-port-engine:nth-child(2) i:nth-child(3) { height: 11px; }
+
+.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(1) i:nth-child(1) { height: 12px; }
+.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(1) i:nth-child(2) { height: 6px; }
+.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(1) i:nth-child(3) { height: 14px; }
+.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(2) i:nth-child(1) { height: 7px; }
+.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(2) i:nth-child(2) { height: 13px; }
+.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(2) i:nth-child(3) { height: 9px; }
+
+.lv-opus-port-swaplabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 236, 0.5);
 }
 
 .lv-opus-how-position {
@@ -8719,78 +8895,161 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 640px;
 }
 
-.lv-opus-sonic-mock {
-  display: block;
-  max-width: 640px;
+/* Sonic preview — an illustrative, interactive card. Picking a starter switches
+   the illustration below; nothing is captured. */
+.lv-opus-sp {
+  max-width: 660px;
   margin: 40px 0 32px;
-  padding: 28px;
+  padding: 26px;
   border: 1px solid var(--border);
   border-radius: 20px;
   background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
-  text-decoration: none;
-  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-.lv-opus-sonic-mock:hover {
-  border-color: color-mix(in srgb, var(--olive) 45%, transparent);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(43, 42, 37, 0.08);
-}
-
-.lv-opus-mock-prompt {
+.lv-opus-sp-eyebrow {
   display: block;
-  font-family: var(--font-body);
-  font-size: 16px;
-  color: color-mix(in srgb, var(--olive) 75%, transparent);
-  margin: 0 0 18px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 58%, transparent);
+  margin: 0 0 14px;
 }
 
-.lv-opus-tiles {
+.lv-opus-sp-tiles {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.lv-opus-tile {
+.lv-opus-sp-tile {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 16px 18px;
+  gap: 4px;
+  padding: 14px 16px;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 13px;
   background: var(--bg-light);
-  transition: border-color 0.2s ease, background 0.2s ease;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
-.lv-opus-tile.is-selected {
+.lv-opus-sp-tile:hover {
+  border-color: color-mix(in srgb, var(--olive) 40%, transparent);
+}
+
+.lv-opus-sp-tile.is-selected {
   border-color: var(--olive);
   background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
   box-shadow: inset 0 0 0 1px var(--olive);
 }
 
-.lv-opus-tile-label {
+.lv-opus-sp-tile-label {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--olive);
 }
 
-.lv-opus-tile-hint {
+.lv-opus-sp-tile-hint {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--olive) 52%, transparent);
 }
 
-.lv-opus-mock-note {
-  display: block;
+/* The illustrative reveal. Re-keyed per selection so it replays. */
+.lv-opus-sp-reveal {
+  margin: 22px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--border);
+}
+
+.lv-opus-sp-prompt {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(18px, 2.4vw, 22px);
+  line-height: 1.2;
+  color: var(--olive);
+  margin: 0 0 16px;
+}
+
+.lv-opus-sp-voices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lv-opus-sp-voice {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: var(--bg-light);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: lv-opus-sp-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.lv-opus-sp-voice.is-pick {
+  border-color: var(--olive);
+  background: color-mix(in srgb, var(--gold) 18%, var(--bg-light));
+  box-shadow: inset 0 0 0 1px var(--olive);
+}
+
+@keyframes lv-opus-sp-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lv-opus-sp-voice-name {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--olive);
+}
+
+/* Tiny static waveform glyph — recognition cue, not a player. */
+.lv-opus-sp-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+
+.lv-opus-sp-wave i {
+  width: 2.5px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--olive) 55%, transparent);
+}
+
+.lv-opus-sp-wave i:nth-child(1) { height: 6px; }
+.lv-opus-sp-wave i:nth-child(2) { height: 12px; }
+.lv-opus-sp-wave i:nth-child(3) { height: 8px; }
+.lv-opus-sp-wave i:nth-child(4) { height: 13px; }
+.lv-opus-sp-wave i:nth-child(5) { height: 7px; }
+
+.lv-opus-sp-voice.is-pick .lv-opus-sp-wave i {
+  background: var(--olive);
+}
+
+.lv-opus-sp-voice-mark {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--olive);
+}
+
+.lv-opus-sp-note {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 50%, transparent);
-  margin: 20px 0 0;
+  color: color-mix(in srgb, var(--olive) 52%, transparent);
+  margin: 18px 0 0;
 }
 
 /* ── Movement 5 — See it in text ──────────────────────────────────────────── */
@@ -8901,6 +9160,25 @@ main:has(.lv-hero) { padding-top: 0; }
   border-radius: 12px;
 }
 
+/* Motion that enacts the point. Bubbles start hidden; on scroll-in they settle
+   in. Per-bubble transition-delay/duration come inline: the ungoverned column
+   uses mismatched timing and a side-to-side jitter (--bx) so it reads as three
+   personalities; the governed column uses an even cadence with no jitter, so it
+   resolves in unison. The is-in end-state never references --bx, so the inline
+   custom property cannot fight the final transform. */
+.lv-opus-proof-anim .lv-opus-bubble {
+  opacity: 0;
+  transform: translate(var(--bx, 0), 14px);
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 0.6s;
+}
+
+.lv-opus-proof-anim.is-in .lv-opus-bubble {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 .lv-opus-proof-caption {
   font-family: var(--font-body);
   font-size: 15px;
@@ -8921,13 +9199,55 @@ main:has(.lv-hero) { padding-top: 0; }
     padding: 132px 0 96px;
   }
 
-  .lv-opus-steps {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 56px;
+  /* Visual flow turns horizontal: stages in a row, connectors bridging across
+     and aligned to the art band. */
+  .lv-opus-flow {
+    flex-direction: row;
+    align-items: flex-start;
   }
 
-  .lv-opus-tiles {
-    grid-template-columns: repeat(2, 1fr);
+  .lv-opus-flow-link {
+    flex: 0 0 56px;
+    width: 56px;
+    height: 2px;
+    align-self: flex-start;
+    margin: 112px 8px 0;
+  }
+
+  .lv-opus-flow-link-line {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+  }
+
+  .lv-opus-flow-link-line::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .lv-opus-flow-link.is-on .lv-opus-flow-link-line::after {
+    transform: scaleX(1);
+  }
+
+  .lv-opus-flow-link-head {
+    top: 50%;
+    right: -3px;
+    left: auto;
+    bottom: auto;
+    border-top: 2px solid rgba(255, 248, 236, 0.16);
+    border-right: 2px solid rgba(255, 248, 236, 0.16);
+    border-bottom: none;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .lv-opus-flow-link.is-on .lv-opus-flow-link-head {
+    border-top-color: var(--gold);
+    border-right-color: var(--gold);
+  }
+
+  .lv-opus-sp-tiles {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .lv-opus-proof-grid {
@@ -8954,17 +9274,8 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-opus-ab-btn,
   .lv-opus-ab-control,
   .lv-opus-ab-ring-prog,
-  .lv-opus-sonic-mock {
+  .lv-opus-sp-tile {
     transition: none;
-  }
-
-  .lv-opus-think-dots span {
-    animation: none;
-    opacity: 0.7;
-  }
-
-  .lv-opus-sonic-mock:hover {
-    transform: none;
   }
 
   /* Drift visual: show all three answers at once, static. */
@@ -8980,5 +9291,28 @@ main:has(.lv-hero) { padding-top: 0; }
 
   .lv-opus-drift-live-dot.is-live {
     animation: none !important;
+  }
+
+  /* How-it-works flow: completed flow, no transitions or swap. */
+  .lv-opus-flow-stage,
+  .lv-opus-flow-link-line::after,
+  .lv-opus-flow-link-head,
+  .lv-opus-govern-agents i,
+  .lv-opus-port-engine i {
+    transition: none !important;
+  }
+
+  /* Sonic preview: reveal the illustration without animation. */
+  .lv-opus-sp-voice {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* In-text proof: both columns in their final state, no motion. */
+  .lv-opus-proof-anim .lv-opus-bubble {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
