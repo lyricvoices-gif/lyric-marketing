@@ -1,12 +1,12 @@
 "use client"
 
-/* The three pricing tiers. Output (one-time, understated) anchors the
+/* The three pricing tiers. Foundation (one-time, understated) anchors the
    comparison; Governance (subscription) is the hero — raised, gold-accented,
    with a "Recommended" badge; Enterprise (custom) is the quiet talk-to-us path.
 
    Annual is the default/primary billing anchor (the Governance entry annual
-   price sits about where the one-time Output does, so subscribing reads as the
-   obvious choice); a toggle exposes monthly as the secondary option. All prices
+   price sits about where the one-time Foundation does, so subscribing reads as
+   the obvious choice); a toggle exposes monthly as the secondary option. All prices
    come from components/pricing/pricing-data.ts — the single editable place.
 
    CTAs use named routes: "Try for free" -> /start (the trial leads into the paid
@@ -28,12 +28,12 @@ export default function PricingTiers() {
 
   return (
     <div className="lv-pricing-grid">
-      {/* Tier 1 — Output (one-time, understated) */}
+      {/* Tier 1 — Foundation (one-time, understated) */}
       <article className="lv-price-card">
-        <p className="lv-price-name">Output</p>
+        <p className="lv-price-name">Foundation</p>
         <p className="lv-price-billing">One-time</p>
         <p className="lv-price-amount">
-          {PRICING.output.amount}
+          {PRICING.foundation.amount}
           <span className="lv-price-period"> once</span>
         </p>
         <p className="lv-price-desc">
@@ -84,16 +84,16 @@ export default function PricingTiers() {
         </p>
         <p className="lv-price-sub">
           {billing === "annual"
-            ? "Billed annually. About the cost of a one-time Output, with a year of governance on top."
-            : "Billed monthly. Everything in Output, plus ongoing governance."}
+            ? "Billed annually. About the cost of a one-time Foundation, with a year of governance on top."
+            : "Billed monthly. Everything in Foundation, plus ongoing governance."}
         </p>
         <p className="lv-price-desc">
-          Everything in Output, plus ongoing governance. Evals, drift
+          Everything in Foundation, plus ongoing governance. Evals, drift
           monitoring, and re-tuning as models and engines change, across every
           agent you run.
         </p>
         <ul className="lv-price-includes">
-          <li>Everything in Output</li>
+          <li>Everything in Foundation</li>
           <li>Evals and drift monitoring</li>
           <li>Re-tuning as engines change</li>
           <li>Custom voice and sound packs included</li>

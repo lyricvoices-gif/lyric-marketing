@@ -1,8 +1,8 @@
-/* Pricing — the hybrid model: a one-time Output purchase and a recurring
+/* Pricing — the hybrid model: a one-time Foundation purchase and a recurring
    Governance subscription, plus an Enterprise talk-to-us path. The one-time
-   Output is the on-ramp; the Governance subscription is the business, so the
+   Foundation is the on-ramp; the Governance subscription is the business, so the
    page steers toward subscribing (Governance is the hero tier) while keeping
-   Output a real, standalone paid option (there is no free output).
+   Foundation a real, standalone paid option (there is no free output).
 
    Cream ground, restrained editorial register, of-a-piece with the rest of the
    site. All prices live in components/pricing/pricing-data.ts (placeholders).
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "What is the difference between Output and Governance?",
-    a: "Output is a one-time deliverable: the guided intake and a governed voice spec for one agent. Governance is a subscription that includes that output and then keeps every agent on brand over time, with evals, drift monitoring, and re-tuning as models and engines change.",
+    q: "What is the difference between Foundation and Governance?",
+    a: "Foundation is a one-time deliverable: the guided intake and a governed voice spec for one agent. Governance is a subscription that includes that output and then keeps every agent on brand over time, with evals, drift monitoring, and re-tuning as models and engines change.",
   },
   {
     q: "How does agent-based pricing work?",
