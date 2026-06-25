@@ -8460,16 +8460,16 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* Column = a column of type that is itself the play control. No box: no border,
-   no fill, no radius. Both columns share a height so the short governed line can
-   sit centered in confident space. */
+   no fill, no radius. A three-row grid (label / snippet / play) keeps the play
+   controls on a shared bottom baseline across both columns, while the snippet
+   stays vertically composed in the flexible middle row. */
 .lv-opus-hr-col {
   appearance: none;
   -webkit-appearance: none;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   gap: 18px;
-  min-height: 150px;
+  min-height: 160px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -8480,23 +8480,28 @@ main:has(.lv-hero) { padding-top: 0; }
   color: inherit;
 }
 
+/* Labels carry the opposition through hue (mono small-caps, legible accent):
+   ungoverned cool sage-olive, governed warm gold. */
 .lv-opus-hr-label {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 52%, transparent);
   transition: color 0.25s ease;
 }
 
+.lv-opus-hr-ungoverned .lv-opus-hr-label {
+  color: color-mix(in srgb, var(--sage) 52%, var(--olive));
+}
+
 .lv-opus-hr-governed .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--olive) 72%, transparent);
+  color: color-mix(in srgb, var(--gold) 60%, var(--olive));
 }
 
 /* The snippet carries the contrast in type. Same display face, opposite
-   posture. flex:1 + vertical-center = brevity reads as composed, not empty. */
+   posture. Centered in the middle row so brevity reads as composed, not empty.
+   Body text stays in the ink/olive register — never accent color. */
 .lv-opus-hr-snippet {
-  flex: 1;
   display: flex;
   align-items: center;
   font-family: var(--font-display);
@@ -8524,12 +8529,14 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
 }
 
-/* Play control — a typographic element, not a widget: a bare glyph + light
-   label, with a hairline gold underline (under the control only) that fills
-   while active. */
+/* Play control — a typographic element, not a widget: a gold play glyph (gold at
+   rest, so it reads as interactive on first scan) + a legible mono label, with a
+   hairline gold underline (under the control only) that fills while active.
+   justify-self:start keeps it content-width and left-anchored; the auto bottom
+   grid row puts it on the shared baseline. */
 .lv-opus-hr-play {
   position: relative;
-  align-self: flex-start;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -8538,20 +8545,16 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-opus-hr-glyph {
   display: inline-flex;
-  width: 11px;
-  height: 11px;
+  width: 13px;
+  height: 13px;
   flex: 0 0 auto;
-  color: color-mix(in srgb, var(--olive) 68%, transparent);
+  color: var(--gold);
   transition: color 0.25s ease;
 }
 
 .lv-opus-hr-glyph svg {
-  width: 11px;
-  height: 11px;
-}
-
-.lv-opus-hr-col.is-playing .lv-opus-hr-glyph {
-  color: var(--gold);
+  width: 13px;
+  height: 13px;
 }
 
 .lv-opus-hr-playlabel {
@@ -8559,17 +8562,20 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 52%, transparent);
+  color: color-mix(in srgb, var(--olive) 74%, transparent);
   transition: color 0.25s ease;
 }
 
-.lv-opus-hr-col:hover .lv-opus-hr-glyph,
+.lv-opus-hr-col:hover .lv-opus-hr-glyph {
+  color: color-mix(in srgb, var(--gold) 78%, var(--olive));
+}
+
 .lv-opus-hr-col:hover .lv-opus-hr-playlabel {
   color: var(--olive);
 }
 
 .lv-opus-hr-col.is-playing .lv-opus-hr-playlabel {
-  color: color-mix(in srgb, var(--olive) 78%, transparent);
+  color: var(--olive);
 }
 
 /* Hairline progress under the play control only — not a full-width rule. */
@@ -8597,12 +8603,14 @@ main:has(.lv-hero) { padding-top: 0; }
   transition: transform 0.12s linear;
 }
 
-/* Caption — quiet supporting type with space around it, no fenced band. */
+/* Caption — connective tissue: readable ink (no accent), with space around it,
+   no fenced band. Lifted toward legible olive so it does not read as washed out,
+   but kept just short of the snippet's full weight so it doesn't compete. */
 .lv-opus-hr-caption {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.55;
-  color: color-mix(in srgb, var(--olive) 70%, transparent);
+  color: color-mix(in srgb, var(--olive) 90%, transparent);
   margin: 36px 0 0;
   max-width: 60ch;
 }
