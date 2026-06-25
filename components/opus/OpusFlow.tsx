@@ -1,22 +1,20 @@
 "use client"
 
-/* Movement 3 — How it works, as a visual flow rather than prose columns.
+/* Movement 3 — How it works. A confident TYPOGRAPHIC treatment: three steps,
+   gold italic numerals, one line each, generous space. Codify and Govern carry
+   NO glyph — the words do the work. Port (03) gets the single meaningful visual:
+   the spec sits ABOVE while the engines beneath it swap, the literal picture of
+   "the spec rides above any model and any engine" and of the punchline "we are
+   not one of them." The asymmetry (only Port has a visual) is intentional — Port
+   is the only step whose idea is inherently visual.
 
-   The spec moves left to right through Codify → Govern → Port. On scroll-in each
-   stage lights in sequence and the connectors fill, so the mechanism reads at a
-   glance. Port carries the platform-independence point: the spec stays pinned
-   ABOVE two engine slots that keep swapping underneath. The framing is
-   independence, not compatibility — we do not integrate, we govern from above,
-   which is the visual twin of the "We are not one of them" punchline. No engine
-   brands are named; the swappable slots are deliberately abstract.
+   IO-gated: the Port engines cycle only once the section scrolls into view.
+   Reduced motion: a static end-state — the spec above three distinct engine
+   slots, no animation. */
 
-   Same machinery as the hero/home visuals: useReducedMotion, a one-shot
-   IntersectionObserver, a small setTimeout step machine. Reduced motion: the
-   completed flow is shown statically (all stages active, engines at rest). */
+import { useEffect, useRef, useState } from "react"
 
-import { Fragment, useEffect, useRef, useState } from "react"
-
-const STAGES = [
+const STEPS = [
   { key: "codify", n: "01", title: "Codify", line: "Your brand’s voice becomes a portable spec." },
   {
     key: "govern",
@@ -26,6 +24,27 @@ const STAGES = [
   },
   { key: "port", n: "03", title: "Port", line: "The spec rides above any model and any engine." },
 ] as const
+
+/* Three engine arrangements. Cycling between them shows the engines swapping
+   beneath the fixed spec; each slot differs within a state, so even the static
+   (reduced-motion) frame reads as three distinct engines. */
+const ENGINE_STATES: number[][][] = [
+  [
+    [6, 13, 8],
+    [12, 7, 11],
+    [9, 14, 6],
+  ],
+  [
+    [12, 7, 11],
+    [8, 14, 6],
+    [13, 6, 10],
+  ],
+  [
+    [9, 14, 6],
+    [13, 6, 12],
+    [7, 11, 14],
+  ],
+]
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false)
@@ -39,63 +58,24 @@ function useReducedMotion() {
   return reduced
 }
 
-/* The spec object — the same chip in every stage (persona / lexicon /
-   pronunciation as three bars). In Port it is pinned, with a gold anchor. */
-function SpecChip({ pinned = false }: { pinned?: boolean }) {
+/* The one visual beat: a wide gold spec layer on top, three muted engine slots
+   beneath it that change while the spec holds. Decorative — aria-hidden. */
+function PortMotif({ phase }: { phase: number }) {
+  const slots = ENGINE_STATES[phase]
   return (
-    <span className={`lv-opus-spec${pinned ? " is-pinned" : ""}`}>
-      <span className="lv-opus-spec-tag">Spec</span>
-      <span className="lv-opus-spec-bars" aria-hidden="true">
-        <i />
-        <i />
-        <i />
+    <div className="lv-opus-port" aria-hidden="true">
+      <span className="lv-opus-port-spec">
+        <span className="lv-opus-port-spec-label">Spec</span>
       </span>
-      {pinned && <span className="lv-opus-spec-anchor" aria-hidden="true" />}
-    </span>
-  )
-}
-
-function CodifyArt() {
-  return (
-    <div className="lv-opus-flow-art-inner">
-      <SpecChip />
-    </div>
-  )
-}
-
-function GovernArt() {
-  return (
-    <div className="lv-opus-flow-art-inner lv-opus-govern">
-      <SpecChip />
-      <span className="lv-opus-govern-rule" aria-hidden="true" />
-      <span className="lv-opus-govern-agents" aria-hidden="true">
-        <i />
-        <i />
-        <i />
+      <span className="lv-opus-port-engines">
+        {slots.map((bars, i) => (
+          <span className="lv-opus-port-engine" key={i}>
+            {bars.map((h, j) => (
+              <i key={j} style={{ height: `${h}px` }} />
+            ))}
+          </span>
+        ))}
       </span>
-    </div>
-  )
-}
-
-function PortArt({ swapped }: { swapped: boolean }) {
-  return (
-    <div className="lv-opus-flow-art-inner lv-opus-port">
-      <SpecChip pinned />
-      <span className="lv-opus-port-divider" aria-hidden="true" />
-      {/* Two abstract engine slots that swap underneath while the spec holds. */}
-      <span className={`lv-opus-port-engines${swapped ? " is-swapped" : ""}`} aria-hidden="true">
-        <span className="lv-opus-port-engine">
-          <i />
-          <i />
-          <i />
-        </span>
-        <span className="lv-opus-port-engine">
-          <i />
-          <i />
-          <i />
-        </span>
-      </span>
-      <span className="lv-opus-port-swaplabel">engines swap · voice holds</span>
     </div>
   )
 }
@@ -104,8 +84,7 @@ export default function OpusFlow() {
   const reduced = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
   const [entered, setEntered] = useState(false)
-  const [active, setActive] = useState(0)
-  const [swap, setSwap] = useState(false)
+  const [phase, setPhase] = useState(0)
 
   useEffect(() => {
     if (entered) return
@@ -124,50 +103,25 @@ export default function OpusFlow() {
     return () => observer.disconnect()
   }, [entered])
 
-  // Light the stages in sequence.
+  // Gentle engine cycle, only while in view and motion is allowed.
   useEffect(() => {
-    if (reduced) {
-      setActive(STAGES.length)
-      return
-    }
-    if (!entered || active >= STAGES.length) return
-    const t = window.setTimeout(() => setActive((a) => a + 1), active === 0 ? 350 : 820)
-    return () => window.clearTimeout(t)
-  }, [reduced, entered, active])
-
-  // Once Port is live, swap the engines a few times, then rest.
-  useEffect(() => {
-    if (reduced || active < STAGES.length) return
-    let n = 0
-    const id = window.setInterval(() => {
-      setSwap((s) => !s)
-      n += 1
-      if (n >= 4) window.clearInterval(id)
-    }, 1150)
+    if (reduced || !entered) return
+    const id = window.setInterval(
+      () => setPhase((p) => (p + 1) % ENGINE_STATES.length),
+      1600,
+    )
     return () => window.clearInterval(id)
-  }, [reduced, active])
+  }, [reduced, entered])
 
   return (
-    <div ref={ref} className="lv-opus-flow" aria-hidden="true">
-      {STAGES.map((s, i) => (
-        <Fragment key={s.key}>
-          {i > 0 && (
-            <span className={`lv-opus-flow-link${active > i ? " is-on" : ""}`}>
-              <span className="lv-opus-flow-link-line" />
-              <span className="lv-opus-flow-link-head" />
-            </span>
-          )}
-          <div className={`lv-opus-flow-stage is-${s.key}${active > i ? " is-active" : ""}`}>
-            <span className="lv-opus-flow-num">{s.n}</span>
-            <div className="lv-opus-flow-art">
-              {s.key === "codify" && <CodifyArt />}
-              {s.key === "govern" && <GovernArt />}
-              {s.key === "port" && <PortArt swapped={swap} />}
-            </div>
-            <h3 className="lv-opus-flow-title">{s.title}</h3>
-            <p className="lv-opus-flow-line">{s.line}</p>
-          </div>
-        </Fragment>
+    <div ref={ref} className="lv-opus-flow">
+      {STEPS.map((s) => (
+        <div className={`lv-opus-flow-step is-${s.key}`} key={s.key}>
+          <span className="lv-opus-flow-num">{s.n}</span>
+          <h3 className="lv-opus-flow-title">{s.title}</h3>
+          <p className="lv-opus-flow-line">{s.line}</p>
+          {s.key === "port" && <PortMotif phase={reduced ? 0 : phase} />}
+        </div>
       ))}
     </div>
   )
