@@ -8418,9 +8418,9 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ── Movement 2 — Hear it ─────────────────────────────────────────────────── */
 /* No top rule — the hero's bottom padding plus this top padding carry the flow
-   from hero into Hear It. */
+   from hero into Hear It, with room for the scroll-in reveal to play. */
 .lv-opus-hear {
-  padding: 24px 0 88px;
+  padding: 64px 0 88px;
 }
 
 .lv-opus-hear-framing {
@@ -8717,58 +8717,6 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 40ch;
 }
 
-/* Port's single visual: a gold "Spec" layer that holds while the engine beneath
-   it swaps. Deliberately minimal — spec on top, a short tie, one engine slot
-   whose glyph cross-fades. Reads at a glance without a caption. */
-.lv-opus-port {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0 2px;
-}
-
-.lv-opus-port-spec {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: 1px solid var(--gold);
-  background: rgba(243, 209, 113, 0.12);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.lv-opus-port-link {
-  width: 1px;
-  height: 14px;
-  background: rgba(255, 248, 236, 0.25);
-}
-
-.lv-opus-port-engine {
-  position: relative;
-  width: 46px;
-  height: 38px;
-}
-
-.lv-opus-port-glyph {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 248, 236, 0.16);
-  background: rgba(255, 248, 236, 0.04);
-  color: rgba(255, 248, 236, 0.62);
-  transition: opacity 0.7s ease;
-}
-
-.lv-opus-port-glyph svg {
-  width: 18px;
-  height: 18px;
-}
 
 .lv-opus-how-position {
   font-family: var(--font-display);
@@ -9281,11 +9229,6 @@ main:has(.lv-hero) { padding-top: 0; }
 
   .lv-opus-drift-live-dot.is-live {
     animation: none !important;
-  }
-
-  /* How-it-works: the Port engine holds at its static end-state, no cross-fade. */
-  .lv-opus-port-glyph {
-    transition: none !important;
   }
 
   /* Sonic preview: static completed elicitation moment, no animation or loop. */
