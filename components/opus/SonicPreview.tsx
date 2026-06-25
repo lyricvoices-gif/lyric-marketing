@@ -1,76 +1,60 @@
 "use client"
 
-/* Movement 4 — Sonic, as an illustrative, AUTO-PLAYING preview.
+/* Movement 4 — Sonic, as an illustrative, AUTO-PLAYING SKELETON preview.
 
-   Deliberately abstract, not a literal product UI. It plays itself and loops,
-   reading as a soft impression of the experience rather than a working intake:
+   The intake is rendered as skeleton / placeholder UI: every piece of intake
+   text is a tonal bar/shape, never real words. This reads as a REPRESENTATION of
+   the experience — the silhouette of the real intake — not a working product.
+   The real intake is /start (not yet built); when it ships we swap the real UI
+   in here.
 
-     1) Starter state — a prompt and the four starter presets as soft tiles.
-     2) Auto-selection — one tile warms as if chosen, then the grid recedes.
-     3) Voice elicitation — Sonic asks "Here's how a greeting could sound. Which
-        is you?", a few options appear as abstracted waveforms with a tone, one
-        is chosen, and the choice settles into a small set of voice tokens. The
-        point on screen: you codify the voice by PICKING, not describing.
-     4) Loop back to the starter state.
+   The skeleton still tells the show-don't-ask story in four beats and loops:
+     1) Starter — a prompt bar above four tile shapes.
+     2) Auto-selection — one tile highlights (gold), the grid recedes.
+     3) Voice elicitation — a prompt bar with option shapes; one is picked (gold).
+     4) Spec forms — skeleton lines stack up, the spec assembling from the pick.
 
-   FRAMING (locked): Sonic codifies the BRAND VOICE. It never builds, deploys, or
-   assembles the agent. No "Build it" affordance, no pathways/tools/persona
-   wiring; the agent already exists, Sonic captures how it sounds.
+   FRAMING (locked): this illustrates VOICE elicitation — show options, pick what
+   sounds like you, picks become the spec. Never agent-building/assembly, no
+   "Build it" affordance. Fully non-interactive (aria-hidden, no buttons/inputs),
+   captures nothing; the section funnels to /start.
+   // illustrative skeleton preview only — real intake is /start (not yet built)
 
-   HARD GUARDRAILS: a preview that plays itself. Fully non-interactive
-   (aria-hidden, no buttons, no inputs), captures nothing; the section funnels to
-   /start for the real thing.
-   // illustrative auto-play preview only — real intake is /start (not yet built)
-
-   IO-gated, streamed text, staggered reveals. Reduced motion: a single static
-   completed elicitation moment, no animation or looping. */
+   Reduced motion: one static skeleton end-state (options shown, one highlighted,
+   a partial spec), no animation or looping. The real, legible framing words
+   (eyebrow, headline, body, preview label, CTA) live in page.tsx. */
 
 import { useEffect, useRef, useState } from "react"
 import Isotype from "@/components/Isotype"
 
-const CARDS: ReadonlyArray<{ label: string; tag: string }> = [
-  { label: "Refi qualifier", tag: "Mortgage" },
-  { label: "Patient intake", tag: "Healthcare" },
-  { label: "Claims intake", tag: "Insurance" },
-  { label: "Custom", tag: "Start blank" },
-]
-const PICKED_CARD = 0
+const TILES = [0, 1, 2, 3]
+const PICKED_TILE = 0
 
-const ASK = "Here’s how a greeting could sound. Which is you?"
-
-/* Each option is an abstracted voice: a distinct waveform plus a tone. No
-   literal script text — the shapes carry the "different voices" read. */
-const TAKES: ReadonlyArray<{ tone: string; bars: number[] }> = [
-  { tone: "Warm, measured", bars: [7, 15, 10, 19, 12, 17, 9, 14, 8] },
-  { tone: "Brisk, upbeat", bars: [11, 7, 16, 9, 19, 12, 8, 15, 6] },
-  { tone: "Plain, direct", bars: [9, 12, 7, 14, 8, 11, 15, 9, 13] },
-]
-const PICKED_TAKE = 0
-
-/* The pick settles into a few soft voice tokens (not a data table). */
-const TOKENS = ["warm", "measured", "reassuring"]
+/* Varied widths so the skeleton reads like real text rag, not a uniform grid. */
+const OPTIONS: string[] = ["64%", "82%", "56%"]
+const PICKED_OPTION = 0
+const SPEC_LINES = ["88%", "66%", "78%", "50%"]
 
 const ORDER = [
   "cards",
   "pickCard",
   "recede",
   "ask",
-  "takesIn",
-  "pickTake",
+  "optionsIn",
+  "pickOption",
   "spec",
   "dwell",
   "reset",
 ] as const
 type Phase = (typeof ORDER)[number]
 
-const ASK_CHAR_MS = 28
-const IDLE = {
-  cards: 1700,
-  pickCard: 720,
+const IDLE: Record<Phase, number> = {
+  cards: 1600,
+  pickCard: 760,
   recede: 520,
-  afterAsk: 700,
-  takesIn: 1300,
-  pickTake: 850,
+  ask: 900,
+  optionsIn: 1300,
+  pickOption: 900,
   spec: 2400,
   dwell: 500,
   reset: 1100,
@@ -88,14 +72,9 @@ function useReducedMotion() {
   return reduced
 }
 
-function Wave({ bars }: { bars: number[] }) {
-  return (
-    <span className="lv-opus-sp-wave" aria-hidden="true">
-      {bars.map((h, i) => (
-        <i key={i} style={{ height: `${h}px` }} />
-      ))}
-    </span>
-  )
+/* A single skeleton bar — a tonal block standing in for a line of text. */
+function Bar({ w, className = "" }: { w: string; className?: string }) {
+  return <span className={`lv-opus-sp-bar ${className}`} style={{ width: w }} aria-hidden="true" />
 }
 
 export default function SonicPreview() {
@@ -103,7 +82,6 @@ export default function SonicPreview() {
   const rootRef = useRef<HTMLDivElement>(null)
   const [entered, setEntered] = useState(false)
   const [phase, setPhase] = useState<Phase>("cards")
-  const [askTyped, setAskTyped] = useState(0)
 
   useEffect(() => {
     if (entered) return
@@ -128,116 +106,82 @@ export default function SonicPreview() {
   useEffect(() => {
     if (reduced) {
       setPhase("spec")
-      setAskTyped(ASK.length)
       return
     }
     if (!entered) return
-
-    let t: number
-    switch (phase) {
-      case "cards":
-        t = window.setTimeout(() => setPhase("pickCard"), IDLE.cards)
-        break
-      case "pickCard":
-        t = window.setTimeout(() => setPhase("recede"), IDLE.pickCard)
-        break
-      case "recede":
-        t = window.setTimeout(() => {
-          setPhase("ask")
-          setAskTyped(0)
-        }, IDLE.recede)
-        break
-      case "ask":
-        if (askTyped < ASK.length)
-          t = window.setTimeout(() => setAskTyped((c) => c + 1), ASK_CHAR_MS)
-        else t = window.setTimeout(() => setPhase("takesIn"), IDLE.afterAsk)
-        break
-      case "takesIn":
-        t = window.setTimeout(() => setPhase("pickTake"), IDLE.takesIn)
-        break
-      case "pickTake":
-        t = window.setTimeout(() => setPhase("spec"), IDLE.pickTake)
-        break
-      case "spec":
-        t = window.setTimeout(() => setPhase("dwell"), IDLE.spec)
-        break
-      case "dwell":
-        t = window.setTimeout(() => setPhase("reset"), IDLE.dwell)
-        break
-      case "reset":
-        t = window.setTimeout(() => {
-          setPhase("cards")
-          setAskTyped(0)
-        }, IDLE.reset)
-        break
+    const next: Partial<Record<Phase, Phase>> = {
+      cards: "pickCard",
+      pickCard: "recede",
+      recede: "ask",
+      ask: "optionsIn",
+      optionsIn: "pickOption",
+      pickOption: "spec",
+      spec: "dwell",
+      dwell: "reset",
+      reset: "cards",
     }
+    const t = window.setTimeout(() => setPhase(next[phase] ?? "cards"), IDLE[phase])
     return () => window.clearTimeout(t)
-  }, [reduced, entered, phase, askTyped])
+  }, [reduced, entered, phase])
 
   const starterOut = at("recede")
   const convoIn = at("recede")
-  const askText = at("takesIn") ? ASK : ASK.slice(0, askTyped)
-  const askCaret = phase === "ask" && askTyped < ASK.length
   const resetting = phase === "reset"
 
   return (
     <div ref={rootRef} className={`lv-opus-sp${resetting ? " is-resetting" : ""}`} aria-hidden="true">
-      <span className="lv-opus-sp-kicker">
+      {/* Panel header: brand mark + a title placeholder (no readable label). */}
+      <span className="lv-opus-sp-head">
         <Isotype size={13} color="#5A5E43" />
-        Sonic
+        <Bar w="34px" />
       </span>
 
       <div className="lv-opus-sp-stage">
-        {/* Starter layer */}
+        {/* Starter layer — prompt bar over four tile shapes */}
         <div className={`lv-opus-sp-starter${starterOut ? " is-out" : ""}`}>
-          <p className="lv-opus-sp-prompt">Where should we start?</p>
+          <Bar w="46%" className="lv-opus-sp-promptbar" />
           <div className="lv-opus-sp-cards">
-            {CARDS.map((c, i) => (
+            {TILES.map((i) => (
               <span
-                key={c.label}
-                className={`lv-opus-sp-card${at("pickCard") && i === PICKED_CARD ? " is-picked" : ""}`}
+                key={i}
+                className={`lv-opus-sp-card${at("pickCard") && i === PICKED_TILE ? " is-picked" : ""}`}
               >
-                <span className="lv-opus-sp-card-label">{c.label}</span>
-                <span className="lv-opus-sp-card-tag">{c.tag}</span>
+                <Bar w="70%" />
+                <Bar w="44%" className="is-faint" />
               </span>
             ))}
           </div>
         </div>
 
-        {/* Conversation layer */}
+        {/* Conversation layer — prompt bar, option shapes, assembling spec */}
         <div className={`lv-opus-sp-convo${convoIn ? " is-in" : ""}`}>
-          <p className="lv-opus-sp-ask">
-            {askText}
-            {askCaret && <span className="lv-opus-sp-caret" />}
-          </p>
+          <Bar w="58%" className="lv-opus-sp-promptbar" />
 
-          <div className={`lv-opus-sp-takes${at("takesIn") ? " is-shown" : ""}`}>
-            {TAKES.map((tk, j) => (
+          <div className={`lv-opus-sp-options${at("optionsIn") ? " is-shown" : ""}`}>
+            {OPTIONS.map((w, i) => (
               <span
-                key={tk.tone}
-                className={`lv-opus-sp-take${at("pickTake") && j === PICKED_TAKE ? " is-picked" : ""}`}
-                style={{ ["--d" as string]: `${j * 130}ms` }}
+                key={i}
+                className={`lv-opus-sp-option${at("pickOption") && i === PICKED_OPTION ? " is-picked" : ""}`}
+                style={{ ["--d" as string]: `${i * 130}ms` }}
               >
-                <Wave bars={tk.bars} />
-                <span className="lv-opus-sp-take-tone">{tk.tone}</span>
+                <span className="lv-opus-sp-option-dot" aria-hidden="true" />
+                <Bar w={w} />
               </span>
             ))}
           </div>
 
           <div className={`lv-opus-sp-spec${at("spec") ? " is-shown" : ""}`}>
-            <span className="lv-opus-sp-spec-head">your voice, captured</span>
-            <span className="lv-opus-sp-tokens">
-              {TOKENS.map((tok) => (
-                <span key={tok} className="lv-opus-sp-token">
-                  {tok}
-                </span>
+            <Bar w="28%" className="is-faint lv-opus-sp-spec-head" />
+            <div className="lv-opus-sp-spec-lines">
+              {SPEC_LINES.map((w, i) => (
+                <Bar key={i} w={w} />
               ))}
-            </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <p className="lv-opus-sp-note">Illustrative preview. Plays on its own. The real intake opens in Try Sonic free.</p>
+      <p className="lv-opus-sp-note">Illustrative preview. The intake opens in Try Sonic free.</p>
     </div>
   )
 }
