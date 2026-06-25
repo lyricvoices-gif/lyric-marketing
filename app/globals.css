@@ -8491,19 +8491,21 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-opus-hr-ungoverned .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--sage) 52%, var(--olive));
+  color: color-mix(in srgb, var(--olive) 78%, var(--sage));
 }
 
 .lv-opus-hr-governed .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--gold) 60%, var(--olive));
+  color: color-mix(in srgb, var(--gold) 80%, var(--olive));
 }
 
 /* The snippet carries the contrast in type. Same display face, opposite
-   posture. Centered in the middle row so brevity reads as composed, not empty.
-   Body text stays in the ink/olive register — never accent color. */
+   posture. Bottom-aligned within the flexible middle row so the short governed
+   line sits just above its play control (no floating gap) while the two controls
+   still share the bottom baseline across the row. Body text stays in the
+   ink/olive register — never accent color. */
 .lv-opus-hr-snippet {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   font-family: var(--font-display);
   margin: 0;
   color: var(--olive);
@@ -8644,25 +8646,20 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* Visual flow — the spec moving Codify → Govern → Port. Mobile: stacked column
    with downward connectors. Desktop: a left-to-right row (see the 769px block). */
+/* How it works — a typographic three-up. Mobile: stacked column. Desktop: three
+   columns (see the 769px block). No connectors, no per-step glyphs; the gold
+   numerals and editorial type are the design. */
 .lv-opus-flow {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 0;
+  gap: 56px;
   margin: 8px 0 0;
 }
 
-.lv-opus-flow-stage {
+.lv-opus-flow-step {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  flex: 1 1 0;
-  opacity: 0.4;
-  transition: opacity 0.6s ease;
-}
-
-.lv-opus-flow-stage.is-active {
-  opacity: 1;
 }
 
 .lv-opus-flow-num {
@@ -8672,230 +8669,79 @@ main:has(.lv-hero) { padding-top: 0; }
   line-height: 0.9;
   color: var(--gold);
   font-size: clamp(34px, 5vw, 46px);
-  margin: 0 0 16px;
-}
-
-/* The art band — a fixed-height stage so every visual shares a baseline and the
-   row reads as one connected flow. */
-.lv-opus-flow-art {
-  width: 100%;
-  min-height: 116px;
-  display: flex;
-  align-items: center;
   margin: 0 0 18px;
-}
-
-.lv-opus-flow-art-inner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
 }
 
 .lv-opus-flow-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 22px;
+  font-size: 24px;
   line-height: 1.1;
   color: var(--bg-light);
-  margin: 0 0 8px;
+  margin: 0 0 12px;
 }
 
 .lv-opus-flow-line {
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.45;
-  color: rgba(255, 248, 236, 0.74);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 248, 236, 0.76);
   margin: 0;
   max-width: 30ch;
 }
 
-/* Connector — a gold-filling line with an arrowhead. Vertical on mobile,
-   horizontal on desktop. */
-.lv-opus-flow-link {
-  position: relative;
+/* Port's single visual beat: a wide gold spec layer sitting ABOVE three muted
+   engine slots that change beneath it while the spec holds. The width relation
+   (one layer over many slots) plus the motion reads without a caption. */
+.lv-opus-port {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 220px;
+  margin: 28px 0 0;
+}
+
+.lv-opus-port-spec {
   display: flex;
   align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  width: 40px;
-  height: 30px;
-  margin: 2px 0 2px 8px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  background: rgba(243, 209, 113, 0.12);
 }
 
-.lv-opus-flow-link-line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: rgba(255, 248, 236, 0.16);
-  overflow: hidden;
-}
-
-.lv-opus-flow-link-line::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--gold);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.6s ease;
-}
-
-.lv-opus-flow-link.is-on .lv-opus-flow-link-line::after {
-  transform: scaleY(1);
-}
-
-.lv-opus-flow-link-head {
-  position: absolute;
-  left: -3px;
-  bottom: -1px;
-  width: 8px;
-  height: 8px;
-  border-right: 2px solid rgba(255, 248, 236, 0.16);
-  border-bottom: 2px solid rgba(255, 248, 236, 0.16);
-  transform: rotate(45deg);
-  transition: border-color 0.6s ease;
-}
-
-.lv-opus-flow-link.is-on .lv-opus-flow-link-head {
-  border-right-color: var(--gold);
-  border-bottom-color: var(--gold);
-}
-
-/* The spec object — same chip in every stage. */
-.lv-opus-spec {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 9px 12px;
-  border-radius: 11px;
-  background: rgba(255, 248, 236, 0.06);
-  border: 1px solid rgba(243, 209, 113, 0.5);
-}
-
-.lv-opus-spec-tag {
+.lv-opus-port-spec-label {
   font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.16em;
+  font-size: 10px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
 }
 
-.lv-opus-spec-bars {
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 14px;
-}
-
-.lv-opus-spec-bars i {
-  width: 3px;
-  border-radius: 2px;
-  background: rgba(255, 248, 236, 0.7);
-}
-
-.lv-opus-spec-bars i:nth-child(1) { height: 7px; }
-.lv-opus-spec-bars i:nth-child(2) { height: 13px; }
-.lv-opus-spec-bars i:nth-child(3) { height: 10px; }
-
-.lv-opus-spec.is-pinned {
-  border-color: var(--gold);
-  background: rgba(243, 209, 113, 0.12);
-}
-
-.lv-opus-spec-anchor {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 3px rgba(243, 209, 113, 0.25);
-}
-
-/* Govern — the spec with agents snapping into alignment beneath a guide rule. */
-.lv-opus-govern-rule {
-  display: block;
-  width: 64px;
-  height: 1px;
-  background: rgba(243, 209, 113, 0.5);
-}
-
-.lv-opus-govern-agents {
-  display: inline-flex;
-  gap: 7px;
-}
-
-.lv-opus-govern-agents i {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  background: rgba(255, 248, 236, 0.14);
-  border: 1px solid rgba(255, 248, 236, 0.3);
-  transition: transform 0.5s ease, background 0.5s ease, border-color 0.5s ease;
-}
-
-.lv-opus-flow-stage.is-active .lv-opus-govern-agents i {
-  background: rgba(193, 193, 126, 0.32);
-  border-color: var(--sage);
-}
-
-/* Port — the spec pinned above swappable engine slots. */
-.lv-opus-port-divider {
-  display: block;
-  width: 100%;
-  max-width: 132px;
-  height: 1px;
-  background: rgba(255, 248, 236, 0.16);
-}
-
 .lv-opus-port-engines {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
 .lv-opus-port-engine {
-  display: inline-flex;
+  display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 3px;
-  padding: 7px 9px;
-  height: 30px;
+  height: 34px;
+  padding: 7px;
   border-radius: 8px;
-  background: rgba(255, 248, 236, 0.05);
+  background: rgba(255, 248, 236, 0.04);
   border: 1px solid rgba(255, 248, 236, 0.14);
 }
 
 .lv-opus-port-engine i {
   width: 3px;
   border-radius: 2px;
-  background: rgba(255, 248, 236, 0.55);
-  transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Resting heights, then the swapped heights — the slots reshuffle to read as
-   different engines underneath while the spec above never moves. */
-.lv-opus-port-engine i:nth-child(1) { height: 8px; }
-.lv-opus-port-engine i:nth-child(2) { height: 14px; }
-.lv-opus-port-engine i:nth-child(3) { height: 6px; }
-.lv-opus-port-engine:nth-child(2) i:nth-child(1) { height: 13px; }
-.lv-opus-port-engine:nth-child(2) i:nth-child(2) { height: 7px; }
-.lv-opus-port-engine:nth-child(2) i:nth-child(3) { height: 11px; }
-
-.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(1) i:nth-child(1) { height: 12px; }
-.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(1) i:nth-child(2) { height: 6px; }
-.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(1) i:nth-child(3) { height: 14px; }
-.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(2) i:nth-child(1) { height: 7px; }
-.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(2) i:nth-child(2) { height: 13px; }
-.lv-opus-port-engines.is-swapped .lv-opus-port-engine:nth-child(2) i:nth-child(3) { height: 9px; }
-
-.lv-opus-port-swaplabel {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.5);
+  background: rgba(255, 248, 236, 0.5);
+  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lv-opus-how-position {
@@ -9350,51 +9196,16 @@ main:has(.lv-hero) { padding-top: 0; }
     padding: 132px 0 96px;
   }
 
-  /* Visual flow turns horizontal: stages in a row, connectors bridging across
-     and aligned to the art band. */
+  /* Three typographic columns, generous gutters. Top-aligned so the gold
+     numerals sit on one line; Port's motif simply extends its column down. */
   .lv-opus-flow {
     flex-direction: row;
     align-items: flex-start;
+    gap: 56px;
   }
 
-  .lv-opus-flow-link {
-    flex: 0 0 56px;
-    width: 56px;
-    height: 2px;
-    align-self: flex-start;
-    margin: 112px 8px 0;
-  }
-
-  .lv-opus-flow-link-line {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 2px;
-  }
-
-  .lv-opus-flow-link-line::after {
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-
-  .lv-opus-flow-link.is-on .lv-opus-flow-link-line::after {
-    transform: scaleX(1);
-  }
-
-  .lv-opus-flow-link-head {
-    top: 50%;
-    right: -3px;
-    left: auto;
-    bottom: auto;
-    border-top: 2px solid rgba(255, 248, 236, 0.16);
-    border-right: 2px solid rgba(255, 248, 236, 0.16);
-    border-bottom: none;
-    transform: translateY(-50%) rotate(45deg);
-  }
-
-  .lv-opus-flow-link.is-on .lv-opus-flow-link-head {
-    border-top-color: var(--gold);
-    border-right-color: var(--gold);
+  .lv-opus-flow-step {
+    flex: 1 1 0;
   }
 
   .lv-opus-sp-cards {
@@ -9452,11 +9263,7 @@ main:has(.lv-hero) { padding-top: 0; }
     animation: none !important;
   }
 
-  /* How-it-works flow: completed flow, no transitions or swap. */
-  .lv-opus-flow-stage,
-  .lv-opus-flow-link-line::after,
-  .lv-opus-flow-link-head,
-  .lv-opus-govern-agents i,
+  /* How-it-works: the Port engines hold at their static end-state, no cycle. */
   .lv-opus-port-engine i {
     transition: none !important;
   }
