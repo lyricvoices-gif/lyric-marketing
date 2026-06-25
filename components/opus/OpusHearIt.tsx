@@ -32,7 +32,7 @@ const SCENARIOS: Scenario[] = [
   {
     id: "ex1",
     label: "A customer asks about a credit card rate.",
-    caption: "Same facts. Press play and listen to the pacing and register the words can’t show.",
+    caption: "Same facts. Listen to the pacing and register that the words can’t show.",
     ungoverned: {
       src: "/VoiceAgent1ungoverned.mp3",
       snippet: "Yeah, so your APR’s twenty-four ninety-nine, and the Cascade card’s a really popular one…",
@@ -104,14 +104,14 @@ function Column({
         <span className="lv-opus-hr-glyph" aria-hidden="true">
           {isOn ? <PauseGlyph /> : <PlayGlyph />}
         </span>
-        <span className="lv-opus-hr-playlabel">{isOn ? "Playing" : "Hear this"}</span>
-      </span>
-      <span
-        className="lv-opus-hr-progress"
-        aria-hidden="true"
-        style={{ ["--p" as string]: String(isOn ? progress : 0) } as CSSProperties}
-      >
-        <span className="lv-opus-hr-progress-fill" />
+        <span className="lv-opus-hr-playlabel">{isOn ? "Playing" : "Play"}</span>
+        <span
+          className="lv-opus-hr-progress"
+          aria-hidden="true"
+          style={{ ["--p" as string]: String(isOn ? progress : 0) } as CSSProperties}
+        >
+          <span className="lv-opus-hr-progress-fill" />
+        </span>
       </span>
     </button>
   )
