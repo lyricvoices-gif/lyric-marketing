@@ -156,21 +156,35 @@ export default function OpusPage() {
         </div>
       </section>
 
-      {/* ── Movement 3 — How it works. The mechanism as a left-to-right visual
-            flow (OpusFlow); structure and motion over prose. Near-black chapter
-            ground for weight. ── */}
+      {/* ── Movement 3 — How it works. Two-column, matching the home page's
+            "What it governs" layout: copy on the left, the numbered mechanism
+            (Codify / Govern / Port) on the right, rows separated by hairline
+            rules. Port carries the single visual. Near-black chapter ground;
+            punchline full-width below the rule. ── */}
       <section className="lv-opus-how" style={{ background: DARK }}>
         <div className="lv-opus-wrap">
-          <ScrollReveal>
-            <Eyebrow label="How it works" onDark />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2 className="lv-opus-how-head">
-              One spec. Every agent held to it.
-            </h2>
-          </ScrollReveal>
+          <div className="lv-opus-how-grid">
+            <div className="lv-opus-how-copy">
+              <ScrollReveal>
+                <Eyebrow label="How it works" onDark />
+              </ScrollReveal>
+              <ScrollReveal delay={120}>
+                <h2 className="lv-opus-how-head">One spec. Every agent held to it.</h2>
+              </ScrollReveal>
+              <ScrollReveal delay={200}>
+                <p className="lv-opus-how-body">
+                  Lyric sits above the language model and the speech engine. It
+                  doesn&rsquo;t generate text or audio. It codifies your brand into
+                  a portable spec and holds every agent to it, regardless of the
+                  engine underneath.
+                </p>
+              </ScrollReveal>
+            </div>
 
-          <OpusFlow />
+            <div className="lv-opus-how-list">
+              <OpusFlow />
+            </div>
+          </div>
 
           <ScrollReveal delay={120}>
             <p className="lv-opus-how-position">
