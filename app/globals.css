@@ -8491,19 +8491,21 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-opus-hr-ungoverned .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--sage) 52%, var(--olive));
+  color: color-mix(in srgb, var(--olive) 78%, var(--sage));
 }
 
 .lv-opus-hr-governed .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--gold) 60%, var(--olive));
+  color: color-mix(in srgb, var(--gold) 80%, var(--olive));
 }
 
 /* The snippet carries the contrast in type. Same display face, opposite
-   posture. Centered in the middle row so brevity reads as composed, not empty.
-   Body text stays in the ink/olive register — never accent color. */
+   posture. Bottom-aligned within the flexible middle row so the short governed
+   line sits just above its play control (no floating gap) while the two controls
+   still share the bottom baseline across the row. Body text stays in the
+   ink/olive register — never accent color. */
 .lv-opus-hr-snippet {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   font-family: var(--font-display);
   margin: 0;
   color: var(--olive);
