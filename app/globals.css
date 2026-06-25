@@ -8417,9 +8417,10 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* ── Movement 2 — Hear it ─────────────────────────────────────────────────── */
+/* No top rule — the hero's bottom padding plus this top padding carry the flow
+   from hero into Hear It. */
 .lv-opus-hear {
-  padding: 88px 0;
-  border-top: 1px solid var(--border);
+  padding: 24px 0 88px;
 }
 
 .lv-opus-hear-framing {
@@ -8633,85 +8634,106 @@ main:has(.lv-hero) { padding-top: 0; }
   border-bottom: 1px solid rgba(255, 248, 236, 0.08);
 }
 
+/* Two-column, matching the home "What it governs" layout: copy left, numbered
+   mechanism right. Single column on mobile. */
+.lv-opus-how-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 44px;
+  align-items: start;
+}
+
 .lv-opus-how-head {
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: 0;
   line-height: 1.04;
   color: var(--bg-light);
-  font-size: clamp(30px, 5vw, 52px);
-  margin: 0 0 56px;
-  max-width: 18ch;
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 0 0 20px;
+  max-width: 16ch;
 }
 
-/* Visual flow — the spec moving Codify → Govern → Port. Mobile: stacked column
-   with downward connectors. Desktop: a left-to-right row (see the 769px block). */
-/* How it works — a typographic three-up. Mobile: stacked column. Desktop: three
-   columns (see the 769px block). No connectors, no per-step glyphs; the gold
-   numerals and editorial type are the design. */
+.lv-opus-how-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 248, 236, 0.78);
+  margin: 0;
+  max-width: 42ch;
+}
+
+/* The numbered mechanism — rows separated by hairline rules, the gold italic
+   numeral sitting where the home "What it governs" player puts its play button,
+   the step name + one line as the body. */
 .lv-opus-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
-  margin: 8px 0 0;
+  margin: 0;
 }
 
-.lv-opus-flow-step {
+.lv-opus-flow-row {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
+  gap: 22px;
+  padding: 28px 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.1);
+}
+
+.lv-opus-flow-row:first-child {
+  border-top: 0;
+  padding-top: 0;
 }
 
 .lv-opus-flow-num {
+  flex: none;
+  width: 52px;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
   line-height: 0.9;
   color: var(--gold);
-  font-size: clamp(34px, 5vw, 46px);
-  margin: 0 0 18px;
+  font-size: clamp(32px, 4.5vw, 44px);
+}
+
+.lv-opus-flow-body {
+  flex: 1;
+  min-width: 0;
 }
 
 .lv-opus-flow-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1.1;
   color: var(--bg-light);
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 
 .lv-opus-flow-line {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   color: rgba(255, 248, 236, 0.76);
   margin: 0;
-  max-width: 30ch;
+  max-width: 40ch;
 }
 
-/* Port's single visual beat: a wide gold spec layer sitting ABOVE three muted
-   engine slots that change beneath it while the spec holds. The width relation
-   (one layer over many slots) plus the motion reads without a caption. */
+/* Port's single visual: a gold "Spec" layer that holds while the engine beneath
+   it swaps. Deliberately minimal — spec on top, a short tie, one engine slot
+   whose glyph cross-fades. Reads at a glance without a caption. */
 .lv-opus-port {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  max-width: 220px;
-  margin: 28px 0 0;
+  align-items: center;
+  margin: 20px 0 2px;
 }
 
 .lv-opus-port-spec {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  padding: 11px 14px;
-  border-radius: 10px;
+  padding: 8px 18px;
+  border-radius: 8px;
   border: 1px solid var(--gold);
   background: rgba(243, 209, 113, 0.12);
-}
-
-.lv-opus-port-spec-label {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
@@ -8719,29 +8741,33 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--gold);
 }
 
-.lv-opus-port-engines {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+.lv-opus-port-link {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 248, 236, 0.25);
 }
 
 .lv-opus-port-engine {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 3px;
-  height: 34px;
-  padding: 7px;
-  border-radius: 8px;
-  background: rgba(255, 248, 236, 0.04);
-  border: 1px solid rgba(255, 248, 236, 0.14);
+  position: relative;
+  width: 46px;
+  height: 38px;
 }
 
-.lv-opus-port-engine i {
-  width: 3px;
-  border-radius: 2px;
-  background: rgba(255, 248, 236, 0.5);
-  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+.lv-opus-port-glyph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 248, 236, 0.16);
+  background: rgba(255, 248, 236, 0.04);
+  color: rgba(255, 248, 236, 0.62);
+  transition: opacity 0.7s ease;
+}
+
+.lv-opus-port-glyph svg {
+  width: 18px;
+  height: 18px;
 }
 
 .lv-opus-how-position {
@@ -9196,18 +9222,6 @@ main:has(.lv-hero) { padding-top: 0; }
     padding: 132px 0 96px;
   }
 
-  /* Three typographic columns, generous gutters. Top-aligned so the gold
-     numerals sit on one line; Port's motif simply extends its column down. */
-  .lv-opus-flow {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 56px;
-  }
-
-  .lv-opus-flow-step {
-    flex: 1 1 0;
-  }
-
   .lv-opus-sp-cards {
     grid-template-columns: 1fr 1fr;
   }
@@ -9229,6 +9243,12 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-opus-drift {
     margin: 0;
     margin-left: auto;
+  }
+
+  /* How it works: copy left, numbered mechanism right (echoes "What it governs"). */
+  .lv-opus-how-grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 96px;
   }
 }
 
@@ -9263,8 +9283,8 @@ main:has(.lv-hero) { padding-top: 0; }
     animation: none !important;
   }
 
-  /* How-it-works: the Port engines hold at their static end-state, no cycle. */
-  .lv-opus-port-engine i {
+  /* How-it-works: the Port engine holds at its static end-state, no cross-fade. */
+  .lv-opus-port-glyph {
     transition: none !important;
   }
 
