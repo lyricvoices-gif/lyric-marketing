@@ -1,47 +1,62 @@
 "use client"
 
-/* Movement 2 — "Hear it." Two example rows, each an A/B toggle between an
-   ungoverned and a governed take of the same answer. One shared <audio> drives
-   all four clips, so starting any take stops whatever was playing (the
-   one-at-a-time pattern used by the homepage / Voices "Hear it" controls). The
-   active button carries a gold progress arc; resting buttons carry a quiet
-   accent. Files are referenced by their exact in-repo names from /public.
+/* Movement 2 — "Hear it." The audible sibling of the "See it in text" section:
+   editorial, typographic, two states that read as OPPOSITES at a glance, words
+   doing the work. Each scenario is a row with two columns — UNGOVERNED (left)
+   and GOVERNED (right). A short SNIPPET teases each spoken line and ENACTS the
+   contrast in type (ungoverned wanders in loose italic and trails off; governed
+   lands tight, upright, and resolved). The audio delivers what text can't
+   (pacing, register, warmth), so it stays essential, not redundant.
 
-   Wiring is deliberate and verifiable: every "Ungoverned" button points at a
-   *ungoverned* mp3, every "Governed" button at a *governed* mp3. */
+   Each column is itself the understated play control ("hear this one"), with a
+   thin gold progress underline while active. One shared <audio> drives all four
+   clips, so starting any clip stops whatever was playing (one-at-a-time).
 
-import { useEffect, useRef, useState } from "react"
+   Wiring is deliberate and verifiable: every UNGOVERNED column points at an
+   *ungoverned* mp3, every GOVERNED column at a *governed* mp3. Snippets are
+   teasers only — the full spoken line is never printed; the audio is the payoff. */
 
-type Take = { variant: "ungoverned" | "governed"; src: string }
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 
-type Example = {
+type Side = { src: string; snippet: string }
+
+type Scenario = {
   id: string
-  question: string
+  label: string
   caption: string
-  ungoverned: string
-  governed: string
+  ungoverned: Side
+  governed: Side
 }
 
-const EXAMPLES: Example[] = [
+const SCENARIOS: Scenario[] = [
   {
     id: "ex1",
-    question: "A customer asks about a credit card rate.",
-    caption: "Listen to the pacing and the register. Same facts, said two ways.",
-    ungoverned: "/VoiceAgent1ungoverned.mp3",
-    governed: "/VoiceAgent1governed.mp3",
+    label: "A customer asks about a credit card rate.",
+    caption: "Same facts. Press play and listen to the pacing and register the words can’t show.",
+    ungoverned: {
+      src: "/VoiceAgent1ungoverned.mp3",
+      snippet: "Yeah, so your APR’s twenty-four ninety-nine, and the Cascade card’s a really popular one…",
+    },
+    governed: {
+      src: "/VoiceAgent1governed.mp3",
+      snippet: "Your Annual Percentage Rate is 24.99%.",
+    },
   },
   {
     id: "ex2",
-    question: "A customer asks if a document was sent.",
-    caption: "One wanders. One lands.",
-    ungoverned: "/VoiceAgent2ungoverned.mp3",
-    governed: "/VoiceAgent2governed.mp3",
+    label: "A customer asks if a document was sent.",
+    caption: "One wanders. One lands. The difference is in the delivery.",
+    ungoverned: {
+      src: "/VoiceAgent2ungoverned.mp3",
+      snippet:
+        "Um, okay, so let me just take a look here for you… it should’ve gone to the email we have on file, so maybe check your inbox, and if it’s not there…",
+    },
+    governed: {
+      src: "/VoiceAgent2governed.mp3",
+      snippet: "Your disclosure was sent to the email on file.",
+    },
   },
 ]
-
-/* Ring geometry for the play controls. */
-const R = 26
-const C = 2 * Math.PI * R
 
 function PlayGlyph() {
   return (
@@ -60,14 +75,16 @@ function PauseGlyph() {
   )
 }
 
-function AbButton({
+function Column({
   variant,
+  snippet,
   isOn,
   progress,
   onToggle,
   ariaLabel,
 }: {
   variant: "ungoverned" | "governed"
+  snippet: string
   isOn: boolean
   progress: number
   onToggle: () => void
@@ -76,29 +93,25 @@ function AbButton({
   return (
     <button
       type="button"
-      className={`lv-opus-ab-btn lv-opus-ab-${variant}${isOn ? " is-playing" : ""}`}
+      className={`lv-opus-hr-col lv-opus-hr-${variant}${isOn ? " is-playing" : ""}`}
       onClick={onToggle}
       aria-label={ariaLabel}
       aria-pressed={isOn}
     >
-      <span className="lv-opus-ab-control" aria-hidden="true">
-        <svg className="lv-opus-ab-ring" viewBox="0 0 60 60">
-          <circle className="lv-opus-ab-ring-track" cx="30" cy="30" r={R} />
-          <circle
-            className="lv-opus-ab-ring-prog"
-            cx="30"
-            cy="30"
-            r={R}
-            style={{ strokeDasharray: C, strokeDashoffset: C * (1 - progress) }}
-          />
-        </svg>
-        <span className="lv-opus-ab-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
-      </span>
-      <span className="lv-opus-ab-text">
-        <span className="lv-opus-ab-variant">
-          {variant === "ungoverned" ? "Ungoverned" : "Governed"}
+      <span className="lv-opus-hr-label">{variant === "ungoverned" ? "Ungoverned" : "Governed"}</span>
+      <p className="lv-opus-hr-snippet">{snippet}</p>
+      <span className="lv-opus-hr-play">
+        <span className="lv-opus-hr-glyph" aria-hidden="true">
+          {isOn ? <PauseGlyph /> : <PlayGlyph />}
         </span>
-        <span className="lv-opus-ab-state">{isOn ? "Playing" : "Play"}</span>
+        <span className="lv-opus-hr-playlabel">{isOn ? "Playing" : "Hear this"}</span>
+      </span>
+      <span
+        className="lv-opus-hr-progress"
+        aria-hidden="true"
+        style={{ ["--p" as string]: String(isOn ? progress : 0) } as CSSProperties}
+      >
+        <span className="lv-opus-hr-progress-fill" />
       </span>
     </button>
   )
@@ -148,37 +161,38 @@ export default function OpusHearIt() {
   }
 
   return (
-    <div className="lv-opus-ab">
-      {EXAMPLES.map((ex) => {
-        const takes: Take[] = [
-          { variant: "ungoverned", src: ex.ungoverned },
-          { variant: "governed", src: ex.governed },
+    <div className="lv-opus-hr">
+      {SCENARIOS.map((s) => {
+        const sides: Array<{ variant: "ungoverned" | "governed"; side: Side }> = [
+          { variant: "ungoverned", side: s.ungoverned },
+          { variant: "governed", side: s.governed },
         ]
         return (
-          <div className="lv-opus-ab-row" key={ex.id}>
-            <p className="lv-opus-ab-q">{ex.question}</p>
-            <div className="lv-opus-ab-controls">
-              {takes.map((t) => {
-                const key = `${ex.id}-${t.variant}`
+          <div className="lv-opus-hr-row" key={s.id}>
+            <p className="lv-opus-hr-scenario">{s.label}</p>
+            <div className="lv-opus-hr-pair">
+              {sides.map(({ variant, side }) => {
+                const key = `${s.id}-${variant}`
                 const isOn = playing === key
                 return (
-                  <AbButton
+                  <Column
                     key={key}
-                    variant={t.variant}
+                    variant={variant}
+                    snippet={side.snippet}
                     isOn={isOn}
                     progress={isOn ? progress : 0}
-                    onToggle={() => toggle(key, t.src)}
-                    ariaLabel={`${isOn ? "Pause" : "Play"} the ${t.variant} take: ${ex.question}`}
+                    onToggle={() => toggle(key, side.src)}
+                    ariaLabel={`${isOn ? "Pause" : "Play"} the ${variant} take. ${s.label}`}
                   />
                 )
               })}
             </div>
-            <p className="lv-opus-ab-caption">{ex.caption}</p>
+            <p className="lv-opus-hr-caption">{s.caption}</p>
           </div>
         )
       })}
 
-      {/* One shared element: starting any take stops the previous one. */}
+      {/* One shared element: starting any clip stops the previous one. */}
       <audio ref={audioRef} preload="none" />
     </div>
   )
