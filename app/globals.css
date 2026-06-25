@@ -8418,9 +8418,10 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ── Movement 2 — Hear it ─────────────────────────────────────────────────── */
 /* No top rule — the hero's bottom padding plus this top padding carry the flow
-   from hero into Hear It, with room for the scroll-in reveal to play. */
+   from hero into Hear It, with generous room before the eyebrow and space for
+   the scroll-in reveal to play. */
 .lv-opus-hear {
-  padding: 64px 0 88px;
+  padding: 120px 0 88px;
 }
 
 .lv-opus-hear-framing {
