@@ -1,30 +1,26 @@
-"use client"
+/* The three pricing tiers. Foundation (one-time, understated) is the starting
+   point; Governance (subscription) is the hero — raised, gold-accented, with a
+   "Recommended" badge; Enterprise (custom) is the quiet talk-to-us path.
 
-/* The three pricing tiers. Foundation (one-time, understated) anchors the
-   comparison; Governance (subscription) is the hero — raised, gold-accented,
-   with a "Recommended" badge; Enterprise (custom) is the quiet talk-to-us path.
-
-   Annual is the default/primary billing anchor (the Governance entry annual
-   price sits about where the one-time Foundation does, so subscribing reads as
-   the obvious choice); a toggle exposes monthly as the secondary option. All prices
-   come from components/pricing/pricing-data.ts — the single editable place.
+   Annual is the loud default — there is no monthly/annual toggle. The annual
+   price leads; monthly is demoted to one quiet "or $X/mo billed monthly" line.
+   The per-agent ladder (annual) shows value-based pricing where the per-agent
+   cost drops as the fleet grows; above the top rung it routes to Enterprise. All
+   numbers come from components/pricing/pricing-data.ts — the single editable place.
 
    CTAs use named routes: "Try for free" -> /start (the trial leads into the paid
-   output/subscription flow); "Talk to us" -> /contact (a named placeholder for a
-   contact path built later). No dead "#" links. */
+   flow); "Talk to us" -> /contact (a named placeholder for a contact path built
+   later). No dead "#" links. */
 
 import Link from "next/link"
-import { useState } from "react"
 import { PRICING } from "@/components/pricing/pricing-data"
 
 const START = "/start"
 const CONTACT = "/contact"
 
 export default function PricingTiers() {
-  const [billing, setBilling] = useState<"annual" | "monthly">("annual")
-  const period = billing === "annual" ? "/yr" : "/mo"
   const gov = PRICING.governance
-  const entry = gov[billing][gov.agentTiers[0].key]
+  const entry = gov.annual[gov.agentTiers[0].key]
 
   return (
     <div className="lv-pricing-grid">
@@ -35,6 +31,9 @@ export default function PricingTiers() {
         <p className="lv-price-amount">
           {PRICING.foundation.amount}
           <span className="lv-price-period"> once</span>
+        </p>
+        <p className="lv-price-sub">
+          The one-time starting point. Build the Foundation, then govern it.
         </p>
         <p className="lv-price-desc">
           Run the guided intake and walk away with your brand&rsquo;s governed
@@ -53,39 +52,20 @@ export default function PricingTiers() {
         </Link>
       </article>
 
-      {/* Tier 2 — Governance (subscription) — HERO */}
+      {/* Tier 2 — Governance (subscription) — HERO. Annual leads; monthly quiet. */}
       <article className="lv-price-card lv-price-card-hero">
         <span className="lv-price-badge">Recommended</span>
         <p className="lv-price-name">Governance</p>
         <p className="lv-price-billing">Subscription</p>
 
-        <div className="lv-price-toggle" role="group" aria-label="Billing period">
-          <button
-            type="button"
-            className={billing === "annual" ? "is-active" : ""}
-            aria-pressed={billing === "annual"}
-            onClick={() => setBilling("annual")}
-          >
-            Annual
-          </button>
-          <button
-            type="button"
-            className={billing === "monthly" ? "is-active" : ""}
-            aria-pressed={billing === "monthly"}
-            onClick={() => setBilling("monthly")}
-          >
-            Monthly
-          </button>
-        </div>
-
         <p className="lv-price-amount">
           <span className="lv-price-from">from</span> {entry}
-          <span className="lv-price-period">{period}</span>
+          <span className="lv-price-period">/yr</span>
         </p>
+        <p className="lv-price-monthly">or {gov.monthlyFrom}/mo billed monthly</p>
         <p className="lv-price-sub">
-          {billing === "annual"
-            ? "Billed annually. About the cost of a one-time Foundation, with a year of governance on top."
-            : "Billed monthly. Everything in Foundation, plus ongoing governance."}
+          Billed annually. About the cost of a one-time Foundation, with a year of
+          governance on top.
         </p>
         <p className="lv-price-desc">
           Everything in Foundation, plus ongoing governance. Evals, drift
@@ -107,11 +87,14 @@ export default function PricingTiers() {
               <li key={t.key}>
                 <span>{t.label}</span>
                 <span className="lv-price-tiers-amount">
-                  {gov[billing][t.key]}
-                  {period}
+                  {gov.annual[t.key]}/yr
                 </span>
               </li>
             ))}
+            <li className="lv-price-tiers-more">
+              <span>{gov.aboveLabel}</span>
+              <Link href={CONTACT}>Talk to us</Link>
+            </li>
           </ul>
         </div>
 
