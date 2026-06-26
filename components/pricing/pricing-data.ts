@@ -1,13 +1,16 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   PLACEHOLDER PRICING — single source of truth for /pricing.
-   Replace these values with real numbers; nothing else needs to change.
+   PRICING — single source of truth for /pricing. These are starting points;
+   edit them here and nothing else needs to change.
 
-   Steering relationship (this is the important part, not the exact figures):
-   the ANNUAL Governance first-year price (entry, "up to 1 agent") sits CLOSE TO
-   or JUST ABOVE the one-time Foundation price, so subscribing reads as "the output
-   plus a year of ongoing governance, for about what you'd pay once." Annual is
-   the anchor shown by default; monthly is the secondary option. Keep that
-   output ⇄ annual relationship when swapping in real numbers.
+   Steering relationship (the important part, not the exact figures):
+   - ANNUAL is the loud default. The entry annual price (1 agent) sits about at
+     the one-time Foundation price, so subscribing reads as "the Foundation plus a
+     year of governance, for about what you'd pay once."
+   - MONTHLY is intentionally demoted to a quiet secondary line (monthlyFrom),
+     never an equal toggle.
+   - The per-agent ladder is VALUE-BASED: the per-agent cost DROPS as you scale
+     (1 agent $1,490/yr ≈ $1,490 each; 5 agents $4,950/yr ≈ $990 each; 20 agents
+     $14,900/yr ≈ $745 each). Above 20 agents routes to Enterprise.
    ───────────────────────────────────────────────────────────────────────── */
 
 export type AgentTierKey = "1" | "5" | "20"
@@ -18,8 +21,9 @@ export const PRICING: {
   foundation: { amount: string; billing: string }
   governance: {
     annual: Record<AgentTierKey, string>
-    monthly: Record<AgentTierKey, string>
+    monthlyFrom: string
     agentTiers: AgentTier[]
+    aboveLabel: string
   }
   enterprise: { amount: string }
 } = {
@@ -27,15 +31,17 @@ export const PRICING: {
   foundation: { amount: "$1,200", billing: "one-time" },
 
   governance: {
-    // Annual = primary anchor. Entry (up to 1 agent) sits just above Foundation above.
-    annual: { "1": "$1,490", "5": "$3,990", "20": "$9,990" },
-    // Monthly = secondary option (intentionally not the headline framing).
-    monthly: { "1": "$149", "5": "$399", "20": "$999" },
+    // Annual = the loud default. Per-agent cost drops as the fleet grows.
+    annual: { "1": "$1,490", "5": "$4,950", "20": "$14,900" },
+    // Monthly = quiet secondary line beneath the annual price (entry/1 agent).
+    monthlyFrom: "$149",
     agentTiers: [
-      { key: "1", label: "Up to 1 agent" },
-      { key: "5", label: "Up to 5 agents" },
-      { key: "20", label: "Up to 20 agents" },
+      { key: "1", label: "1 agent" },
+      { key: "5", label: "5 agents" },
+      { key: "20", label: "20 agents" },
     ],
+    // Above the top ladder rung, go to Enterprise.
+    aboveLabel: "Above 20 agents",
   },
 
   enterprise: { amount: "Custom" },
