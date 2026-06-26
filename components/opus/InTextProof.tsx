@@ -35,7 +35,7 @@ const GOVERNED: Msg[] = [
   { channel: "sms", text: "Your payment posted today. You’re all set." },
   {
     channel: "web",
-    text: "Your payment posted today. You’re all set. You can see it in your account under Activity.",
+    text: "Your payment was posted today. You’re all set. You can view it in your account under ‘Activity’.",
   },
   { channel: "sms", text: "Your payment posted today. You’re all set." },
 ]
