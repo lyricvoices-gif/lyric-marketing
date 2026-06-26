@@ -181,7 +181,7 @@ export default function SonicPreview() {
         </div>
       </div>
 
-      <p className="lv-opus-sp-note">Illustrative preview. The intake opens in Try Sonic free.</p>
+      <p className="lv-opus-sp-note">A preview of the experience. The real intake opens in Sonic.</p>
     </div>
   )
 }
