@@ -196,7 +196,7 @@ export default function DirectionCanvas() {
       <div className="lv-dirshow-bar">
         <span className="lv-dirshow-brand">
           <Isotype size={18} color="#F0E8D5" />
-          <span className="lv-dirshow-brand-name">Opus</span>
+          <span className="lv-dirshow-brand-name">Callio</span>
           <span className="lv-dirshow-brand-product">Direction</span>
         </span>
         <span className="lv-dirshow-session">

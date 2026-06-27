@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 /* Terms of Use — enterprise B2B focus. Reflects the current three-
-   product structure: Imprint (separate licensing contracts), Opus
+   product structure: Imprint (separate licensing contracts), Callio
    (subscription-based access to Composer and Direction), and Score
    (separate dataset agreements). Voice artist relationships are
    governed by the Artist Partnership at /imprint/agreement, which
@@ -53,8 +53,8 @@ const sections: Section[] = [
         body: "Imprint is Lyric's roster of curated voice identities. Voice licensing for commercial deployment is governed by separate negotiated agreements between Lyric and the licensee. These Terms cover access to and use of the platform pages that present the Imprint roster. They do not grant any license to deploy a Lyric imprint voice. Any commercial deployment requires a corresponding licensing agreement.",
       },
       {
-        subtitle: "2.2 Opus",
-        body: "Opus is Lyric's creative environment for working with voices from the Imprint. Opus includes two tools: Composer, which generates audio output from scripts and configurations, and Direction, which produces parameter configurations through a guided conversational process. Access to Opus is provided on a subscription basis. Subscription pricing and terms specific to an account are defined in the brand's individual subscription agreement, which incorporates these Terms by reference.",
+        subtitle: "2.2 Callio",
+        body: "Callio is Lyric's creative environment for working with voices from the Imprint. Callio includes two tools: Composer, which generates audio output from scripts and configurations, and Direction, which produces parameter configurations through a guided conversational process. Access to Callio is provided on a subscription basis. Subscription pricing and terms specific to an account are defined in the brand's individual subscription agreement, which incorporates these Terms by reference.",
       },
       {
         subtitle: "2.3 Score",
@@ -63,12 +63,12 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "3. Opus Usage Rules",
-    body: "By accessing Opus, the brand agrees to the following:",
+    title: "3. Callio Usage Rules",
+    body: "By accessing Callio, the brand agrees to the following:",
     subsections: [
       {
         subtitle: "3.1 Commercial Deployment Requires Licensing",
-        body: "Audio output from Composer and parameter configurations produced by Direction may only be deployed commercially through a corresponding voice licensing agreement with Lyric. Output produced in Opus is not, on its own, a license to deploy.",
+        body: "Audio output from Composer and parameter configurations produced by Direction may only be deployed commercially through a corresponding voice licensing agreement with Lyric. Output produced in Callio is not, on its own, a license to deploy.",
       },
       {
         subtitle: "3.2 Direction Is Imprint-Only",
@@ -76,11 +76,11 @@ const sections: Section[] = [
       },
       {
         subtitle: "3.3 No Extraction or Reverse Engineering",
-        body: "The brand may not extract, reverse-engineer, copy, or otherwise attempt to reconstruct the underlying voice models, embeddings, training data, or model infrastructure accessed through Opus. The brand may not use any output from Opus to train a third-party voice model or to develop a derivative voice.",
+        body: "The brand may not extract, reverse-engineer, copy, or otherwise attempt to reconstruct the underlying voice models, embeddings, training data, or model infrastructure accessed through Callio. The brand may not use any output from Callio to train a third-party voice model or to develop a derivative voice.",
       },
       {
         subtitle: "3.4 Use Case Exclusions",
-        body: "The brand may not use Opus to generate content that falls outside the pre-approved use case categories defined in the relevant artist partnership for the voice in question. Category-level exclusions commonly include political content, religious content, gambling, adult content, tobacco, firearms, and other categories that individual artists may exclude. The current exclusions for each licensed voice are documented in the brand's licensing agreement.",
+        body: "The brand may not use Callio to generate content that falls outside the pre-approved use case categories defined in the relevant artist partnership for the voice in question. Category-level exclusions commonly include political content, religious content, gambling, adult content, tobacco, firearms, and other categories that individual artists may exclude. The current exclusions for each licensed voice are documented in the brand's licensing agreement.",
       },
     ],
   },
@@ -89,7 +89,7 @@ const sections: Section[] = [
     subsections: [
       {
         subtitle: "4.1 Lyric Technology",
-        body: "Lyric retains all right, title, and interest in the platform technology, voice model infrastructure, generation systems, parameter framework, and the Imprint, Opus, and Score products. Nothing in these Terms grants the brand any ownership of Lyric technology.",
+        body: "Lyric retains all right, title, and interest in the platform technology, voice model infrastructure, generation systems, parameter framework, and the Imprint, Callio, and Score products. Nothing in these Terms grants the brand any ownership of Lyric technology.",
       },
       {
         subtitle: "4.2 Voice Artists",
@@ -97,7 +97,7 @@ const sections: Section[] = [
       },
       {
         subtitle: "4.3 Brand Content",
-        body: "The brand retains ownership of scripts, content, and creative direction it provides to Composer or Direction. By submitting content to Opus, the brand grants Lyric a limited, non-exclusive license to process that content solely to deliver the requested service.",
+        body: "The brand retains ownership of scripts, content, and creative direction it provides to Composer or Direction. By submitting content to Callio, the brand grants Lyric a limited, non-exclusive license to process that content solely to deliver the requested service.",
       },
       {
         subtitle: "4.4 Parameter Configurations",
@@ -133,7 +133,7 @@ const sections: Section[] = [
   },
   {
     title: "8. Billing and Subscriptions",
-    body: "Opus subscriptions are billed on a recurring basis through Stripe. The brand authorizes Lyric to charge its payment method at the rate defined in the subscription agreement. The brand may cancel a subscription at any time; cancellation takes effect at the end of the then-current billing period. Lyric does not offer prorated refunds for partial billing periods unless required by applicable law.\n\nEnterprise customers with negotiated pricing or annual agreements are governed by the terms of those individual agreements, which take precedence over the standard subscription terms for any matter specifically addressed in the negotiated agreement.",
+    body: "Callio subscriptions are billed on a recurring basis through Stripe. The brand authorizes Lyric to charge its payment method at the rate defined in the subscription agreement. The brand may cancel a subscription at any time; cancellation takes effect at the end of the then-current billing period. Lyric does not offer prorated refunds for partial billing periods unless required by applicable law.\n\nEnterprise customers with negotiated pricing or annual agreements are governed by the terms of those individual agreements, which take precedence over the standard subscription terms for any matter specifically addressed in the negotiated agreement.",
   },
   {
     title: "9. Termination",

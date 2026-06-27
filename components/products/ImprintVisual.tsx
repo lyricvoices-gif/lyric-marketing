@@ -9,7 +9,7 @@
    "rising into frame" posture (both crop at the panel's bottom edge via
    overflow:hidden on .lv-pillar-visual).
 
-   The stage ground matches Score's and Opus's dark panels so the three
+   The stage ground matches Score's and Callio's dark panels so the three
    pillar visuals read as one family. */
 
 export default function ImprintVisual() {

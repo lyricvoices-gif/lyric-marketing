@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 /* Privacy Policy — enterprise-focused. Reflects the current three-
-   product structure (Imprint, Opus, Score), the artist partnership at
+   product structure (Imprint, Callio, Score), the artist partnership at
    /imprint/agreement, and the production third-party stack. Em dashes
    are avoided throughout per design.md section 2 voice rules. */
 
@@ -37,7 +37,7 @@ type Section = {
 const sections: Section[] = [
   {
     title: "1. Who Lyric Serves",
-    body: "Lyric serves enterprise brands, agencies, and AI labs. Brands license voices from the Lyric imprint and use Opus tools, including Composer and Direction, to produce voice content for their products and services. AI labs access voice datasets through Score. Lyric is not a consumer-facing platform. Individual creators are not the intended audience for Lyric's products.",
+    body: "Lyric serves enterprise brands, agencies, and AI labs. Brands license voices from the Lyric imprint and use Callio tools, including Composer and Direction, to produce voice content for their products and services. AI labs access voice datasets through Score. Lyric is not a consumer-facing platform. Individual creators are not the intended audience for Lyric's products.",
   },
   {
     title: "2. Information We Collect",
@@ -51,8 +51,8 @@ const sections: Section[] = [
         ],
       },
       {
-        subtitle: "2.2 Opus Usage Data",
-        body: "When a brand uses Opus, Lyric collects:",
+        subtitle: "2.2 Callio Usage Data",
+        body: "When a brand uses Callio, Lyric collects:",
         list: [
           "Generation counts, session metadata, and feature interactions across Composer and Direction",
           "Scripts, text content, and other materials uploaded to Composer for voice generation",
@@ -87,7 +87,7 @@ const sections: Section[] = [
   },
   {
     title: "4. Third-Party Services Lyric Uses",
-    body: "Lyric relies on the following third-party services to deliver Imprint, Opus, and Score. Each service processes data under its own privacy and security obligations. Lyric provides each service only the data necessary to perform its function.",
+    body: "Lyric relies on the following third-party services to deliver Imprint, Callio, and Score. Each service processes data under its own privacy and security obligations. Lyric provides each service only the data necessary to perform its function.",
     list: [
       "Hume AI: voice model hosting and emotional voice generation for Edition 01 voices",
       "OpenAI: GPT-Realtime-2 for the Direction tool's conversational layer",
@@ -103,7 +103,7 @@ const sections: Section[] = [
   {
     title: "5. How Lyric Uses Information",
     list: [
-      "Operate, secure, and improve Imprint, Opus, and Score",
+      "Operate, secure, and improve Imprint, Callio, and Score",
       "Authenticate users and protect against unauthorized access",
       "Bill brands for subscription and licensing fees, and calculate artist compensation",
       "Generate usage reports for brand accounts and statements for partnered artists",
@@ -128,8 +128,8 @@ const sections: Section[] = [
         body: "Brand account and billing data are retained for the duration of the active relationship plus the period required by tax, accounting, and regulatory obligations.",
       },
       {
-        subtitle: "7.2 Opus Usage Data",
-        body: "Opus usage data, including scripts, conversational input, and parameter configurations, is retained for the duration of the active relationship plus a reasonable period for audit and dispute resolution. Brands may request earlier deletion in accordance with Section 8.",
+        subtitle: "7.2 Callio Usage Data",
+        body: "Callio usage data, including scripts, conversational input, and parameter configurations, is retained for the duration of the active relationship plus a reasonable period for audit and dispute resolution. Brands may request earlier deletion in accordance with Section 8.",
       },
       {
         subtitle: "7.3 Voice Artist Materials",

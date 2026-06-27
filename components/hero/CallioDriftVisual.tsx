@@ -1,12 +1,12 @@
 "use client"
 
-/* Opus hero visual — the drift problem, animated.
+/* Callio hero visual — the drift problem, animated.
 
    Three agent instances answer the same customer question, one per channel, and
    each one sounds like a different company: the phone agent is stiff, the web
    chat is overeager, the SMS agent is too casual. They reveal in sequence —
    call first, then chat, then SMS — so the viewer watches the same brand split
-   into three voices. This is the problem the headline names; Opus is the answer
+   into three voices. This is the problem the headline names; Callio is the answer
    the rest of the page gives.
 
    Built on the same machinery as the home hero's GovernedCallVisual: a
@@ -99,7 +99,7 @@ function useReducedMotion() {
   return reduced
 }
 
-export default function OpusDriftVisual() {
+export default function CallioDriftVisual() {
   const reduced = useReducedMotion()
   const rootRef = useRef<HTMLDivElement>(null)
   const [hasEntered, setHasEntered] = useState(false)

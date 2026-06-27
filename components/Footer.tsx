@@ -64,7 +64,7 @@ const SOCIAL = [
 export default function Footer() {
   const DARK = "#2b2a25"
 
-  /* Footer columns: Products mirrors the global nav dropdown (Opus / Voices &
+  /* Footer columns: Products mirrors the global nav dropdown (Callio / Voices &
      Sounds). Company carries the editorial routes. Locations lists the cities
      we are based in as read-only text (no links, no full addresses). Legal
      groups the policy documents. (Imprint is retired from public navigation;
@@ -81,7 +81,7 @@ export default function Footer() {
     {
       heading: "Products",
       links: [
-        { label: "Opus",            href: "/opus" },
+        { label: "Callio",            href: "/callio" },
         { label: "Voices & Sounds", href: "/voices" },
       ],
     },

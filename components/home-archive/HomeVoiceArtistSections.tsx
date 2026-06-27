@@ -16,7 +16,7 @@
    simply no longer imported by the homepage — re-add the import to
    restore):
      - components/ProductsSection.tsx + components/products/*  (the
-       Imprint / Score / Opus scrollytelling)
+       Imprint / Score / Callio scrollytelling)
      - components/ListenSection.tsx   (the artist index)
      - components/NotesSection.tsx    (the editorial teaser)
      - components/MobileStickyCTA.tsx (still used, copy updated for the

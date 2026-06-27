@@ -24,7 +24,7 @@ export default function HomeHero() {
             apps. Each one speaks to customers. Lyric keeps every agent on brand
             with governance that works across models and speech engines.
           </p>
-          <Link href="/opus" className="lv-link-cta">
+          <Link href="/callio" className="lv-link-cta">
             See how it works <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>

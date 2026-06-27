@@ -285,11 +285,11 @@ export default function ImprintPage() {
                   Inquire about licensing
                 </Link>
                 <Link
-                  href="/opus"
+                  href="/callio"
                   className="lv-cta lv-cta-outline"
                   style={pillStyle("outline")}
                 >
-                  Learn about Opus
+                  Learn about Callio
                 </Link>
               </div>
             </ScrollReveal>
@@ -369,7 +369,7 @@ export default function ImprintPage() {
       {/* Section 6 — Two paths forward.
           Final dark bookend — the conversion moment, in the same
           register as the home page's Final CTA (pill buttons on dark
-          olive). Shared component, also used at the bottom of /opus. */}
+          olive). Shared component, also used at the bottom of /callio. */}
       <TwoPathsForward />
     </main>
   )

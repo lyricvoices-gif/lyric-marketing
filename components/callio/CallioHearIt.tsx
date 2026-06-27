@@ -117,7 +117,7 @@ function Column({
   )
 }
 
-export default function OpusHearIt() {
+export default function CallioHearIt() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [playing, setPlaying] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)

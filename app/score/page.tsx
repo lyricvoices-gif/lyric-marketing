@@ -1,6 +1,6 @@
 /* Score product page — performance-grade voice datasets for AI labs
    and researchers. Positioned for a fundamentally different audience
-   than Imprint/Opus (engineers, ML researchers, procurement teams),
+   than Imprint/Callio (engineers, ML researchers, procurement teams),
    but the visual register stays the same: warm editorial cream ground,
    sage-dot eyebrows, Cormorant Garamond display, restrained section
    pacing. The defensible-sourcing section is the strategic anchor. */

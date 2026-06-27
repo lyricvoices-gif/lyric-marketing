@@ -21,7 +21,7 @@
    on brand, so terminology pronunciation shows up twice across the call.
 
    Plays once when the hero scrolls into view, then settles and holds.
-   Mirrors the OpusVisual pattern: a useReducedMotion hook, a one-shot
+   Mirrors the CallioVisual pattern: a useReducedMotion hook, a one-shot
    IntersectionObserver, and a small setTimeout step machine. Reduced-motion
    users get the full transcript and notes, static. */
 

@@ -21,7 +21,7 @@ const NAV_ITEMS: NavItem[] = [
     type: "dropdown",
     label: "Products",
     items: [
-      { href: "/opus", label: "Opus" },
+      { href: "/callio", label: "Callio" },
       { href: "/voices", label: "Voices & Sounds" },
     ],
   },

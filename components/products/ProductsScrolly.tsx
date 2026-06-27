@@ -14,7 +14,7 @@
    renders its own visual above its copy, so the section falls back to
    the familiar stacked visual-then-copy rhythm. The visuals are
    rendered twice (stage + per-item) but only one set is ever displayed;
-   OpusVisual's animation is IntersectionObserver-gated, so the
+   CallioVisual's animation is IntersectionObserver-gated, so the
    display:none copy never starts its state machine.
 
    Scroll progress drives two things: the --sp-progress custom property
@@ -26,7 +26,7 @@
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import ImprintVisual from "@/components/products/ImprintVisual"
-import OpusVisual from "@/components/products/OpusVisual"
+import CallioVisual from "@/components/products/CallioVisual"
 import ScoreVisual from "@/components/products/ScoreVisual"
 
 type Pillar = {
@@ -78,7 +78,7 @@ const PILLARS: Pillar[] = [
   {
     id: "opus",
     index: "03",
-    name: "Opus",
+    name: "Callio",
     body: (
       <>
         Where voice work is directed, not just generated. Two modes in
@@ -86,9 +86,9 @@ const PILLARS: Pillar[] = [
         Composer produces the work.
       </>
     ),
-    href: "/opus",
-    cta: "Explore Opus",
-    Visual: OpusVisual,
+    href: "/callio",
+    cta: "Explore Callio",
+    Visual: CallioVisual,
   },
 ]
 

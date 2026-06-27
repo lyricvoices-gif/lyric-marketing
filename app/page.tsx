@@ -20,11 +20,11 @@ import ScrollReveal from "@/components/ScrollReveal"
    The previous voice-artist-platform sections are preserved, not deleted:
      - the original hero / manifesto / audiences / final CTA copy lives in
        components/home-archive/HomeVoiceArtistSections.tsx
-     - the Imprint / Score / Opus scrollytelling (ProductsSection), the
+     - the Imprint / Score / Callio scrollytelling (ProductsSection), the
        artist index (ListenSection), and the editorial teaser (NotesSection)
        remain as their own component files, simply no longer imported here.
-   Opus is kept live: it is the Direction product, and "See how it works"
-   points to /opus. */
+   Callio is kept live: it is the Direction product, and "See how it works"
+   points to /callio. */
 
 const DARK = "#2b2a25"
 
@@ -314,7 +314,7 @@ export default function HomePage() {
             <CTA href="mailto:info@lyricvoices.ai?subject=Lyric%20access" variant="light">
               Request access
             </CTA>
-            <CTA href="/opus" variant="outline">
+            <CTA href="/callio" variant="outline">
               See how it works
             </CTA>
           </div>

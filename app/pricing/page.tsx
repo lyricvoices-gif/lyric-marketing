@@ -175,7 +175,7 @@ export default function PricingPage() {
             <CTA href="mailto:info@lyricvoices.ai?subject=Lyric%20access" variant="light">
               Request access
             </CTA>
-            <CTA href="/opus" variant="outline">
+            <CTA href="/callio" variant="outline">
               See how it works
             </CTA>
           </div>

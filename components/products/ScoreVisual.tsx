@@ -12,7 +12,7 @@
 
    This is a pure CSS visual now. No audio file is loaded, no Web Audio
    API decode, no canvas rendering. The component is server-renderable
-   but stays under the products/ directory alongside OpusVisual for
+   but stays under the products/ directory alongside CallioVisual for
    layout symmetry. */
 
 export default function ScoreVisual() {

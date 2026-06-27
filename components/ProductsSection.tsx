@@ -13,7 +13,7 @@
 
    Composer, Timbre (now Direction), and The Lyric Briefing are no
    longer top-level pillars in this section. Composer and Direction are
-   the two modes inside Opus; the Briefing lives under the Imprint as
+   the two modes inside Callio; the Briefing lives under the Imprint as
    ongoing cultural output. Both still exist as routes; they just no
    longer surface here. */
 
