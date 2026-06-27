@@ -1,6 +1,6 @@
-/* Opus product page — problem-first spine. This is a category-defining page, so
+/* Callio product page — problem-first spine. This is a category-defining page, so
    it leads with the problem the buyer hasn't named yet (their agents are
-   multiplying and drifting off-brand) and then reveals Opus as the layer that
+   multiplying and drifting off-brand) and then reveals Callio as the layer that
    holds all of them to one voice. Six movements:
 
      1) Hero        — name the problem
@@ -21,16 +21,16 @@ import type { Metadata } from "next"
 import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
-import OpusHearIt from "@/components/opus/OpusHearIt"
-import OpusDriftVisual from "@/components/hero/OpusDriftVisual"
-import OpusFlow from "@/components/opus/OpusFlow"
-import SonicPreview from "@/components/opus/SonicPreview"
-import InTextProof from "@/components/opus/InTextProof"
+import CallioHearIt from "@/components/callio/CallioHearIt"
+import CallioDriftVisual from "@/components/hero/CallioDriftVisual"
+import CallioFlow from "@/components/callio/CallioFlow"
+import SonicPreview from "@/components/callio/SonicPreview"
+import InTextProof from "@/components/callio/InTextProof"
 
 export const metadata: Metadata = {
-  title: "Opus",
+  title: "Callio",
   description:
-    "Your agents are multiplying. Opus is the layer that holds all of them to one brand voice, across every model and engine you run.",
+    "Your agents are multiplying. Callio is the layer that holds all of them to one brand voice, across every model and engine you run.",
 }
 
 const DARK = "#2b2a25"
@@ -98,7 +98,7 @@ function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean })
   )
 }
 
-export default function OpusPage() {
+export default function CallioPage() {
   return (
     <main className="lv-opus">
       {/* ── Movement 1 — Hero. Name the problem. The type carries the claim;
@@ -108,7 +108,7 @@ export default function OpusPage() {
         <div className="lv-opus-wrap lv-opus-hero-grid">
           <div className="lv-opus-hero-copy">
             <ScrollReveal>
-              <Eyebrow label="Opus" />
+              <Eyebrow label="Callio" />
             </ScrollReveal>
             <ScrollReveal delay={120}>
               <h1 className="lv-opus-hero-head">
@@ -119,7 +119,7 @@ export default function OpusPage() {
             <ScrollReveal delay={220}>
               <p className="lv-opus-hero-sub">
                 Every channel adds another agent. Each one drifts a little
-                further from your brand. Opus is the layer that holds all of them
+                further from your brand. Callio is the layer that holds all of them
                 to one voice.
               </p>
             </ScrollReveal>
@@ -133,7 +133,7 @@ export default function OpusPage() {
           </div>
 
           <div className="lv-opus-hero-demo">
-            <OpusDriftVisual />
+            <CallioDriftVisual />
           </div>
         </div>
       </section>
@@ -151,7 +151,7 @@ export default function OpusPage() {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={220}>
-            <OpusHearIt />
+            <CallioHearIt />
           </ScrollReveal>
         </div>
       </section>
@@ -182,7 +182,7 @@ export default function OpusPage() {
             </div>
 
             <div className="lv-opus-how-list">
-              <OpusFlow />
+              <CallioFlow />
             </div>
           </div>
 

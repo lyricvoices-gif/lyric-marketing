@@ -1,4 +1,4 @@
-/* Direction's single consolidated section on the Opus page — the
+/* Direction's single consolidated section on the Callio page — the
    symmetrical counterpart to Composer's dark storyboard chapter, on the
    same dark-olive ground so the two tools read as matching movements.
 
@@ -15,7 +15,7 @@
    server component. */
 
 import ScrollReveal from "@/components/ScrollReveal"
-import DirectionCanvas from "@/components/opus/DirectionCanvas"
+import DirectionCanvas from "@/components/callio/DirectionCanvas"
 
 const STEPS = [
   {

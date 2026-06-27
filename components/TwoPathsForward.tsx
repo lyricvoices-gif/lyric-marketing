@@ -5,7 +5,7 @@
    buttons — one for brands, one for artists. It reuses .lv-final +
    .lv-cta-row so the visual parity with the home page holds.
 
-   Reusable across /imprint and /opus so the page-end conversion
+   Reusable across /imprint and /callio so the page-end conversion
    moment reads identically on both, without inlining the markup
    twice. */
 

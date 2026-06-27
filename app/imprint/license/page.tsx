@@ -1,6 +1,6 @@
 /* Imprint licensing page — transactional surface for brands inquiring
    about voice licensing. Routes from the /imprint "Two paths forward"
-   CTA, the footer "For partners" column, and the /opus access section.
+   CTA, the footer "For partners" column, and the /callio access section.
    Inquiry path uses an email contact per the brief's "optional form"
    note; a form can be wired in later when forms infrastructure lands. */
 
@@ -80,14 +80,14 @@ export default function ImprintLicensePage() {
               designed for different commercial needs. Every license comes
               with access to{" "}
               <Link
-                href="/opus"
+                href="/callio"
                 style={{
                   color: C.olive,
                   textDecoration: "underline",
                   textUnderlineOffset: "3px",
                 }}
               >
-                Opus
+                Callio
               </Link>
               , our enterprise creative environment for directing
               performances and configuring voice parameters for deployment.
@@ -166,7 +166,7 @@ export default function ImprintLicensePage() {
         <List
           items={[
             "The licensed voice, available for commercial deployment within the agreed scope",
-            "Access to Opus for the duration of the license (Composer for audio generation, Direction for parameter configuration)",
+            "Access to Callio for the duration of the license (Composer for audio generation, Direction for parameter configuration)",
             "Use case examples and deployment guidance from Lyric's creative team",
             "Direct collaboration with Lyric's artist liaison for any per-deployment approvals",
             "Transparent reporting on usage and licensing activity",

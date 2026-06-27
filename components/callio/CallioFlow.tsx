@@ -15,7 +15,7 @@ const STEPS = [
   { key: "port", n: "03", title: "Port", line: "The spec rides above any model and any engine." },
 ] as const
 
-export default function OpusFlow() {
+export default function CallioFlow() {
   return (
     <div className="lv-opus-flow">
       {STEPS.map((s) => (

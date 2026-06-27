@@ -1,6 +1,6 @@
 "use client"
 
-/* Opus visual — Direction mode as an animated AI chat that mirrors the
+/* Callio visual — Direction mode as an animated AI chat that mirrors the
    real product canvas.
 
    Direction is free-text-first: brands answer the agent in their own
@@ -125,14 +125,14 @@ function useReducedMotion() {
   return reduced
 }
 
-export default function OpusVisual() {
+export default function CallioVisual() {
   const reduced = useReducedMotion()
   const [round, setRound] = useState(0)
   const [phase, setPhase] = useState<Phase>("agent")
   const [typedAgent, setTypedAgent] = useState(0)
   const [typedReply, setTypedReply] = useState(0)
 
-  /* The animation does not run until the Opus pillar scrolls into view —
+  /* The animation does not run until the Callio pillar scrolls into view —
      one-shot intersection trigger, matching the site's ScrollReveal
      pattern. */
   const rootRef = useRef<HTMLDivElement>(null)
