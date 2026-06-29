@@ -12,7 +12,7 @@
    appears once on the page.
 
    The persuasion lives in the annotations: "governed" is not an assertion, it
-   names the rule. Each row carries one outcome tag mapped to the buyer who cares.
+   names the rule.
 
    Wiring is verifiable: every Ungoverned control points at an *ungoverned* mp3,
    every Governed control at a *governed* mp3. Snippets are teasers; the audio is
@@ -27,7 +27,6 @@ type Side = { src: string; snippet: string; annotations: Annotation[] }
 type Scenario = {
   id: string
   question: string
-  outcome: { buyer: string; line: string }
   ungoverned: Side
   governed: Side
 }
@@ -35,9 +34,7 @@ type Scenario = {
 const SCENARIOS: Scenario[] = [
   {
     id: "ex1",
-    question:
-      "A customer asks about a credit-card rate. The answers shouldn’t sound like two different companies.",
-    outcome: { buyer: "Compliance", line: "the required disclosure, said the same way every time" },
+    question: "A customer asks about a credit-card rate.",
     ungoverned: {
       src: "/VoiceAgent1ungoverned.mp3",
       snippet: "Yeah, so your APR’s twenty-four ninety-nine, and the Cascade card’s a really popular one…",
@@ -52,7 +49,6 @@ const SCENARIOS: Scenario[] = [
   {
     id: "ex2",
     question: "A customer asks if a document was sent.",
-    outcome: { buyer: "CX", line: "consistent customer experience across agents" },
     ungoverned: {
       src: "/VoiceAgent2ungoverned.mp3",
       snippet:
@@ -232,10 +228,6 @@ export default function CallioHearIt() {
           <div className="lv-hear-scenario" key={s.id}>
             <div className="lv-hear-scenario-head">
               <p className="lv-hear-question">{s.question}</p>
-              <span className="lv-hear-outcome">
-                <span className="lv-hear-outcome-buyer">{s.outcome.buyer}</span>
-                {s.outcome.line}
-              </span>
             </div>
 
             <div className="lv-hear-ab">

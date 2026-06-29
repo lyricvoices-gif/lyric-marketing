@@ -158,8 +158,8 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <p className="lv-opus-hear-framing">
-              Same bank. Same questions. The agents work. They just don&rsquo;t
-              sound like the same company.
+              Your customers ask the same questions. Your agents shouldn&rsquo;t
+              sound like different companies.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={220}>

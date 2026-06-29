@@ -9286,34 +9286,20 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-hear-scenario-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px 24px;
   margin: 0 0 22px;
 }
+/* Scenario label — deliberately a different treatment from the section headline
+   (body, not the GT Super display the framing line uses), so it reads as a quiet
+   setup, not a second headline. */
 .lv-hear-question {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(20px, 2.6vw, 26px);
-  line-height: 1.2;
-  color: var(--olive);
-  margin: 0;
-}
-/* Outcome tag, mapped to the buyer who cares. Bridges into the Outcomes section. */
-.lv-hear-outcome {
   font-family: var(--font-body);
-  font-size: 13px;
-  color: color-mix(in srgb, var(--olive) 70%, transparent);
-}
-.lv-hear-outcome-buyer {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--olive);
-  margin-right: 9px;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: color-mix(in srgb, var(--olive) 82%, transparent);
+  margin: 0;
+  max-width: 52ch;
 }
 
 /* Tight A/B: the two clips read as one controlled comparison. */
