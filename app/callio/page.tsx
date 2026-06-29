@@ -1,21 +1,22 @@
-/* Callio product page — problem-first spine. This is a category-defining page, so
-   it leads with the problem the buyer hasn't named yet (their agents are
-   multiplying and drifting off-brand) and then reveals Callio as the layer that
-   holds all of them to one voice. Six movements:
+/* Callio product page — restructured for an enterprise buyer (CX, Compliance,
+   Ops, Brand, procurement) while keeping the premium editorial mood. Ten
+   sections, inspectable top to bottom:
 
-     1) Hero        — name the problem
-     2) Hear it     — the voice, before/after (the visceral proof)
-     3) How it works— the mechanism (Codify / Govern / Port)
-     4) Meet Sonic  — how you get your spec (the on-ramp; preview, funnels to /start)
-     5) See it in text — cross-agent consistency (text governance, no audio)
-     6) CTA         — funnel to "Try for free"
+     1) Hero            — the problem in one screen
+     2) Before / after  — same question, governed vs ungoverned (the one audio module)
+     3) What Callio is  — plain explanation, no metaphor
+     4) How it works    — Codify / Govern / Port / Monitor (dark)
+     5) Build the spec  — Sonic intake, the real spec dimensions
+     6) Across channels — one voice, adapted per channel (text; voice links to §2)
+     7) Architecture    — Callio sits above the model and the engine (dark)
+     8) Outcomes        — one outcome per buyer
+     9) Founders        — the trust beat (a decade of doing it by hand)
+    10) Final CTA       — Sonic is the demo
 
-   Built on the live Lyric tokens only (cream / olive / near-black / gold), the
-   shared GT Super + GT America + Instrument Serif faces, and the existing
-   ScrollReveal + nav + footer. All scoped styles live under .lv-opus-* in
-   globals.css. Copy register: flat, declarative, no em dashes, no exclamation
-   points. The engine-agnostic point is folded into the Port step as one line on
-   purpose; this page does not pull in homepage modules. */
+   Guardrails: flat declarative voice, no em dashes, no exclamation points.
+   Callio codifies and governs, it never builds the agent. Monitor is brand-voice
+   governance monitoring, not security. No fabricated proof. Live Lyric tokens
+   only; scoped styles under .lv-opus-* / .lv-callio-* / .lv-arch-* in globals.css. */
 
 import type { Metadata } from "next"
 import type { CSSProperties, ReactNode } from "react"
@@ -24,20 +25,21 @@ import ScrollReveal from "@/components/ScrollReveal"
 import CallioHearIt from "@/components/callio/CallioHearIt"
 import CallioDriftVisual from "@/components/hero/CallioDriftVisual"
 import CallioFlow from "@/components/callio/CallioFlow"
+import CallioArchitecture from "@/components/callio/CallioArchitecture"
 import SonicPreview from "@/components/callio/SonicPreview"
 import InTextProof from "@/components/callio/InTextProof"
 
 export const metadata: Metadata = {
   title: "Callio",
   description:
-    "Your agents are multiplying. Callio is the layer that holds all of them to one brand voice, across every model and engine you run.",
+    "Callio keeps every AI agent aligned to one approved voice, policy, and communication standard. A vendor-agnostic governance layer above your models and speech engines.",
 }
 
 const DARK = "#2b2a25"
 const START = "/start"
+const CONTACT = "/contact"
 
-/* Pill CTA, mirroring the homepage / pricing Final CTA buttons so closing and
-   hero CTAs read identically across the site. */
+/* Pill CTA, mirroring the homepage / pricing Final CTA buttons. */
 function CTA({
   href,
   children,
@@ -88,7 +90,7 @@ function CTA({
   )
 }
 
-/* Mono small-caps eyebrow, dot + label, in the site's editorial register. */
+/* Mono small-caps eyebrow, dot + label. */
 function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean }) {
   return (
     <div className={`lv-philosophy-eyebrow lv-opus-eyebrow${onDark ? " is-dark" : ""}`}>
@@ -98,12 +100,19 @@ function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean })
   )
 }
 
+/* Section 8 — outcomes, one per buyer. */
+const OUTCOMES = [
+  { buyer: "CX", line: "A consistent customer experience across every agent and channel." },
+  { buyer: "Compliance", line: "Approved language and auditable, consistent disclosures." },
+  { buyer: "Ops", line: "Fewer escalations and less drift." },
+  { buyer: "Brand", line: "One recognizable voice everywhere." },
+]
+
 export default function CallioPage() {
   return (
     <main className="lv-opus">
-      {/* ── Movement 1 — Hero. Name the problem. The type carries the claim;
-            the drift visual proves it — three agents answering one question in
-            three voices (call, then chat, then SMS). ── */}
+      {/* ── Section 1 — Hero. The problem in one screen: agents multiplying and
+            drifting, shown live (call, then chat, then SMS) in the drift visual. ── */}
       <section className="lv-opus-hero">
         <div className="lv-opus-wrap lv-opus-hero-grid">
           <div className="lv-opus-hero-copy">
@@ -118,15 +127,17 @@ export default function CallioPage() {
             </ScrollReveal>
             <ScrollReveal delay={220}>
               <p className="lv-opus-hero-sub">
-                Every channel adds another agent. Each one drifts a little
-                further from your brand. Callio is the layer that holds all of them
-                to one voice.
+                Callio keeps every AI agent aligned to one approved voice, policy,
+                and communication standard.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={320}>
               <div className="lv-cta-row">
                 <CTA href={START} variant="dark">
-                  Try for free
+                  Build your voice spec
+                </CTA>
+                <CTA href={CONTACT} variant="outline">
+                  Talk to us
                 </CTA>
               </div>
             </ScrollReveal>
@@ -138,8 +149,9 @@ export default function CallioPage() {
         </div>
       </section>
 
-      {/* ── Movement 2 — Hear it. Before/after voice, the visceral proof. ── */}
-      <section className="lv-opus-hear">
+      {/* ── Section 2 — Before / after. The one audio-grade module on the page:
+            same question, ungoverned vs governed by Callio. ── */}
+      <section className="lv-opus-hear" id="hear">
         <div className="lv-opus-wrap">
           <ScrollReveal>
             <Eyebrow label="Hear it" />
@@ -156,11 +168,31 @@ export default function CallioPage() {
         </div>
       </section>
 
-      {/* ── Movement 3 — How it works. Two-column, matching the home page's
-            "What it governs" layout: copy on the left, the numbered mechanism
-            (Codify / Govern / Port) on the right, rows separated by hairline
-            rules. Port carries the single visual. Near-black chapter ground;
-            punchline full-width below the rule. ── */}
+      {/* ── Section 3 — What Callio is. Plain explanation, no metaphor. ── */}
+      <section className="lv-callio-what">
+        <div className="lv-opus-wrap lv-callio-what-inner">
+          <ScrollReveal>
+            <Eyebrow label="What it is" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-callio-what-head">
+              A governance layer for AI communication.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={200}>
+            <p className="lv-callio-what-body">
+              Callio sits above your models, voice engines, and agent channels. It
+              translates your brand, compliance, and CX rules into a portable
+              communication spec, and holds every agent to it. It does not build
+              the agent. It governs how the agents you already run sound and speak.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Section 4 — How it works. Four steps on a dark chapter ground; the
+            left column frames the lifecycle, the right is the numbered list with
+            the Monitor mechanism. ── */}
       <section className="lv-opus-how" style={{ background: DARK }}>
         <div className="lv-opus-wrap">
           <div className="lv-opus-how-grid">
@@ -173,10 +205,8 @@ export default function CallioPage() {
               </ScrollReveal>
               <ScrollReveal delay={200}>
                 <p className="lv-opus-how-body">
-                  Lyric sits above the language model and the speech engine. It
-                  doesn&rsquo;t generate text or audio. It codifies your brand into
-                  a portable spec and holds every agent to it, regardless of the
-                  engine underneath.
+                  One lifecycle. Codify the spec, govern every response, port it
+                  across your stack, and monitor for drift over time.
                 </p>
               </ScrollReveal>
             </div>
@@ -185,19 +215,11 @@ export default function CallioPage() {
               <CallioFlow />
             </div>
           </div>
-
-          <ScrollReveal delay={120}>
-            <p className="lv-opus-how-position">
-              We direct the engines. <em>We are not one of them.</em>
-            </p>
-          </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Movement 4 — Meet Sonic. The on-ramp. An illustrative, interactive
-            preview (SonicPreview) that demonstrates show-don't-ask without
-            collecting input, then funnels to /start. Sonic codifies your brand
-            voice, it does not build agents. ── */}
+      {/* ── Section 5 — Build the voice spec (Sonic). Shows the real spec
+            dimensions a brand configures, not agent-build machinery. ── */}
       <section className="lv-opus-sonic">
         <div className="lv-opus-wrap">
           <ScrollReveal>
@@ -210,10 +232,10 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <p className="lv-opus-sonic-body">
-              Sonic is the guided intake. It doesn&rsquo;t ask you to describe
-              your voice in adjectives. It shows you options and you pick the ones
-              that sound like you. Your choices become the spec. A few minutes in,
-              you have a governed voice for your first agent.
+              Sonic is the guided intake. It asks the facts with a short
+              questionnaire, then shows you options and you pick the ones that
+              sound like you. It never asks you to describe your voice in
+              adjectives. Your picks become the spec.
             </p>
           </ScrollReveal>
 
@@ -224,23 +246,23 @@ export default function CallioPage() {
           <ScrollReveal delay={360}>
             <div className="lv-cta-row">
               <CTA href={START} variant="dark">
-                Try Sonic free
+                Build your voice spec
               </CTA>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Movement 5 — See it in text. Cross-agent consistency, built as styled
-            markup, no audio. ── */}
+      {/* ── Section 6 — Governance across channels. One voice, adapted to each
+            channel. Text comparisons; the voice channel links back to §2. ── */}
       <section className="lv-opus-proof">
         <div className="lv-opus-wrap">
           <ScrollReveal>
-            <Eyebrow label="In text" />
+            <Eyebrow label="Across channels" />
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <p className="lv-opus-proof-framing">
-              Same brand. Three agents. One question:{" "}
+              Same brand. Every channel. One question:{" "}
               <em>&ldquo;Did my payment go through?&rdquo;</em>
             </p>
           </ScrollReveal>
@@ -249,15 +271,85 @@ export default function CallioPage() {
 
           <ScrollReveal delay={380}>
             <p className="lv-opus-proof-caption">
-              Governance adapts to the channel without losing the brand. The web
-              chat can say more. The voice never changes.
+              Callio does not make every answer identical. It keeps the voice
+              consistent while adapting to each channel. Text drift is read. Voice
+              drift is heard, in the before and after above.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Movement 6 — Closing CTA. Funnel to Try for free. Reuses the shared
-            .lv-final composition on a near-black ground. ── */}
+      {/* ── Section 7 — Deployment and architecture. Callio sits above the model
+            and the speech engine and directs them. Dark ground, diagram. ── */}
+      <section className="lv-callio-arch" style={{ background: DARK }}>
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="Architecture" onDark />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-callio-arch-head">
+              We direct the engines. <em>We are not one of them.</em>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={220}>
+            <CallioArchitecture />
+          </ScrollReveal>
+          <ScrollReveal delay={320}>
+            <p className="lv-callio-arch-takeaway">
+              Vendor-agnostic. Swap any engine and the brand voice holds. No stack
+              lock-in.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Section 8 — Outcomes by buyer. ── */}
+      <section className="lv-callio-out">
+        <div className="lv-opus-wrap">
+          <ScrollReveal>
+            <Eyebrow label="Outcomes" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-callio-out-head">One voice, measured four ways.</h2>
+          </ScrollReveal>
+          <div className="lv-callio-out-grid">
+            {OUTCOMES.map((o, i) => (
+              <ScrollReveal key={o.buyer} delay={180 + i * 70}>
+                <div className="lv-callio-out-item">
+                  <span className="lv-callio-out-buyer">{o.buyer}</span>
+                  <p className="lv-callio-out-line">{o.line}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 9 — Founders. The trust beat. A decade of doing this work by
+            hand, built into a system. Structural slot for logos / posture is left
+            unpopulated on purpose, no placeholder logos or invented badges. ── */}
+      <section className="lv-callio-founders">
+        <div className="lv-opus-wrap lv-callio-founders-inner">
+          <ScrollReveal>
+            <Eyebrow label="Founders" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <blockquote className="lv-callio-founders-quote">
+              We spent more than a decade doing this work by hand. We tuned brand
+              voices across engines, caught drift by ear, and wrote the disclosure
+              lines that had to be exact. <em>Callio is that practice, built into a
+              system.</em>
+            </blockquote>
+          </ScrollReveal>
+          {/* Structural slot for customer references and security posture, left
+              unpopulated until they are real. Do not add placeholder logos or
+              certification badges here. */}
+          <div className="lv-callio-trust-slot" aria-hidden="true" />
+        </div>
+      </section>
+
+      {/* ── Section 10 — Final CTA. Sonic is the demo. Build the spec, or talk to
+            us. No self-serve "try for free" for a governance buyer. ── */}
       <section className="lv-final lv-opus-close" style={{ background: DARK }}>
         <ScrollReveal>
           <div className="lv-philosophy-eyebrow lv-final-eyebrow">
@@ -269,9 +361,16 @@ export default function CallioPage() {
             <br />
             <span className="lv-final-line">one <em>brand voice</em>.</span>
           </h2>
+          <p className="lv-callio-final-sub">
+            Start with Sonic. Tell it about your brand and hear your voice take
+            shape.
+          </p>
           <div className="lv-cta-row lv-cta-row-center">
             <CTA href={START} variant="light">
-              Try for free
+              Build your voice spec
+            </CTA>
+            <CTA href={CONTACT} variant="outline">
+              Talk to us
             </CTA>
           </div>
         </ScrollReveal>
