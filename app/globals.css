@@ -8430,196 +8430,6 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 22ch;
 }
 
-/* Hear It — the audible sibling of "See it in text", composed with type and
-   space alone. No cards, no rules: the ungoverned/governed pairing is carried by
-   clean side-by-side alignment and the wander-vs-land typography. Scenarios are
-   separated by generous vertical space and their label, never a drawn line. */
-.lv-opus-hr {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-}
-
-.lv-opus-hr-scenario {
-  font-family: var(--font-body);
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: color-mix(in srgb, var(--olive) 78%, transparent);
-  margin: 0 0 28px;
-}
-
-.lv-opus-hr-pair {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
-  align-items: stretch;
-}
-
-/* Column = a column of type that is itself the play control. No box: no border,
-   no fill, no radius. A three-row grid (label / snippet / play) keeps the play
-   controls on a shared bottom baseline across both columns, while the snippet
-   stays vertically composed in the flexible middle row. */
-.lv-opus-hr-col {
-  appearance: none;
-  -webkit-appearance: none;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 18px;
-  min-height: 160px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-}
-
-/* Labels carry the opposition through hue (mono small-caps, legible accent):
-   ungoverned cool sage-olive, governed warm gold. */
-.lv-opus-hr-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transition: color 0.25s ease;
-}
-
-.lv-opus-hr-ungoverned .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--olive) 78%, var(--sage));
-}
-
-.lv-opus-hr-governed .lv-opus-hr-label {
-  color: color-mix(in srgb, var(--gold) 80%, var(--olive));
-}
-
-/* The snippet carries the contrast in type. Same display face, opposite
-   posture. Bottom-aligned within the flexible middle row so the short governed
-   line sits just above its play control (no floating gap) while the two controls
-   still share the bottom baseline across the row. Body text stays in the
-   ink/olive register — never accent color. */
-.lv-opus-hr-snippet {
-  display: flex;
-  align-items: flex-end;
-  font-family: var(--font-display);
-  margin: 0;
-  color: var(--olive);
-}
-
-/* Ungoverned: wandering — loose italic, lighter, slack leading, faintly muted. */
-.lv-opus-hr-ungoverned .lv-opus-hr-snippet {
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(18px, 2.2vw, 22px);
-  line-height: 1.5;
-  letter-spacing: 0;
-  color: color-mix(in srgb, var(--olive) 72%, transparent);
-}
-
-/* Governed: landing — upright, tight, confident, composed. */
-.lv-opus-hr-governed .lv-opus-hr-snippet {
-  font-style: normal;
-  font-weight: 500;
-  font-size: clamp(20px, 2.5vw, 26px);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--olive);
-}
-
-/* Play control — a typographic element, not a widget: a gold play glyph (gold at
-   rest, so it reads as interactive on first scan) + a legible mono label, with a
-   hairline gold underline (under the control only) that fills while active.
-   justify-self:start keeps it content-width and left-anchored; the auto bottom
-   grid row puts it on the shared baseline. */
-.lv-opus-hr-play {
-  position: relative;
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding-bottom: 8px;
-}
-
-.lv-opus-hr-glyph {
-  display: inline-flex;
-  width: 13px;
-  height: 13px;
-  flex: 0 0 auto;
-  color: var(--gold);
-  transition: color 0.25s ease;
-}
-
-.lv-opus-hr-glyph svg {
-  width: 13px;
-  height: 13px;
-}
-
-.lv-opus-hr-playlabel {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 74%, transparent);
-  transition: color 0.25s ease;
-}
-
-.lv-opus-hr-col:hover .lv-opus-hr-glyph {
-  color: color-mix(in srgb, var(--gold) 78%, var(--olive));
-}
-
-.lv-opus-hr-col:hover .lv-opus-hr-playlabel {
-  color: var(--olive);
-}
-
-.lv-opus-hr-col.is-playing .lv-opus-hr-playlabel {
-  color: var(--olive);
-}
-
-/* Hairline progress under the play control only — not a full-width rule. */
-.lv-opus-hr-progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: color-mix(in srgb, var(--olive) 14%, transparent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.lv-opus-hr-col.is-playing .lv-opus-hr-progress {
-  opacity: 1;
-}
-
-.lv-opus-hr-progress-fill {
-  display: block;
-  height: 100%;
-  transform-origin: left center;
-  transform: scaleX(var(--p, 0));
-  background: var(--gold);
-  transition: transform 0.12s linear;
-}
-
-/* Caption — connective tissue: readable ink (no accent), with space around it,
-   no fenced band. Lifted toward legible olive so it does not read as washed out,
-   but kept just short of the snippet's full weight so it doesn't compete. */
-.lv-opus-hr-caption {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.55;
-  color: color-mix(in srgb, var(--olive) 90%, transparent);
-  margin: 36px 0 0;
-  max-width: 60ch;
-}
-
-@media (min-width: 640px) {
-  .lv-opus-hr-pair {
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-  }
-}
 
 
 /* ── Movement 3 — How it works (dark chapter) ─────────────────────────────── */
@@ -9134,19 +8944,11 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-opus-hr-col,
-  .lv-opus-hr-glyph {
+  /* Hear It: the progress fill (waveform color) is functional feedback, so it
+     stays; only the play button's smoothing transition is dropped. */
+  .lv-hear-play,
+  .lv-hear-wave-bar {
     transition: none;
-  }
-
-  /* Hear It: no animated progress — the active column shows a static, full gold
-     underline as its playing indication. */
-  .lv-opus-hr-progress-fill {
-    transition: none !important;
-  }
-
-  .lv-opus-hr-col.is-playing .lv-opus-hr-progress-fill {
-    transform: scaleX(1) !important;
   }
 
   /* Drift visual: show all three answers at once, static. */
@@ -9473,5 +9275,429 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-callio-out-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px 56px;
+  }
+}
+
+/* ── Section 2 — Before / after (the one audio module) ──────────────────────── */
+.lv-hear {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.lv-hear-scenario-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin: 0 0 22px;
+}
+.lv-hear-question {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 1.2;
+  color: var(--olive);
+  margin: 0;
+}
+/* Outcome tag, mapped to the buyer who cares. Bridges into the Outcomes section. */
+.lv-hear-outcome {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: color-mix(in srgb, var(--olive) 70%, transparent);
+}
+.lv-hear-outcome-buyer {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-right: 9px;
+}
+
+/* Tight A/B: the two clips read as one controlled comparison. */
+.lv-hear-ab {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.lv-hear-clip {
+  padding: 22px 22px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.lv-hear-governed {
+  border-color: color-mix(in srgb, var(--olive) 30%, transparent);
+  background: color-mix(in srgb, var(--gold) 8%, var(--bg-light));
+}
+.lv-hear-clip.is-playing {
+  border-color: var(--olive);
+  box-shadow: inset 0 0 0 1px var(--olive);
+}
+
+/* Decisive, high-contrast labels. */
+.lv-hear-clip-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 16px;
+}
+.lv-hear-ungoverned .lv-hear-clip-label {
+  color: color-mix(in srgb, var(--olive) 62%, transparent);
+}
+
+/* Player: large play affordance + waveform + duration. */
+.lv-hear-player {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 16px;
+}
+.lv-hear-play {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  background: var(--olive);
+  color: var(--bg-light);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.lv-hear-governed .lv-hear-play {
+  background: var(--olive);
+}
+.lv-hear-play:hover {
+  transform: scale(1.04);
+}
+.lv-hear-play svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lv-hear-wave {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 44px;
+  min-width: 0;
+  overflow: hidden;
+}
+.lv-hear-wave-bar {
+  flex: 1;
+  min-width: 0;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--olive) 20%, transparent);
+  transition: background 0.12s linear;
+}
+.lv-hear-wave-bar.is-played {
+  background: var(--gold);
+}
+
+.lv-hear-time {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--olive) 60%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+.lv-hear-snippet {
+  font-family: var(--font-display);
+  margin: 0 0 14px;
+  color: var(--olive);
+}
+.lv-hear-ungoverned .lv-hear-snippet {
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--olive) 74%, transparent);
+}
+.lv-hear-governed .lv-hear-snippet {
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(17px, 2.1vw, 21px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--olive);
+}
+
+/* Rule-naming annotations — the definition of "governed": name the rule. */
+.lv-hear-notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.lv-hear-note {
+  position: relative;
+  padding-left: 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--olive) 72%, transparent);
+}
+.lv-hear-note::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--olive) 40%, transparent);
+}
+.lv-hear-governed .lv-hear-note::before {
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+@media (min-width: 700px) {
+  .lv-hear-ab {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* ── Section 5 — Sonic spec sheet (cream, inspectable sample) ───────────────── */
+.lv-spec {
+  max-width: 720px;
+  margin: 40px 0 32px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
+  overflow: hidden;
+}
+.lv-spec-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+}
+.lv-spec-bar-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+.lv-spec-bar-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 50%, transparent);
+}
+.lv-spec-pick {
+  padding: 22px 22px 4px;
+}
+.lv-spec-pick-q {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: color-mix(in srgb, var(--olive) 72%, transparent);
+  margin: 0 0 12px;
+}
+.lv-spec-pick-opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lv-spec-opt {
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 9px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--bg-light);
+  color: color-mix(in srgb, var(--olive) 78%, transparent);
+}
+.lv-spec-opt.is-picked {
+  border-color: var(--olive);
+  background: color-mix(in srgb, var(--gold) 18%, var(--bg-light));
+  box-shadow: inset 0 0 0 1px var(--olive);
+  color: var(--olive);
+}
+.lv-spec-dims {
+  margin: 22px 0 0;
+  padding: 0;
+}
+.lv-spec-dim {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 18px 22px;
+  border-top: 1px solid var(--border);
+}
+.lv-spec-dim-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
+}
+.lv-spec-dim-value {
+  margin: 0;
+}
+.lv-spec-range {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 320px;
+}
+.lv-spec-range-end {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 55%, transparent);
+}
+.lv-spec-range-track {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--olive) 16%, transparent);
+}
+.lv-spec-range-mark {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 28%, transparent);
+}
+.lv-spec-lex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lv-spec-lex-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.lv-spec-lex-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 50%, transparent);
+  margin-right: 4px;
+}
+.lv-spec-chip {
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 5px 11px;
+  border-radius: 100px;
+}
+.lv-spec-chip.is-approved {
+  background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
+  color: var(--olive);
+  border: 1px solid color-mix(in srgb, var(--olive) 22%, transparent);
+}
+.lv-spec-chip.is-banned {
+  color: color-mix(in srgb, var(--olive) 52%, transparent);
+  border: 1px solid var(--border);
+  text-decoration: line-through;
+}
+.lv-spec-quote {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--olive);
+  margin: 0;
+}
+.lv-spec-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--olive) 82%, transparent);
+  margin: 0;
+}
+.lv-spec-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 52%, transparent);
+  margin: 0;
+  padding: 18px 22px 22px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Section 6 — Governance across channels (cream) ────────────────────────── */
+.lv-chan-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 8px 0 0;
+}
+.lv-chan {
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
+}
+.lv-chan-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 11px;
+}
+.lv-chan-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--olive);
+  margin: 0;
+}
+.lv-chan-sign {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--olive) 60%, transparent);
+}
+.lv-chan-voice .lv-chan-link,
+.lv-chan-link {
+  color: var(--olive);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--olive) 32%, transparent);
+  transition: border-color 0.2s ease;
+}
+.lv-chan-link:hover {
+  border-bottom-color: var(--olive);
+}
+
+@media (min-width: 769px) {
+  .lv-spec-dim {
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .lv-chan-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
   }
 }

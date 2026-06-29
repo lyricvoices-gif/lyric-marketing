@@ -1,29 +1,33 @@
 "use client"
 
-/* Movement 2 — "Hear it." The audible sibling of the "See it in text" section:
-   editorial, typographic, two states that read as OPPOSITES at a glance, words
-   doing the work. Each scenario is a row with two columns — UNGOVERNED (left)
-   and GOVERNED (right). A short SNIPPET teases each spoken line and ENACTS the
-   contrast in type (ungoverned wanders in loose italic and trails off; governed
-   lands tight, upright, and resolved). The audio delivers what text can't
-   (pacing, register, warmth), so it stays essential, not redundant.
+/* Section 2 — Before / after. The one audio-grade module on the page, and the
+   most differentiated asset: the same customer question answered two ways, so
+   voice drift is audible. This is for a risk, compliance, and operations buyer,
+   not only a brand-aware one.
 
-   Each column is itself the understated play control ("hear this one"), with a
-   thin gold progress underline while active. One shared <audio> drives all four
-   clips, so starting any clip stops whatever was playing (one-at-a-time).
+   Reuses the site's audio playback mechanics (a single shared <audio>, one clip
+   at a time, play/pause, real timeupdate progress, the gold accent) from the
+   voices and sounds player, and composes a large play affordance, a visible
+   waveform, and a duration readout on top — the serious listening treatment that
+   appears once on the page.
 
-   Wiring is deliberate and verifiable: every UNGOVERNED column points at an
-   *ungoverned* mp3, every GOVERNED column at a *governed* mp3. Snippets are
-   teasers only — the full spoken line is never printed; the audio is the payoff. */
+   The persuasion lives in the annotations: "governed" is not an assertion, it
+   names the rule. Each row carries one outcome tag mapped to the buyer who cares.
+
+   Wiring is verifiable: every Ungoverned control points at an *ungoverned* mp3,
+   every Governed control at a *governed* mp3. Snippets are teasers; the audio is
+   the payoff. */
 
 import { useEffect, useRef, useState, type CSSProperties } from "react"
 
-type Side = { src: string; snippet: string }
+type Annotation = string
+
+type Side = { src: string; snippet: string; annotations: Annotation[] }
 
 type Scenario = {
   id: string
-  label: string
-  caption: string
+  question: string
+  outcome: { buyer: string; line: string }
   ungoverned: Side
   governed: Side
 }
@@ -31,32 +35,42 @@ type Scenario = {
 const SCENARIOS: Scenario[] = [
   {
     id: "ex1",
-    label: "A customer asks about a credit card rate.",
-    caption: "Same facts. Listen to the pacing and register that the words can’t show.",
+    question: "A customer asks about a credit card rate.",
+    outcome: { buyer: "Compliance", line: "auditable, consistent disclosure" },
     ungoverned: {
       src: "/VoiceAgent1ungoverned.mp3",
       snippet: "Yeah, so your APR’s twenty-four ninety-nine, and the Cascade card’s a really popular one…",
+      annotations: ["filler, fails concision standard", "casual register, not approved"],
     },
     governed: {
       src: "/VoiceAgent1governed.mp3",
       snippet: "Your Annual Percentage Rate is 24.99%.",
+      annotations: ["exact disclosure language, required", "approved term, on brand"],
     },
   },
   {
     id: "ex2",
-    label: "A customer asks if a document was sent.",
-    caption: "One wanders. One lands. The difference is in the delivery.",
+    question: "A customer asks if a document was sent.",
+    outcome: { buyer: "CX", line: "consistent customer experience across agents" },
     ungoverned: {
       src: "/VoiceAgent2ungoverned.mp3",
       snippet:
-        "Um, okay, so let me just take a look here for you… it should’ve gone to the email we have on file, so maybe check your inbox, and if it’s not there…",
+        "Um, okay, so let me just take a look here for you… it should’ve gone to the email we have on file, so maybe check your inbox…",
+      annotations: ["vague phrasing, not approved language", "hedging, fails clarity standard"],
     },
     governed: {
       src: "/VoiceAgent2governed.mp3",
       snippet: "Your disclosure was sent to the email on file.",
+      annotations: ["plain confirmation, approved", "approved closing"],
     },
   },
 ]
+
+/* Deterministic pseudo-waveform — same on server and client (no Math.random),
+   so it hydrates cleanly. Heights read like a voice envelope, not a bar chart. */
+const BARS = Array.from({ length: 56 }, (_, i) =>
+  Math.round(5 + 17 * Math.abs(Math.sin(i * 1.27) * Math.cos(i * 0.43 + 1))),
+)
 
 function PlayGlyph() {
   return (
@@ -75,45 +89,77 @@ function PauseGlyph() {
   )
 }
 
-function Column({
+function fmt(sec: number) {
+  if (!Number.isFinite(sec) || sec < 0) return "0:00"
+  const m = Math.floor(sec / 60)
+  const s = Math.floor(sec % 60)
+  return `${m}:${String(s).padStart(2, "0")}`
+}
+
+function Waveform({ progress }: { progress: number }) {
+  return (
+    <span className="lv-hear-wave" aria-hidden="true">
+      {BARS.map((h, i) => (
+        <span
+          key={i}
+          className={`lv-hear-wave-bar${i / BARS.length <= progress ? " is-played" : ""}`}
+          style={{ height: `${h}px` }}
+        />
+      ))}
+    </span>
+  )
+}
+
+function Clip({
   variant,
-  snippet,
+  side,
   isOn,
   progress,
+  elapsed,
+  duration,
   onToggle,
-  ariaLabel,
+  question,
 }: {
   variant: "ungoverned" | "governed"
-  snippet: string
+  side: Side
   isOn: boolean
   progress: number
+  elapsed: number
+  duration: number
   onToggle: () => void
-  ariaLabel: string
+  question: string
 }) {
+  const title = variant === "ungoverned" ? "Ungoverned Agent" : "Governed by Callio"
   return (
-    <button
-      type="button"
-      className={`lv-opus-hr-col lv-opus-hr-${variant}${isOn ? " is-playing" : ""}`}
-      onClick={onToggle}
-      aria-label={ariaLabel}
-      aria-pressed={isOn}
-    >
-      <span className="lv-opus-hr-label">{variant === "ungoverned" ? "Ungoverned" : "Governed"}</span>
-      <p className="lv-opus-hr-snippet">{snippet}</p>
-      <span className="lv-opus-hr-play">
-        <span className="lv-opus-hr-glyph" aria-hidden="true">
-          {isOn ? <PauseGlyph /> : <PlayGlyph />}
-        </span>
-        <span className="lv-opus-hr-playlabel">{isOn ? "Playing" : "Play"}</span>
-        <span
-          className="lv-opus-hr-progress"
-          aria-hidden="true"
-          style={{ ["--p" as string]: String(isOn ? progress : 0) } as CSSProperties}
+    <div className={`lv-hear-clip lv-hear-${variant}${isOn ? " is-playing" : ""}`}>
+      <p className="lv-hear-clip-label">{title}</p>
+
+      <div className="lv-hear-player">
+        <button
+          type="button"
+          className="lv-hear-play"
+          onClick={onToggle}
+          aria-label={`${isOn ? "Pause" : "Play"} the ${variant} take. ${question}`}
+          aria-pressed={isOn}
         >
-          <span className="lv-opus-hr-progress-fill" />
+          {isOn ? <PauseGlyph /> : <PlayGlyph />}
+        </button>
+        <Waveform progress={isOn ? progress : 0} />
+        <span className="lv-hear-time">
+          {isOn ? `${fmt(elapsed)} / ${fmt(duration)}` : fmt(duration)}
         </span>
-      </span>
-    </button>
+      </div>
+
+      <p className="lv-hear-snippet">{side.snippet}</p>
+
+      <ul className="lv-hear-notes">
+        {side.annotations.map((a) => (
+          <li key={a} className="lv-hear-note">
+            {a}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -121,16 +167,20 @@ export default function CallioHearIt() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [playing, setPlaying] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
+  const [elapsed, setElapsed] = useState(0)
+  const [durations, setDurations] = useState<Record<string, number>>({})
 
   useEffect(() => {
     const a = audioRef.current
     if (!a) return
     const onTime = () => {
+      setElapsed(a.currentTime)
       if (a.duration > 0) setProgress(a.currentTime / a.duration)
     }
     const reset = () => {
       setPlaying(null)
       setProgress(0)
+      setElapsed(0)
     }
     a.addEventListener("timeupdate", onTime)
     a.addEventListener("ended", reset)
@@ -149,10 +199,12 @@ export default function CallioHearIt() {
       a.pause()
       setPlaying(null)
       setProgress(0)
+      setElapsed(0)
       return
     }
     a.src = src
     setProgress(0)
+    setElapsed(0)
     setPlaying(key)
     a.play().catch(() => {
       setPlaying(null)
@@ -160,39 +212,66 @@ export default function CallioHearIt() {
     })
   }
 
+  const noteDuration = (key: string, d: number) => {
+    if (d > 0) setDurations((prev) => (prev[key] ? prev : { ...prev, [key]: d }))
+  }
+
   return (
-    <div className="lv-opus-hr">
+    <div className="lv-hear">
       {SCENARIOS.map((s) => {
         const sides: Array<{ variant: "ungoverned" | "governed"; side: Side }> = [
           { variant: "ungoverned", side: s.ungoverned },
           { variant: "governed", side: s.governed },
         ]
         return (
-          <div className="lv-opus-hr-row" key={s.id}>
-            <p className="lv-opus-hr-scenario">{s.label}</p>
-            <div className="lv-opus-hr-pair">
+          <div className="lv-hear-scenario" key={s.id}>
+            <div className="lv-hear-scenario-head">
+              <p className="lv-hear-question">{s.question}</p>
+              <span className="lv-hear-outcome">
+                <span className="lv-hear-outcome-buyer">{s.outcome.buyer}</span>
+                {s.outcome.line}
+              </span>
+            </div>
+
+            <div className="lv-hear-ab">
               {sides.map(({ variant, side }) => {
                 const key = `${s.id}-${variant}`
                 const isOn = playing === key
                 return (
-                  <Column
+                  <Clip
                     key={key}
                     variant={variant}
-                    snippet={side.snippet}
+                    side={side}
                     isOn={isOn}
                     progress={isOn ? progress : 0}
+                    elapsed={isOn ? elapsed : 0}
+                    duration={durations[key] ?? 0}
                     onToggle={() => toggle(key, side.src)}
-                    ariaLabel={`${isOn ? "Pause" : "Play"} the ${variant} take. ${s.label}`}
+                    question={s.question}
                   />
                 )
               })}
             </div>
-            <p className="lv-opus-hr-caption">{s.caption}</p>
           </div>
         )
       })}
 
-      {/* One shared element: starting any clip stops the previous one. */}
+      {/* Hidden metadata loaders give each clip an honest duration readout
+          without fetching full audio; playback runs through the shared element. */}
+      {SCENARIOS.flatMap((s) => [
+        { key: `${s.id}-ungoverned`, src: s.ungoverned.src },
+        { key: `${s.id}-governed`, src: s.governed.src },
+      ]).map((c) => (
+        <audio
+          key={c.key}
+          src={c.src}
+          preload="metadata"
+          aria-hidden="true"
+          onLoadedMetadata={(e) => noteDuration(c.key, e.currentTarget.duration)}
+        />
+      ))}
+
+      {/* One shared element for playback: starting any clip stops the previous. */}
       <audio ref={audioRef} preload="none" />
     </div>
   )
