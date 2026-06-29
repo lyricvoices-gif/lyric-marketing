@@ -9323,20 +9323,40 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 16px;
 }
 
+/* Modern card: soft tinted fill, generous radius, an accent top-rule, and a
+   quiet elevation that deepens while playing. No hard outline border. */
 .lv-hear-clip {
-  padding: 22px 22px 20px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  padding: 26px 26px 24px;
+  border-radius: 20px;
+  border: 0;
+  background: color-mix(in srgb, var(--olive) 4%, var(--bg-light));
+  box-shadow: 0 1px 2px rgba(43, 42, 37, 0.04), 0 20px 44px -36px rgba(43, 42, 37, 0.35);
+  overflow: hidden;
+  transition: box-shadow 0.35s ease, background 0.35s ease, transform 0.35s ease;
+}
+/* Accent top-rule, color only (never length), clipped to the rounded corners. */
+.lv-hear-clip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: color-mix(in srgb, var(--olive) 28%, transparent);
+  transition: background 0.35s ease;
 }
 .lv-hear-governed {
-  border-color: color-mix(in srgb, var(--olive) 30%, transparent);
-  background: color-mix(in srgb, var(--gold) 8%, var(--bg-light));
+  background: color-mix(in srgb, var(--gold) 9%, var(--bg-light));
+}
+.lv-hear-governed::before {
+  background: var(--gold);
 }
 .lv-hear-clip.is-playing {
-  border-color: var(--olive);
-  box-shadow: inset 0 0 0 1px var(--olive);
+  box-shadow: 0 2px 4px rgba(43, 42, 37, 0.06), 0 30px 60px -34px rgba(43, 42, 37, 0.45);
+}
+.lv-hear-ungoverned.is-playing::before {
+  background: var(--olive);
 }
 
 /* Decisive, high-contrast labels. */
@@ -9347,41 +9367,78 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--olive);
-  margin: 0 0 16px;
+  margin: 0 0 18px;
 }
 .lv-hear-ungoverned .lv-hear-clip-label {
-  color: color-mix(in srgb, var(--olive) 62%, transparent);
+  color: color-mix(in srgb, var(--olive) 60%, transparent);
 }
 
-/* Player: large play affordance + waveform + duration. */
+/* Player: a refined ring control (echoing the voices player) + waveform + time. */
 .lv-hear-player {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin: 0 0 16px;
+  gap: 16px;
+  margin: 0 0 18px;
 }
 .lv-hear-play {
+  position: relative;
   flex: 0 0 auto;
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--olive);
   cursor: pointer;
-  background: var(--olive);
-  color: var(--bg-light);
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-.lv-hear-governed .lv-hear-play {
-  background: var(--olive);
+  overflow: visible;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 .lv-hear-play:hover {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
-.lv-hear-play svg {
-  width: 22px;
-  height: 22px;
+/* Soft accent bloom behind the control while playing. */
+.lv-hear-play-glow {
+  position: absolute;
+  inset: -28%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--gold) 0%, transparent 72%);
+  opacity: 0;
+  filter: blur(8px);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.lv-hear-clip.is-playing .lv-hear-play-glow {
+  opacity: 0.45;
+}
+.lv-hear-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+}
+.lv-hear-ring-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--olive) 24%, transparent);
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease;
+}
+.lv-hear-clip.is-playing .lv-hear-ring-track {
+  stroke: var(--gold);
+}
+.lv-hear-glyph {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+}
+.lv-hear-glyph svg {
+  width: 20px;
+  height: 20px;
 }
 
 .lv-hear-wave {
