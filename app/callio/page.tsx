@@ -292,13 +292,13 @@ export default function CallioPage() {
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={220}>
-            <CallioArchitecture />
-          </ScrollReveal>
-          <ScrollReveal delay={320}>
             <p className="lv-callio-arch-takeaway">
               Vendor-agnostic. Swap any engine and the brand voice holds. No stack
               lock-in.
             </p>
+          </ScrollReveal>
+          <ScrollReveal delay={320}>
+            <CallioArchitecture />
           </ScrollReveal>
         </div>
       </section>
