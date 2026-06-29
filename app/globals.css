@@ -8999,7 +8999,6 @@ main:has(.lv-hero) { padding-top: 0; }
 /* ── Section 3 — What Callio is (cream prose) ── */
 .lv-callio-what {
   padding: 96px 0;
-  border-top: 1px solid var(--border);
 }
 .lv-callio-what-inner {
   max-width: 760px;
