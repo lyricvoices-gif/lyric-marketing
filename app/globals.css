@@ -9108,7 +9108,6 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* The diagram: Callio on top, directing the model/engine/channel layers below. */
 .lv-arch {
-  max-width: 880px;
   margin: 8px 0 0;
 }
 .lv-arch-spec {
