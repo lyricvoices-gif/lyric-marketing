@@ -13,7 +13,7 @@ const GROUPS: ReadonlyArray<{ label: string; nodes: string[] }> = [
   { label: "Speech engines", nodes: ["TTS", "STT"] },
   {
     label: "Channels and systems",
-    nodes: ["Calls", "Chat", "SMS", "Voice Agent (In-App)", "Email"],
+    nodes: ["Calls", "Chat", "SMS", "VoIP", "Email"],
   },
 ]
 

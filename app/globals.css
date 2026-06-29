@@ -9090,7 +9090,7 @@ main:has(.lv-hero) { padding-top: 0; }
   line-height: 1.05;
   color: var(--bg-light);
   font-size: clamp(28px, 5vw, 48px);
-  margin: 18px 0 40px;
+  margin: 18px 0 20px;
   max-width: 18ch;
 }
 .lv-callio-arch-head em {
