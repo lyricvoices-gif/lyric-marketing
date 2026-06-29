@@ -8414,9 +8414,10 @@ main:has(.lv-hero) { padding-top: 0; }
 /* ── Movement 2 — Hear it ─────────────────────────────────────────────────── */
 /* No top rule — the hero's bottom padding plus this top padding carry the flow
    from hero into Hear It, with generous room before the eyebrow and space for
-   the scroll-in reveal to play. */
+   the scroll-in reveal to play. The 96px bottom mirrors the hero's bottom so the
+   next section gets the same generous lead-in. */
 .lv-opus-hear {
-  padding: 120px 0 88px;
+  padding: 120px 0 96px;
 }
 
 .lv-opus-hear-framing {
@@ -8997,8 +8998,10 @@ main:has(.lv-hero) { padding-top: 0; }
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Section 3 — What Callio is (cream prose) ── */
+/* 120px top so the scroll into this section has the same generous lead-in as the
+   scroll into Hear It (96px outgoing bottom + 120px incoming top). */
 .lv-callio-what {
-  padding: 96px 0;
+  padding: 120px 0 96px;
 }
 .lv-callio-what-inner {
   max-width: 760px;
