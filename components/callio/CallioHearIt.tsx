@@ -35,8 +35,9 @@ type Scenario = {
 const SCENARIOS: Scenario[] = [
   {
     id: "ex1",
-    question: "A customer asks about a credit card rate.",
-    outcome: { buyer: "Compliance", line: "auditable, consistent disclosure" },
+    question:
+      "A customer asks about a credit-card rate. The answers shouldn’t sound like two different companies.",
+    outcome: { buyer: "Compliance", line: "the required disclosure, said the same way every time" },
     ungoverned: {
       src: "/VoiceAgent1ungoverned.mp3",
       snippet: "Yeah, so your APR’s twenty-four ninety-nine, and the Cascade card’s a really popular one…",
@@ -142,7 +143,11 @@ function Clip({
           aria-label={`${isOn ? "Pause" : "Play"} the ${variant} take. ${question}`}
           aria-pressed={isOn}
         >
-          {isOn ? <PauseGlyph /> : <PlayGlyph />}
+          <span className="lv-hear-play-glow" aria-hidden="true" />
+          <svg className="lv-hear-ring" viewBox="0 0 60 60" aria-hidden="true">
+            <circle className="lv-hear-ring-track" cx="30" cy="30" r="28" />
+          </svg>
+          <span className="lv-hear-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
         </button>
         <Waveform progress={isOn ? progress : 0} />
         <span className="lv-hear-time">
