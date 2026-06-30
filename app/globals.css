@@ -9266,16 +9266,13 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @media (min-width: 769px) {
-  /* Channels carries the most pills (five), so its column is wider than the
-     Models / Speech columns; the flow lines use the same template so each line
-     stays centered over its group. */
   .lv-arch-flow {
     display: grid;
-    grid-template-columns: 1fr 1fr 1.6fr;
+    grid-template-columns: repeat(3, 1fr);
     height: 26px;
   }
   .lv-arch-groups {
-    grid-template-columns: 1fr 1fr 1.6fr;
+    grid-template-columns: repeat(3, 1fr);
     align-items: start;
   }
   .lv-callio-out-grid {

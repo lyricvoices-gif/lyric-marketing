@@ -9,6 +9,8 @@
    Styled to read as channel-distinct on the Lyric palette, deliberately not
    iMessage. Static and server-rendered; the page handles entrance reveal. */
 
+import SmoothAnchor from "@/components/SmoothAnchor"
+
 /* Channel iconography, mirroring the hero's CallioDriftVisual: 16px line icons
    that inherit currentColor. SMS / chat / voice match the hero's set; email is
    the one addition (an envelope), so the channels read as one family. */
@@ -96,9 +98,9 @@ const CHANNELS: ReadonlyArray<Channel> = [
     body: (
       <p className="lv-chan-text lv-chan-voice">
         Heard, not read.{" "}
-        <a href="#hear" className="lv-chan-link">
+        <SmoothAnchor targetId="hear" offset={64} className="lv-chan-link">
           Listen in the before and after
-        </a>
+        </SmoothAnchor>
         .
       </p>
     ),
