@@ -3300,6 +3300,7 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 
   .lv-final h2,
+  .lv-final .lv-callio-final-sub,
   .lv-cta-row-center {
     margin-left: auto;
     margin-right: auto;
@@ -8769,8 +8770,9 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ── Movement 5 — See it in text ──────────────────────────────────────────── */
 .lv-opus-proof {
-  padding: 108px 0;
-  border-top: 1px solid var(--border);
+  /* No hairline rule into this section; the 120px top gives the same generous
+     scroll lead-in as the "What Callio is" section (96px outgoing + 120px in). */
+  padding: 120px 0 96px;
 }
 
 .lv-opus-proof-framing {
@@ -9264,13 +9266,16 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @media (min-width: 769px) {
+  /* Channels carries the most pills (five), so its column is wider than the
+     Models / Speech columns; the flow lines use the same template so each line
+     stays centered over its group. */
   .lv-arch-flow {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1.6fr;
     height: 26px;
   }
   .lv-arch-groups {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1.6fr;
     align-items: start;
   }
   .lv-callio-out-grid {
@@ -9702,13 +9707,25 @@ main:has(.lv-hero) { padding-top: 0; }
   background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
 }
 .lv-chan-label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--olive);
   margin: 0 0 11px;
+}
+.lv-chan-icon {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  color: color-mix(in srgb, var(--olive) 70%, transparent);
+}
+.lv-chan-icon svg {
+  width: 14px;
+  height: 14px;
 }
 .lv-chan-text {
   font-family: var(--font-body);
