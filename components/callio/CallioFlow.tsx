@@ -71,8 +71,7 @@ export default function CallioFlow() {
                   </div>
                 </div>
                 <p className="lv-opus-mon-note">
-                  Brand-voice governance monitoring. Not security or compliance
-                  certification.
+                  Brand-voice governance monitoring only.
                 </p>
               </div>
             )}
