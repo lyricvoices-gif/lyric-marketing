@@ -7660,6 +7660,46 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 140px;
 }
 
+/* Hover/focus tooltip naming each logo — a small dark chip that rises above
+   the cell. Built with an ::after on the cell so it needs no extra markup;
+   the label is carried in data-tooltip. Respects reduced-motion (fade only,
+   no lift) via the gate below. */
+.lv-int-mark-logo[data-tooltip] {
+  position: relative;
+  outline: none;
+}
+.lv-int-mark-logo[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: var(--olive);
+  color: var(--bg-light);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 5;
+}
+.lv-int-mark-logo[data-tooltip]:hover::after,
+.lv-int-mark-logo[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lv-int-mark-logo[data-tooltip]::after {
+    transition: opacity 0.18s ease;
+    transform: translate(-50%, 0);
+  }
+}
+
 /* "or your own models" is not a vendor; a dashed, quieter cell. */
 .lv-int-mark-own {
   border-style: dashed;

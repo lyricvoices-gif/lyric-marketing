@@ -26,9 +26,9 @@ const INFRA: Mark[] = [
 ]
 
 const SYNTH: Mark[] = [
-  { name: "Hume", src: "/images/logos/hume.svg", scale: 1.3 },
+  { name: "Gemini", src: "/images/logos/gemini.svg", scale: 1.3 },
   { name: "ElevenLabs", src: "/images/logos/elevenlabs.svg", scale: 1 },
-  { name: "Fish Audio", src: "/images/logos/fish-audio.svg", scale: 1.3 },
+  { name: "OpenAI", src: "/images/logos/openai.svg", scale: 1.3 },
 ]
 
 const LOGO_BASE = 24
@@ -38,7 +38,13 @@ function Marks({ items }: { items: Mark[] }) {
     <>
       {items.map((m) =>
         m.src ? (
-          <span key={m.name} className="lv-int-mark lv-int-mark-logo">
+          <span
+            key={m.name}
+            className="lv-int-mark lv-int-mark-logo"
+            data-tooltip={m.name}
+            tabIndex={0}
+            aria-label={m.name}
+          >
             <img
               src={m.src}
               alt={m.name}
