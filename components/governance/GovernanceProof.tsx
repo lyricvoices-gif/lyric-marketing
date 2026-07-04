@@ -78,9 +78,9 @@ const THREAD: readonly ChatMsg[] = [
   {
     role: "agent",
     segs: [
-      { t: "I understand the timing. I’ve rebooked you on tonight’s 6:40 departure and applied a " },
+      { t: "I understand the timing. I can get you to Lisbon tonight. There’s a 6:40 nonstop or an 8:15 with one stop, and either one comes with a " },
       { t: "fare difference waiver", term: true },
-      { t: ". Your new boarding pass is in your app." },
+      { t: ", so there’s no added cost. Which would you prefer?" },
     ],
     notes: ["tone held within brand", "“fare difference waiver” on brand"],
   },
