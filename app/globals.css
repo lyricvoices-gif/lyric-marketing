@@ -7994,18 +7994,19 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ─── Section 4 — "How it sounds / How it communicates" ───────────────────
    Header row (eyebrow + headline left, a short framing line right), then two
-   co-equal proof panels that map one-to-one onto the headline's promises.
-   Left panel: a single governed voice sample behind the Voices-page featured
-   instrument (breathing gold glow at rest; gold progress ring and emanating
-   pulses during playback — the .lv-vstage conventions, panel-scoped; the
-   shared keyframes are reused). Right panel: a governed chat thread rendered
-   to be read, with always-visible governance notes beside the agent turns.
-   Voice drift is heard, text drift is read: the two proofs are different
-   types on purpose. Dark ground (the section keeps .lv-audiences for shell
-   padding; lv-govp-* / lv-govchat-* scope this section, so the shared
-   lv-audiences grid/blocks used by section 3 are untouched). Reduced motion
-   statics the glow, drops the aura and pulses, and keeps the functional
-   progress arc. */
+   full-width horizontal proof bands that map one-to-one onto the headline's
+   promises: info cluster (kicker, dimension title, description) left, proof
+   right, so each container reads landscape rather than portrait. Voice band:
+   a single governed sample behind the Voices-page featured instrument
+   (breathing gold glow at rest; gold progress ring and emanating pulses
+   during playback — the .lv-vstage conventions, band-scoped; the shared
+   keyframes are reused). Chat band: a governed thread rendered to be read,
+   with always-visible governance notes beside the agent turns. Voice drift
+   is heard, text drift is read: the two proofs are different types on
+   purpose. Dark ground (the section keeps .lv-audiences for shell padding;
+   lv-govp-* / lv-govchat-* scope this section, so the shared lv-audiences
+   grid/blocks used by section 3 are untouched). Reduced motion statics the
+   glow, drops the aura and pulses, and keeps the functional progress arc. */
 
 /* Header row. The head grid owns the gap below the headline cluster, so the
    shared .lv-audiences-header margins are zeroed here (scoped, not on the
@@ -8045,59 +8046,58 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
-/* The two proof panels. Each grid child is a ScrollReveal wrapper set to
-   display:flex, and the panel fills it, so both panels stretch to the same
-   height and read co-equal. */
+/* The two proof bands, stacked full width. */
 .lv-govp-panels {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  align-items: stretch;
 }
 
 .lv-govp-panel {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
   min-width: 0;
-  padding: 26px 26px 28px;
+  padding: 26px;
   border: 1px solid rgba(255, 248, 236, 0.12);
   border-radius: 20px;
   background: rgba(255, 248, 236, 0.03);
 }
 
-.lv-govp-kicker {
+/* Info cluster — the band's left rail at desktop, its header on mobile. */
+.lv-govp-info {
   position: relative;
   z-index: 1;
+  min-width: 0;
+}
+
+.lv-govp-kicker {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   /* 0.55 clears WCAG AA on the panel ground; 0.5 sits just under it. */
   color: rgba(255, 248, 236, 0.55);
-  margin: 0 0 26px;
+  margin: 0 0 16px;
 }
 
-/* The panel's demonstration area; flex:1 pins the caption to the panel
-   bottom so the two captions align across panels. */
+/* The band's demonstration area. Symmetric box, so the stage aura and the
+   flex-centered instrument share one center. */
 .lv-govp-stage {
   position: relative;
   z-index: 1;
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 280px;
-  padding: 12px 0 30px;
+  min-height: 220px;
 }
 
 .lv-govp-stage-chat {
   align-items: stretch;
   min-height: 0;
-  padding: 0 0 30px;
 }
 
 /* ── Voice panel — the featured-stage instrument, panel-scoped ─────────── */
@@ -8113,15 +8113,17 @@ main:has(.lv-hero) { padding-top: 0; }
   justify-content: center;
 }
 
-/* Panel aura: brightens and breathes while the sample plays (the Voices
-   stage ambience, contained by the panel's overflow clip). */
-.lv-govp-voice::before {
+/* Stage aura: anchored to the stage's center — the same center the flex
+   layout gives the instrument — so the glow stays concentric with the
+   control. Brightens and breathes while the sample plays (the Voices stage
+   ambience, contained by the band's overflow clip). */
+.lv-govp-voice .lv-govp-stage::before {
   content: "";
   position: absolute;
   z-index: 0;
   top: 50%;
   left: 50%;
-  width: min(90vw, 560px);
+  width: min(90vw, 480px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
@@ -8132,7 +8134,7 @@ main:has(.lv-hero) { padding-top: 0; }
   transition: opacity 0.6s ease;
 }
 
-.lv-govp-voice.is-playing::before {
+.lv-govp-voice.is-playing .lv-govp-stage::before {
   opacity: 0.2;
   animation: lv-aura-breathe 6.5s ease-in-out infinite;
 }
@@ -8336,15 +8338,7 @@ main:has(.lv-hero) { padding-top: 0; }
   background: var(--sage);
 }
 
-/* ── Panel captions — the headline's promises, restated under each proof ── */
-
-.lv-govp-caption {
-  position: relative;
-  z-index: 1;
-  margin-top: auto;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 248, 236, 0.1);
-}
+/* ── Info cluster type — the headline's promises, restated per band ────── */
 
 .lv-govp-caption-title {
   font-family: var(--font-display);
@@ -8353,7 +8347,7 @@ main:has(.lv-hero) { padding-top: 0; }
   line-height: 1.2;
   letter-spacing: 0;
   color: var(--bg-light);
-  margin: 0 0 6px;
+  margin: 0 0 8px;
 }
 
 .lv-govp-caption-body {
@@ -8362,6 +8356,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 14px;
   line-height: 1.55;
   color: rgba(255, 248, 236, 0.62);
+  max-width: 38ch;
 }
 
 @media (min-width: 900px) {
@@ -8375,11 +8370,15 @@ main:has(.lv-hero) { padding-top: 0; }
     margin-bottom: 6px;
   }
   .lv-govp-panels {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
+  /* Each band goes horizontal: info rail left, proof right, centered on one
+     axis so the bands read landscape. */
   .lv-govp-panel {
-    padding: 30px 30px 32px;
+    grid-template-columns: minmax(0, 0.36fr) minmax(0, 0.64fr);
+    align-items: center;
+    gap: 56px;
+    padding: 36px 44px;
   }
 }
 
@@ -8387,7 +8386,7 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-govp-ring-prog {
     transition: none;
   }
-  .lv-govp-voice.is-playing::before {
+  .lv-govp-voice.is-playing .lv-govp-stage::before {
     animation: none;
   }
   .lv-govp-voice.is-playing .lv-govp-pulse {

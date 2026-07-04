@@ -1,22 +1,25 @@
 "use client"
 
-/* Governance proof — section 4's demonstration area. Two co-equal panels map
-   to the section headline's two promises, so the section delivers both.
+/* Governance proof — section 4's demonstration area. Two full-width
+   horizontal bands map to the section headline's two promises: an info
+   cluster (kicker, dimension title, description) on the left, the proof on
+   the right.
 
-   "Hear it" is a single governed voice sample behind the Voices-page featured
-   instrument (breathing gold glow at rest; gold progress ring and emanating
-   pulses during playback — the .lv-vstage conventions, panel-scoped). Play on
-   click only; the button toggles to pause; all playback feedback lives on the
-   control.
+   "Hear it" is a single governed voice sample behind the Voices-page
+   featured instrument (breathing gold glow at rest; gold progress ring and
+   emanating pulses during playback — the .lv-vstage conventions, band-
+   scoped). Play on click only; the button toggles to pause; all playback
+   feedback lives on the control.
 
    "Read it" is a governed chat thread, rendered to be read, not played —
    voice drift is heard, text drift is read, so the two proofs are different
-   types on purpose. The thread reuses the governed exchange already shipped
-   in the home hero's call transcript: the same disclosure, the same
-   terminology ("provisional credit"), the same register, here expressed in a
-   written channel. No new governance content is invented. Governance notes
-   sit beside the agent turns and are always visible, so the panel reads
-   fully without interaction. */
+   types on purpose. The exchange is a travel-vertical example (Meridian Air
+   is fictional, like the hero's Caldera Bank), kept to three turns so the
+   band stays shallow. It mirrors the hero transcript's governance grammar:
+   the recording disclosure, register held under stress, and one governed
+   brand term, with the hero's annotation vocabulary. Governance notes sit
+   beside the agent turns and are always visible, so the band reads fully
+   without interaction. */
 
 import { useEffect, useRef, useState } from "react"
 import ScrollReveal from "@/components/ScrollReveal"
@@ -45,47 +48,34 @@ function PauseGlyph() {
 }
 
 type ChatSeg = { t: string; term?: boolean }
-type ChatMsg = { role: "agent" | "customer"; segs: ChatSeg[]; note?: string }
+type ChatMsg = { role: "agent" | "customer"; segs: ChatSeg[]; notes?: string[] }
 
-/* The governed exchange from the home hero's call, as chat. The disclosure
-   and greeting keep the vetted wording with only the channel nouns adapted
-   (conversation / contacting); the closing line and its terminology are
-   verbatim. The notes reuse the hero's annotation vocabulary. */
 const THREAD: readonly ChatMsg[] = [
   {
     role: "agent",
     segs: [
       {
-        t: "For quality and training purposes, this conversation may be recorded. Thank you for contacting Caldera Bank. This is Riven. How can I help?",
+        t: "For quality and training purposes, this conversation may be recorded. Thanks for contacting Meridian Air. This is Riven. How can I help?",
       },
     ],
-    note: "disclosure added by spec",
+    notes: ["disclosure added by spec"],
   },
   {
     role: "customer",
     segs: [
       {
-        t: "There’s a $500 charge on my credit card that I don’t recognize. I’m kind of panicking.",
+        t: "My flight to Lisbon was just cancelled and I’m still at the airport. I have a wedding tomorrow.",
       },
     ],
   },
   {
     role: "agent",
     segs: [
-      {
-        t: "I appreciate you flagging this. Give me a moment while I look into this for you.",
-      },
+      { t: "I understand the timing. I’ve rebooked you on tonight’s 6:40 departure and applied a " },
+      { t: "fare difference waiver", term: true },
+      { t: ". Your new boarding pass is in your app." },
     ],
-    note: "tone held within brand",
-  },
-  {
-    role: "agent",
-    segs: [
-      { t: "I’ve opened a dispute on your behalf and ordered a new card. You’ll see a " },
-      { t: "provisional credit", term: true },
-      { t: " in your Caldera Bank account within one business day." },
-    ],
-    note: "“provisional credit” on brand",
+    notes: ["tone held within brand", "“fare difference waiver” on brand"],
   },
 ]
 
@@ -135,9 +125,16 @@ export default function GovernanceProof() {
 
   return (
     <div className="lv-govp-panels">
-      <ScrollReveal delay={120} display="flex">
+      <ScrollReveal delay={120}>
         <div className={`lv-govp-panel lv-govp-voice${playing ? " is-playing" : ""}`}>
-          <p className="lv-govp-kicker">Hear it</p>
+          <div className="lv-govp-info">
+            <p className="lv-govp-kicker">Hear it</p>
+            <p className="lv-govp-caption-title">How it sounds</p>
+            <p className="lv-govp-caption-body">
+              Brand and industry terms, said right. Pacing, emphasis, and
+              register held where they belong.
+            </p>
+          </div>
           <div className="lv-govp-stage">
             {/* Unpadded positioning context so the pulses stay concentric
                 with the control (the .lv-vstage-instrument role). */}
@@ -170,22 +167,19 @@ export default function GovernanceProof() {
               </button>
             </div>
           </div>
-          {/* Captions are styled paragraphs, not headings: they sit after
-              the proof they label, so exposing them to heading navigation
-              would misattribute the content that follows. */}
-          <div className="lv-govp-caption">
-            <p className="lv-govp-caption-title">How it sounds</p>
-            <p className="lv-govp-caption-body">
-              Brand and industry terms, said right. Pacing, emphasis, and
-              register held where they belong.
-            </p>
-          </div>
         </div>
       </ScrollReveal>
 
-      <ScrollReveal delay={200} display="flex">
+      <ScrollReveal delay={200}>
         <div className="lv-govp-panel">
-          <p className="lv-govp-kicker">Read it</p>
+          <div className="lv-govp-info">
+            <p className="lv-govp-kicker">Read it</p>
+            <p className="lv-govp-caption-title">How it communicates</p>
+            <p className="lv-govp-caption-body">
+              Word choice, tone, and disclosure. What an agent says, and what
+              it must not.
+            </p>
+          </div>
           <div className="lv-govp-stage lv-govp-stage-chat">
             <div className="lv-govchat">
               {THREAD.map((m, i) => (
@@ -204,22 +198,15 @@ export default function GovernanceProof() {
                       ),
                     )}
                   </p>
-                  {m.note && (
-                    <span className="lv-govchat-note">
+                  {m.notes?.map((note) => (
+                    <span key={note} className="lv-govchat-note">
                       <span className="lv-govchat-note-dot" aria-hidden="true" />
-                      {m.note}
+                      {note}
                     </span>
-                  )}
+                  ))}
                 </div>
               ))}
             </div>
-          </div>
-          <div className="lv-govp-caption">
-            <p className="lv-govp-caption-title">How it communicates</p>
-            <p className="lv-govp-caption-body">
-              Word choice, tone, and disclosure. What an agent says, and what
-              it must not.
-            </p>
           </div>
         </div>
       </ScrollReveal>
