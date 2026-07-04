@@ -18,10 +18,12 @@ type Vertical = {
   term: string
   disclosure: string
   tone: string
+  comingSoon?: boolean
 }
 
-/* Three industries shown on the homepage. Two further verticals (Healthcare,
-   Insurance) were moved to future-verticals.ts for a later industries page. */
+/* Three live industries plus Healthcare as a coming-soon fourth (its content
+   comes from future-verticals.ts). Insurance stays in future-verticals.ts for
+   a later industries page. */
 const VERTICALS: Vertical[] = [
   {
     label: "Consistency at Every Touchpoint",
@@ -53,6 +55,17 @@ const VERTICALS: Vertical[] = [
     disclosure: "rate disclosure",
     tone: "warm, gracious",
   },
+  {
+    label: "Alignment in Every Patient Moment",
+    headline: "Healthcare",
+    body: "Scheduling, billing, and nurse lines are different jobs with different stakes. Lyric keeps one brand across them, stays warm and clear, says clinical and benefits terms correctly, and holds privacy disclosures to the spec on every channel.",
+    accent: "#B5C19E",
+    contexts: ["Scheduling", "Billing", "Nurse line"],
+    term: "formulary",
+    disclosure: "privacy disclosure",
+    tone: "warm, clear",
+    comingSoon: true,
+  },
 ]
 
 export default function VerticalsCarousel() {
@@ -65,6 +78,7 @@ export default function VerticalsCarousel() {
           headline={v.headline}
           body={v.body}
           accent={v.accent}
+          comingSoon={v.comingSoon}
         >
           <VerticalMockup
             contexts={v.contexts}

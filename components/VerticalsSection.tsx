@@ -26,7 +26,7 @@ export default function VerticalsSection() {
           <ScrollReveal delay={220}>
             <p className="lv-vert-supporting">
               Your agents span many contexts and channels, each with a different
-              job. Lyric holds them to one brand, in the terminology and
+              job. Callio holds them to one brand, in the terminology and
               disclosures your industry requires.
             </p>
           </ScrollReveal>
