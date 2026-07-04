@@ -6,7 +6,7 @@ import MobileStickyCTA from "@/components/MobileStickyCTA"
 import MeasurementSection from "@/components/MeasurementSection"
 import IntegrationsSection from "@/components/IntegrationsSection"
 import VerticalsSection from "@/components/VerticalsSection"
-import AudioSamples from "@/components/governance/AudioSamples"
+import GovernanceProof from "@/components/governance/GovernanceProof"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -230,58 +230,38 @@ export default function HomePage() {
       </section>
 
       {/* What Lyric governs — the two dimensions, sound and communication.
-          Two-column: the copy and three points on the left, a split-view
-          artifact on the right that shows one output evaluated on both
-          dimensions. Dark interlude. New lv-gov-* classes keep this scoped to
-          section 4; the shared lv-audiences styles (used by section 3) are
-          untouched. */}
+          Header row (headline left, framing line right), then two co-equal
+          proof panels: a governed voice sample to hear, a governed chat
+          thread to read. Voice drift is heard; text drift is read — so the
+          two proofs are different types on purpose. Dark interlude. The
+          lv-govp-* classes keep this scoped to section 4; the shared
+          lv-audiences styles (used by section 3) are untouched. */}
       <section className="lv-audiences" style={{ background: DARK }}>
         <div className="lv-audiences-inner">
-          <div className="lv-gov-grid">
-            <div className="lv-gov-copy">
-              <ScrollReveal>
-                <div className="lv-audiences-header">
-                  <div className="lv-philosophy-eyebrow">
-                    <span className="lv-eyebrow-dot" aria-hidden="true" />
-                    <span>What it governs</span>
-                  </div>
-                  <h2 className="lv-audiences-headline">
-                    <span className="lv-gov-headline-line">How it <em>sounds</em>.</span>
-                    <br />
-                    <span className="lv-gov-headline-line">How it <em>communicates</em>.</span>
-                  </h2>
+          <div className="lv-govp-head">
+            <ScrollReveal>
+              <div className="lv-audiences-header lv-govp-header">
+                <div className="lv-philosophy-eyebrow">
+                  <span className="lv-eyebrow-dot" aria-hidden="true" />
+                  <span>What it governs</span>
                 </div>
-              </ScrollReveal>
-
-              <div className="lv-gov-points">
-                <ScrollReveal delay={90}>
-                  <div className="lv-gov-point">
-                    <span className="lv-gov-point-label">How it sounds</span>
-                    <p className="lv-gov-point-body">
-                      Brand and industry terms, said right. Pacing, emphasis,
-                      and register held where they belong.
-                    </p>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={150}>
-                  <div className="lv-gov-point">
-                    <span className="lv-gov-point-label">How it communicates</span>
-                    <p className="lv-gov-point-body">
-                      Word choice, tone, and disclosure. What an agent says, and
-                      what it must not.
-                    </p>
-                  </div>
-                </ScrollReveal>
+                <h2 className="lv-audiences-headline">
+                  <span className="lv-gov-headline-line">How it <em>sounds</em>.</span>
+                  <br />
+                  <span className="lv-gov-headline-line">How it <em>communicates</em>.</span>
+                </h2>
               </div>
-            </div>
-
-            <div className="lv-gov-visual">
-              <ScrollReveal delay={120}>
-                <AudioSamples />
-              </ScrollReveal>
-            </div>
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <p className="lv-govp-lead">
+                Voice drift is heard. Text drift is read. One spec governs
+                both, so the proof comes two ways: a governed sample to hear,
+                and a governed thread to read.
+              </p>
+            </ScrollReveal>
           </div>
+
+          <GovernanceProof />
         </div>
       </section>
 

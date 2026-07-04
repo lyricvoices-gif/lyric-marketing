@@ -7993,38 +7993,45 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* ─── Section 4 — "How it sounds / How it communicates" ───────────────────
-   Two-column: copy and three points on the left, an artifact on the right
-   that shows one spoken line two ways. Top mode is acoustic (a register line
-   moving through a tolerance band, a per-word waveform, and a playhead that
-   sweeps once on enter); bottom mode is textual (the same line marked up as
-   language). The contrast is the point. Dark ground (the section keeps
-   .lv-audiences for padding; these lv-gov-* classes are scoped to section 4,
-   so the shared lv-audiences grid/blocks used by section 3 are untouched). It
-   pairs with section 3's visual: same EXAMPLE pill, mono labels, hairline
-   card chrome, restraint. Reduced motion renders the static end-state. */
+   Header row (eyebrow + headline left, a short framing line right), then two
+   co-equal proof panels that map one-to-one onto the headline's promises.
+   Left panel: a single governed voice sample behind the Voices-page featured
+   instrument (breathing gold glow at rest; gold progress ring and emanating
+   pulses during playback — the .lv-vstage conventions, panel-scoped; the
+   shared keyframes are reused). Right panel: a governed chat thread rendered
+   to be read, with always-visible governance notes beside the agent turns.
+   Voice drift is heard, text drift is read: the two proofs are different
+   types on purpose. Dark ground (the section keeps .lv-audiences for shell
+   padding; lv-govp-* / lv-govchat-* scope this section, so the shared
+   lv-audiences grid/blocks used by section 3 are untouched). Reduced motion
+   statics the glow, drops the aura and pulses, and keeps the functional
+   progress arc. */
 
-.lv-gov-grid {
+/* Header row. The head grid owns the gap below the headline cluster, so the
+   shared .lv-audiences-header margins are zeroed here (scoped, not on the
+   header block other sections use). */
+.lv-govp-head {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
-  align-items: start;
+  gap: 22px;
+  margin-bottom: 44px;
 }
 
-@media (min-width: 900px) {
-  .lv-gov-grid {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 120px;
-  }
+.lv-govp-header {
+  margin-bottom: 0;
 }
 
-/* Left column: header (reuses .lv-audiences-header) plus the two governed
-   dimensions. With the subline removed, the section-4 header sits tighter to
-   the points so the copy reads as one group (scoped here, not on the shared
-   .lv-audiences-header used elsewhere). With the per-point heads removed, the
-   mono dimension label is each point's anchor; the spacing pairs the two
-   points against the three clips in the player so the column reads balanced. */
-.lv-gov-copy .lv-audiences-header {
-  margin-bottom: 32px;
+.lv-govp-header .lv-audiences-headline {
+  margin-bottom: 0;
+}
+
+.lv-govp-lead {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 248, 236, 0.72);
+  margin: 0;
+  max-width: 46ch;
 }
 
 /* Section 4 headline — break at the sentence boundary, not on column width.
@@ -8038,173 +8045,358 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
-.lv-gov-points {
+/* The two proof panels. Each grid child is a ScrollReveal wrapper set to
+   display:flex, and the panel fills it, so both panels stretch to the same
+   height and read co-equal. */
+.lv-govp-panels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.lv-govp-panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  margin-top: 8px;
+  min-width: 0;
+  padding: 26px 26px 28px;
+  border: 1px solid rgba(255, 248, 236, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 248, 236, 0.03);
 }
 
-.lv-gov-point-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.7);
-  margin: 0 0 12px;
-}
-
-.lv-gov-point-body {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(255, 248, 236, 0.8);
-  margin: 0;
-}
-
-/* Right column: the "hear it" audio player. Playable rows, deliberately
-   unlike the eval/verticals cards. The annotations are always visible
-   (silent-state legible); the active row lights while its clip plays. Dark
-   ground. All playback feedback lives on the button — a gold progress arc
-   rings the play/pause glyph — so the rows carry no separate progress line.
-   A hairline rule separates each clip. The grid top-aligns the columns, so
-   "Hear it" lines up with the "What it governs" eyebrow and both columns
-   descend together. */
-.lv-aud {
-  width: 100%;
-}
-
-.lv-aud-label {
+.lv-govp-kicker {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 248, 236, 0.5);
-  margin: 0 0 18px;
+  /* 0.55 clears WCAG AA on the panel ground; 0.5 sits just under it. */
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0 0 26px;
 }
 
-.lv-aud-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.lv-aud-row {
+/* The panel's demonstration area; flex:1 pins the caption to the panel
+   bottom so the two captions align across panels. */
+.lv-govp-stage {
+  position: relative;
+  z-index: 1;
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 28px 0;
-  border-top: 1px solid rgba(255, 248, 236, 0.1);
+  justify-content: center;
+  min-height: 280px;
+  padding: 12px 0 30px;
 }
 
-.lv-aud-row:first-child {
-  border-top: 0;
-  padding-top: 0;
+.lv-govp-stage-chat {
+  align-items: stretch;
+  min-height: 0;
+  padding: 0 0 30px;
 }
 
-/* The button is a 64px ring: a faint track circle, a gold progress arc that
-   sweeps as the clip plays, and a centered play/pause glyph. No border or
-   fill chrome — the arc is the only progress feedback. The SVG keeps its
-   48-unit viewBox and scales to fit, so the ring geometry and progress math
-   are unchanged. */
-.lv-aud-play {
-  flex: none;
+/* ── Voice panel — the featured-stage instrument, panel-scoped ─────────── */
+
+/* Unpadded positioning context for the control and its pulse rings — the
+   .lv-vstage-instrument role. The stage's asymmetric padding would otherwise
+   center the absolute pulses on its padding box while flex centers the
+   button on its content box, leaving the rings 9px off-concentric. */
+.lv-govp-instrument {
   position: relative;
-  width: 64px;
-  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Panel aura: brightens and breathes while the sample plays (the Voices
+   stage ambience, contained by the panel's overflow clip). */
+.lv-govp-voice::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: min(90vw, 560px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--gold) 0%, transparent 70%);
+  opacity: 0.08;
+  filter: blur(10px);
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.lv-govp-voice.is-playing::before {
+  opacity: 0.2;
+  animation: lv-aura-breathe 6.5s ease-in-out infinite;
+}
+
+.lv-govp-play {
+  position: relative;
+  z-index: 2;
+  width: 116px;
+  height: 116px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: 0;
   border-radius: 100px;
-  background: transparent;
+  background: rgba(255, 248, 236, 0.05);
   color: var(--bg-light);
   cursor: pointer;
-  transition: color 0.2s ease;
+  overflow: visible;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.lv-aud-ring {
+/* RESTING state: a soft gold glow localized to the button, gently breathing,
+   so the control invites the click. The rings are reserved for playback. */
+.lv-govp-play::before {
+  content: "";
+  position: absolute;
+  inset: -26%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--gold) 0%, transparent 72%);
+  opacity: 0.5;
+  filter: blur(10px);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  animation: lv-vplay-breathe 3.4s ease-in-out infinite;
+}
+
+.lv-govp-play:hover {
+  background: rgba(255, 248, 236, 0.08);
+}
+
+.lv-govp-play:hover::before {
+  opacity: 0.82;
+}
+
+/* PLAYING state: the rings (track + gold progress arc) are shown while the
+   sample is sounding; the resting glow yields to them. */
+.lv-govp-ring {
   position: absolute;
   inset: 0;
-  width: 64px;
-  height: 64px;
+  z-index: 1;
+  width: 116px;
+  height: 116px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.lv-aud-ring-track {
+.lv-govp-play.is-playing .lv-govp-ring {
+  opacity: 1;
+}
+
+.lv-govp-play.is-playing::before {
+  opacity: 0;
+  animation: none;
+}
+
+.lv-govp-ring-track {
   fill: none;
-  stroke: rgba(255, 248, 236, 0.22);
-  stroke-width: 1.5;
+  stroke: rgba(255, 248, 236, 0.2);
+  stroke-width: 1.25;
 }
 
-.lv-aud-ring-prog {
+.lv-govp-ring-prog {
   fill: none;
   stroke: var(--gold);
   stroke-width: 1.5;
   stroke-linecap: round;
   transform: rotate(-90deg);
-  transform-origin: 24px 24px;
+  transform-origin: 58px 58px;
   transition: stroke-dashoffset 0.12s linear;
 }
 
-.lv-aud-glyph {
+.lv-govp-glyph {
   position: relative;
+  z-index: 2;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.lv-aud-glyph svg {
-  width: 20px;
-  height: 20px;
+.lv-govp-glyph svg {
+  width: 38px;
+  height: 38px;
 }
 
-.lv-aud-play:hover {
-  color: var(--bg-light);
-}
-
-.lv-aud-play:hover .lv-aud-ring-track {
-  stroke: rgba(255, 248, 236, 0.4);
-}
-
-.lv-aud-play.is-playing {
+.lv-govp-play.is-playing {
   color: var(--gold);
 }
 
-.lv-aud-body {
-  flex: 1;
-  min-width: 0;
+.lv-govp-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Title over description, the Edition 01 listen-row hierarchy: a display-type
-   category as the anchor, a roman "listen as..." line beneath. */
-.lv-aud-title {
+.lv-govp-voice.is-playing .lv-govp-pulse {
+  animation: lv-vstage-emanate 4.5s ease-out infinite;
+}
+
+.lv-govp-voice.is-playing .lv-govp-pulse-2 {
+  animation-delay: 1.5s;
+}
+
+.lv-govp-voice.is-playing .lv-govp-pulse-3 {
+  animation-delay: 3s;
+}
+
+/* ── Chat panel — the governed thread, read not played ─────────────────── */
+
+.lv-govchat {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.lv-govchat-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lv-govchat-row.is-customer {
+  align-items: flex-end;
+}
+
+.lv-govchat-meta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* The only textual speaker attribution — held at AA contrast. */
+  color: rgba(255, 248, 236, 0.55);
+  margin: 0 0 6px;
+}
+
+.lv-govchat-bubble {
+  max-width: 88%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.88);
+  margin: 0;
+}
+
+.lv-govchat-row.is-agent .lv-govchat-bubble {
+  background: rgba(255, 248, 236, 0.05);
+  border: 1px solid rgba(255, 248, 236, 0.12);
+  border-bottom-left-radius: 6px;
+}
+
+.lv-govchat-row.is-customer .lv-govchat-bubble {
+  background: rgba(255, 248, 236, 0.13);
+  border-bottom-right-radius: 6px;
+  color: rgba(255, 248, 236, 0.92);
+}
+
+/* The governed term, marked the way the hero transcript marks it. */
+.lv-govchat-term {
+  border-bottom: 1.5px solid var(--sage);
+  padding-bottom: 0.5px;
+}
+
+/* Governance note — the product's work, kept subordinate: muted mono with a
+   small sage dot, always visible beside its agent turn. */
+.lv-govchat-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 7px 0 0 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 248, 236, 0.55);
+}
+
+.lv-govchat-note-dot {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+/* ── Panel captions — the headline's promises, restated under each proof ── */
+
+.lv-govp-caption {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 248, 236, 0.1);
+}
+
+.lv-govp-caption-title {
   font-family: var(--font-display);
   font-size: clamp(17px, 2vw, 19px);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0;
   color: var(--bg-light);
-  margin: 0 0 5px;
+  margin: 0 0 6px;
 }
 
-.lv-aud-desc {
+.lv-govp-caption-body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.55;
   color: rgba(255, 248, 236, 0.62);
-  transition: color 0.25s ease;
 }
 
-.lv-aud-row.is-playing .lv-aud-desc {
-  color: rgba(255, 248, 236, 0.92);
+@media (min-width: 900px) {
+  .lv-govp-head {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 64px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+  .lv-govp-lead {
+    margin-bottom: 6px;
+  }
+  .lv-govp-panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .lv-govp-panel {
+    padding: 30px 30px 32px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-aud-ring-prog {
+  .lv-govp-ring-prog {
     transition: none;
+  }
+  .lv-govp-voice.is-playing::before {
+    animation: none;
+  }
+  .lv-govp-voice.is-playing .lv-govp-pulse {
+    animation: none;
+  }
+  /* Resting button glow holds static (no breathing) under reduced motion. */
+  .lv-govp-play::before {
+    animation: none;
+    opacity: 0.5;
   }
 }
 
