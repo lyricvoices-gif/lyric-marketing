@@ -7805,22 +7805,45 @@ main:has(.lv-hero) { padding-top: 0; }
   display: none;
 }
 
-/* There are three cards. On desktop, show all three in one view: the track
-   stops scrolling and the cards share the row evenly instead of one being
-   cropped at the edge. Below this width the scroll carousel still applies, with
-   the peek of the next card as the affordance. */
-@media (min-width: 1080px) {
-  .lv-vert-track {
-    overflow-x: visible;
-    scroll-snap-type: none;
-  }
+/* Pagination dots — the scroll affordance. One dot per card; the active dot
+   (the card nearest the left edge) stretches into a pill. Buttons scroll the
+   track to their card. */
+.lv-vert-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
 
-  .lv-vert-card {
-    flex: 1 1 0;
-    width: auto;
-    min-width: 0;
+.lv-vert-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: rgba(90, 94, 67, 0.24);
+  cursor: pointer;
+  transition: width 0.24s cubic-bezier(0.22, 1, 0.36, 1), background 0.24s ease;
+}
+
+.lv-vert-dot:hover {
+  background: rgba(90, 94, 67, 0.42);
+}
+
+.lv-vert-dot.is-active {
+  width: 24px;
+  background: var(--olive);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-vert-dot {
+    transition: background 0.24s ease;
   }
 }
+
+/* A horizontal scroll carousel at every width: three cards read at once on a
+   wide screen with the next peeking, and pagination dots below give the scroll
+   affordance (the track's own scrollbar is hidden). */
 
 /* ── Card (fixed width so the set stays uniform in the track; the peek of the
    next card is the affordance that there is more) ── */

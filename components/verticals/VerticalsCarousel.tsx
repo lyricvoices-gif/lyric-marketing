@@ -1,11 +1,16 @@
-/* Verticals carousel — a horizontal scroll-snap track of industry cards. No
-   controls and no JavaScript: native scroll-snap handles touch, trackpad, and
-   drag, and the peek of the next card is the affordance that there is more.
+"use client"
+
+/* Verticals carousel — a horizontal scroll-snap track of industry cards.
+   Native scroll-snap handles touch, trackpad, and drag; pagination dots below
+   the track give the scroll affordance (the scrollbar is hidden) and let a
+   click jump to any card. The active dot tracks the card nearest the left
+   edge as the track scrolls.
 
    Each card carries one accent color from the brand's per-voice palette
    (CLAUDE.md) via --card-accent, a pop that gives the card its identity while
    the format stays consistent. Content stays specific to each vertical. */
 
+import { useEffect, useRef, useState } from "react"
 import VerticalCard from "@/components/verticals/VerticalCard"
 import VerticalMockup from "@/components/verticals/mockups"
 
@@ -69,25 +74,95 @@ const VERTICALS: Vertical[] = [
 ]
 
 export default function VerticalsCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState(0)
+  const [scrollable, setScrollable] = useState(false)
+
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el) return
+
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth
+      setScrollable(max > 4)
+      if (max <= 4) {
+        setActive(0)
+        return
+      }
+      // At the end of the track, the last card owns the active dot even if it
+      // can't reach the left edge; otherwise the card nearest the left wins.
+      if (el.scrollLeft >= max - 2) {
+        setActive(el.children.length - 1)
+        return
+      }
+      const trackLeft = el.getBoundingClientRect().left
+      let best = 0
+      let bestDist = Infinity
+      Array.from(el.children).forEach((c, i) => {
+        const dist = Math.abs((c as HTMLElement).getBoundingClientRect().left - trackLeft)
+        if (dist < bestDist) {
+          bestDist = dist
+          best = i
+        }
+      })
+      setActive(best)
+    }
+
+    update()
+    el.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update)
+    return () => {
+      el.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    }
+  }, [])
+
+  const goTo = (i: number) => {
+    const el = trackRef.current
+    if (!el) return
+    const card = el.children[i] as HTMLElement | undefined
+    if (!card) return
+    const delta = card.getBoundingClientRect().left - el.getBoundingClientRect().left
+    el.scrollTo({ left: el.scrollLeft + delta, behavior: "smooth" })
+  }
+
   return (
-    <div className="lv-vert-track">
-      {VERTICALS.map((v) => (
-        <VerticalCard
-          key={v.headline}
-          label={v.label}
-          headline={v.headline}
-          body={v.body}
-          accent={v.accent}
-          comingSoon={v.comingSoon}
-        >
-          <VerticalMockup
-            contexts={v.contexts}
-            term={v.term}
-            disclosure={v.disclosure}
-            tone={v.tone}
-          />
-        </VerticalCard>
-      ))}
+    <div className="lv-vert-carousel">
+      <div className="lv-vert-track" ref={trackRef}>
+        {VERTICALS.map((v) => (
+          <VerticalCard
+            key={v.headline}
+            label={v.label}
+            headline={v.headline}
+            body={v.body}
+            accent={v.accent}
+            comingSoon={v.comingSoon}
+          >
+            <VerticalMockup
+              contexts={v.contexts}
+              term={v.term}
+              disclosure={v.disclosure}
+              tone={v.tone}
+            />
+          </VerticalCard>
+        ))}
+      </div>
+
+      {scrollable && (
+        <div className="lv-vert-dots" role="tablist" aria-label="Industries">
+          {VERTICALS.map((v, i) => (
+            <button
+              key={v.headline}
+              type="button"
+              role="tab"
+              className={`lv-vert-dot${i === active ? " is-active" : ""}`}
+              aria-selected={i === active}
+              aria-label={`Show ${v.headline}`}
+              onClick={() => goTo(i)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
