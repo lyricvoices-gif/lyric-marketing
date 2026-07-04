@@ -167,7 +167,7 @@ export default function LogoCycler({ className = "" }: { className?: string }) {
   return (
     <section className={`lv-logos${className ? ` ${className}` : ""}`}>
       <div className="lv-logos-row">
-        <p className="lv-logos-credit">Our founders shaped voice AI at</p>
+        <p className="lv-logos-credit">Our founders shaped agentic comms at</p>
 
         <div className="lv-cycler" aria-hidden="true">
           {slots.map((slot, i) => {
