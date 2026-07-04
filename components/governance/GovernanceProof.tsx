@@ -121,11 +121,31 @@ function useReducedMotion() {
   return reduced
 }
 
-/* Reveal cadence. */
-const DOTS_MS = 560 // typing indicator before a turn streams
-const CHAR_MS = 17 // per-character stream
+/* Reveal cadence. Two streaming speeds, so each turn reads realistically:
+   the agent streams at a steady, measured pace (AI tokens arriving); the
+   customer types like a person, with quick runs inside words and a breath
+   at spaces and punctuation (the DirectionCanvas human-typing model). */
+const DOTS_MS = 480 // typing indicator before a turn streams
+const AGENT_CHAR_MS = 26 // steady agent stream, per character
 const NOTE_MS = 240 // pause after a turn finishes before its notes fade in
-const GAP_MS = 460 // pause before the next turn begins
+const GAP_MS = 400 // pause before the next turn begins
+
+/* Human typing is bursty: a quick cadence inside words, a longer beat after
+   spaces, and a think at punctuation. Deterministic jitter keeps the rhythm
+   stable across renders. */
+function humanCharDelay(text: string, index: number): number {
+  const prev = index > 0 ? text[index - 1] : ""
+  let base = 36
+  if (prev === " ") base = 85
+  if (prev === "," || prev === ";") base = 180
+  if (prev === "." || prev === "?" || prev === "!") base = 230
+  return base + ((index * 2654435761) % 30)
+}
+
+/* Delay before the next character of the active turn. */
+function charDelay(role: ChatMsg["role"], text: string, index: number): number {
+  return role === "agent" ? AGENT_CHAR_MS : humanCharDelay(text, index)
+}
 
 type ChatPhase = "dots" | "type" | "done"
 
@@ -211,7 +231,9 @@ function AnimatedThread() {
   // Step machine: dots -> stream -> notes -> next turn.
   useEffect(() => {
     if (!entered || active >= THREAD.length) return
-    const len = msgLen(THREAD[active])
+    const msg = THREAD[active]
+    const len = msgLen(msg)
+    const fullText = msg.segs.map((s) => s.t).join("")
     let t: number
     if (phase === "dots") {
       t = window.setTimeout(() => {
@@ -220,7 +242,7 @@ function AnimatedThread() {
       }, DOTS_MS)
     } else if (phase === "type") {
       if (typed < len) {
-        t = window.setTimeout(() => setTyped((c) => c + 1), CHAR_MS)
+        t = window.setTimeout(() => setTyped((c) => c + 1), charDelay(msg.role, fullText, typed))
       } else {
         t = window.setTimeout(() => setPhase("done"), NOTE_MS)
       }
