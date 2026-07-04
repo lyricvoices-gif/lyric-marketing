@@ -46,9 +46,9 @@ export default function MeasurementSection() {
 
         <ScrollReveal delay={240}>
           <p className="lv-eval-caption">
-            Illustrative. A representative Lyric eval run against a brand spec.
+            Illustrative. A representative Callio eval run against a brand spec.
             Every output is scored against your spec, the target you configured
-            with Lyric, not a reference recording.
+            in Callio, not a reference recording.
           </p>
         </ScrollReveal>
       </div>
