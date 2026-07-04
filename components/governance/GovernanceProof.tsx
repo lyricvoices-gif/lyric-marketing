@@ -17,9 +17,16 @@
    is fictional, like the hero's Caldera Bank), kept to three turns so the
    band stays shallow. It mirrors the hero transcript's governance grammar:
    the recording disclosure, register held under stress, and one governed
-   brand term, with the hero's annotation vocabulary. Governance notes sit
-   beside the agent turns and are always visible, so the band reads fully
-   without interaction. */
+   brand term, with the hero's annotation vocabulary.
+
+   The thread animates once on scroll-into-view (the GovernedCallVisual /
+   DirectionCanvas machinery: a one-shot IntersectionObserver plus a small
+   setTimeout step machine). Each turn transitions in, shows a brief typing
+   indicator, streams its text with a caret, then reveals its governance
+   notes. A visibility:hidden ghost of the finished thread reserves the
+   band's height so nothing below reflows while it plays. Reduced-motion
+   users get the finished thread, static — the band reads fully without
+   the animation, and without sound. */
 
 import { useEffect, useRef, useState } from "react"
 import ScrollReveal from "@/components/ScrollReveal"
@@ -79,7 +86,178 @@ const THREAD: readonly ChatMsg[] = [
   },
 ]
 
+/* Total plain-text length of a turn, for the streaming cursor. */
+const msgLen = (m: ChatMsg) => m.segs.reduce((n, s) => n + s.t.length, 0)
+
+/* Render a turn's segments up to `limit` characters, preserving the term
+   underline on whatever portion is revealed. Pass Infinity for a settled
+   turn. */
+function renderSegs(segs: readonly ChatSeg[], limit: number) {
+  let remaining = limit
+  return segs.map((seg, j) => {
+    const take = Math.max(0, Math.min(seg.t.length, remaining))
+    remaining -= seg.t.length
+    if (take <= 0) return null
+    const text = seg.t.slice(0, take)
+    return seg.term ? (
+      <span key={j} className="lv-govchat-term">
+        {text}
+      </span>
+    ) : (
+      <span key={j}>{text}</span>
+    )
+  })
+}
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setReduced(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
+  return reduced
+}
+
+/* Reveal cadence. */
+const DOTS_MS = 560 // typing indicator before a turn streams
+const CHAR_MS = 17 // per-character stream
+const NOTE_MS = 240 // pause after a turn finishes before its notes fade in
+const GAP_MS = 460 // pause before the next turn begins
+
+type ChatPhase = "dots" | "type" | "done"
+
+/* One turn, given its animation state. `state` is "done" for settled turns
+   (full text, notes shown), or the active turn's phase; omit for the ghost. */
+function ChatRow({
+  msg,
+  phase,
+  typed,
+}: {
+  msg: ChatMsg
+  phase: ChatPhase
+  typed: number
+}) {
+  const full = phase === "done"
+  const streaming = phase === "type"
+  const showText = phase !== "dots"
+  const caret = streaming && typed < msgLen(msg)
+  return (
+    <div className={`lv-govchat-row is-${msg.role}`}>
+      <span className="lv-govchat-meta">{msg.role === "agent" ? "Agent" : "Customer"}</span>
+      <p className="lv-govchat-bubble">
+        {showText ? (
+          <>
+            {renderSegs(msg.segs, full ? Infinity : typed)}
+            {caret && <span className="lv-govchat-caret" aria-hidden="true" />}
+          </>
+        ) : (
+          <span className="lv-govchat-typing" aria-label="Typing">
+            <span />
+            <span />
+            <span />
+          </span>
+        )}
+      </p>
+      {msg.notes?.map((note) => (
+        <span key={note} className={`lv-govchat-note${full ? " is-shown" : ""}`}>
+          <span className="lv-govchat-note-dot" aria-hidden="true" />
+          {note}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+/* The finished thread, all turns settled — used both as the layout-reserving
+   ghost and as the reduced-motion render. */
+function SettledThread() {
+  return (
+    <div className="lv-govchat-track">
+      {THREAD.map((m, i) => (
+        <ChatRow key={i} msg={m} phase="done" typed={Infinity} />
+      ))}
+    </div>
+  )
+}
+
+function AnimatedThread() {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [entered, setEntered] = useState(false)
+  const [active, setActive] = useState(0)
+  const [phase, setPhase] = useState<ChatPhase>("dots")
+  const [typed, setTyped] = useState(0)
+
+  // One-shot: begin when the thread scrolls into view.
+  useEffect(() => {
+    if (entered) return
+    const el = rootRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setEntered(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [entered])
+
+  // Step machine: dots -> stream -> notes -> next turn.
+  useEffect(() => {
+    if (!entered || active >= THREAD.length) return
+    const len = msgLen(THREAD[active])
+    let t: number
+    if (phase === "dots") {
+      t = window.setTimeout(() => {
+        setTyped(0)
+        setPhase("type")
+      }, DOTS_MS)
+    } else if (phase === "type") {
+      if (typed < len) {
+        t = window.setTimeout(() => setTyped((c) => c + 1), CHAR_MS)
+      } else {
+        t = window.setTimeout(() => setPhase("done"), NOTE_MS)
+      }
+    } else {
+      t = window.setTimeout(() => {
+        setActive((a) => a + 1)
+        setPhase("dots")
+        setTyped(0)
+      }, GAP_MS)
+    }
+    return () => window.clearTimeout(t)
+  }, [entered, active, phase, typed])
+
+  return (
+    <div className="lv-govchat" ref={rootRef}>
+      {/* Ghost reserves the finished height so nothing below reflows. */}
+      <div className="lv-govchat-ghost" aria-hidden="true">
+        <SettledThread />
+      </div>
+      {/* Live overlay: turns that have arrived, animating in. */}
+      <div className="lv-govchat-live lv-govchat-track">
+        {entered &&
+          THREAD.slice(0, active + 1).map((m, i) => (
+            <ChatRow
+              key={i}
+              msg={m}
+              phase={i < active ? "done" : phase}
+              typed={i < active ? Infinity : typed}
+            />
+          ))}
+      </div>
+    </div>
+  )
+}
+
 export default function GovernanceProof() {
+  const reduced = useReducedMotion()
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -181,32 +359,7 @@ export default function GovernanceProof() {
             </p>
           </div>
           <div className="lv-govp-stage lv-govp-stage-chat">
-            <div className="lv-govchat">
-              {THREAD.map((m, i) => (
-                <div key={i} className={`lv-govchat-row is-${m.role}`}>
-                  <span className="lv-govchat-meta">
-                    {m.role === "agent" ? "Agent" : "Customer"}
-                  </span>
-                  <p className="lv-govchat-bubble">
-                    {m.segs.map((seg, j) =>
-                      seg.term ? (
-                        <span key={j} className="lv-govchat-term">
-                          {seg.t}
-                        </span>
-                      ) : (
-                        <span key={j}>{seg.t}</span>
-                      ),
-                    )}
-                  </p>
-                  {m.notes?.map((note) => (
-                    <span key={note} className="lv-govchat-note">
-                      <span className="lv-govchat-note-dot" aria-hidden="true" />
-                      {note}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
+            {reduced ? <SettledThread /> : <AnimatedThread />}
           </div>
         </div>
       </ScrollReveal>
