@@ -7628,6 +7628,19 @@ main:has(.lv-hero) { padding-top: 0; }
   color: rgba(90, 94, 67, 0.5);
 }
 
+/* Dot-separated variant: one inline-flex row so each middot sits vertically
+   centered with the text on either side (leveled), not on the baseline. */
+.lv-int-tier-sub-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.lv-int-tier-dot {
+  color: rgba(90, 94, 67, 0.4);
+  line-height: 1;
+}
+
 .lv-int-marks {
   display: flex;
   flex-wrap: wrap;

@@ -33,6 +33,26 @@ const SYNTH: Mark[] = [
 
 const LOGO_BASE = 24
 
+/* Dot-separated tier sub-line. Items and middot separators share one
+   inline-flex row (align-items: center) so the dots sit vertically leveled
+   with the text regardless of the mono glyph's own metrics. */
+function DotList({ items }: { items: string[] }) {
+  return (
+    <span className="lv-int-tier-sub lv-int-tier-sub-list">
+      {items.flatMap((item, i) =>
+        i === 0
+          ? [<span key={item}>{item}</span>]
+          : [
+              <span key={`${item}-dot`} className="lv-int-tier-dot" aria-hidden="true">
+                ·
+              </span>,
+              <span key={item}>{item}</span>,
+            ],
+      )}
+    </span>
+  )
+}
+
 function Marks({ items }: { items: Mark[] }) {
   return (
     <>
@@ -91,7 +111,7 @@ export default function IntegrationsSection() {
             <div className="lv-int-group">
               <div className="lv-int-tier-head">
                 <span className="lv-int-tier-label">Infrastructure</span>
-                <span className="lv-int-tier-sub">telephony, contact center, messaging, email, CRM</span>
+                <DotList items={["telephony", "messaging", "email", "CRM"]} />
               </div>
               <div className="lv-int-marks">
                 <Marks items={INFRA} />
