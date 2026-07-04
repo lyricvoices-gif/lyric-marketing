@@ -73,13 +73,15 @@ export default function IntegrationsSection() {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={120}>
-            <h2 className="lv-int-headline">Orchestrate your entire voice stack.</h2>
+            <h2 className="lv-int-headline">Orchestrate your entire agentic comms stack.</h2>
           </ScrollReveal>
           <ScrollReveal delay={220}>
             <p className="lv-int-supporting">
-              Lyric is the intelligence layer between your telephony and your
-              synthesis models. It governs whichever engine you use, so moving
-              providers never costs you your brand voice.
+              Callio is the governance layer above your models, voice engines,
+              and channels. You define your brand voice once, and Callio holds
+              every agent to it on the phone, in your app, over SMS, chat, and
+              email. When you change providers, your brand voice stays the same
+              because the spec lives with you, not with the engine.
             </p>
           </ScrollReveal>
         </div>
@@ -89,7 +91,7 @@ export default function IntegrationsSection() {
             <div className="lv-int-group">
               <div className="lv-int-tier-head">
                 <span className="lv-int-tier-label">Infrastructure</span>
-                <span className="lv-int-tier-sub">telephony, contact center, CRM</span>
+                <span className="lv-int-tier-sub">telephony, contact center, messaging, email, CRM</span>
               </div>
               <div className="lv-int-marks">
                 <Marks items={INFRA} />
