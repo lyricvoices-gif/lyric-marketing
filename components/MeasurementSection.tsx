@@ -31,10 +31,11 @@ export default function MeasurementSection() {
           </ScrollReveal>
           <ScrollReveal delay={220}>
             <p className="lv-eval-supporting">
-              Lyric conditions the model and the speech engine at the point of
-              generation, so drift does not occur in the live call. We verify
-              that with evals that run against your agents out of band, in
-              testing and monitoring, never in the call path.
+              Callio conditions the model and the speech engine at the point of
+              generation, so drift is caught before it reaches the customer, not
+              after. Then Callio proves it, with evals that run against your
+              agents separately, in testing and in monitoring, never in the live
+              call path.
             </p>
           </ScrollReveal>
         </div>
