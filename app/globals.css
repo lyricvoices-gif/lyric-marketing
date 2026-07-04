@@ -7866,6 +7866,39 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0;
 }
 
+/* Headline row — the vertical name plus an optional status pill. Kept
+   left-anchored (not spread) so the pill stays visible when the card is only
+   peeking at the edge of the carousel. */
+.lv-vert-card-headrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+}
+
+/* Coming-soon status pill. Mono, quiet, hairline-outlined so it reads as a
+   status tag, not a CTA. */
+.lv-vert-card-soon {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(90, 94, 67, 0.72);
+  padding: 3px 9px;
+  border: 1px solid rgba(90, 94, 67, 0.22);
+  border-radius: 100px;
+  background: rgba(90, 94, 67, 0.05);
+  white-space: nowrap;
+}
+
+/* A coming-soon card is subtly recessed so it reads as forthcoming, not live:
+   the illustrative spec mockup softens while the headline and copy stay
+   legible. */
+.lv-vert-card[data-soon] .lv-vert-card-visual {
+  opacity: 0.72;
+}
+
 .lv-vert-card-headline {
   font-family: var(--font-display);
   font-size: clamp(20px, 2.4vw, 24px);
@@ -7873,7 +7906,7 @@ main:has(.lv-hero) { padding-top: 0; }
   line-height: 1.15;
   letter-spacing: 0;
   color: var(--olive);
-  margin: 0 0 12px;
+  margin: 0;
 }
 
 .lv-vert-card-body {
