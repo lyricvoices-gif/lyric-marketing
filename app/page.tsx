@@ -291,11 +291,11 @@ export default function HomePage() {
             <span className="lv-final-line">The <em>brand</em> is not.</span>
           </h2>
           <div className="lv-cta-row lv-cta-row-center">
-            <CTA href="mailto:info@lyricvoices.ai?subject=Lyric%20access" variant="light">
-              Request access
+            <CTA href="/start" variant="light">
+              Build your AI comms spec
             </CTA>
-            <CTA href="/callio" variant="outline">
-              See how it works
+            <CTA href="/contact" variant="outline">
+              Book a call
             </CTA>
           </div>
         </ScrollReveal>
