@@ -367,10 +367,10 @@ export default function CallioPage() {
           </p>
           <div className="lv-cta-row lv-cta-row-center">
             <CTA href={START} variant="light">
-              Build your voice spec
+              Build your AI comms spec
             </CTA>
             <CTA href={CONTACT} variant="outline">
-              Talk to us
+              Book a call
             </CTA>
           </div>
         </ScrollReveal>
