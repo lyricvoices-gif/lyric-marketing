@@ -8261,17 +8261,51 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ── Chat panel — the governed thread, read not played ─────────────────── */
 
+/* The thread animates in on scroll (turns transition in, a typing indicator,
+   streamed text, then notes). A visibility:hidden ghost of the finished
+   thread reserves the band height so nothing below reflows while the live
+   overlay plays on top of it. */
 .lv-govchat {
+  position: relative;
+  width: 100%;
+}
+
+.lv-govchat-track {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 }
 
+.lv-govchat-ghost {
+  visibility: hidden;
+}
+
+.lv-govchat-live {
+  position: absolute;
+  inset: 0;
+}
+
 .lv-govchat-row {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+/* Each live turn transitions in as it arrives. */
+.lv-govchat-live .lv-govchat-row {
+  animation: lv-govchat-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lv-govchat-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .lv-govchat-row.is-customer {
@@ -8317,8 +8351,60 @@ main:has(.lv-hero) { padding-top: 0; }
   padding-bottom: 0.5px;
 }
 
+/* Typing indicator — three sage dots that pulse in sequence, shown in the
+   bubble for a beat before a turn streams its text. */
+.lv-govchat-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 0;
+}
+
+.lv-govchat-typing span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 248, 236, 0.6);
+  animation: lv-govchat-blink 1.2s ease-in-out infinite;
+}
+
+.lv-govchat-typing span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.lv-govchat-typing span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes lv-govchat-blink {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* Streaming caret — a thin gold bar blinking at the end of the typed text. */
+.lv-govchat-caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 0.95em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--gold);
+  animation: lv-govchat-caret 0.9s step-end infinite;
+}
+
+@keyframes lv-govchat-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* Governance note — the product's work, kept subordinate: muted mono with a
-   small sage dot, always visible beside its agent turn. */
+   small sage dot. Fades in once its turn has finished streaming. */
 .lv-govchat-note {
   display: inline-flex;
   align-items: center;
@@ -8328,6 +8414,12 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 10px;
   letter-spacing: 0.04em;
   color: rgba(255, 248, 236, 0.55);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.lv-govchat-note.is-shown {
+  opacity: 1;
 }
 
 .lv-govchat-note-dot {
@@ -8396,6 +8488,20 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-govp-play::before {
     animation: none;
     opacity: 0.5;
+  }
+  /* The chat renders its finished, static thread under reduced motion; these
+     gates neutralize the streaming decoration defensively. */
+  .lv-govchat-live .lv-govchat-row,
+  .lv-govchat-typing span,
+  .lv-govchat-caret {
+    animation: none;
+  }
+  .lv-govchat-caret {
+    opacity: 0;
+  }
+  .lv-govchat-note {
+    opacity: 1;
+    transition: none;
   }
 }
 
