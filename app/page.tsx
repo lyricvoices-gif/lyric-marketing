@@ -225,6 +225,24 @@ export default function HomePage() {
                 </p>
               </ScrollReveal>
             </div>
+
+            <div className="lv-audience-block">
+              <ScrollReveal delay={270}>
+                <span className="lv-audience-number">04</span>
+                <p className="lv-audience-label" style={label}>
+                  Monitor
+                </p>
+                <h2>
+                  Catch <em>drift</em> over time.
+                </h2>
+                <p className="lv-audience-body">
+                  Every governed agent is monitored over time. Drift against the
+                  spec is caught, consistency and disclosure adherence are
+                  checked, and when something sounds off-brand, the cause is
+                  diagnosed.
+                </p>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
