@@ -23,7 +23,7 @@ import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import CallioHearIt from "@/components/callio/CallioHearIt"
-import CallioDriftVisual from "@/components/hero/CallioDriftVisual"
+import GovernedCallVisual from "@/components/hero/GovernedCallVisual"
 import CallioFlow from "@/components/callio/CallioFlow"
 import CallioArchitecture from "@/components/callio/CallioArchitecture"
 import SonicPreview from "@/components/callio/SonicPreview"
@@ -111,8 +111,10 @@ const OUTCOMES = [
 export default function CallioPage() {
   return (
     <main className="lv-opus">
-      {/* ── Section 1 — Hero. The problem in one screen: agents multiplying and
-            drifting, shown live (call, then chat, then SMS) in the drift visual. ── */}
+      {/* ── Section 1 — Hero. The depth proof beside the depth claim: one
+            governed conversation (the Caldera Bank example call) showing what
+            governance actually does — disclosure added by spec, terminology
+            pronounced on brand, tone held. ── */}
       <section className="lv-opus-hero">
         <div className="lv-opus-wrap lv-opus-hero-grid">
           <div className="lv-opus-hero-copy">
@@ -144,7 +146,7 @@ export default function CallioPage() {
           </div>
 
           <div className="lv-opus-hero-demo">
-            <CallioDriftVisual />
+            <GovernedCallVisual />
           </div>
         </div>
       </section>

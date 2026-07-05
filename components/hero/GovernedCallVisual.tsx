@@ -1,12 +1,15 @@
 "use client"
 
-/* Governed conversation — the home hero's animated mockup.
+/* Governed conversation — the Callio product hero's animated mockup.
 
-   A live customer call rendered as a clean, readable transcript, with one
-   quiet layer on top that shows what Lyric governs. The conversation reads
+   A governed example call rendered as a clean, readable transcript, with one
+   quiet layer on top that shows what Callio governs. The conversation reads
    first; the product's work whispers in beside the agent's turns, a beat
    after each message lands, so it never competes with the line you are
-   reading.
+   reading. It is a scripted illustration of governed behavior, and it is
+   labeled as a governed example — never as live. The disclosure and
+   "provisional credit" lines are the already-vetted governed content;
+   Caldera Bank is the fictional stand-in.
 
    On load the header and the first agent turn are already in their final
    position, as if the call is already in progress. The remaining turns
@@ -120,7 +123,6 @@ export default function GovernedCallVisual() {
   const rootRef = useRef<HTMLDivElement>(null)
   const [hasEntered, setHasEntered] = useState(false)
   const [stepIdx, setStepIdx] = useState(INITIAL_STEPS)
-  const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
     if (hasEntered) return
@@ -149,35 +151,18 @@ export default function GovernedCallVisual() {
     return () => window.clearTimeout(t)
   }, [reduced, hasEntered, stepIdx])
 
-  const done = stepIdx >= STEPS.length
-
-  // Live call timer — runs while the call plays, stops once it settles.
-  useEffect(() => {
-    if (reduced) {
-      setSeconds(12)
-      return
-    }
-    if (!hasEntered || done) return
-    const id = window.setInterval(() => setSeconds((x) => x + 1), 1000)
-    return () => window.clearInterval(id)
-  }, [reduced, hasEntered, done])
-
   const completed = STEPS.slice(0, stepIdx)
   const msgVisible = (i: number) =>
     completed.some((s) => s.kind === "msg" && s.index === i)
   const noteVisible = (i: number) =>
     completed.some((s) => s.kind === "note" && s.index === i)
 
-  const mmss = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`
-
   return (
     <div ref={rootRef} className="lv-conv" aria-hidden="true">
       <div className="lv-conv-head">
-        <span className="lv-conv-head-label">Governed by Lyric</span>
-        <span className="lv-conv-head-live">
-          <span className={`lv-conv-head-dot${done ? "" : " is-live"}`} />
-          LIVE {mmss}
-        </span>
+        <span className="lv-conv-head-label">Governed by Callio</span>
+        {/* A scripted illustration, framed as such — never labeled live. */}
+        <span className="lv-conv-head-live">Governed example</span>
       </div>
 
       {/* Every turn is rendered from the start so its space is reserved and
