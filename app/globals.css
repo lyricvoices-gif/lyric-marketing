@@ -2428,10 +2428,10 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 /* Brand Governance Layer (control plane) reuses the audiences grid but wants
-   a little more air between the 01 Codify / 02 Govern / 03 Port blocks than the
-   shared grid. Scoped to the control-plane section so other uses are untouched.
-   Kept modest so the equal columns read as evenly distributed rather than
-   floating apart. */
+   a little more air between the 01 Codify / 02 Govern / 03 Port / 04 Monitor
+   blocks than the shared grid. Scoped to the control-plane section so other
+   uses are untouched. Kept modest so the blocks read as evenly distributed
+   rather than floating apart. */
 .lv-products .lv-audiences-grid {
   gap: 72px;
 }
@@ -3217,22 +3217,15 @@ main:has(.lv-hero) { padding-top: 0; }
     gap: 64px;
   }
 
-  /* Control-plane blocks (01 Codify / 02 Govern / 03 Port): force three truly
-     equal columns and one uniform column-gap. The shared rule above uses
-     repeat(3, 1fr) = minmax(auto, 1fr), whose auto minimum lets each column's
-     content width pull the tracks to different sizes, so the 01-02 gutter ends
-     up different from the 02-03 gutter. minmax(0, 1fr) makes the tracks equal,
-     and a single column-gap makes the two gutters identical. */
+  /* Control-plane blocks (01 Codify / 02 Govern / 03 Port / 04 Monitor): a
+     2x2 of truly equal tracks. minmax(0, 1fr) keeps the two columns equal
+     (repeat(2, 1fr) = minmax(auto, 1fr) would let content pull the tracks to
+     different widths); the row-gap gives the two rows vertical breathing room
+     the single-row layout did not need. */
   .lv-products .lv-audiences-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 72px;
-  }
-
-  /* Nudge the middle (02 Govern) block a few pixels left so it reads closer to
-     01 and further from 03, evening out the visual rhythm against the differing
-     headline lengths. Transform only, so the grid tracks/gutters stay equal. */
-  .lv-products .lv-audience-block:nth-child(2) {
-    transform: translateX(-16px);
+    row-gap: 80px;
   }
 
   .lv-audience-block h2 {
