@@ -123,8 +123,8 @@ export default function CallioPage() {
             </ScrollReveal>
             <ScrollReveal delay={120}>
               <h1 className="lv-opus-hero-head">
-                Your agents are multiplying. They don&rsquo;t sound like the{" "}
-                <em>same company</em>.
+                Your agents are multiplying, and they no longer sound like{" "}
+                <em>one company</em>.
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={220}>
