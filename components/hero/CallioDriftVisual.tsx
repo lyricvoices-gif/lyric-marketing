@@ -1,21 +1,22 @@
 "use client"
 
-/* Callio hero visual — the drift problem, animated.
+/* Home hero visual — the drift problem across channels, animated.
 
    Three agent instances answer the same customer question, one per channel, and
    each one sounds like a different company: the phone agent is stiff, the web
    chat is overeager, the SMS agent is too casual. They reveal in sequence —
    call first, then chat, then SMS — so the viewer watches the same brand split
-   into three voices. This is the problem the headline names; Callio is the answer
-   the rest of the page gives.
+   into three voices. The breadth proof beside the home hero's breadth claim
+   (one brand voice across every agent); Callio is the answer the site gives.
 
-   Built on the same machinery as the home hero's GovernedCallVisual: a
-   useReducedMotion hook, a one-shot IntersectionObserver, and a small setTimeout
-   step machine. Every card is rendered from the start so its space is reserved
-   and nothing reflows as the sequence plays. Reduced-motion users get all three
-   answers at once, static. The off-brand exclamation/emoji in the replies are
-   deliberate: they ARE the drift, the same way the "See it in text" section
-   shows ungoverned agents. */
+   Built on the same machinery as GovernedCallVisual (now the Callio product
+   hero's transcript): a useReducedMotion hook, a one-shot
+   IntersectionObserver, and a small setTimeout step machine. Every card is
+   rendered from the start so its space is reserved and nothing reflows as
+   the sequence plays. Reduced-motion users get all three answers at once,
+   static. The off-brand exclamation/emoji in the replies are deliberate:
+   they ARE the drift, the same way the "See it in text" section shows
+   ungoverned agents. */
 
 import { useEffect, useRef, useState } from "react"
 

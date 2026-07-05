@@ -6934,8 +6934,13 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0 auto;
 }
 
+/* Alignment belongs to the hero container, not the graphic, so either
+   visual can sit in either hero: the home demo column left-anchors its
+   child; the Callio hero demo right-anchors its child (rule below, with
+   the opus hero styles). */
 @media (min-width: 900px) {
-  .lv-conv {
+  .lv-hero-demo .lv-conv,
+  .lv-hero-demo .lv-opus-drift {
     margin: 0;
   }
 }
@@ -9340,9 +9345,11 @@ main:has(.lv-hero) { padding-top: 0; }
     gap: 64px;
   }
 
-  .lv-opus-drift {
-    margin: 0;
-    margin-left: auto;
+  /* The hero demo column right-anchors whichever visual it holds (the
+     matching home-hero rule lives with the .lv-conv styles). */
+  .lv-opus-hero-demo .lv-opus-drift,
+  .lv-opus-hero-demo .lv-conv {
+    margin: 0 0 0 auto;
   }
 
   /* How it works: copy left, numbered mechanism right (echoes "What it governs"). */

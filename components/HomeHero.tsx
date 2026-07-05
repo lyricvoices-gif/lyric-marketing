@@ -1,8 +1,12 @@
 import Link from "next/link"
-import GovernedCallVisual from "@/components/hero/GovernedCallVisual"
+import CallioDriftVisual from "@/components/hero/CallioDriftVisual"
 
-/* Home hero — two columns: the statement and one animated mockup of an
-   inbound call being governed by Lyric in real time (GovernedCallVisual).
+/* Home hero — two columns: the statement and the three-agents multichannel
+   comparison (CallioDriftVisual): the same customer question answered on
+   Phone, Web chat, and SMS. The breadth proof beside the breadth claim —
+   many channels, one brand voice at stake. (The deep governed-call
+   transcript, GovernedCallVisual, now sits in the Callio product hero,
+   where the depth claim lives.)
 
    The floret image was removed here; the warm ground is now a CSS gradient
    sampled from the floret's own colors (gold core, sage petals, cream
@@ -21,7 +25,7 @@ export default function HomeHero() {
           </h1>
           <p className="lv-hero-supporting">
             Enterprises run AI agents on the web, on the phone, and in their
-            apps. Each one speaks to customers. Lyric keeps every agent on brand
+            apps. Each one speaks to customers. Callio keeps every agent on brand
             with governance that works across models and speech engines.
           </p>
           <Link href="/callio" className="lv-link-cta">
@@ -30,7 +34,7 @@ export default function HomeHero() {
         </div>
 
         <div className="lv-hero-demo">
-          <GovernedCallVisual />
+          <CallioDriftVisual />
         </div>
       </div>
     </section>
