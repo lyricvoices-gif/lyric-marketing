@@ -1,22 +1,20 @@
 "use client"
 
-/* Home hero visual — the drift problem across channels, animated.
+/* Home hero visual — one brand voice across channels, animated.
 
-   Three agent instances answer the same customer question, one per channel, and
-   each one sounds like a different company: the phone agent is stiff, the web
-   chat is overeager, the SMS agent is too casual. They reveal in sequence —
-   call first, then chat, then SMS — so the viewer watches the same brand split
-   into three voices. The breadth proof beside the home hero's breadth claim
-   (one brand voice across every agent); Callio is the answer the site gives.
+   Three agent instances answer the same customer question, one per channel,
+   and each one sounds like the same company: the same governed voice, lightly
+   adapted to the channel's norms. They reveal in sequence — call first, then
+   chat, then SMS — so the viewer watches one brand hold across three
+   surfaces. The breadth proof beside the home hero's breadth claim (one
+   brand voice across every agent).
 
-   Built on the same machinery as GovernedCallVisual (now the Callio product
+   Built on the same machinery as GovernedCallVisual (the Callio product
    hero's transcript): a useReducedMotion hook, a one-shot
    IntersectionObserver, and a small setTimeout step machine. Every card is
    rendered from the start so its space is reserved and nothing reflows as
    the sequence plays. Reduced-motion users get all three answers at once,
-   static. The off-brand exclamation/emoji in the replies are deliberate:
-   they ARE the drift, the same way the "See it in text" section shows
-   ungoverned agents. */
+   static. */
 
 import { useEffect, useRef, useState } from "react"
 
@@ -31,20 +29,20 @@ const CARDS: readonly Card[] = [
     label: "Phone",
     agent: "Agent 01",
     reply:
-      "Your payment is due on the fifteenth. Is there anything further I can assist you with at this time?",
+      "Your payment is due on the fifteenth. I’m here if you need help with anything else.",
   },
   {
     channel: "chat",
-    label: "Web chat",
+    label: "Chat",
     agent: "Agent 02",
     reply:
-      "Great question! Your next payment is due on the 15th. Please keep enough in your account to avoid any late fees. Happy to help with anything else!",
+      "Your payment is due on the fifteenth. I’m here to help with anything else you need.",
   },
   {
     channel: "sms",
     label: "SMS",
     agent: "Agent 03",
-    reply: "hey! it's due the 15th 👍 lmk if u need anything else",
+    reply: "Your payment is due on the 15th. I’m here if you need anything else.",
   },
 ] as const
 
@@ -172,7 +170,7 @@ export default function CallioDriftVisual() {
       </div>
 
       <p className={`lv-opus-drift-foot${done ? " is-shown" : ""}`}>
-        Same facts. Three voices.
+        Same facts. One voice.
       </p>
     </div>
   )
