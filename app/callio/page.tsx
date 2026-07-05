@@ -225,16 +225,16 @@ export default function CallioPage() {
       <section className="lv-opus-sonic">
         <div className="lv-opus-wrap">
           <ScrollReveal>
-            <Eyebrow label="Sonic" />
+            <Eyebrow label="Callio · Intake" />
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <h2 className="lv-opus-sonic-head">
-              Tell Sonic about your brand. <em>It does the rest.</em>
+              Tell Callio about your brand. <em>It does the rest.</em>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <p className="lv-opus-sonic-body">
-              Sonic is the guided intake. It asks the facts with a short
+              Callio is the guided intake. It asks the facts with a short
               questionnaire, then shows you options and you pick the ones that
               sound like you. It never asks you to describe your voice in
               adjectives. Your picks become the spec.

@@ -10096,6 +10096,47 @@ main:has(.lv-hero) { padding-top: 0; }
   border-top: 1px solid var(--border);
 }
 
+/* ── Build animation (SonicPreview / .is-anim) ─────────────────────────────
+   The panel assembles itself: values fade and rise into rows that are already
+   laid out (so nothing reflows), chips drop in, the tone mark settles, and the
+   register pick highlights. Everything below is scoped to .lv-spec.is-anim, so
+   without JS or under reduced motion the finished spec shows static. */
+
+/* The register pick always transitions its highlight (only triggered while the
+   panel animates). */
+.lv-spec-opt {
+  transition: border-color 0.32s ease, background-color 0.32s ease,
+    color 0.32s ease, box-shadow 0.32s ease;
+}
+
+/* Row values fade/rise into place on their beat. */
+.lv-spec.is-anim .lv-anim-fade {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lv-spec.is-anim .lv-anim-fade.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Lexicon chips drop in individually (approved first, then banned); the group's
+   value box stays in place so the chips carry the motion. */
+.lv-spec.is-anim .lv-spec-chip {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lv-spec.is-anim .lv-spec-chip.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* The tone mark slides from the Warm end to its picked position. */
+.lv-spec.is-anim .lv-spec-range-mark {
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* ── Section 6 — Governance across channels (cream) ────────────────────────── */
 .lv-chan-grid {
   display: grid;
