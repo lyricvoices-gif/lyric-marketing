@@ -1,23 +1,32 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy — Callio (Draft)",
   description:
-    "How Lyric collects, uses, and protects information for brands, voice artists, and AI labs working with the Lyric imprint.",
+    "How Lyric Voices, Inc. collects, uses, and protects information for Callio, its brand-voice governance product for enterprise brands, agencies, and their teams.",
 }
 
-/* Privacy Policy — enterprise-focused. Reflects the current three-
-   product structure (Imprint, Callio, Score), the artist partnership at
-   /imprint/agreement, and the production third-party stack. Em dashes
-   are avoided throughout per design.md section 2 voice rules. */
+/* Privacy Policy — Callio only. This is a full replacement of the pre-pivot
+   imprint/artist/Composer/Score policy; that business model is gone and none of
+   its framing is carried over. The document is marked DRAFT: it is a legal
+   document and must be reviewed by counsel before publishing. Where a specific
+   legal determination is required, a [COUNSEL] placeholder is used rather than
+   inventing it. Em dashes are avoided per design.md section 2, with one
+   exception: the single forward-looking sentence is reproduced verbatim as
+   provided. */
 
+/* Text/background colors use CSS-variable tokens. Border colors use the token
+   HEX values directly: in this render path a var() inside a `border` shorthand
+   set via an inline style is dropped by the browser, so hex is used for every
+   border/divider to keep them visible. Values mirror globals.css :root. */
 const C = {
   bg: "var(--bg-light)",
   text: "var(--text-1)",
   textMuted: "var(--text-2)",
   textFaint: "var(--text-3)",
-  border: "var(--border)",
+  border: "#E5DFD5", // --border
   gold: "var(--gold)",
   olive: "var(--olive)",
 }
@@ -36,153 +45,149 @@ type Section = {
 
 const sections: Section[] = [
   {
-    title: "1. Who Lyric Serves",
-    body: "Lyric serves enterprise brands, agencies, and AI labs. Brands license voices from the Lyric imprint and use Callio tools, including Composer and Direction, to produce voice content for their products and services. AI labs access voice datasets through Score. Lyric is not a consumer-facing platform. Individual creators are not the intended audience for Lyric's products.",
+    title: "1. About Callio",
+    body: "Callio is a vendor-agnostic brand-voice governance product. It helps a brand define its brand voice as a governed specification, or spec, and keep its AI voice agents consistent to that spec. Customers use a guided intake to create and manage their voice specs. Callio is built for enterprise brands, agencies, and their teams. It is not a consumer-facing product, and individual consumers are not its intended users.",
   },
   {
     title: "2. Information We Collect",
     subsections: [
       {
-        subtitle: "2.1 Brand and Account Information",
-        list: [
-          "Name, role, business email, and company name for brand contacts and authorized users",
-          "Billing address and payment method details, processed by Stripe; Lyric does not store full payment card numbers",
-          "Tax and invoice information as required for billing and compliance",
-        ],
+        subtitle: "2.1 Account and Authentication Data",
+        body: "Account and authentication data, managed through Supabase, so that customers can sign in and create, view, and manage their voice specs.",
       },
       {
-        subtitle: "2.2 Callio Usage Data",
-        body: "When a brand uses Callio, Lyric collects:",
-        list: [
-          "Generation counts, session metadata, and feature interactions across Composer and Direction",
-          "Scripts, text content, and other materials uploaded to Composer for voice generation",
-          "Conversational input submitted to Direction during voice configuration sessions",
-          "Parameter configurations produced by Direction",
-          "Server, performance, and error logs",
-        ],
+        subtitle: "2.2 Brand and Business Contact Information",
+        body: "Name, role, business email address, and company name for authorized users and account contacts.",
       },
       {
-        subtitle: "2.3 Voice Artist Materials",
-        body: "For voice artists who partner with Lyric, the following materials are collected and stored:",
-        list: [
-          "Voice recordings supplied by the artist for model training and reference",
-          "Voice model files, embeddings, and other derivatives produced from those recordings",
-          "Performance metadata, including take counts, emotional ranges, session notes, and consent records",
-          "Audit logs documenting usage of the artist's voice across the platform",
-        ],
+        subtitle: "2.3 Billing Information",
+        body: "The billing details necessary to process payment, handled by Stripe. Callio does not store full payment card numbers.",
       },
       {
-        subtitle: "2.4 Technical Data",
-        body: "Lyric automatically collects IP address, browser type, operating system, device identifiers, and standard server logs when users interact with its products.",
+        subtitle: "2.4 Intake Content",
+        body: "The content a customer provides during the intake: the brand-voice description the customer writes in free text, the voice selections the customer makes, and the resulting voice spec.",
       },
       {
-        subtitle: "2.5 Information from Third-Party Services",
-        body: "If a brand authenticates through a third-party identity provider, Lyric receives basic profile information from that provider, subject to its own privacy policy.",
+        subtitle: "2.5 Customer-Provided Configuration Content",
+        body: "Configuration content a customer authors for its spec, including the customer's disclosure statements (compliance-sensitive text the customer writes), industry acronyms and terms, and brand-specific acronyms, terms, and lexicon. This content may include the customer's own regulated or compliance-sensitive language. Callio treats it as a distinct, sensitive category and applies the access controls described in Section 9.",
+      },
+      {
+        subtitle: "2.6 Transactional Email Data",
+        body: "The data necessary to send account and product emails, such as confirmation after signup and after a spec is created.",
+      },
+      {
+        subtitle: "2.7 Technical and Usage Data",
+        body: "IP address, browser type, device identifiers, standard server, performance, and error logs, and metadata about how product features are used.",
       },
     ],
   },
   {
-    title: "3. Voice Artist Data Protection",
-    body: "Voice artist materials, including recordings, model files, training metadata, embeddings, and performance data, are stored on infrastructure with restricted access controls. Lyric does not share voice artist materials with any third party without the corresponding artist's documented consent. Artists retain access to their own materials at any time and may request audit logs or deletion of their materials in accordance with the Artist Partnership.",
+    title: "3. What Callio Does Not Collect",
+    body: "The following are current facts about Callio as of this policy's effective date:",
+    list: [
+      "Callio does not record the user's own voice. The intake is listen-and-pick; users make selections and do not speak.",
+      "Callio does not capture or process recordings, transcripts, or audio from the calls handled by a customer's deployed agents.",
+      "Callio does not run product analytics.",
+    ],
+    note: "As Callio's capabilities expand, we may process additional data — including audio input and audio from deployed agents to measure voice consistency — and may introduce product analytics; we will update this Privacy Policy and provide any applicable notices before any such change takes effect.",
   },
   {
-    title: "4. Third-Party Services Lyric Uses",
-    body: "Lyric relies on the following third-party services to deliver Imprint, Callio, and Score. Each service processes data under its own privacy and security obligations. Lyric provides each service only the data necessary to perform its function.",
+    title: "4. How We Use Information",
+    body: "Callio uses the information it collects to:",
     list: [
-      "Hume AI: voice model hosting and emotional voice generation for Edition 01 voices",
-      "OpenAI: GPT-Realtime-2 for the Direction tool's conversational layer",
-      "ElevenLabs: voice generation for The Lyric Briefing and select deployments",
-      "Clerk: authentication and account management",
-      "Neon: managed PostgreSQL database",
-      "Stripe: billing and subscription management",
-      "Vercel: web hosting and edge delivery",
-      "Cloudflare Workers: voice model routing and edge compute",
+      "Operate, secure, and improve Callio",
+      "Authenticate users and protect against unauthorized access",
+      "Bill customers for the product",
+      "Send account, security, and product communications to authorized users",
+      "Meet our legal, regulatory, and contractual obligations",
+    ],
+  },
+  {
+    title: "5. What Callio Does Not Do",
+    list: [
+      "Callio does not sell customer data to advertisers, data brokers, or any third party.",
+      "Callio does not use customer content to train AI models without the customer's explicit consent. [COUNSEL: confirm the consent mechanism]",
+    ],
+  },
+  {
+    title: "6. Third-Party Subprocessors",
+    body: "Callio relies on the following third-party services to operate. Each service processes only the data necessary to perform its function, under its own privacy and security obligations.",
+    list: [
+      "Supabase: authentication and database",
+      "Anthropic (Claude): reasoning",
+      "ElevenLabs: voice generation and speech-to-text",
+      "Cloudflare R2: audio asset storage",
+      "Vercel: hosting and edge delivery",
+      "Stripe: billing",
       "Resend: transactional email",
     ],
-  },
-  {
-    title: "5. How Lyric Uses Information",
-    list: [
-      "Operate, secure, and improve Imprint, Callio, and Score",
-      "Authenticate users and protect against unauthorized access",
-      "Bill brands for subscription and licensing fees, and calculate artist compensation",
-      "Generate usage reports for brand accounts and statements for partnered artists",
-      "Support audit requests from artists and brands under their respective agreements",
-      "Communicate with brand contacts about account status, security, and product updates",
-      "Meet legal, regulatory, and contractual obligations",
-    ],
-  },
-  {
-    title: "6. What Lyric Does Not Do",
-    list: [
-      "Lyric does not sell brand data or voice artist materials to advertisers, data brokers, or any third party.",
-      "Lyric does not use voice artist materials to train third-party AI models without the corresponding artist's explicit consent.",
-      "Lyric does not use brand-uploaded content to train AI models without the brand's explicit consent.",
-    ],
+    note: "Callio maintains an up-to-date list of its subprocessors and will provide the current list on request, so that changes to our vendors do not require republishing this policy.",
   },
   {
     title: "7. Data Retention",
-    subsections: [
-      {
-        subtitle: "7.1 Brand Data",
-        body: "Brand account and billing data are retained for the duration of the active relationship plus the period required by tax, accounting, and regulatory obligations.",
-      },
-      {
-        subtitle: "7.2 Callio Usage Data",
-        body: "Callio usage data, including scripts, conversational input, and parameter configurations, is retained for the duration of the active relationship plus a reasonable period for audit and dispute resolution. Brands may request earlier deletion in accordance with Section 8.",
-      },
-      {
-        subtitle: "7.3 Voice Artist Materials",
-        body: "Voice artist materials are retained for the duration of the Artist Partnership plus the audit period defined in that partnership. Artist deletion rights upon withdrawal are described in Section 9.",
-      },
-    ],
+    body: "Callio retains personal information for the duration of the active customer relationship and for any additional period required to meet legal, tax, accounting, and regulatory obligations. Customers may request earlier deletion, subject to those obligations, as described in Section 8. [COUNSEL: specify the exact retention periods by data category]",
   },
   {
-    title: "8. Brand Data Rights",
-    body: "Brand contacts and authorized users may request:",
+    title: "8. Your Data Rights",
+    body: "Authorized users may request:",
     list: [
-      "Access to the personal information Lyric holds about them",
+      "Access to the personal information Callio holds about them",
       "Correction of inaccurate or incomplete information",
       "Deletion of personal information, subject to legal and contractual retention requirements",
       "Portability of personal information in a structured, machine-readable format where applicable",
     ],
-    note: "To exercise any of these rights, email info@lyricvoices.ai. Lyric will respond within 30 days.",
+    note: "To exercise any of these rights, email info@lyricvoices.ai. [COUNSEL: confirm the response window and any jurisdiction-specific rights]",
   },
   {
-    title: "9. Voice Artist Data Rights",
-    body: "Voice artists who partner with Lyric have rights specifically defined in the Artist Partnership at /imprint/agreement, including:",
-    list: [
-      "Access to their own voice materials and performance metadata at any time",
-      "Audit rights covering usage of their voice across the platform",
-      "Deletion rights upon withdrawal from the partnership, subject to the wind-down period described in that document",
-      "Compensation transparency for licensed deployments of their voice",
-    ],
-    note: "For matters specific to artist data, please reference the Artist Partnership or contact info@lyricvoices.ai.",
-  },
-  {
-    title: "10. Security",
-    body: "Lyric implements technical and organizational measures appropriate to the nature of the information processed, including:",
+    title: "9. Security",
+    body: "Callio applies technical and organizational measures appropriate to the information it processes, including:",
     list: [
       "Encryption of data in transit and at rest",
-      "Access controls limiting infrastructure and data access to personnel with a documented business need",
-      "Audit logging for access to voice artist materials",
-      "Documented security policies reviewed periodically",
+      "Access controls that limit data and infrastructure access to personnel with a documented business need",
+      "Audit logging of access to customer content, including the sensitive configuration content described in Section 2, such as customer-authored disclosure statements and lexicon",
+      "Periodic review of security policies and controls",
     ],
-    note: "No system can be guaranteed perfectly secure. Lyric will notify affected brands or artists of any unauthorized access to their data without undue delay and in accordance with applicable law. If you believe an account or asset has been compromised, contact info@lyricvoices.ai immediately.",
+    note: "No system can be guaranteed perfectly secure. Callio will notify affected customers of any unauthorized access to their data without undue delay and in accordance with applicable law. [COUNSEL: confirm breach-notification timing and obligations] If you believe an account has been compromised, contact info@lyricvoices.ai.",
   },
   {
-    title: "11. International Data Handling",
-    body: "Lyric works with brands and voice artists internationally. Information may be processed in the regions where the underlying service infrastructure operates, including the United States and the European Union. Where required by law, Lyric implements appropriate safeguards for cross-border data transfers.",
+    title: "10. International Data Handling",
+    body: "Callio works with customers internationally. Information may be processed in the regions where the underlying service infrastructure operates, including the United States and the European Union. Where required by law, Callio applies appropriate safeguards for cross-border transfers of personal data. [COUNSEL: specify the transfer mechanisms and applicable jurisdictions]",
   },
   {
-    title: "12. Changes to This Policy",
-    body: "Lyric may update this Privacy Policy from time to time. The 'Last updated' date above will reflect the date of the most recent revision. For material changes, Lyric will notify brand account contacts by email and post a notice on this page. Voice artists will be notified through the notification channel defined in the Artist Partnership.",
+    title: "11. Changes to This Policy",
+    body: "Callio may update this Privacy Policy from time to time. The 'Last updated' date above reflects the most recent revision. For material changes, Callio will notify account contacts by email and post a notice on this page before the change takes effect.",
   },
   {
-    title: "13. Contact",
-    body: "Lyric Voices, Inc.\nEmail: info@lyricvoices.ai\n\nFor matters specific to voice artist rights and protections, please reference the Artist Partnership at /imprint/agreement.",
+    title: "12. Contact",
+    body: "Lyric Voices, Inc.\nEmail: info@lyricvoices.ai",
   },
 ]
+
+/* Renders text, highlighting any [COUNSEL ...] placeholder so a reviewer can
+   find every open legal question at a glance. */
+function withCounsel(text: string): ReactNode {
+  const parts = text.split(/(\[COUNSEL[^\]]*\])/g)
+  return parts.map((part, i) =>
+    part.startsWith("[COUNSEL") ? (
+      <span
+        key={i}
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.85em",
+          background: "color-mix(in srgb, var(--gold) 26%, transparent)",
+          color: C.olive,
+          padding: "1px 6px",
+          borderRadius: "4px",
+          whiteSpace: "normal",
+        }}
+      >
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  )
+}
 
 export default function PrivacyPage() {
   return (
@@ -196,6 +201,58 @@ export default function PrivacyPage() {
         }}
       >
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+          {/* DRAFT notice — this document is not published; counsel must review. */}
+          <div
+            style={{
+              borderTop: "1px solid #5A5E43",
+              borderRight: "1px solid #5A5E43",
+              borderBottom: "1px solid #5A5E43",
+              borderLeft: "4px solid #F3D171",
+              backgroundColor: "rgba(243, 209, 113, 0.16)",
+              borderRadius: "12px",
+              padding: "18px 22px",
+              margin: "0 0 40px",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: C.olive,
+                margin: "0 0 8px",
+              }}
+            >
+              Draft · Pending counsel review
+            </p>
+            <p
+              style={{
+                fontSize: "13.5px",
+                lineHeight: 1.6,
+                color: C.textMuted,
+                margin: 0,
+              }}
+            >
+              This document is a working draft. It is a legal document and must be reviewed and
+              approved by counsel before it is published or relied upon. Highlighted{" "}
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.85em",
+                  background: "color-mix(in srgb, var(--gold) 26%, transparent)",
+                  color: C.olive,
+                  padding: "1px 6px",
+                  borderRadius: "4px",
+                }}
+              >
+                [COUNSEL]
+              </span>{" "}
+              markers flag the specific determinations that require counsel input.
+            </p>
+          </div>
+
           <p
             style={{
               fontSize: "11px",
@@ -206,7 +263,7 @@ export default function PrivacyPage() {
               margin: "0 0 16px",
             }}
           >
-            Legal
+            Legal · Callio
           </p>
           <h1
             style={{
@@ -229,7 +286,7 @@ export default function PrivacyPage() {
               letterSpacing: "0.04em",
             }}
           >
-            Last updated: May 25, 2026
+            {withCounsel("Last updated: [COUNSEL: set the effective date on publication]")}
           </p>
           <p
             style={{
@@ -241,16 +298,9 @@ export default function PrivacyPage() {
             }}
           >
             This Privacy Policy explains how Lyric Voices, Inc. (&ldquo;Lyric&rdquo;) collects, uses,
-            and protects information when brands, agencies, and AI labs use our products, and when
-            voice artists partner with our imprint. Lyric is an enterprise voice AI imprint. This
-            policy reflects that focus. Voice artists should also read the{" "}
-            <Link
-              href="/imprint/agreement"
-              style={{ color: C.text, textDecoration: "underline", textUnderlineOffset: "3px" }}
-            >
-              Artist Partnership
-            </Link>{" "}
-            for rights and protections specific to the artist relationship.
+            and protects information in connection with Callio, its brand-voice governance product.
+            It is written for the enterprise brands, agencies, and teams that use Callio. Callio is
+            not a consumer-facing product.
           </p>
         </div>
       </section>
@@ -274,7 +324,6 @@ export default function PrivacyPage() {
             }}
           >
             <PolicyNavLink href="/terms" label="Terms of Use" />
-            <PolicyNavLink href="/imprint/agreement" label="Artist Partnership" />
             <PolicyNavLink href="/" label="Back to home" />
           </div>
         </div>
@@ -346,7 +395,7 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                   margin: "0 0 8px",
                 }}
               >
-                {sub.body}
+                {withCounsel(sub.body)}
               </p>
             )}
             {sub.list && (
@@ -361,7 +410,7 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                       marginBottom: "4px",
                     }}
                   >
-                    {item}
+                    {withCounsel(item)}
                   </li>
                 ))}
               </ul>
@@ -382,7 +431,7 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                   whiteSpace: "pre-line",
                 }}
               >
-                {para}
+                {withCounsel(para)}
               </p>
             ))}
           {s.list && (
@@ -397,7 +446,7 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                     marginBottom: "6px",
                   }}
                 >
-                  {item}
+                  {withCounsel(item)}
                 </li>
               ))}
             </ul>
@@ -413,7 +462,7 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                 margin: "16px 0 0",
               }}
             >
-              {s.note}
+              {withCounsel(s.note)}
             </p>
           )}
         </>
