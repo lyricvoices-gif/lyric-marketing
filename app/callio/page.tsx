@@ -244,14 +244,6 @@ export default function CallioPage() {
           <ScrollReveal delay={280}>
             <SonicPreview />
           </ScrollReveal>
-
-          <ScrollReveal delay={360}>
-            <div className="lv-cta-row">
-              <CTA href={START} variant="dark">
-                Build your voice spec
-              </CTA>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 

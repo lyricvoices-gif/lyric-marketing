@@ -9927,8 +9927,8 @@ main:has(.lv-hero) { padding-top: 0; }
 
 /* ── Section 5 — Sonic spec sheet (cream, inspectable sample) ───────────────── */
 .lv-spec {
-  max-width: 720px;
-  margin: 40px 0 32px;
+  max-width: 900px;
+  margin: 40px 0 8px;
   border: 1px solid var(--border);
   border-radius: 20px;
   background: color-mix(in srgb, var(--olive) 3%, var(--bg-light));
@@ -9955,161 +9955,107 @@ main:has(.lv-hero) { padding-top: 0; }
   text-transform: uppercase;
   color: color-mix(in srgb, var(--olive) 50%, transparent);
 }
-.lv-spec-pick {
-  padding: 22px 22px 4px;
+/* Panel body. */
+.lv-spec-body {
+  padding: 20px 24px 24px;
 }
-.lv-spec-pick-q {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: color-mix(in srgb, var(--olive) 72%, transparent);
-  margin: 0 0 12px;
-}
-.lv-spec-pick-opts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.lv-spec-opt {
-  font-family: var(--font-body);
-  font-size: 14px;
-  padding: 9px 16px;
-  border-radius: 100px;
+
+/* Foundation — pre-vetted governance in a recessed, sage-locked register,
+   deliberately distinct from the picks (the ink/gold of a decision). */
+.lv-spec-fnd {
+  margin: 0 0 6px;
+  padding: 16px 18px;
   border: 1px solid var(--border);
-  background: var(--bg-light);
-  color: color-mix(in srgb, var(--olive) 78%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--olive) 4%, var(--bg-light));
 }
-.lv-spec-opt.is-picked {
-  border-color: var(--olive);
-  background: color-mix(in srgb, var(--gold) 18%, var(--bg-light));
-  box-shadow: inset 0 0 0 1px var(--olive);
-  color: var(--olive);
+.lv-spec-fnd-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--olive) 58%, transparent);
+  margin: 0 0 14px;
 }
-.lv-spec-dims {
-  margin: 22px 0 0;
+.lv-spec-fnd-lock {
+  width: 9px;
+  height: 8px;
+  border-radius: 1.5px;
+  border: 1.5px solid var(--sage);
+  border-top-width: 4px;
+}
+.lv-spec-fnd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lv-spec-fnd-cat-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.lv-spec-fnd-cat-label {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: color-mix(in srgb, var(--olive) 82%, transparent);
+}
+.lv-spec-fnd-cat-count {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: color-mix(in srgb, var(--olive) 52%, transparent);
+}
+.lv-spec-fnd-cat-ex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--olive) 46%, transparent);
+  margin: 3px 0 0;
+}
+
+/* Picks — label left, decided value right; each settles in as it is chosen. */
+.lv-spec-rows {
+  margin: 0;
   padding: 0;
 }
-.lv-spec-dim {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  padding: 18px 22px;
+.lv-spec-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 2px;
   border-top: 1px solid var(--border);
 }
-.lv-spec-dim-label {
+.lv-spec-row:first-child {
+  border-top: 0;
+}
+.lv-spec-row-label {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 55%, transparent);
-}
-.lv-spec-dim-value {
-  margin: 0;
-}
-.lv-spec-range {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  max-width: 320px;
-}
-.lv-spec-range-end {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 55%, transparent);
-}
-.lv-spec-range-track {
-  position: relative;
-  flex: 1;
-  height: 2px;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--olive) 16%, transparent);
-}
-.lv-spec-range-mark {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 28%, transparent);
-}
-.lv-spec-lex {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.lv-spec-lex-group {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-}
-.lv-spec-lex-tag {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: color-mix(in srgb, var(--olive) 50%, transparent);
-  margin-right: 4px;
 }
-.lv-spec-chip {
-  font-family: var(--font-body);
-  font-size: 13px;
-  padding: 5px 11px;
-  border-radius: 100px;
-}
-.lv-spec-chip.is-approved {
-  background: color-mix(in srgb, var(--gold) 16%, var(--bg-light));
+.lv-spec-row-value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.1;
   color: var(--olive);
-  border: 1px solid color-mix(in srgb, var(--olive) 22%, transparent);
-}
-.lv-spec-chip.is-banned {
-  color: color-mix(in srgb, var(--olive) 52%, transparent);
-  border: 1px solid var(--border);
-  text-decoration: line-through;
-}
-.lv-spec-quote {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--olive);
-  margin: 0;
-}
-.lv-spec-text {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--olive) 82%, transparent);
-  margin: 0;
-}
-.lv-spec-note {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 52%, transparent);
-  margin: 0;
-  padding: 18px 22px 22px;
-  border-top: 1px solid var(--border);
+  text-align: right;
 }
 
 /* ── Build animation (SonicPreview / .is-anim) ─────────────────────────────
-   The panel assembles itself: values fade and rise into rows that are already
-   laid out (so nothing reflows), chips drop in, the tone mark settles, and the
-   register pick highlights. Everything below is scoped to .lv-spec.is-anim, so
-   without JS or under reduced motion the finished spec shows static. */
-
-/* The register pick always transitions its highlight (only triggered while the
-   panel animates). */
-.lv-spec-opt {
-  transition: border-color 0.32s ease, background-color 0.32s ease,
-    color 0.32s ease, box-shadow 0.32s ease;
-}
-
-/* Row values fade/rise into place on their beat. */
+   The panel assembles itself: the Foundation lands with the industry and each
+   pick value fades and rises into a row that is already laid out (so nothing
+   reflows). Scoped to .lv-spec.is-anim, so without JS or under reduced motion
+   the finished spec shows static. */
 .lv-spec.is-anim .lv-anim-fade {
   opacity: 0;
   transform: translateY(6px);
@@ -10118,23 +10064,6 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-spec.is-anim .lv-anim-fade.is-in {
   opacity: 1;
   transform: none;
-}
-
-/* Lexicon chips drop in individually (approved first, then banned); the group's
-   value box stays in place so the chips carry the motion. */
-.lv-spec.is-anim .lv-spec-chip {
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lv-spec.is-anim .lv-spec-chip.is-in {
-  opacity: 1;
-  transform: none;
-}
-
-/* The tone mark slides from the Warm end to its picked position. */
-.lv-spec.is-anim .lv-spec-range-mark {
-  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Section 6 — Governance across channels (cream) ────────────────────────── */
@@ -10196,11 +10125,6 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 @media (min-width: 769px) {
-  .lv-spec-dim {
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-    align-items: start;
-  }
   .lv-chan-grid {
     grid-template-columns: 1fr 1fr;
     gap: 18px;
