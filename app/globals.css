@@ -9424,6 +9424,11 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 18px 0 20px;
   max-width: 18ch;
 }
+.lv-callio-what-head em {
+  font-family: inherit;
+  font-style: italic;
+  color: inherit;
+}
 .lv-callio-what-body {
   font-family: var(--font-body);
   font-size: 17px;
@@ -9431,6 +9436,52 @@ main:has(.lv-hero) { padding-top: 0; }
   color: color-mix(in srgb, var(--olive) 86%, transparent);
   margin: 0;
   max-width: 620px;
+}
+
+/* Lead-in to the function grid: quiet, sits between the explanation and the
+   four areas Callio serves. */
+.lv-callio-what-lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--olive) 72%, transparent);
+  margin: 48px 0 26px;
+}
+
+/* One institutional voice, across CX / Compliance / Ops / Brand. Mono area
+   label over an editorial line, each on a hairline, in a restrained 2x2 grid. */
+.lv-callio-what-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+.lv-callio-what-item {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+.lv-callio-what-area {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 10px;
+}
+.lv-callio-what-line {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--olive) 86%, transparent);
+  margin: 0;
+  max-width: 30ch;
+}
+
+@media (min-width: 769px) {
+  .lv-callio-what-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 56px;
+  }
 }
 
 /* ── Section 4 — Monitor mechanism (inside the dark How-it-works list) ── */
@@ -9598,47 +9649,6 @@ main:has(.lv-hero) { padding-top: 0; }
   border-top: 1px solid rgba(255, 248, 236, 0.12);
 }
 
-/* ── Section 8 — Outcomes by buyer (cream) ── */
-.lv-callio-out {
-  padding: 96px 0;
-  border-top: 1px solid var(--border);
-}
-.lv-callio-out-head {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.08;
-  color: var(--olive);
-  font-size: clamp(26px, 4vw, 40px);
-  margin: 18px 0 40px;
-}
-.lv-callio-out-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-}
-.lv-callio-out-item {
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
-}
-.lv-callio-out-buyer {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--olive);
-  margin: 0 0 10px;
-}
-.lv-callio-out-line {
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--olive) 86%, transparent);
-  margin: 0;
-  max-width: 28ch;
-}
-
 /* ── Section 9 — Founders (cream) ── */
 .lv-callio-founders {
   padding: 96px 0;
@@ -9680,10 +9690,6 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-arch-groups {
     grid-template-columns: repeat(3, 1fr);
     align-items: start;
-  }
-  .lv-callio-out-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px 56px;
   }
 }
 
