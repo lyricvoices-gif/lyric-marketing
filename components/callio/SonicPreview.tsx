@@ -1,52 +1,75 @@
 "use client"
 
-/* Section 5 — Build the voice spec (Callio intake). An inspectable preview of
-   what a brand actually configures: the real spec dimensions, shown as a
-   sample spec sheet. Less abstract than a skeleton, so an enterprise buyer can
-   see the product, but still a read-only illustration, not a working intake.
+/* Section 5 — Build the voice spec (Callio intake). A faithful preview of the
+   real Callio v1 Voice Spec panel (github.com/lyricvoices-gif/callio), rebuilt
+   in this site's design language: the same structure and the same content the
+   shipped product produces, not invented fields.
 
-   It reflects the intake model: ask the facts with a questionnaire, then show
-   and pick for taste (recognition over recall). The picks become the spec. It
-   never asks the brand to describe its voice in adjectives.
+   The panel is what Callio assembles as a brand answers the guided intake. The
+   Foundation is pre-vetted, counsel-reviewed governance that arrives the moment
+   an industry is chosen (locked, sage register); the picks below fill in as the
+   brand chooses them (Industry, Use case, Company, Voice, and the delivery
+   axes). Content mirrors the real Financial-Services / phone build: the
+   pronunciation, disclosure, output-standard and pacing samples are the actual
+   Foundation examples; the delivery values are the product's real defaults;
+   Sam is a real brand voice. Caldera Bank stays the fictional company stand-in.
 
-   The section headline is about the doing ("It does the rest"), so the panel
-   assembles itself: on scroll-into-view a scripted loop walks the beats — the
-   register is picked, the tone slider settles, the lexicon fills (approved
-   terms drop in, banned terms struck through), the disclosure lands, and the
-   remaining rows fill — then it rests on the finished spec, holds, and loops.
-   The animation only rearranges the reveal of the SAME sample content; nothing
-   is generated. Every row is present from the start (space reserved, no
-   reflow); only opacity/transform animate. Progressive enhancement: without JS,
-   or under prefers-reduced-motion, the finished spec renders static.
-
-   Guardrails: the "Sample" tag stays on the panel so this never reads as a
-   live customer spec. Callio codifies the brand voice — no approval workflows,
-   escalation routing, or agent-build machinery. Sample content is the
-   fictional Cascade / Caldera Bank used elsewhere on the page. Funnels to
-   /start via the section CTA. */
+   The section headline is about the doing ("It does the rest"), so on
+   scroll-into-view a scripted loop assembles the panel — the Foundation lands
+   with the industry, then each pick settles in sequence — then rests on the
+   finished spec, holds, and loops. Only the SAME content's reveal is scripted;
+   every row is laid out from the start so nothing reflows. The "Sample" tag
+   stays so this never reads as a live customer spec. Progressive enhancement:
+   without JS, or under prefers-reduced-motion, the finished spec renders static. */
 
 import { useEffect, useRef, useState } from "react"
 
-const REGISTER_OPTIONS = ["Composed and warm", "Brisk and upbeat", "Plain and direct"]
-const PICKED = 0
-const APPROVED = ["Annual Percentage Rate", "posted", "you’re all set"]
-const BANNED = ["no worries", "yep", "emoji"]
+/* The Foundation — real categories, counts, and verbatim examples from the v1
+   Financial-Services knowledge base (lib/foundation.ts). */
+const FOUNDATION = [
+  {
+    label: "Pronunciation guidance",
+    count: "5 entries",
+    example: "APR → A P R, distinct from A P Y",
+  },
+  {
+    label: "Required disclosures",
+    count: "1 disclosure",
+    example: "For quality and training purposes, calls may be recorded.",
+  },
+  {
+    label: "Voice Output Standards",
+    count: "12 rules",
+    example: "2026 → twenty twenty six",
+  },
+  {
+    label: "Pacing rules",
+    count: "6 rules",
+    example: "Measured calls hold 140 to 260 words per minute",
+  },
+] as const
 
-/* Reveal stages, in the order the intake fills the spec. */
-const REG = 1
-const TONE = 2
-const LEX_APP = 3
-const LEX_BAN = 4
-const DISC = 5
-const EX = 6
-const CHAN = 7
-const PRON = 8
-const FINAL = PRON
+/* The picks — the product's real fields and default delivery values; Caldera
+   Bank is the fictional company stand-in used across the page. */
+const PICKS = [
+  { label: "Industry", value: "Financial Services" },
+  { label: "Use case", value: "Phone" },
+  { label: "Company", value: "Caldera Bank" },
+  { label: "Voice", value: "Sam" },
+  { label: "Warmth", value: "Warm" },
+  { label: "Pacing", value: "Measured" },
+  { label: "Energy", value: "Steady" },
+] as const
 
-/* Pause held at each stage 0..7 before advancing; the finished spec dwells for
-   HOLD before the loop resets. */
-const DELAYS = [650, 700, 850, 650, 700, 650, 600, 600]
-const HOLD = 2800
+/* Reveal stages: the Foundation arrives with the Industry pick, then each
+   remaining pick settles in order. */
+const IND = 1
+const FINAL = IND + (PICKS.length - 1) // one stage per pick after Industry
+
+/* Pause held at each stage before advancing; the finished spec dwells for HOLD
+   before the loop resets. */
+const DELAYS = [720, 700, 650, 700, 650, 650, 650]
+const HOLD = 3000
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false)
@@ -70,7 +93,7 @@ export default function SonicPreview() {
   useEffect(() => setMounted(true), [])
 
   // Only animate once mounted on the client and motion is allowed; otherwise
-  // the panel renders its finished state (matching SSR — no hydration flip).
+  // render the finished spec (matching SSR — no hydration flip).
   const anim = mounted && !reduced
 
   useEffect(() => {
@@ -83,131 +106,62 @@ export default function SonicPreview() {
     return () => io.disconnect()
   }, [])
 
-  // The step machine advances only while the panel is on screen; it loops.
   useEffect(() => {
     if (!anim || !visible) return
     const t =
       stage < FINAL
-        ? window.setTimeout(() => setStage((s) => s + 1), DELAYS[stage])
+        ? window.setTimeout(() => setStage((s) => s + 1), DELAYS[Math.min(stage, DELAYS.length - 1)])
         : window.setTimeout(() => setStage(0), HOLD)
     return () => window.clearTimeout(t)
   }, [anim, visible, stage])
 
   const shown = (threshold: number) => !anim || stage >= threshold
-  const chipDelay = (i: number) => (anim ? `${i * 90}ms` : undefined)
+  // Picks reveal one per stage from IND: Industry at IND, then the rest.
+  const pickShown = (i: number) => shown(IND + Math.max(0, i))
 
   return (
     <div ref={rootRef} className={`lv-spec${anim ? " is-anim" : ""}`}>
       <div className="lv-spec-bar">
-        <span className="lv-spec-bar-name">Brand voice spec</span>
+        <span className="lv-spec-bar-name">Voice spec</span>
         <span className="lv-spec-bar-tag">Sample</span>
       </div>
 
-      {/* Show, don't ask: pick the one that sounds like you. */}
-      <div className="lv-spec-pick">
-        <span className="lv-spec-pick-q">Pick the register that sounds like you</span>
-        <div className="lv-spec-pick-opts">
-          {REGISTER_OPTIONS.map((o, i) => (
-            <span
-              key={o}
-              className={`lv-spec-opt${i === PICKED && shown(REG) ? " is-picked" : ""}`}
-            >
-              {o}
-            </span>
+      <div className="lv-spec-body">
+        {/* Foundation — pre-vetted governance, established with the industry. */}
+        <div className={`lv-spec-fnd lv-anim-fade${shown(IND) ? " is-in" : ""}`}>
+          <div className="lv-spec-fnd-head">
+            <span className="lv-spec-fnd-lock" aria-hidden="true" />
+            Foundation
+          </div>
+          <div className="lv-spec-fnd-list">
+            {FOUNDATION.map((f, i) => (
+              <div
+                key={f.label}
+                className={`lv-spec-fnd-cat lv-anim-fade${shown(IND) ? " is-in" : ""}`}
+                style={{ transitionDelay: anim ? `${120 + i * 90}ms` : undefined }}
+              >
+                <div className="lv-spec-fnd-cat-head">
+                  <span className="lv-spec-fnd-cat-label">{f.label}</span>
+                  <span className="lv-spec-fnd-cat-count">{f.count}</span>
+                </div>
+                <p className="lv-spec-fnd-cat-ex">{f.example}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Picks — the brand's decisions, settling in one at a time. */}
+        <dl className="lv-spec-rows">
+          {PICKS.map((p, i) => (
+            <div className="lv-spec-row" key={p.label}>
+              <dt className="lv-spec-row-label">{p.label}</dt>
+              <dd className={`lv-spec-row-value lv-anim-fade${pickShown(i) ? " is-in" : ""}`}>
+                {p.value}
+              </dd>
+            </div>
           ))}
-        </div>
+        </dl>
       </div>
-
-      <dl className="lv-spec-dims">
-        <div className="lv-spec-dim">
-          <dt className="lv-spec-dim-label">Tone range</dt>
-          <dd className={`lv-spec-dim-value lv-anim-fade${shown(TONE) ? " is-in" : ""}`}>
-            <div className="lv-spec-range" aria-hidden="true">
-              <span className="lv-spec-range-end">Warm</span>
-              <span className="lv-spec-range-track">
-                <span
-                  className="lv-spec-range-mark"
-                  style={{ left: shown(TONE) ? "42%" : "0%" }}
-                />
-              </span>
-              <span className="lv-spec-range-end">Direct</span>
-            </div>
-          </dd>
-        </div>
-
-        <div className="lv-spec-dim">
-          <dt className="lv-spec-dim-label">Lexicon</dt>
-          <dd className="lv-spec-dim-value">
-            <div className="lv-spec-lex">
-              <span className="lv-spec-lex-group">
-                <span className="lv-spec-lex-tag">Approved</span>
-                {APPROVED.map((term, i) => (
-                  <span
-                    key={term}
-                    className={`lv-spec-chip is-approved${shown(LEX_APP) ? " is-in" : ""}`}
-                    style={{ transitionDelay: chipDelay(i) }}
-                  >
-                    {term}
-                  </span>
-                ))}
-              </span>
-              <span className="lv-spec-lex-group">
-                <span className="lv-spec-lex-tag">Banned</span>
-                {BANNED.map((term, i) => (
-                  <span
-                    key={term}
-                    className={`lv-spec-chip is-banned${shown(LEX_BAN) ? " is-in" : ""}`}
-                    style={{ transitionDelay: chipDelay(i) }}
-                  >
-                    {term}
-                  </span>
-                ))}
-              </span>
-            </div>
-          </dd>
-        </div>
-
-        <div className="lv-spec-dim">
-          <dt className="lv-spec-dim-label">Required disclosures</dt>
-          <dd className={`lv-spec-dim-value lv-anim-fade${shown(DISC) ? " is-in" : ""}`}>
-            <p className="lv-spec-quote">
-              &ldquo;This call may be recorded.&rdquo; Exact, every time.
-            </p>
-          </dd>
-        </div>
-
-        <div className="lv-spec-dim">
-          <dt className="lv-spec-dim-label">Approved examples</dt>
-          <dd className={`lv-spec-dim-value lv-anim-fade${shown(EX) ? " is-in" : ""}`}>
-            <p className="lv-spec-quote">
-              &ldquo;Your payment posted today. You&rsquo;re all set.&rdquo;
-            </p>
-          </dd>
-        </div>
-
-        <div className="lv-spec-dim">
-          <dt className="lv-spec-dim-label">Channel constraints</dt>
-          <dd className={`lv-spec-dim-value lv-anim-fade${shown(CHAN) ? " is-in" : ""}`}>
-            <p className="lv-spec-text">
-              SMS under 160 characters, no emoji. Voice spells out figures. Email
-              keeps the full closing.
-            </p>
-          </dd>
-        </div>
-
-        <div className="lv-spec-dim">
-          <dt className="lv-spec-dim-label">Pronunciation, pacing, register</dt>
-          <dd className={`lv-spec-dim-value lv-anim-fade${shown(PRON) ? " is-in" : ""}`}>
-            <p className="lv-spec-text">
-              Caldera, said kal-DEH-ruh. Measured pace. Composed register.
-            </p>
-          </dd>
-        </div>
-      </dl>
-
-      <p className="lv-spec-note">
-        Facts by questionnaire. Taste by ear. Your picks become the spec.
-      </p>
     </div>
   )
 }
