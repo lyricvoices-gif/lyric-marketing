@@ -234,10 +234,10 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <p className="lv-opus-sonic-body">
-              Callio is the guided intake. It asks the facts with a short
-              questionnaire, then shows you options and you pick the ones that
-              sound like you. It never asks you to describe your voice in
-              adjectives. Your picks become the spec.
+              Callio guides you through a short intake. It gathers the facts,
+              shows you clear options, and you choose the ones that match your
+              institution&rsquo;s voice. You never have to describe your tone in
+              adjectives. Your selections become the spec.
             </p>
           </ScrollReveal>
 
