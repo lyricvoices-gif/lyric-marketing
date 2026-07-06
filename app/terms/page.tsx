@@ -1,29 +1,43 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Terms of Use",
+  title: "Terms of Use — Callio (Draft)",
   description:
-    "The terms governing access to and use of Lyric's products by brands, agencies, and AI labs.",
+    "The terms governing access to and use of Callio, the brand-voice governance product from Lyric Voices, Inc., by enterprise brands, agencies, and organizations.",
 }
 
-/* Terms of Use — enterprise B2B focus. Reflects the current three-
-   product structure: Imprint (separate licensing contracts), Callio
-   (subscription-based access to Composer and Direction), and Score
-   (separate dataset agreements). Voice artist relationships are
-   governed by the Artist Partnership at /imprint/agreement, which
-   takes precedence for any matter specific to the artist
-   relationship. Em dashes are avoided throughout per design.md
-   section 2 voice rules. */
+/* Terms of Use — Callio only. Full replacement of the pre-pivot three-product
+   Terms (Imprint / the old creative-environment "Callio" containing Composer
+   and Direction / Score). The term "Callio" is redefined completely: it is now
+   the brand-voice governance product itself, not a creative environment. No
+   imprint/artist/Composer/Direction/Score references remain. Marked DRAFT: this
+   is a binding legal document and must be reviewed by counsel before
+   publishing. Where a specific legal determination is required, a [COUNSEL]
+   placeholder is used rather than inventing it. Em dashes are avoided per
+   design.md section 2.
+
+   Border colors use token HEX values directly: in this render path a var()
+   inside a `border` shorthand set via an inline style is dropped by the
+   browser, so hex keeps every border/divider visible. Values mirror
+   globals.css :root. */
 
 const C = {
   bg: "var(--bg-light)",
   text: "var(--text-1)",
   textMuted: "var(--text-2)",
   textFaint: "var(--text-3)",
-  border: "var(--border)",
+  border: "#E5DFD5", // --border
   gold: "var(--gold)",
   olive: "var(--olive)",
+}
+
+type Sub = {
+  subtitle: string
+  body?: string
+  list?: string[]
+  note?: string
 }
 
 type Section = {
@@ -31,142 +45,128 @@ type Section = {
   body?: string
   list?: string[]
   note?: string
-  subsections?: {
-    subtitle: string
-    body?: string
-    list?: string[]
-    note?: string
-  }[]
+  subsections?: Sub[]
 }
 
 const sections: Section[] = [
   {
-    title: "1. Who Can Use Lyric",
-    body: "These Terms apply to brands, agencies, businesses, and AI labs. Lyric's products are not intended for individual consumer use. Voice artists access Lyric through the Artist Partnership at /imprint/agreement; these Terms do not govern the artist relationship.\n\nBy using Lyric, you represent that you are authorized to enter into a binding agreement on behalf of the brand, agency, or organization you represent.",
+    title: "1. Who Can Use Callio",
+    body: "Callio is provided for use by enterprise brands, agencies, businesses, and organizations. It is not intended for, and may not be used for, individual consumer purposes. By accessing or using Callio, you represent and warrant that you are authorized to bind the organization you represent to these Terms, and that the organization accepts them. In these Terms, “brand” means that organization.",
   },
   {
-    title: "2. Lyric's Products",
-    body: "Lyric offers three products. Each is governed by these Terms together with the additional product-specific agreement noted below.",
+    title: "2. The Product",
+    body: "Callio is a single product: a vendor-agnostic brand-voice governance platform. It helps a brand define its brand voice as a governed specification, or spec, and keep the brand's AI voice agents consistent to that spec across channels. Customers use a guided intake to create and manage their voice specs, and the product governs how their deployed agents sound.\n\nCallio is provided on a subscription basis. Pricing and subscription specifics, including the applicable tier (Foundation, Governance subscription, or Enterprise), are defined in the brand's subscription agreement or enterprise agreement, which incorporates these Terms. These Terms do not restate prices.",
+  },
+  {
+    title: "3. Ownership",
     subsections: [
       {
-        subtitle: "2.1 Imprint",
-        body: "Imprint is Lyric's roster of curated voice identities. Voice licensing for commercial deployment is governed by separate negotiated agreements between Lyric and the licensee. These Terms cover access to and use of the platform pages that present the Imprint roster. They do not grant any license to deploy a Lyric imprint voice. Any commercial deployment requires a corresponding licensing agreement.",
+        subtitle: "3.1 What the Brand Owns",
+        body: "The brand owns the content it provides to Callio, including its brand information, its scripts and brand-voice descriptions, its disclosure statements, and its acronyms, terms, and lexicon. The brand also owns the resulting voice spec: the brand's governed brand voice, codified. By submitting content to Callio, the brand grants Lyric a limited, non-exclusive license to host, process, and use that content solely to provide and operate the service for the brand.",
       },
       {
-        subtitle: "2.2 Callio",
-        body: "Callio is Lyric's creative environment for working with voices from the Imprint. Callio includes two tools: Composer, which generates audio output from scripts and configurations, and Direction, which produces parameter configurations through a guided conversational process. Access to Callio is provided on a subscription basis. Subscription pricing and terms specific to an account are defined in the brand's individual subscription agreement, which incorporates these Terms by reference.",
+        subtitle: "3.2 What Lyric Owns",
+        body: "Lyric owns the Callio platform and all related technology, including its generation and governance systems and its governance intellectual property. The governance intellectual property includes the curated voice library, the evaluation and drift-detection logic, and the tuning methodology. Nothing in these Terms grants the brand any ownership of, or right in, Lyric's technology, platform, or governance systems, other than the limited right to use Callio under these Terms and the applicable agreement.",
       },
       {
-        subtitle: "2.3 Score",
-        body: "Score is Lyric's voice dataset product for AI labs and research organizations. Dataset access and licensing are governed by separate dataset licensing agreements negotiated between Lyric and the licensee. These Terms cover platform information about Score but do not grant any dataset license.",
+        subtitle: "3.3 Voice Rights",
+        body: "Ownership of a voice spec does not convey ownership of, or a standalone right to, any voice. Voice usage rights are separate from the spec and run through the applicable licensing below.",
+        list: [
+          "Third-party-provided voices: Certain voices are made available through third-party engine providers. The brand's use of those voices is subject to the applicable terms of the relevant provider. [COUNSEL: reconcile this pass-through against the actual provider agreements]",
+          "Lyric-created voices: Certain voices are created and licensed by Lyric. The brand's right to use those voices is granted through its subscription and licensing with Lyric and is defined by that agreement.",
+        ],
+        note: "The brand's ownership of its spec does not, in itself, grant any right to use a voice. The brand's spec is the brand's; voices are provided under the separate terms described here.",
       },
     ],
   },
   {
-    title: "3. Callio Usage Rules",
-    body: "By accessing Callio, the brand agrees to the following:",
+    title: "4. Usage Rules and Protection of Lyric's Intellectual Property",
     subsections: [
       {
-        subtitle: "3.1 Commercial Deployment Requires Licensing",
-        body: "Audio output from Composer and parameter configurations produced by Direction may only be deployed commercially through a corresponding voice licensing agreement with Lyric. Output produced in Callio is not, on its own, a license to deploy.",
+        subtitle: "4.1 Protection of Lyric's Intellectual Property",
+        body: "The brand agrees to the following restrictions, which protect Lyric's platform, governance systems, and intellectual property:",
+        list: [
+          "The brand may not reverse-engineer, decompile, disassemble, reconstruct, or otherwise attempt to derive the curation system, the evaluation or drift-detection logic, the governance methodology, or any underlying models or infrastructure.",
+          "The brand may not use Callio, its outputs, or any information derived from it to build, train, or develop a competing brand-voice governance product or service, or to train any competing system.",
+          "The brand may not resell, sublicense, rent, or otherwise transfer access to Callio or its governance systems outside the scope of its agreement.",
+        ],
+        note: "Lyric considers the protections in this Section essential to its business and will enforce them to the fullest extent permitted by law, including by seeking injunctive and other equitable relief in addition to any other available remedy. [COUNSEL: specify the enforceable remedies, including injunctive relief, any liquidated-damages provision, and the specific claims to be asserted]",
       },
       {
-        subtitle: "3.2 Direction Is Imprint-Only",
-        body: "The Direction tool is available exclusively for voices on the Lyric imprint, including Edition 01 and forthcoming editions. Direction is not available for voices outside the imprint.",
-      },
-      {
-        subtitle: "3.3 No Extraction or Reverse Engineering",
-        body: "The brand may not extract, reverse-engineer, copy, or otherwise attempt to reconstruct the underlying voice models, embeddings, training data, or model infrastructure accessed through Callio. The brand may not use any output from Callio to train a third-party voice model or to develop a derivative voice.",
-      },
-      {
-        subtitle: "3.4 Use Case Exclusions",
-        body: "The brand may not use Callio to generate content that falls outside the pre-approved use case categories defined in the relevant artist partnership for the voice in question. Category-level exclusions commonly include political content, religious content, gambling, adult content, tobacco, firearms, and other categories that individual artists may exclude. The current exclusions for each licensed voice are documented in the brand's licensing agreement.",
-      },
-    ],
-  },
-  {
-    title: "4. Ownership",
-    subsections: [
-      {
-        subtitle: "4.1 Lyric Technology",
-        body: "Lyric retains all right, title, and interest in the platform technology, voice model infrastructure, generation systems, parameter framework, and the Imprint, Callio, and Score products. Nothing in these Terms grants the brand any ownership of Lyric technology.",
-      },
-      {
-        subtitle: "4.2 Voice Artists",
-        body: "Voice artists retain ownership of their voice, vocal identity, name, likeness, performance, and underlying personal rights, as described in the Artist Partnership at /imprint/agreement. Nothing in these Terms or in any licensing arrangement transfers those rights from the artist.",
-      },
-      {
-        subtitle: "4.3 Brand Content",
-        body: "The brand retains ownership of scripts, content, and creative direction it provides to Composer or Direction. By submitting content to Callio, the brand grants Lyric a limited, non-exclusive license to process that content solely to deliver the requested service.",
-      },
-      {
-        subtitle: "4.4 Parameter Configurations",
-        body: "Parameter configurations produced by Direction are licensed to the brand for use with the corresponding licensed voice, subject to the active licensing agreement. The underlying voice model rights remain with Lyric and the relevant voice artist. The brand may not transfer, sublicense, or resell parameter configurations outside the scope of the licensing agreement.",
+        subtitle: "4.2 Acceptable Use",
+        body: "The brand may not:",
+        list: [
+          "Use Callio for any unlawful, infringing, fraudulent, defamatory, or harassing purpose",
+          "Access, or attempt to access, other accounts, Lyric infrastructure, or third-party systems without authorization",
+          "Interfere with the security, performance, or availability of the platform",
+          "Misrepresent the source or nature of governed output",
+        ],
       },
     ],
   },
   {
     title: "5. Account Responsibilities",
-    body: "Brands are responsible for:",
-    list: [
-      "The security of their account credentials, including credentials issued to authorized users",
-      "All actions taken under the brand account, whether by an authorized user or by anyone using credentials issued to the brand",
-      "Promptly notifying Lyric at info@lyricvoices.ai of any suspected unauthorized access",
-    ],
+    body: "The brand is responsible for maintaining the security and confidentiality of its account credentials, including any credentials issued to its authorized users, and for all activity that occurs under its account. The brand must promptly notify Lyric at info@lyricvoices.ai of any suspected or actual unauthorized access to or use of its account.",
   },
   {
-    title: "6. Acceptable Use",
-    body: "Brands may not use Lyric to:",
-    list: [
-      "Generate or distribute content that is misleading, fraudulent, defamatory, harassing, or unlawful",
-      "Impersonate any real person, including the licensed voice artist, in a manner inconsistent with the licensing agreement",
-      "Generate content that violates pre-approved use case categories defined in the relevant artist partnership",
-      "Attempt unauthorized access to other accounts, infrastructure, or third-party systems",
-      "Use Lyric in any way that infringes the rights of a voice artist on the imprint, including circumventing licensing terms, exclusivity tiers, or audit obligations",
-      "Interfere with the platform's security, performance, or availability",
-    ],
-    note: "Lyric reserves the right to suspend or terminate accounts that violate these standards. See Section 9 (Termination).",
+    title: "6. Service Availability",
+    body: "Lyric does not guarantee that Callio will be uninterrupted or error-free. Access may be affected by scheduled maintenance, unplanned downtime, or disruptions in third-party services. Lyric will use commercially reasonable efforts to communicate planned downtime in advance.\n\nCallio is not intended for safety-critical applications. The brand must not deploy Callio in any system where a failure to deliver accurate or real-time output could cause physical harm, financial loss, or a regulatory violation.",
   },
   {
-    title: "7. Service Availability",
-    body: "Lyric does not guarantee uninterrupted access to its products. Planned and unplanned downtime may occur, including maintenance windows, infrastructure changes, and third-party service disruptions. Lyric makes commercially reasonable efforts to communicate planned downtime in advance to brand account contacts.\n\nLyric's products are not designed for safety-critical applications. Brands should not deploy Lyric-generated content in any system where a failure to deliver real-time audio or accurate output could cause physical harm, financial loss, or violation of regulatory obligations.",
+    title: "7. Billing and Subscriptions",
+    body: "Callio is billed on a recurring basis through Stripe. The brand authorizes Lyric to charge the applicable fees at the agreed rate for each billing period. The brand may cancel at any time, effective at the end of the current billing period. Fees are non-refundable, and Lyric does not provide prorated refunds, except where required by law. Where an enterprise, negotiated, or annual agreement specifically addresses a matter, that agreement takes precedence over these standard subscription terms.",
   },
   {
-    title: "8. Billing and Subscriptions",
-    body: "Callio subscriptions are billed on a recurring basis through Stripe. The brand authorizes Lyric to charge its payment method at the rate defined in the subscription agreement. The brand may cancel a subscription at any time; cancellation takes effect at the end of the then-current billing period. Lyric does not offer prorated refunds for partial billing periods unless required by applicable law.\n\nEnterprise customers with negotiated pricing or annual agreements are governed by the terms of those individual agreements, which take precedence over the standard subscription terms for any matter specifically addressed in the negotiated agreement.",
+    title: "8. Termination",
+    body: "Lyric may suspend or terminate a brand's access to Callio if the brand materially breaches these Terms, fails to pay beyond any applicable grace period, violates the intellectual-property protections or usage rules in Section 4, or where continued access creates legal or reputational risk for Lyric. The brand may terminate as described in Section 7.\n\nThe following survive termination: Ownership (Section 3), the intellectual-property protections and usage rules (Section 4), Limitation of Liability (Section 9), and Disputes (Section 10).",
   },
   {
-    title: "9. Termination",
-    body: "Lyric may suspend or terminate a brand's access to its products if:",
-    list: [
-      "The brand materially breaches these Terms or any related licensing or subscription agreement",
-      "Payment is not received within the grace period defined in the subscription agreement",
-      "The brand violates the rights of a voice artist on the imprint, including exclusivity terms, use case exclusions, or audit obligations",
-      "Continued access creates legal or reputational risk for Lyric or the affected voice artist",
-    ],
-    note: "The brand may terminate its subscription at any time as described in Section 8. Provisions of these Terms that by their nature should survive termination, including Sections 4 (Ownership), 10 (Limitation of Liability), and 11 (Disputes), will survive.",
+    title: "9. Limitation of Liability",
+    body: "To the maximum extent permitted by law, neither party is liable to the other for any indirect, incidental, special, consequential, or punitive damages, or for lost profits or lost data, arising out of or relating to the use of Callio. Lyric's total aggregate liability arising out of or relating to these Terms or Callio will not exceed the amounts paid by the brand in the twelve months preceding the event giving rise to the claim. [COUNSEL: confirm the liability cap and any figures] These limitations apply across all theories of liability.",
   },
   {
-    title: "10. Limitation of Liability",
-    body: "To the maximum extent permitted by law, Lyric and its affiliates, officers, employees, and agents will not be liable for any indirect, incidental, special, consequential, punitive, or exemplary damages arising from or related to the brand's use of Lyric's products, even if Lyric has been advised of the possibility of such damages.\n\nLyric's total aggregate liability to the brand for any claim arising from or related to these Terms or the use of its products will not exceed the amounts the brand has paid to Lyric in the twelve months immediately preceding the claim.\n\nThese limitations are essential to the agreement between Lyric and the brand and apply to all theories of liability, whether based in contract, tort, statute, or otherwise.",
+    title: "10. Disputes",
+    body: "These Terms are governed by the laws of the State of California, without regard to its conflict-of-laws rules. Any dispute arising out of or relating to these Terms or Callio will be resolved by binding arbitration in Los Angeles County, California. [COUNSEL: confirm the arbitration venue and rules, and the enforceability of any class-action waiver] Notwithstanding the foregoing, either party may seek equitable relief in a court of competent jurisdiction to protect its intellectual property or confidential information.",
   },
   {
-    title: "11. Disputes",
-    body: "These Terms are governed by the laws of the State of California, without regard to conflict of laws principles. Any dispute arising from or related to these Terms or the use of Lyric's products will be resolved through binding arbitration in Los Angeles County, California, subject to applicable law where it cannot be displaced by agreement. The brand waives any right to participate in a class action against Lyric.\n\nNotwithstanding the foregoing, either party may seek equitable relief in any court of competent jurisdiction to protect its intellectual property rights or confidential information.",
+    title: "11. Modifications",
+    body: "Lyric may update these Terms from time to time. The 'Last updated' date above reflects the most recent revision. For material changes, Lyric will provide email notice to account contacts at least 30 days before the changes take effect. Continued use of Callio after the changes take effect constitutes acceptance of the updated Terms.",
   },
   {
-    title: "12. Modifications",
-    body: "Lyric may update these Terms from time to time. The 'Last updated' date above will reflect the date of the most recent revision. For material changes, Lyric will notify brand account contacts by email and provide at least 30 days notice before the changes take effect. Continued use of Lyric's products after the effective date of the updated Terms constitutes acceptance.",
+    title: "12. Privacy",
+    body: "The brand's use of Callio is also governed by the Privacy Policy at /privacy, which is incorporated into these Terms by reference.",
   },
   {
-    title: "13. Privacy",
-    body: "The brand's use of Lyric's products is also governed by the Privacy Policy at /privacy, which is incorporated into these Terms by reference. Voice artists are also governed by the Artist Partnership at /imprint/agreement for matters specific to the artist relationship.",
-  },
-  {
-    title: "14. Contact",
+    title: "13. Contact",
     body: "Lyric Voices, Inc.\nEmail: info@lyricvoices.ai",
   },
 ]
+
+/* Renders text, highlighting any [COUNSEL ...] placeholder so a reviewer can
+   find every open legal question at a glance. */
+function withCounsel(text: string): ReactNode {
+  const parts = text.split(/(\[COUNSEL[^\]]*\])/g)
+  return parts.map((part, i) =>
+    part.startsWith("[COUNSEL") ? (
+      <span
+        key={i}
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.85em",
+          background: "color-mix(in srgb, var(--gold) 26%, transparent)",
+          color: C.olive,
+          padding: "1px 6px",
+          borderRadius: "4px",
+          whiteSpace: "normal",
+        }}
+      >
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  )
+}
 
 export default function TermsPage() {
   return (
@@ -180,6 +180,58 @@ export default function TermsPage() {
         }}
       >
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+          {/* DRAFT notice — this document is not published; counsel must review. */}
+          <div
+            style={{
+              borderTop: "1px solid #5A5E43",
+              borderRight: "1px solid #5A5E43",
+              borderBottom: "1px solid #5A5E43",
+              borderLeft: "4px solid #F3D171",
+              backgroundColor: "rgba(243, 209, 113, 0.16)",
+              borderRadius: "12px",
+              padding: "18px 22px",
+              margin: "0 0 40px",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: C.olive,
+                margin: "0 0 8px",
+              }}
+            >
+              Draft · Pending counsel review
+            </p>
+            <p
+              style={{
+                fontSize: "13.5px",
+                lineHeight: 1.6,
+                color: C.textMuted,
+                margin: 0,
+              }}
+            >
+              This document is a working draft. It is a binding legal document and must be reviewed
+              and approved by counsel before it is published or relied upon. Highlighted{" "}
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.85em",
+                  background: "color-mix(in srgb, var(--gold) 26%, transparent)",
+                  color: C.olive,
+                  padding: "1px 6px",
+                  borderRadius: "4px",
+                }}
+              >
+                [COUNSEL]
+              </span>{" "}
+              markers flag the specific determinations that require counsel input.
+            </p>
+          </div>
+
           <p
             style={{
               fontSize: "11px",
@@ -190,7 +242,7 @@ export default function TermsPage() {
               margin: "0 0 16px",
             }}
           >
-            Legal
+            Legal · Callio
           </p>
           <h1
             style={{
@@ -213,7 +265,7 @@ export default function TermsPage() {
               letterSpacing: "0.04em",
             }}
           >
-            Last updated: May 25, 2026
+            {withCounsel("Last updated: [COUNSEL: set the effective date on publication]")}
           </p>
           <p
             style={{
@@ -224,17 +276,11 @@ export default function TermsPage() {
               maxWidth: "640px",
             }}
           >
-            These Terms of Use govern access to and use of Lyric Voices, Inc. (&ldquo;Lyric&rdquo;)
-            products and services by brands, agencies, and AI labs. Lyric is an enterprise voice AI
-            imprint. Voice artists who partner with Lyric are governed by the separate{" "}
-            <Link
-              href="/imprint/agreement"
-              style={{ color: C.text, textDecoration: "underline", textUnderlineOffset: "3px" }}
-            >
-              Artist Partnership
-            </Link>
-            , which takes precedence over these Terms for any matter specific to the artist
-            relationship.
+            These Terms of Use (&ldquo;Terms&rdquo;) govern access to and use of Callio, the
+            brand-voice governance product provided by Lyric Voices, Inc. (&ldquo;Lyric&rdquo;).
+            Callio is for enterprise brands, agencies, and organizations; it is not for individual
+            consumer use. By accessing or using Callio, you agree to these Terms on behalf of the
+            organization you represent.
           </p>
         </div>
       </section>
@@ -258,7 +304,6 @@ export default function TermsPage() {
             }}
           >
             <PolicyNavLink href="/privacy" label="Privacy Policy" />
-            <PolicyNavLink href="/imprint/agreement" label="Artist Partnership" />
             <PolicyNavLink href="/" label="Back to home" />
           </div>
         </div>
@@ -281,6 +326,43 @@ function PolicyNavLink({ href, label }: { href: string; label: string }) {
     >
       {label} →
     </Link>
+  )
+}
+
+function Note({ text }: { text: string }) {
+  return (
+    <p
+      style={{
+        fontSize: "13px",
+        color: C.textMuted,
+        lineHeight: 1.7,
+        borderLeft: `2px solid ${C.border}`,
+        paddingLeft: "16px",
+        margin: "16px 0 0",
+      }}
+    >
+      {withCounsel(text)}
+    </p>
+  )
+}
+
+function Bullets({ items, tight }: { items: string[]; tight?: boolean }) {
+  return (
+    <ul style={{ margin: tight ? 0 : "0 0 12px", padding: "0 0 0 18px" }}>
+      {items.map((item, j) => (
+        <li
+          key={j}
+          style={{
+            fontSize: "14px",
+            color: C.textMuted,
+            lineHeight: 1.75,
+            marginBottom: tight ? "4px" : "6px",
+          }}
+        >
+          {withCounsel(item)}
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -307,24 +389,6 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
         {s.title}
       </h2>
 
-      {/* When a section has BOTH lead body and subsections, render the lead first */}
-      {s.body &&
-        s.subsections &&
-        s.body.split("\n\n").map((para, j) => (
-          <p
-            key={`lead-${j}`}
-            style={{
-              fontSize: "14px",
-              color: C.textMuted,
-              lineHeight: 1.75,
-              margin: "0 0 16px",
-              whiteSpace: "pre-line",
-            }}
-          >
-            {para}
-          </p>
-        ))}
-
       {s.subsections ? (
         s.subsections.map((sub, j) => (
           <div key={j} style={{ marginBottom: "24px" }}>
@@ -346,43 +410,13 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                   color: C.textMuted,
                   lineHeight: 1.75,
                   margin: "0 0 8px",
-                  whiteSpace: "pre-line",
                 }}
               >
-                {sub.body}
+                {withCounsel(sub.body)}
               </p>
             )}
-            {sub.list && (
-              <ul style={{ margin: 0, padding: "0 0 0 18px" }}>
-                {sub.list.map((item, k) => (
-                  <li
-                    key={k}
-                    style={{
-                      fontSize: "14px",
-                      color: C.textMuted,
-                      lineHeight: 1.75,
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {sub.note && (
-              <p
-                style={{
-                  fontSize: "13px",
-                  color: C.textMuted,
-                  lineHeight: 1.7,
-                  borderLeft: `2px solid ${C.border}`,
-                  paddingLeft: "16px",
-                  margin: "12px 0 0",
-                }}
-              >
-                {sub.note}
-              </p>
-            )}
+            {sub.list && <Bullets items={sub.list} tight />}
+            {sub.note && <Note text={sub.note} />}
           </div>
         ))
       ) : (
@@ -399,40 +433,11 @@ function SectionBlock({ section: s, index }: { section: Section; index: number }
                   whiteSpace: "pre-line",
                 }}
               >
-                {para}
+                {withCounsel(para)}
               </p>
             ))}
-          {s.list && (
-            <ul style={{ margin: "0 0 12px", padding: "0 0 0 18px" }}>
-              {s.list.map((item, j) => (
-                <li
-                  key={j}
-                  style={{
-                    fontSize: "14px",
-                    color: C.textMuted,
-                    lineHeight: 1.75,
-                    marginBottom: "6px",
-                  }}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
-          {s.note && (
-            <p
-              style={{
-                fontSize: "13px",
-                color: C.textMuted,
-                lineHeight: 1.7,
-                borderLeft: `2px solid ${C.border}`,
-                paddingLeft: "16px",
-                margin: "16px 0 0",
-              }}
-            >
-              {s.note}
-            </p>
-          )}
+          {s.list && <Bullets items={s.list} />}
+          {s.note && <Note text={s.note} />}
         </>
       )}
     </div>
