@@ -326,10 +326,10 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <blockquote className="lv-callio-founders-quote">
-              We spent more than a decade doing this work by hand. We tuned brand
-              voices across engines, caught drift by ear, and wrote the disclosure
-              lines that had to be exact. <em>Callio is that practice, built into a
-              system.</em>
+              For more than a decade, we did this by hand. Tuned how brands sound
+              across their comms stack, caught drift by ear, and wrote the
+              disclosure lines that had to be exact. <em>Callio is that craft,
+              made repeatable.</em>
             </blockquote>
           </ScrollReveal>
           {/* Structural slot for customer references and security posture, left
