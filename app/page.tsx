@@ -7,6 +7,7 @@ import MeasurementSection from "@/components/MeasurementSection"
 import IntegrationsSection from "@/components/IntegrationsSection"
 import VerticalsSection from "@/components/VerticalsSection"
 import GovernanceProof from "@/components/governance/GovernanceProof"
+import GovernanceCarousel from "@/components/GovernanceCarousel"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -27,13 +28,6 @@ import ScrollReveal from "@/components/ScrollReveal"
    points to /callio. */
 
 const DARK = "#2b2a25"
-
-const label = {
-  fontSize: "11px",
-  fontWeight: 700,
-  letterSpacing: "0",
-  textTransform: "uppercase" as const,
-}
 
 function CTA({
   href,
@@ -148,9 +142,10 @@ export default function HomePage() {
 
       {/* The control plane + how it works. Olive chapter break (the hard
           cream→olive edge carries over from the old Products section). The
-          centered header states where Lyric sits; the three blocks below
-          give the mechanism. Reuses the audiences grid on the olive ground:
-          the audience-block styles are cream-on-dark and read on olive. */}
+          centered header states where Lyric sits; below it the four moves
+          (Codify / Govern / Port / Monitor) rotate through an auto-playing
+          carousel with story-style progress dots — one at a time, in the
+          audience-block type treatment (GovernanceCarousel). */}
       <section className="lv-products">
         <div className="lv-products-header">
           <ScrollReveal>
@@ -174,77 +169,9 @@ export default function HomePage() {
           </ScrollReveal>
         </div>
 
-        <div className="lv-audiences-inner">
-          <div className="lv-audiences-grid">
-            <div className="lv-audience-block">
-              <ScrollReveal>
-                <span className="lv-audience-number">01</span>
-                <p className="lv-audience-label" style={label}>
-                  Codify
-                </p>
-                <h2>
-                  Capture the <em>persona</em>.
-                </h2>
-                <p className="lv-audience-body">
-                  Your brand becomes a portable specification. One versioned
-                  source of truth for how every agent should sound and speak.
-                </p>
-              </ScrollReveal>
-            </div>
-
-            <div className="lv-audience-block">
-              <ScrollReveal delay={90}>
-                <span className="lv-audience-number">02</span>
-                <p className="lv-audience-label" style={label}>
-                  Govern
-                </p>
-                <h2>
-                  Hold every agent in <em>tolerance</em>.
-                </h2>
-                <p className="lv-audience-body">
-                  Every agent is conditioned against the spec at the point of
-                  generation, so it stays on brand before a word reaches the
-                  customer. The same standard, applied everywhere.
-                </p>
-              </ScrollReveal>
-            </div>
-
-            <div className="lv-audience-block">
-              <ScrollReveal delay={180}>
-                <span className="lv-audience-number">03</span>
-                <p className="lv-audience-label" style={label}>
-                  Port
-                </p>
-                <h2>
-                  Stay <em>vendor agnostic</em>.
-                </h2>
-                <p className="lv-audience-body">
-                  The spec is portable. Move from one speech provider to another
-                  and the brand voice holds. ElevenLabs, Hume, Microsoft, and
-                  whatever comes next.
-                </p>
-              </ScrollReveal>
-            </div>
-
-            <div className="lv-audience-block">
-              <ScrollReveal delay={270}>
-                <span className="lv-audience-number">04</span>
-                <p className="lv-audience-label" style={label}>
-                  Monitor
-                </p>
-                <h2>
-                  Catch <em>drift</em> over time.
-                </h2>
-                <p className="lv-audience-body">
-                  Every governed agent is monitored over time. Drift against the
-                  spec is caught, consistency and disclosure adherence are
-                  checked, and when something sounds off-brand, the cause is
-                  diagnosed.
-                </p>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
+        <ScrollReveal delay={300}>
+          <GovernanceCarousel />
+        </ScrollReveal>
       </section>
 
       {/* What Lyric governs — the two dimensions, sound and communication.

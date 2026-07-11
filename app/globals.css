@@ -627,6 +627,143 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 540px;
 }
 
+/* ── Brand Governance Layer carousel ─────────────────────────────────────
+   The four moves (01 Codify → 04 Monitor) rotate one at a time under the
+   centered section header. Slides stack in a single grid cell so the stage
+   holds the tallest slide's height — nothing below reflows as they change.
+   Markup + rotation: components/GovernanceCarousel.tsx. */
+.lv-govcar {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.lv-govcar-stage {
+  display: grid;
+}
+
+.lv-govcar-slide {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.lv-govcar-slide.is-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* The per-slide label, set the way the old inline eyebrow style set it. */
+.lv-govcar-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.lv-govcar-slide .lv-audience-body {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Story-style pagination: each step is a dot; the active step stretches into
+   a short track and the gold fill sweeps across it for the slide's dwell.
+   The fill's animationend advances the carousel, so the sweep and the
+   rotation share one clock. */
+.lv-govcar-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 44px;
+}
+
+.lv-govcar-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.28);
+  cursor: pointer;
+  transition:
+    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease;
+}
+
+/* Generous invisible hit area around the 6px dot. */
+.lv-govcar-dot::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+}
+
+.lv-govcar-dot:hover {
+  background: rgba(255, 248, 236, 0.5);
+}
+
+.lv-govcar-dot:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.lv-govcar-dot.is-active {
+  width: 44px;
+  background: rgba(255, 248, 236, 0.22);
+}
+
+/* Without autoplay (reduced motion, no JS) there is no sweep — the active
+   step reads as a solid gold pill instead. */
+.lv-govcar:not(.is-anim) .lv-govcar-dot.is-active {
+  background: var(--gold);
+}
+
+.lv-govcar-dot-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation-name: lv-govcar-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  /* Paused until the carousel is on screen; hovering pauses the sweep (and
+     with it the rotation) in place. */
+  animation-play-state: paused;
+}
+
+.lv-govcar.is-inview .lv-govcar-dot-fill {
+  animation-play-state: running;
+}
+
+.lv-govcar.is-inview:hover .lv-govcar-dot-fill {
+  animation-play-state: paused;
+}
+
+@keyframes lv-govcar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-govcar-slide,
+  .lv-govcar-dot {
+    transition: none;
+  }
+}
+
 /* Scrollytelling pillars — replaces the older alternating two-column
    blocks. One pinned frame, three movements: a copy rail on the left,
    a single visual stage on the right that cross-fades between the
@@ -2427,15 +2564,6 @@ main:has(.lv-hero) { padding-top: 0; }
   gap: 64px;
 }
 
-/* Brand Governance Layer (control plane) reuses the audiences grid but wants
-   a little more air between the 01 Codify / 02 Govern / 03 Port / 04 Monitor
-   blocks than the shared grid. Scoped to the control-plane section so other
-   uses are untouched. Kept modest so the blocks read as evenly distributed
-   rather than floating apart. */
-.lv-products .lv-audiences-grid {
-  gap: 72px;
-}
-
 .lv-audience-number {
   display: block;
   font-family: var(--font-display);
@@ -3215,17 +3343,6 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-audiences-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 64px;
-  }
-
-  /* Control-plane blocks (01 Codify / 02 Govern / 03 Port / 04 Monitor): a
-     2x2 of truly equal tracks. minmax(0, 1fr) keeps the two columns equal
-     (repeat(2, 1fr) = minmax(auto, 1fr) would let content pull the tracks to
-     different widths); the row-gap gives the two rows vertical breathing room
-     the single-row layout did not need. */
-  .lv-products .lv-audiences-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 72px;
-    row-gap: 80px;
   }
 
   .lv-audience-block h2 {
