@@ -1,20 +1,24 @@
 "use client"
 
-/* Home hero visual — one brand voice across channels, animated.
+/* Home hero visual — one brand voice across channels, animated as a live
+   conversation.
 
    Three agent instances answer the same customer question, one per channel,
    and each one sounds like the same company: the same governed voice, lightly
-   adapted to the channel's norms. They reveal in sequence — call first, then
-   chat, then SMS — so the viewer watches one brand hold across three
-   surfaces. The breadth proof beside the home hero's breadth claim (one
-   brand voice across every agent).
+   adapted to the channel's norms. The exchange plays, it doesn't just appear:
+   the customer types the question (bursty human cadence), then each channel
+   card lands in sequence — call, then chat, then SMS — shows a brief typing
+   indicator, and streams its reply at the steady agent pace. The breadth
+   proof beside the home hero's breadth claim (one brand voice across every
+   agent), behaving like the governed chat thread in the home page's
+   "What it governs" band (GovernanceProof) so the two read as one system.
 
-   Built on the same machinery as GovernedCallVisual (the Callio product
-   hero's transcript): a useReducedMotion hook, a one-shot
-   IntersectionObserver, and a small setTimeout step machine. Every card is
-   rendered from the start so its space is reserved and nothing reflows as
-   the sequence plays. Reduced-motion users get all three answers at once,
-   static. */
+   Built on the same machinery as GovernanceProof / GovernedCallVisual: a
+   useReducedMotion hook, a one-shot IntersectionObserver, and a small
+   setTimeout step machine. Every card is rendered from the start and each
+   reply keeps a visibility:hidden ghost of its full text, so all space is
+   reserved and nothing reflows while the sequence plays. Reduced-motion
+   users get the settled conversation, static. */
 
 import { useEffect, useRef, useState } from "react"
 
@@ -46,9 +50,23 @@ const CARDS: readonly Card[] = [
   },
 ] as const
 
-/* Reveal cadence — one card at a time, call → chat → sms. `delay` is the pause
-   before each card lands, measured from the previous one. */
-const STEPS: readonly number[] = [350, 1150, 1150]
+/* Conversation cadence — the GovernanceProof rhythm: a beat of typing dots
+   before a turn streams, a steady agent stream, a breath between turns. */
+const DOTS_MS = 480
+const AGENT_CHAR_MS = 26
+const GAP_MS = 420
+
+/* Human typing is bursty: a quick cadence inside words, a longer beat after
+   spaces, and a think at punctuation. Deterministic jitter keeps the rhythm
+   stable across renders (the DirectionCanvas human-typing model). */
+function humanCharDelay(text: string, index: number): number {
+  const prev = index > 0 ? text[index - 1] : ""
+  let base = 36
+  if (prev === " ") base = 85
+  if (prev === "," || prev === ";") base = 180
+  if (prev === "." || prev === "?" || prev === "!") base = 230
+  return base + ((index * 2654435761) % 30)
+}
 
 function ChannelIcon({ channel }: { channel: Channel }) {
   if (channel === "call") {
@@ -98,20 +116,75 @@ function useReducedMotion() {
   return reduced
 }
 
+/* Turn order: the customer question, then the three channel replies. */
+const TURNS: readonly string[] = [QUESTION, ...CARDS.map((c) => c.reply)]
+const FINAL = TURNS.length
+
+type Phase = "dots" | "type" | "done"
+
+/* A streaming text body: a hidden ghost of the full text reserves the space;
+   the live portion overlays it, with the typing dots or the streamed
+   characters and caret. `state` is "done" for settled turns. */
+function StreamText({
+  text,
+  phase,
+  typed,
+  className,
+}: {
+  text: string
+  phase: Phase
+  typed: number
+  className: string
+}) {
+  const settled = phase === "done"
+  return (
+    <span className="lv-opus-drift-stream">
+      <span className={`${className} lv-opus-drift-stream-ghost`} aria-hidden="true">
+        {text}
+      </span>
+      <span className={`${className} lv-opus-drift-stream-live`}>
+        {phase === "dots" ? (
+          <span className="lv-opus-drift-typing" aria-label="Typing">
+            <span />
+            <span />
+            <span />
+          </span>
+        ) : (
+          <>
+            {settled ? text : text.slice(0, typed)}
+            {!settled && typed < text.length && (
+              <span className="lv-opus-drift-caret" aria-hidden="true" />
+            )}
+          </>
+        )}
+      </span>
+    </span>
+  )
+}
+
 export default function CallioDriftVisual() {
   const reduced = useReducedMotion()
   const rootRef = useRef<HTMLDivElement>(null)
-  const [hasEntered, setHasEntered] = useState(false)
-  const [stepIdx, setStepIdx] = useState(0)
+  const [mounted, setMounted] = useState(false)
+  const [entered, setEntered] = useState(false)
+  const [active, setActive] = useState(0)
+  const [phase, setPhase] = useState<Phase>("dots")
+  const [typed, setTyped] = useState(0)
+
+  useEffect(() => setMounted(true), [])
+
+  // Animate only once mounted with motion allowed; otherwise render the
+  // settled conversation (matching SSR — no hydration flip).
+  const anim = mounted && !reduced
 
   useEffect(() => {
-    if (hasEntered) return
+    if (entered) return
     const el = rootRef.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setHasEntered(true)
+          setEntered(true)
           observer.disconnect()
         }
       },
@@ -119,20 +192,43 @@ export default function CallioDriftVisual() {
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [hasEntered])
+  }, [entered])
 
+  // Step machine: dots -> stream -> pause -> next turn. The customer types at
+  // the bursty human cadence; agents stream at the steady pace.
   useEffect(() => {
-    if (reduced) {
-      setStepIdx(STEPS.length)
-      return
+    if (!anim || !entered || active >= FINAL) return
+    const text = TURNS[active]
+    const isCustomer = active === 0
+    let t: number
+    if (phase === "dots") {
+      t = window.setTimeout(() => {
+        setTyped(0)
+        setPhase("type")
+      }, DOTS_MS)
+    } else if (phase === "type") {
+      if (typed < text.length) {
+        const delay = isCustomer ? humanCharDelay(text, typed) : AGENT_CHAR_MS
+        t = window.setTimeout(() => setTyped((c) => c + 1), delay)
+      } else {
+        t = window.setTimeout(() => setPhase("done"), 160)
+      }
+    } else {
+      t = window.setTimeout(() => {
+        setActive((a) => a + 1)
+        setPhase("dots")
+        setTyped(0)
+      }, GAP_MS)
     }
-    if (!hasEntered || stepIdx >= STEPS.length) return
-    const t = window.setTimeout(() => setStepIdx((s) => s + 1), STEPS[stepIdx])
     return () => window.clearTimeout(t)
-  }, [reduced, hasEntered, stepIdx])
+  }, [anim, entered, active, phase, typed])
 
-  const done = stepIdx >= STEPS.length
-  const cardShown = (i: number) => stepIdx > i
+  const done = !anim || active >= FINAL
+  /* Turn i's phase: settled once passed, live while active, dots-pending
+     before its card has arrived. Cards land when their turn begins. */
+  const turnPhase = (i: number): Phase => (done || active > i ? "done" : phase)
+  const turnTyped = (i: number) => (done || active > i ? Infinity : typed)
+  const cardShown = (i: number) => done || active >= i + 1
 
   return (
     <div ref={rootRef} className="lv-opus-drift" aria-hidden="true">
@@ -146,7 +242,12 @@ export default function CallioDriftVisual() {
 
       <div className="lv-opus-drift-q">
         <span className="lv-opus-drift-q-tag">Customer</span>
-        <p className="lv-opus-drift-q-text">{QUESTION}</p>
+        <StreamText
+          text={QUESTION}
+          phase={turnPhase(0)}
+          typed={turnTyped(0)}
+          className="lv-opus-drift-q-text"
+        />
       </div>
 
       <div className="lv-opus-drift-stack">
@@ -164,7 +265,12 @@ export default function CallioDriftVisual() {
               </span>
               <span className="lv-opus-drift-agent">{c.agent}</span>
             </div>
-            <p className="lv-opus-drift-reply">{c.reply}</p>
+            <StreamText
+              text={c.reply}
+              phase={turnPhase(i + 1)}
+              typed={turnTyped(i + 1)}
+              className="lv-opus-drift-reply"
+            />
           </div>
         ))}
       </div>

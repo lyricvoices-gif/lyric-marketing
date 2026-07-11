@@ -8801,6 +8801,80 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
 }
 
+/* Streaming turn — a hidden ghost of the full text reserves each turn's
+   space; the live text overlays it, so nothing reflows while the typing
+   dots and the stream play (the GovernanceProof ghost convention). */
+.lv-opus-drift-stream {
+  position: relative;
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+.lv-opus-drift-stream-ghost {
+  display: block;
+  visibility: hidden;
+}
+
+.lv-opus-drift-stream-live {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* Typing indicator — the govchat three-dot pulse, in olive for the hero's
+   light ground. */
+.lv-opus-drift-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 0;
+}
+
+.lv-opus-drift-typing span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--olive) 55%, transparent);
+  animation: lv-opus-drift-blink 1.2s ease-in-out infinite;
+}
+
+.lv-opus-drift-typing span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.lv-opus-drift-typing span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes lv-opus-drift-blink {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* Streaming caret — the govchat thin gold bar, blinking at the end of the
+   typed text. */
+.lv-opus-drift-caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 0.95em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--gold);
+  animation: lv-opus-drift-caret 0.9s step-end infinite;
+}
+
+@keyframes lv-opus-drift-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .lv-opus-drift-foot {
   margin: 16px 0 0;
   font-family: var(--font-mono);
