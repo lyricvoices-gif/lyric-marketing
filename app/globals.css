@@ -8801,6 +8801,80 @@ main:has(.lv-hero) { padding-top: 0; }
   color: var(--olive);
 }
 
+/* Streaming turn — a hidden ghost of the full text reserves each turn's
+   space; the live text overlays it, so nothing reflows while the typing
+   dots and the stream play (the GovernanceProof ghost convention). */
+.lv-opus-drift-stream {
+  position: relative;
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+.lv-opus-drift-stream-ghost {
+  display: block;
+  visibility: hidden;
+}
+
+.lv-opus-drift-stream-live {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* Typing indicator — the govchat three-dot pulse, in olive for the hero's
+   light ground. */
+.lv-opus-drift-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 0;
+}
+
+.lv-opus-drift-typing span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--olive) 55%, transparent);
+  animation: lv-opus-drift-blink 1.2s ease-in-out infinite;
+}
+
+.lv-opus-drift-typing span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.lv-opus-drift-typing span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes lv-opus-drift-blink {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* Streaming caret — the govchat thin gold bar, blinking at the end of the
+   typed text. */
+.lv-opus-drift-caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 0.95em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--gold);
+  animation: lv-opus-drift-caret 0.9s step-end infinite;
+}
+
+@keyframes lv-opus-drift-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .lv-opus-drift-foot {
   margin: 16px 0 0;
   font-family: var(--font-mono);
@@ -9424,6 +9498,11 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 18px 0 20px;
   max-width: 18ch;
 }
+.lv-callio-what-head em {
+  font-family: inherit;
+  font-style: italic;
+  color: inherit;
+}
 .lv-callio-what-body {
   font-family: var(--font-body);
   font-size: 17px;
@@ -9431,6 +9510,52 @@ main:has(.lv-hero) { padding-top: 0; }
   color: color-mix(in srgb, var(--olive) 86%, transparent);
   margin: 0;
   max-width: 620px;
+}
+
+/* Lead-in to the function grid: quiet, sits between the explanation and the
+   four areas Callio serves. */
+.lv-callio-what-lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--olive) 72%, transparent);
+  margin: 48px 0 26px;
+}
+
+/* One institutional voice, across CX / Compliance / Ops / Brand. Mono area
+   label over an editorial line, each on a hairline, in a restrained 2x2 grid. */
+.lv-callio-what-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+.lv-callio-what-item {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+.lv-callio-what-area {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 10px;
+}
+.lv-callio-what-line {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--olive) 86%, transparent);
+  margin: 0;
+  max-width: 30ch;
+}
+
+@media (min-width: 769px) {
+  .lv-callio-what-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 56px;
+  }
 }
 
 /* ── Section 4 — Monitor mechanism (inside the dark How-it-works list) ── */
@@ -9598,47 +9723,6 @@ main:has(.lv-hero) { padding-top: 0; }
   border-top: 1px solid rgba(255, 248, 236, 0.12);
 }
 
-/* ── Section 8 — Outcomes by buyer (cream) ── */
-.lv-callio-out {
-  padding: 96px 0;
-  border-top: 1px solid var(--border);
-}
-.lv-callio-out-head {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.08;
-  color: var(--olive);
-  font-size: clamp(26px, 4vw, 40px);
-  margin: 18px 0 40px;
-}
-.lv-callio-out-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-}
-.lv-callio-out-item {
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
-}
-.lv-callio-out-buyer {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--olive);
-  margin: 0 0 10px;
-}
-.lv-callio-out-line {
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--olive) 86%, transparent);
-  margin: 0;
-  max-width: 28ch;
-}
-
 /* ── Section 9 — Founders (cream) ── */
 .lv-callio-founders {
   padding: 96px 0;
@@ -9680,10 +9764,6 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-arch-groups {
     grid-template-columns: repeat(3, 1fr);
     align-items: start;
-  }
-  .lv-callio-out-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px 56px;
   }
 }
 

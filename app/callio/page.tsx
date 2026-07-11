@@ -1,17 +1,16 @@
 /* Callio product page — restructured for an enterprise buyer (CX, Compliance,
-   Ops, Brand, procurement) while keeping the premium editorial mood. Ten
+   Ops, Brand, procurement) while keeping the premium editorial mood. Nine
    sections, inspectable top to bottom:
 
      1) Hero            — the problem in one screen
      2) Before / after  — same question, governed vs ungoverned (the one audio module)
-     3) What Callio is  — plain explanation, no metaphor
+     3) What Callio is  — the governance layer, plus the one voice it yields (CX / Compliance / Ops / Brand)
      4) How it works    — Codify / Govern / Port / Monitor (dark)
      5) Build the spec  — Sonic intake, the real spec dimensions
      6) Across channels — one voice, adapted per channel (text; voice links to §2)
      7) Architecture    — Callio sits above the model and the engine (dark)
-     8) Outcomes        — one outcome per buyer
-     9) Founders        — the trust beat (a decade of doing it by hand)
-    10) Final CTA       — Sonic is the demo
+     8) Founders        — the trust beat (a decade of doing it by hand)
+     9) Final CTA       — Sonic is the demo
 
    Guardrails: flat declarative voice, no em dashes, no exclamation points.
    Callio codifies and governs, it never builds the agent. Monitor is brand-voice
@@ -100,12 +99,16 @@ function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean })
   )
 }
 
-/* Section 8 — outcomes, one per buyer. */
-const OUTCOMES = [
-  { buyer: "CX", line: "A consistent customer experience across every agent and channel." },
-  { buyer: "Compliance", line: "Approved language and auditable, consistent disclosures." },
-  { buyer: "Ops", line: "Fewer escalations and less drift." },
-  { buyer: "Brand", line: "One recognizable voice everywhere." },
+/* The one institutional voice, across the functions it serves. Shown in the
+   "What it is" section (Section 3). */
+const VOICE_ACROSS = [
+  { area: "CX", line: "A consistent customer experience across every agent and channel" },
+  { area: "Compliance", line: "Approved language and auditable, consistent disclosures" },
+  { area: "Ops", line: "Fewer escalations and less drift" },
+  {
+    area: "Brand",
+    line: "A consistent institutional voice across channels and across all of your agents",
+  },
 ]
 
 export default function CallioPage() {
@@ -178,17 +181,33 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <h2 className="lv-callio-what-head">
-              A governance layer for AI communication.
+              Callio is the <em>governance layer</em> for AI communication.
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <p className="lv-callio-what-body">
-              Callio sits above your models, voice engines, and agent channels. It
+              It sits above your models, voice engines, and agent channels. It
               translates your brand, compliance, and CX rules into a portable
-              communication spec, and holds every agent to it. It does not build
-              the agent. It governs how the agents you already run sound and speak.
+              communication spec that every agent follows. It does not build
+              agents. It governs how the agents you already run speak.
             </p>
           </ScrollReveal>
+
+          <ScrollReveal delay={280}>
+            <p className="lv-callio-what-lead">
+              With Callio, you get one institutional voice across:
+            </p>
+          </ScrollReveal>
+          <div className="lv-callio-what-grid">
+            {VOICE_ACROSS.map((v, i) => (
+              <ScrollReveal key={v.area} delay={340 + i * 70}>
+                <div className="lv-callio-what-item">
+                  <span className="lv-callio-what-area">{v.area}</span>
+                  <p className="lv-callio-what-line">{v.line}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -297,28 +316,6 @@ export default function CallioPage() {
         </div>
       </section>
 
-      {/* ── Section 8 — Outcomes by buyer. ── */}
-      <section className="lv-callio-out">
-        <div className="lv-opus-wrap">
-          <ScrollReveal>
-            <Eyebrow label="Outcomes" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2 className="lv-callio-out-head">One voice, measured four ways.</h2>
-          </ScrollReveal>
-          <div className="lv-callio-out-grid">
-            {OUTCOMES.map((o, i) => (
-              <ScrollReveal key={o.buyer} delay={180 + i * 70}>
-                <div className="lv-callio-out-item">
-                  <span className="lv-callio-out-buyer">{o.buyer}</span>
-                  <p className="lv-callio-out-line">{o.line}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Section 9 — Founders. The trust beat. A decade of doing this work by
             hand, built into a system. Structural slot for logos / posture is left
             unpopulated on purpose, no placeholder logos or invented badges. ── */}
@@ -329,10 +326,10 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={120}>
             <blockquote className="lv-callio-founders-quote">
-              We spent more than a decade doing this work by hand. We tuned brand
-              voices across engines, caught drift by ear, and wrote the disclosure
-              lines that had to be exact. <em>Callio is that practice, built into a
-              system.</em>
+              For more than a decade, we did this by hand. Tuned how brands sound
+              across their comms stack, caught drift by ear, and wrote the
+              disclosure lines that had to be exact. <em>Callio is that craft,
+              made repeatable.</em>
             </blockquote>
           </ScrollReveal>
           {/* Structural slot for customer references and security posture, left
