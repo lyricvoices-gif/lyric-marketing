@@ -3,8 +3,15 @@
 /* Verticals carousel — a horizontal scroll-snap track of industry cards.
    Native scroll-snap handles touch, trackpad, and drag; pagination dots below
    the track give the scroll affordance (the scrollbar is hidden) and let a
-   click jump to any card. The active dot tracks the card nearest the left
-   edge as the track scrolls.
+   click jump.
+
+   Dots are one per DISTINCT scroll position, not one per card: each card's
+   left-edge target is clamped to the track's max scroll, and targets that
+   collapse onto (or nearly onto) the same position share one dot. On a wide
+   viewport the last two cards fit together, so the track has three real
+   positions and three dots; on mobile every card is its own position and
+   every card gets a dot. Positions recompute on resize. The active dot is
+   the position nearest the current scroll.
 
    Each card carries one accent color from the brand's per-voice palette
    (CLAUDE.md) via --card-accent, a pop that gives the card its identity while
@@ -73,33 +80,60 @@ const VERTICALS: Vertical[] = [
   },
 ]
 
+/* Two clamped card targets within this range scroll to what reads as the
+   same page — they share one dot. */
+const SAME_POS = 40
+
+type Position = { left: number; cardIndex: number }
+
 export default function VerticalsCarousel() {
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
-  const [scrollable, setScrollable] = useState(false)
+  const [positions, setPositions] = useState<Position[]>([])
 
   useEffect(() => {
     const el = trackRef.current
     if (!el) return
 
-    const update = () => {
+    // The distinct scroll positions the dots paginate: each card's left-edge
+    // target, clamped to the track max; near-identical targets collapse into
+    // one position (keeping the further-right target so the final position
+    // is the true end of the track).
+    const measure = () => {
       const max = el.scrollWidth - el.clientWidth
-      setScrollable(max > 4)
       if (max <= 4) {
+        setPositions([])
         setActive(0)
         return
       }
-      // At the end of the track, the last card owns the active dot even if it
-      // can't reach the left edge; otherwise the card nearest the left wins.
-      if (el.scrollLeft >= max - 2) {
-        setActive(el.children.length - 1)
-        return
-      }
-      const trackLeft = el.getBoundingClientRect().left
+      const trackLeft = el.getBoundingClientRect().left - el.scrollLeft
+      const next: Position[] = []
+      Array.from(el.children).forEach((c, i) => {
+        const left = Math.min((c as HTMLElement).getBoundingClientRect().left - trackLeft, max)
+        const prev = next[next.length - 1]
+        if (prev && left - prev.left < SAME_POS) {
+          prev.left = left
+        } else {
+          next.push({ left, cardIndex: i })
+        }
+      })
+      setPositions(next)
+    }
+
+    measure()
+    window.addEventListener("resize", measure)
+    return () => window.removeEventListener("resize", measure)
+  }, [])
+
+  // The active dot is the position nearest the current scroll.
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el || positions.length === 0) return
+    const pick = () => {
       let best = 0
       let bestDist = Infinity
-      Array.from(el.children).forEach((c, i) => {
-        const dist = Math.abs((c as HTMLElement).getBoundingClientRect().left - trackLeft)
+      positions.forEach((p, i) => {
+        const dist = Math.abs(p.left - el.scrollLeft)
         if (dist < bestDist) {
           bestDist = dist
           best = i
@@ -107,23 +141,13 @@ export default function VerticalsCarousel() {
       })
       setActive(best)
     }
+    pick()
+    el.addEventListener("scroll", pick, { passive: true })
+    return () => el.removeEventListener("scroll", pick)
+  }, [positions])
 
-    update()
-    el.addEventListener("scroll", update, { passive: true })
-    window.addEventListener("resize", update)
-    return () => {
-      el.removeEventListener("scroll", update)
-      window.removeEventListener("resize", update)
-    }
-  }, [])
-
-  const goTo = (i: number) => {
-    const el = trackRef.current
-    if (!el) return
-    const card = el.children[i] as HTMLElement | undefined
-    if (!card) return
-    const delta = card.getBoundingClientRect().left - el.getBoundingClientRect().left
-    el.scrollTo({ left: el.scrollLeft + delta, behavior: "smooth" })
+  const goTo = (p: Position) => {
+    trackRef.current?.scrollTo({ left: p.left, behavior: "smooth" })
   }
 
   return (
@@ -148,17 +172,17 @@ export default function VerticalsCarousel() {
         ))}
       </div>
 
-      {scrollable && (
+      {positions.length > 1 && (
         <div className="lv-vert-dots" role="tablist" aria-label="Industries">
-          {VERTICALS.map((v, i) => (
+          {positions.map((p, i) => (
             <button
-              key={v.headline}
+              key={p.cardIndex}
               type="button"
               role="tab"
               className={`lv-vert-dot${i === active ? " is-active" : ""}`}
               aria-selected={i === active}
-              aria-label={`Show ${v.headline}`}
-              onClick={() => goTo(i)}
+              aria-label={`Show ${VERTICALS[p.cardIndex].headline}`}
+              onClick={() => goTo(p)}
             />
           ))}
         </div>
