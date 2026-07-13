@@ -5,9 +5,12 @@
    instead of the old 2x2 grid.
 
    Each slide keeps the audience-block type treatment (gold italic number,
-   small label, display headline, body). Slides are stacked in one grid cell
-   so the stage holds the tallest slide's height and nothing below reflows;
-   the active slide cross-fades in with the site's small rise.
+   small label, display headline, body). On desktop the number sits in a
+   left rail with the copy to its right, left-aligned — the whole
+   composition stays centered under the header; on mobile the slide stacks
+   centered. Slides are stacked in one grid cell so the stage holds the
+   tallest slide's height and nothing below reflows; the active slide
+   cross-fades in with the site's small rise.
 
    Pagination is story-style: each step is a dot; the active step stretches
    into a short track and a gold fill sweeps across it for the slide's
@@ -135,9 +138,11 @@ export default function GovernanceCarousel() {
             aria-hidden={i !== active}
           >
             <span className="lv-audience-number">{s.num}</span>
-            <p className="lv-audience-label lv-govcar-label">{s.label}</p>
-            <h2>{s.head}</h2>
-            <p className="lv-audience-body">{s.body}</p>
+            <div className="lv-govcar-copy">
+              <p className="lv-audience-label lv-govcar-label">{s.label}</p>
+              <h2>{s.head}</h2>
+              <p className="lv-audience-body">{s.body}</p>
+            </div>
           </div>
         ))}
       </div>

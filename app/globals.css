@@ -764,6 +764,44 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 }
 
+/* Desktop composition: the gold number sits in a left rail, right-aligned
+   against the copy column; label, headline, and body read left-aligned to
+   its right. The composition as a whole stays centered under the header;
+   the dots align to the copy column's left edge (rail + gap). Mobile keeps
+   the centered stack above. (This block sits after the base govcar rules —
+   same specificity, so cascade order is what lets these win.) */
+@media (min-width: 769px) {
+  .lv-govcar {
+    max-width: 680px;
+  }
+
+  .lv-govcar-slide {
+    display: flex;
+    gap: 40px;
+    text-align: left;
+  }
+
+  .lv-govcar-slide .lv-audience-number {
+    flex: 0 0 76px;
+    margin: 4px 0 0;
+    text-align: right;
+  }
+
+  .lv-govcar-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .lv-govcar-slide .lv-audience-body {
+    margin: 0;
+  }
+
+  .lv-govcar-dots {
+    justify-content: flex-start;
+    margin-left: 116px;
+  }
+}
+
 /* Scrollytelling pillars — replaces the older alternating two-column
    blocks. One pinned frame, three movements: a copy rail on the left,
    a single visual stage on the right that cross-fades between the
