@@ -8,6 +8,9 @@ interface Props {
   from?: "bottom" | "left"
   display?: string
   style?: React.CSSProperties
+  /* Travel distance in px for the entrance (default matches the original
+     20px rise; larger values read as a more pronounced scroll-up). */
+  distance?: number
 }
 
 export default function ScrollReveal({
@@ -16,6 +19,7 @@ export default function ScrollReveal({
   from = "bottom",
   display = "block",
   style,
+  distance = 20,
 }: Props) {
   const ref = React.useRef<HTMLDivElement>(null)
   const [visible, setVisible] = React.useState(false)
@@ -47,7 +51,8 @@ export default function ScrollReveal({
     return () => observer.disconnect()
   }, [delay])
 
-  const translateStart = from === "left" ? "translateX(-24px)" : "translateY(20px)"
+  const translateStart =
+    from === "left" ? "translateX(-24px)" : `translateY(${distance}px)`
 
   return (
     <div
