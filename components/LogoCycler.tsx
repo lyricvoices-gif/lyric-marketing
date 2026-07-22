@@ -35,12 +35,17 @@ type Brand = {
   scale: number
 }
 
+/* Scales tuned against a side-by-side render of all eight marks on cream:
+   heavy wide wordmarks (Google, Verizon) come down, thin wide lockups
+   (United) come up slightly, and the compact diagonal Virgin lozenge needs
+   a much larger multiplier than any wordmark to hold the same optical
+   weight in the row. */
 const BRANDS: Brand[] = [
-  { name: "Google",          src: "/images/logos/google.svg",         scale: 0.95 },
+  { name: "Google",          src: "/images/logos/google.svg",         scale: 0.88 },
   { name: "JBL",             src: "/images/logos/jbl.svg",            scale: 1.15 },
-  { name: "United Airlines", src: "/images/logos/unitedairlines.svg", scale: 0.78 },
-  { name: "Virgin Atlantic", src: "/images/logos/virginatlantic.svg", scale: 1.2  },
-  { name: "Verizon",         src: "/images/logos/verizon.svg",        scale: 0.78 },
+  { name: "United Airlines", src: "/images/logos/unitedairlines.svg", scale: 0.82 },
+  { name: "Virgin Atlantic", src: "/images/logos/virginatlantic.svg", scale: 1.7  },
+  { name: "Verizon",         src: "/images/logos/verizon.svg",        scale: 0.74 },
   { name: "BMW Group",       src: "/images/logos/bmw.svg",            scale: 1.2  },
   { name: "Appfolio",        src: "/images/logos/appfolio.svg",       scale: 0.78 },
   { name: "Meta",            src: "/images/logos/meta.svg",           scale: 1.3  },

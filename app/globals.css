@@ -458,8 +458,12 @@ main:has(.lv-hero) { padding-top: 0; }
   flex-shrink: 0;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(0.62) sepia(0.05);
-  opacity: 0.85;
+  /* Muted monochrome, but confident: the invert value lands the marks near
+     the --ink-label tier (~#666a52-adjacent warm grey, ≈5:1 on cream)
+     instead of the old ghosted 62% grey at 0.85 opacity (≈2:1). Filters
+     cannot reference CSS color tokens, so the tier is matched numerically. */
+  filter: brightness(0) invert(0.42) sepia(0.12);
+  opacity: 1;
 }
 
 @media (min-width: 769px) {
