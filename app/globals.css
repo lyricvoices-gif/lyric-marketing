@@ -119,6 +119,11 @@
   --border:    #e5dfd5;
   --gold:      #F3D171;   /* gold/yellow accent — used sparingly */
   --olive:     #5A5E43;   /* dark olive — primary text on warm off-white */
+  --olive-deep: #484B36;  /* deeper olive — primary CTA ground; richer than
+                             --olive against cream (cream text on it ≈8.5:1) */
+  --ink-label: #6B6E55;   /* mono meta labels on cream — quietest text value
+                             that still clears WCAG AA (≈4.9:1 on --bg-light);
+                             replaces sub-AA olive-alpha mixes */
   --sage:      #C1C17E;   /* sage — paired accent with gold */
   --font-display: "GT Super Display", Georgia, "Times New Roman", serif;
   --font-body: "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -257,7 +262,6 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 16px;
   line-height: 1.55;
   color: var(--text-1);
-  opacity: 0.85;
   margin: 0 auto 36px;
   max-width: 480px;
 }
@@ -7059,13 +7063,24 @@ main:has(.lv-hero) { padding-top: 0; }
   max-width: 520px;
 }
 
-/* The statement paragraph's base rule centers via auto margins; left-anchor
-   it inside the copy column, and tighten the gap to the "See how it works"
-   link so the CTA sits closer to the paragraph. */
+/* The copy column reads as one unit: headline, statement, CTA on a tight
+   shared rhythm (14 / 24) instead of three floating elements. The statement
+   left-anchors inside the column (its base rule centers via auto margins). */
+.lv-hero-copy h1 {
+  margin-bottom: 14px;
+}
+
 .lv-hero-copy .lv-hero-supporting {
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+/* The hero's editorial CTA carries a touch more presence than the shared
+   link style so the unit closes with intent rather than trailing off. */
+.lv-hero-copy .lv-link-cta {
+  font-size: 15px;
+  padding-bottom: 4px;
 }
 
 @media (min-width: 900px) {
@@ -8809,7 +8824,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 72%, transparent);
+  color: var(--ink-label);
 }
 
 .lv-opus-drift-live {
@@ -8820,14 +8835,14 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 58%, transparent);
+  color: var(--ink-label);
 }
 
 .lv-opus-drift-live-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--olive) 40%, transparent);
+  background: color-mix(in srgb, var(--olive) 55%, transparent);
 }
 
 .lv-opus-drift-live-dot.is-live {
@@ -8854,7 +8869,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 9px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 55%, transparent);
+  color: var(--ink-label);
 }
 
 .lv-opus-drift-q-text {
@@ -8877,7 +8892,7 @@ main:has(.lv-hero) { padding-top: 0; }
   padding: 13px 15px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  border-left: 3px solid var(--border);
+  border-left: 4px solid var(--border);
   background: var(--bg-light);
   box-shadow: 0 1px 2px rgba(43, 42, 37, 0.04), 0 14px 30px -22px rgba(43, 42, 37, 0.22);
 }
@@ -8886,18 +8901,23 @@ main:has(.lv-hero) { padding-top: 0; }
   animation: lv-conv-in 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Each channel takes a distinct on-palette accent (sage / gold / olive). The
-   differing accents are part of the point: the agents do not match. */
+/* Each channel takes a distinct on-palette accent (sage / gold / olive),
+   deepened toward olive so the spines read as deliberate marks rather than
+   pastel hints, and echoed as a whisper of the same accent in the card
+   ground. Differentiation stays in the accents; the cards remain a set. */
 .lv-opus-drift-card.is-call {
-  border-left-color: var(--sage);
+  border-left-color: color-mix(in srgb, var(--sage) 60%, var(--olive));
+  background: color-mix(in srgb, var(--sage) 7%, var(--bg-light));
 }
 
 .lv-opus-drift-card.is-chat {
-  border-left-color: var(--gold);
+  border-left-color: color-mix(in srgb, var(--gold) 60%, var(--olive));
+  background: color-mix(in srgb, var(--gold) 9%, var(--bg-light));
 }
 
 .lv-opus-drift-card.is-sms {
   border-left-color: var(--olive);
+  background: color-mix(in srgb, var(--olive) 4%, var(--bg-light));
 }
 
 .lv-opus-drift-card-head {
@@ -8930,7 +8950,7 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-opus-drift-card.is-call .lv-opus-drift-chan-icon {
-  color: color-mix(in srgb, var(--sage) 70%, var(--olive));
+  color: color-mix(in srgb, var(--sage) 60%, var(--olive));
 }
 
 .lv-opus-drift-card.is-chat .lv-opus-drift-chan-icon {
@@ -8946,7 +8966,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 9px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 48%, transparent);
+  color: var(--ink-label);
 }
 
 .lv-opus-drift-reply {
@@ -9036,7 +9056,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--olive) 55%, transparent);
+  color: var(--ink-label);
   opacity: 0;
   transition: opacity 0.6s ease;
 }

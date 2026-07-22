@@ -295,11 +295,13 @@ export default function Nav() {
               borderRadius: "100px",
               fontSize: "13px",
               fontWeight: 500,
-              letterSpacing: "0",
-              background: "var(--olive)",
+              letterSpacing: "0.01em",
+              background: "var(--olive-deep)",
               color: "var(--bg-light)",
               border: "1px solid transparent",
-              transition: "background 0.2s ease, color 0.2s ease",
+              boxShadow:
+                "0 1px 2px rgba(28, 26, 23, 0.14), 0 8px 18px -10px rgba(72, 75, 54, 0.55)",
+              transition: "background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease",
             }}
           >
             Try for free
@@ -496,10 +498,12 @@ export default function Nav() {
               borderRadius: "100px",
               fontSize: "16px",
               fontWeight: 500,
-              letterSpacing: "0",
-              background: "var(--olive)",
+              letterSpacing: "0.01em",
+              background: "var(--olive-deep)",
               color: "var(--bg-light)",
               border: "1px solid transparent",
+              boxShadow:
+                "0 1px 2px rgba(28, 26, 23, 0.14), 0 8px 18px -10px rgba(72, 75, 54, 0.55)",
               opacity: menuOpen ? 1 : 0,
               transform: menuOpen ? "translateY(0)" : "translateY(12px)",
               transition:
