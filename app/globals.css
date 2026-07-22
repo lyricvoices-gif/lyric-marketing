@@ -126,6 +126,10 @@
                              lighter than --olive (6.4:1) so meta stays
                              subordinate to channel labels without ghosting */
   --sage:      #C1C17E;   /* sage — paired accent with gold */
+  --cream-body: rgba(255, 248, 236, 0.88);  /* body text on dark grounds
+                             (--olive / --bg-dark): ≈5.4:1 on olive — AA with
+                             margin, clearly secondary to full-cream headlines
+                             (6.4:1). The dark-ground sibling of --ink-label. */
   --font-display: "GT Super Display", Georgia, "Times New Roman", serif;
   --font-body: "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "GT America Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -589,12 +593,21 @@ main:has(.lv-hero) { padding-top: 0; }
 }
 
 .lv-products-header {
-  /* Narrower than the grid below — centered editorial column. The grid
-     breaks out to ~1320px so tiles have more horizontal room than typical
-     section content. Same pattern Sandbar uses on the About card grid. */
-  max-width: 720px;
+  /* Shares the carousel's container and left spine below it, so the whole
+     section reads as one composition: eyebrow, headline, intro, step label,
+     step headline, body, and dots all sit on a single axis, with the gold
+     numerals hanging in the left margin (desktop). */
+  max-width: 680px;
   margin: 0 auto 56px;
-  text-align: center;
+  text-align: left;
+}
+
+@media (min-width: 769px) {
+  .lv-products-header {
+    /* Land the header text on the carousel's copy column: number rail
+       (76px) + gap (40px). */
+    padding-left: 116px;
+  }
 }
 
 .lv-products-header .lv-philosophy-eyebrow {
@@ -631,8 +644,8 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.55;
-  color: rgba(255, 248, 236, 0.72);
-  margin: 0 auto;
+  color: var(--cream-body);
+  margin: 0;
   max-width: 540px;
 }
 
@@ -642,9 +655,9 @@ main:has(.lv-hero) { padding-top: 0; }
    holds the tallest slide's height — nothing below reflows as they change.
    Markup + rotation: components/GovernanceCarousel.tsx. */
 .lv-govcar {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
 
 .lv-govcar-stage {
@@ -678,7 +691,7 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-govcar-slide .lv-audience-body {
   max-width: 480px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* Story-style pagination: each step is a dot; the active step stretches into
@@ -687,7 +700,7 @@ main:has(.lv-hero) { padding-top: 0; }
    rotation share one clock. */
 .lv-govcar-dots {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   margin-top: 44px;
@@ -2623,13 +2636,12 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0 0 20px;
 }
 
-/* On the dark section ground the per-card eyebrow is set in the same
-   cream as the section's body, lowered with opacity so it reads as a
-   subordinate label rather than competing with the headline. */
+/* On the dark section ground the per-card eyebrow matches the section
+   eyebrow's full-cream contrast — subordination comes from its 11px size,
+   not from dimming (cream at 0.6 fell to ~3.4:1 on olive). */
 .lv-audience-label {
   margin: 0 0 18px;
   color: var(--bg-light);
-  opacity: 0.6;
 }
 
 .lv-audience-block h2 {
@@ -2645,8 +2657,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-audience-body {
   font-size: 16px;
   line-height: 1.55;
-  color: var(--bg-light);
-  opacity: 0.78;
+  color: var(--cream-body);
   margin: 0 0 32px;
 }
 

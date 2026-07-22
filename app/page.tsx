@@ -142,7 +142,8 @@ export default function HomePage() {
 
       {/* The control plane + how it works. Olive chapter break (the hard
           cream→olive edge carries over from the old Products section). The
-          centered header states where Lyric sits; below it the four moves
+          header and the carousel below share one left spine (the gold
+          numerals hang in the left margin at desktop); the four moves
           (Codify / Govern / Port / Monitor) rotate through an auto-playing
           carousel with story-style progress dots — one at a time, in the
           audience-block type treatment (GovernanceCarousel). */}
