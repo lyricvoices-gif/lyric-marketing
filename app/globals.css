@@ -121,9 +121,10 @@
   --olive:     #5A5E43;   /* dark olive — primary text on warm off-white */
   --olive-deep: #484B36;  /* deeper olive — primary CTA ground; richer than
                              --olive against cream (cream text on it ≈8.5:1) */
-  --ink-label: #6B6E55;   /* mono meta labels on cream — quietest text value
-                             that still clears WCAG AA (≈4.9:1 on --bg-light);
-                             replaces sub-AA olive-alpha mixes */
+  --ink-label: #61644C;   /* mono meta labels on cream — the quiet-label tier.
+                             ≈5.8:1 on --bg-light (AA with margin), one step
+                             lighter than --olive (6.4:1) so meta stays
+                             subordinate to channel labels without ghosting */
   --sage:      #C1C17E;   /* sage — paired accent with gold */
   --font-display: "GT Super Display", Georgia, "Times New Roman", serif;
   --font-body: "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -7045,6 +7046,10 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-hero-product {
   text-align: left;
+  /* Optical top datum: pulls the copy column up so the headline's CAP LINE
+     (not its line box, which carries ~14px of leading + ascent air at 51px)
+     sits on the same row as the demo's eyebrow caps. Applied ≥900px. */
+  --hero-copy-nudge: -11px;
 }
 
 .lv-hero-grid {
@@ -7087,6 +7092,15 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-hero-grid {
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 64px;
+    /* Two-column hero: the columns share a top datum (the headline's cap
+       line meets the demo's eyebrow row) instead of floating at unequal
+       centers. The copy nudge that trues the cap line is on the copy rule
+       below. */
+    align-items: start;
+  }
+
+  .lv-hero-copy {
+    margin-top: var(--hero-copy-nudge, 0px);
   }
 }
 
