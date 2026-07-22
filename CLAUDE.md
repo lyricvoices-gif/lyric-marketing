@@ -27,6 +27,25 @@ The previous (2026 v1) landing page is preserved in `archive/landing-page-v1-202
 ```
 Per-voice identity colors: Atlas `#7A9B82`, Hex `#E0834A`, Morgan `#F3D171`, Nova `#B5C19E`, Riven `#B5634D`.
 
+### Contrast regimes — which text token on which ground
+The site has TWO contrast regimes, and a value tuned for one silently fails on the other. Warm cream tolerates far less dimming than white or dark grounds; never dim text with opacity/alpha below these floors, and never reuse a cream-ground token on olive (or vice versa).
+
+**On cream (`--bg-light`)** — text darkens toward olive:
+| Tier | Token | Ratio | Use |
+|---|---|---|---|
+| Body / emphasis | `--text-1` or `--olive` | 16:1 / 6.4:1 | paragraphs, headlines |
+| Primary labels | `--olive` | 6.4:1 | channel labels, strong meta |
+| Quiet meta | `--ink-label` `#61644C` | 5.8:1 | mono eyebrows, tags, captions — the floor; nothing lighter |
+| Primary CTA ground | `--olive-deep` `#484B36` | 8.5:1 (cream text on it) | filled buttons |
+
+**On dark olive / dark (`--olive`, `--bg-dark`)** — text lightens toward cream:
+| Tier | Token | Ratio | Use |
+|---|---|---|---|
+| Headlines / labels | `--bg-light` | 6.4:1 | display type, eyebrows, step labels (labels are full cream — subordination comes from size, not dimming) |
+| Body | `--cream-body` `rgba(255,248,236,0.88)` | 5.4:1 | paragraphs — the floor; nothing dimmer |
+
+Animation floors: scroll-reveal dim states on cream must not go below `0.45` opacity (`0.58` for thin-stroke Instrument italic) — see `ScrollHighlightText.tsx`. Full contrast is always the resting/SSR/reduced-motion default; dim states exist only mid-animation.
+
 ### Fonts
 - **Display:** GT Super Display → `--font-display` (headlines; italic = emotional emphasis)
 - **Body/UI:** GT America → `--font-body`; GT America Mono → `--font-mono`
