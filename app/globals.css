@@ -5103,43 +5103,6 @@ main:has(.lv-hero) { padding-top: 0; }
   font-weight: 500;
 }
 
-/* ── Founder masthead — hairline-framed editorial card. ── */
-.lv-about-founder {
-  border-top: 1px solid rgba(90, 94, 67, 0.22);
-  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
-  padding: 36px 0;
-  max-width: 720px;
-}
-
-.lv-about-founder-name {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.05;
-  color: var(--olive);
-  margin: 0 0 8px;
-}
-
-.lv-about-founder-role {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-label);
-  margin: 0 0 22px;
-}
-
-.lv-about-founder-bio {
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  color: rgba(90, 94, 67, 0.88);
-  margin: 0;
-  max-width: 60ch;
-}
-
 /* ── Company facts — light-regime hairline rows inside the sage band. ── */
 .lv-about-facts-rows {
   margin: 32px 0 0;
@@ -5189,12 +5152,6 @@ img.lv-about-locations-map {
   margin: 44px 0 0;
 }
 
-.lv-about-founder-signature {
-  display: block;
-  width: 180px;
-  height: auto;
-  margin: 26px 0 0;
-}
 
 /* ── Closing — resolve line, then the CTA, then the quiet careers line. ── */
 .lv-about-closing .lv-about-closing-line {
@@ -5241,12 +5198,11 @@ img.lv-about-locations-map {
   text-decoration-color: var(--gold);
 }
 
-@media (min-width: 1080px) {
-  /* Three equal city cards beside the facts aside. */
-  .lv-about-locations.is-three {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-  }
+img.lv-about-locations-map {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: 0 auto;
 }
 
 

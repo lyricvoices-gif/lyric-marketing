@@ -1,18 +1,18 @@
 /* About — the classic editorial layout (floret hero, origin image row,
-   magazine spread, olive pull-quote band, founder masthead, product row,
-   locations, olive closing), carrying the current governance narrative.
+   magazine spread, olive pull-quote band, product row, locations, olive
+   closing), carrying the current governance narrative.
 
    The structure is the pre-pivot About page's layout system, resurrected
-   from its CSS (lv-about-section / origin / spread / reference / masthead /
-   locations / closing) and refitted with the present copy: the three acts
-   (dead air, the pattern, Lyric), the founder spotlight, the company facts,
-   and the Callio close. Section headlines are promoted first sentences of
-   the existing copy, not new writing.
+   from its CSS (lv-about-section / origin / spread / reference / locations /
+   closing) and refitted with the present copy: the three acts (dead air,
+   the pattern, Lyric), the company facts, and the Callio close. Section
+   headlines are promoted first sentences of existing copy, not new
+   writing.
 
    Images are the original about assets: the hero floret, the origin
-   triptych (about_1/2/3), the city shots (about_5 SF, about_6 LA, brand_2
-   standing in for Atlanta until a real shot exists), and the dotted
-   locations map (about_4.svg). Animation is ScrollReveal only. */
+   triptych (about_1/2/3), the city shots (about_5 SF, about_6 Atlanta),
+   and a dotted US map regenerated in the original band's language.
+   Animation is ScrollReveal only. */
 
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -30,8 +30,7 @@ const CAREERS_HREF = "/careers"
 
 const CITIES = [
   { name: "San Francisco", src: "/images/about_5.jpg" },
-  { name: "Los Angeles", src: "/images/about_6.webp" },
-  { name: "Atlanta", src: "/images/brand_2.jpg" },
+  { name: "Atlanta", src: "/images/about_6.webp" },
 ] as const
 
 export default function AboutPage() {
@@ -183,44 +182,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Founder masthead — hairline-framed editorial card. ── */}
-      <section className="lv-about-section lv-about-masthead">
-        <div className="lv-about-inner">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Founder</span>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={100}>
-            <div className="lv-about-founder">
-              <h2 className="lv-about-founder-name">Michael Lang</h2>
-              <p className="lv-about-founder-role">
-                Founder, Principal Intelligence Designer
-              </p>
-              <p className="lv-about-founder-bio">
-                At Amazon&rsquo;s Alexa Enterprise group, led strategy, design,
-                and implementation of the brand AI governance and comms stack
-                behind enterprise voice agents, working on the ground with
-                partners including Virgin, JBL, and Verizon. Fifteen years in
-                voice, spanning production, voice artist direction, and
-                conversational agent design. Lyric is the product version of
-                the problem I spent those years solving by hand.
-              </p>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="lv-about-founder-signature"
-                src="/images/about_signature.webp"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* ── Act 03 — what we built, with the product row. ── */}
       <section className="lv-about-section lv-about-lyric">
         <div className="lv-about-inner">
@@ -268,6 +229,21 @@ export default function AboutPage() {
       <section className="lv-about-section lv-about-locations-section">
         <div className="lv-about-inner">
           <div className="lv-about-locations-layout">
+            <ScrollReveal>
+              {/* Dotted US map in the original band's arrangement (map as
+                  the left column), regenerated with the right geometry (the
+                  legacy about_4.svg is a UK map from the imprint era): olive
+                  dot lattice, gold marks on the two cities. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="lv-about-locations-map"
+                src="/images/about-map-us.svg"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
+            </ScrollReveal>
+
             <div>
               <ScrollReveal>
                 <div className="lv-philosophy-eyebrow">
@@ -277,7 +253,7 @@ export default function AboutPage() {
               </ScrollReveal>
               <ScrollReveal delay={100}>
                 <h2 className="lv-about-section-headline lv-about-locations-headline">
-                  Team across <em>three cities</em>.
+                  Team across <em>two cities</em>.
                 </h2>
               </ScrollReveal>
               <ScrollReveal delay={160}>
@@ -292,34 +268,19 @@ export default function AboutPage() {
                   </div>
                 </dl>
               </ScrollReveal>
-              <ScrollReveal delay={220}>
-                {/* Dotted US map in the original band's language, regenerated
-                    with the right geometry (the legacy about_4.svg is a UK
-                    map from the imprint era): olive dot lattice, gold marks
-                    on the three cities. Generated from us-atlas data. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="lv-about-locations-map"
-                  src="/images/about-map-us.svg"
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                />
-              </ScrollReveal>
-            </div>
-
-            <div className="lv-about-locations is-three">
-              {CITIES.map((c, i) => (
-                <ScrollReveal key={c.name} delay={i * 90}>
-                  <div className="lv-about-location">
-                    <div className="lv-about-location-image">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={c.src} alt={c.name} loading="lazy" />
+              <div className="lv-about-locations">
+                {CITIES.map((c, i) => (
+                  <ScrollReveal key={c.name} delay={i * 90}>
+                    <div className="lv-about-location">
+                      <div className="lv-about-location-image">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={c.src} alt={c.name} loading="lazy" />
+                      </div>
+                      <h3 className="lv-about-location-city">{c.name}</h3>
                     </div>
-                    <h3 className="lv-about-location-city">{c.name}</h3>
-                  </div>
-                </ScrollReveal>
-              ))}
+                  </ScrollReveal>
+                ))}
+              </div>
             </div>
           </div>
         </div>
