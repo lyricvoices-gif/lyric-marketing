@@ -5103,44 +5103,13 @@ main:has(.lv-hero) { padding-top: 0; }
   font-weight: 500;
 }
 
-/* ── Company facts — light-regime hairline rows inside the sage band. ── */
-.lv-about-facts-rows {
-  margin: 32px 0 0;
-  max-width: 360px;
-}
-
-.lv-about-fact {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 14px 0;
-  border-top: 1px solid rgba(90, 94, 67, 0.22);
-}
-
-.lv-about-fact:last-child {
-  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
-}
-
-.lv-about-fact-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-label);
-}
-
-.lv-about-fact-value {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--olive);
-  margin: 0;
-  text-align: right;
-}
 
 .lv-about-locations-headline {
   font-size: clamp(28px, 3.4vw, 40px);
+}
+
+.lv-about-locations-layout .lv-about-section-supporting {
+  margin-bottom: 0;
 }
 
 /* The dotted US map sits beneath the facts in the aside (landscape, so it
