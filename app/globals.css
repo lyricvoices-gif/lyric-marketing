@@ -8472,7 +8472,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.55;
-  color: rgba(255, 248, 236, 0.88);
+  color: var(--cream-body);
   margin: 0;
 }
 
@@ -8485,7 +8485,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-govchat-row.is-customer .lv-govchat-bubble {
   background: rgba(255, 248, 236, 0.13);
   border-bottom-right-radius: 6px;
-  color: rgba(255, 248, 236, 0.92);
+  color: var(--cream-body);
 }
 
 /* The governed term, marked the way the hero transcript marks it. */
