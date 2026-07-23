@@ -4795,167 +4795,6 @@ main:has(.lv-hero) { padding-top: 0; }
   margin-bottom: 0;
 }
 
-/* ─── Section 5: Team / Masthead ──────────────────────────────────────── */
-/* Editorial masthead pattern. Founder card framed by hairlines above
-   and below; quieter co-founder aside sits beneath the lower rule. The
-   visible structure is the visual signal that this is a contributor
-   page, not a paragraph. */
-.lv-about-masthead {
-  margin-top: 12px;
-}
-
-.lv-about-founder {
-  border-top: 1px solid rgba(90, 94, 67, 0.22);
-  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
-  padding: 36px 0;
-  max-width: 720px;
-}
-
-.lv-about-founder-name {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.05;
-  color: var(--olive);
-  margin: 0 0 8px;
-}
-
-.lv-about-founder-role {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--olive);
-  opacity: 0.6;
-  margin: 0 0 22px;
-}
-
-.lv-about-founder-bio {
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--olive);
-  opacity: 0.85;
-  margin: 0 0 18px;
-  max-width: 56ch;
-}
-
-.lv-about-founder-link {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--olive);
-  opacity: 0.78;
-  margin: 0;
-}
-
-/* Founder credit at the foot of the Team section's header column —
-   mirrors the .lv-listen-redirect pattern: italic framing prose, roman
-   link with arrow. The inline LinkedIn icon sits inside the link
-   alongside the label so the whole signpost reads as one unit. */
-.lv-about-team-redirect {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--olive);
-  opacity: 0.78;
-  margin: 28px 0 0;
-  max-width: 56ch;
-}
-
-.lv-about-team-redirect em {
-  font-style: italic;
-}
-
-.lv-about-team-redirect-link {
-  font-style: normal;
-  color: var(--olive);
-  text-decoration: underline;
-  text-decoration-color: rgba(90, 94, 67, 0.32);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.22s ease;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  /* Keep icon + label + arrow on one line. Dropped the earlier
-     width: fit-content because it could clamp the inline-flex element
-     narrower than its content and force a wrap. */
-  white-space: nowrap;
-  margin-top: 14px;
-}
-
-/* The em wrapper inside the redirect is inline by default — switching it
-   to flex column lets the link sit on its own line with proper margin-top
-   spacing, instead of a single line-height gap from a <br />. */
-.lv-about-team-redirect em {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.lv-about-team-redirect-link:hover {
-  text-decoration-color: rgba(90, 94, 67, 0.85);
-}
-
-.lv-about-team-redirect-link svg {
-  position: relative;
-  top: 2px;
-}
-
-/* Social link with inline logo — replaces the older "Read more on
-   LinkedIn →" italic signpost. Sits beneath the bio as a quiet badge:
-   olive icon + roman label, underline-on-hover only. */
-.lv-about-founder-social {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--olive);
-  opacity: 0.78;
-  text-decoration: none;
-  margin: 0;
-  transition: opacity 0.22s ease;
-}
-
-.lv-about-founder-social:hover {
-  opacity: 1;
-}
-
-.lv-about-founder-social svg {
-  flex-shrink: 0;
-  display: block;
-}
-
-.lv-about-founder-social span {
-  border-bottom: 1px solid rgba(90, 94, 67, 0.32);
-  padding-bottom: 1px;
-  transition: border-color 0.22s ease;
-}
-
-.lv-about-founder-social:hover span {
-  border-color: rgba(90, 94, 67, 0.85);
-}
-
-.lv-about-team-aside {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--olive);
-  opacity: 0.65;
-  margin: 24px 0 0;
-  max-width: 56ch;
-}
-
-.lv-about-team-aside em {
-  font-style: italic;
-  color: inherit;
-}
 
 /* ─── Editorial inline link ───────────────────────────────────────────── */
 /* Italic framing carries through, but the linked text itself flips to
@@ -5221,45 +5060,78 @@ main:has(.lv-hero) { padding-top: 0; }
    shared ScrollReveal only (reduced-motion safe). Older .lv-about-* rules above
    belong to the retired layout and are no longer referenced by the page. */
 
+/* ═══ About — two surfaces, one argument ═══════════════════════════════════
+   Acts 01 + 02 + founder on cream (one continuous problem statement, light
+   regime); Act 03 + facts + close on near-black (the answer, dark regime).
+   The cream-to-near-black edge between founder and Act 03 is the page's one
+   act break — a hard cut, same grammar as the home page's bright-to-charcoal
+   seam. The dark olive surface no longer appears on this page. */
+
 .lv-about-m1 {
   background: var(--bg-light);
   color: var(--olive);
-  padding: 120px 24px;
+  padding: 120px 24px 72px;
 }
 
+/* Continuous with Act 01 — deliberately no seam; the two acts read as one
+   problem statement, so the section break is carried by the eyebrow and the
+   padding rhythm alone. */
 .lv-about-m2 {
-  background: var(--olive);
-  color: var(--bg-light);
-  padding: 112px 24px;
+  background: var(--bg-light);
+  color: var(--olive);
+  padding: 72px 24px;
+}
+
+.lv-about-founder {
+  background: var(--bg-light);
+  color: var(--olive);
+  padding: 72px 24px 120px;
 }
 
 .lv-about-m3 {
   background: #2b2a25;
   color: var(--bg-light);
-  padding: 112px 24px 88px;
+  padding: 120px 24px 24px;
 }
 
-/* Narrow editorial measure for the narrative prose. */
+.lv-about-facts {
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 88px 24px 24px;
+}
+
+.lv-about-close {
+  background: #2b2a25;
+  color: var(--bg-light);
+  padding: 88px 24px 128px;
+}
+
+/* Narrow editorial measure for the narrative prose — shared by every
+   section so the whole page hangs on one column. */
 .lv-about-col {
   max-width: 720px;
   margin: 0 auto;
 }
 
-/* Eyebrow color per ground: olive label on cream, cream label + gold dot on the
-   dark grounds (matching the homepage products/audiences eyebrows). */
-.lv-about-m1 .lv-philosophy-eyebrow > span:last-child {
+/* Eyebrow color per regime: olive label on cream; cream label + gold dot on
+   near-black (matching the home page's dark-section eyebrows). */
+.lv-about-m1 .lv-philosophy-eyebrow > span:last-child,
+.lv-about-m2 .lv-philosophy-eyebrow > span:last-child,
+.lv-about-founder .lv-philosophy-eyebrow > span:last-child {
   color: var(--olive);
 }
-.lv-about-m2 .lv-philosophy-eyebrow > span:last-child,
-.lv-about-m3 .lv-philosophy-eyebrow > span:last-child {
+.lv-about-m3 .lv-philosophy-eyebrow > span:last-child,
+.lv-about-facts .lv-philosophy-eyebrow > span:last-child {
   color: var(--bg-light);
 }
-.lv-about-m2 .lv-eyebrow-dot,
-.lv-about-m3 .lv-eyebrow-dot {
+.lv-about-m3 .lv-eyebrow-dot,
+.lv-about-facts .lv-eyebrow-dot {
   background: var(--gold);
 }
 
-/* M1 — the hook, the page's display moment. */
+/* ── Narrative type — light regime (cream) ── */
+
+/* The hook, the page's display moment. */
 .lv-about-hook {
   font-family: var(--font-display);
   font-size: clamp(30px, 4.6vw, 52px);
@@ -5274,93 +5146,205 @@ main:has(.lv-hero) { padding-top: 0; }
   color: inherit;
 }
 
+/* Large lead — full olive (6.4:1 on cream), the acts' second scale. */
 .lv-about-sublead {
   font-family: var(--font-body);
   font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.5;
   color: var(--olive);
-  opacity: 0.9;
   margin: 0 0 40px;
 }
 
-/* Body prose uses an alpha color (not element opacity) so the emphasized clause
-   can read fuller than the surrounding text. */
+/* Body prose — alpha color (not element opacity) so emphasized clauses can
+   read fuller than the surrounding text. 0.88 olive ≈ 4.9:1 on cream. */
 .lv-about-prose {
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.72;
-  color: rgba(90, 94, 67, 0.86);
+  color: rgba(90, 94, 67, 0.88);
   margin: 0;
 }
 .lv-about-prose-emph {
   color: var(--olive);
   font-weight: 500;
 }
-
-/* M2 — cream on olive. */
-.lv-about-lead-cream {
-  font-family: var(--font-body);
-  font-size: clamp(19px, 2.3vw, 23px);
-  line-height: 1.5;
-  color: var(--bg-light);
-  margin: 0;
-}
-
-.lv-about-prose-cream {
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.72;
-  color: var(--bg-light);
-  opacity: 0.86;
-  margin: 0;
-}
 .lv-about-prose-gap {
   margin-top: 28px;
 }
 
-/* Conviction line — Instrument Serif italic pull-quote. */
-.lv-about-creed {
+/* ── Pull-quote — structurally distinct from prose ──
+   A <blockquote> off the flow: a short gold rule above, a narrower measure
+   than the body column, and roughly double a paragraph's vertical room. The
+   register is Instrument Serif italic (the site's standalone accent voice),
+   at full text strength on both grounds — thin strokes never dim. */
+.lv-about-pull {
+  position: relative;
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: 400;
   font-size: clamp(26px, 3.6vw, 40px);
   line-height: 1.28;
-  color: var(--bg-light);
-  margin: 26px 0;
+  color: var(--olive);
+  max-width: 21ch;
+  margin: 64px 0;
+  padding: 26px 0 0;
+}
+.lv-about-pull::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 56px;
+  height: 2px;
+  background: var(--gold);
 }
 
-/* M3 — what we built; resolves on the brand line. */
+/* The resolve — same structure on the dark ground; the closing phrase takes
+   the gold accent (9.7:1 on near-black). */
+.lv-about-pull-resolve {
+  color: var(--bg-light);
+}
+.lv-about-pull-resolve em {
+  font-style: inherit;
+  color: var(--gold);
+}
+
+/* ── Founder — single-column editorial spotlight, no photo, no card. ── */
+.lv-about-founder-name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.08;
+  color: var(--olive);
+  margin: 0 0 10px;
+}
+
+.lv-about-founder-role {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--olive);
+  margin: 0 0 28px;
+}
+
+.lv-about-founder-bio {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.72;
+  color: rgba(90, 94, 67, 0.88);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* ── Act 03 lead — dark regime ── */
 .lv-about-built {
   font-family: var(--font-body);
   font-size: clamp(19px, 2.3vw, 23px);
   line-height: 1.55;
-  color: var(--bg-light);
-  opacity: 0.92;
-  margin: 0 0 44px;
-}
-.lv-about-resolve {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 6vw, 68px);
-  font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.005em;
-  color: var(--bg-light);
+  color: var(--cream-body);
   margin: 0;
 }
-.lv-about-resolve em {
-  font-style: italic;
-  color: var(--gold);
+
+/* ── Company facts — facts, not story: mono labels, short values, hairline
+   rows. ── */
+.lv-about-facts-rows {
+  margin: 8px 0 0;
+}
+
+.lv-about-fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.14);
+}
+
+.lv-about-fact:last-child {
+  border-bottom: 1px solid rgba(255, 248, 236, 0.14);
+}
+
+.lv-about-fact-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-body);
+}
+
+.lv-about-fact-value {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--bg-light);
+  margin: 0;
+  text-align: right;
+}
+
+/* ── Close — the Callio CTA is the page's one action. ── */
+.lv-about-close-cta {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  background: var(--bg-light);
+  color: var(--olive);
+  border: 1px solid transparent;
+  transition: background 0.22s ease, color 0.22s ease;
+}
+
+.lv-about-close-cta:hover {
+  background: var(--gold);
+  color: #2b2a25;
+}
+
+/* The careers line stays quiet — dark-ground body tier, never competing
+   with the CTA above it. */
+.lv-about-hiring {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cream-body);
+  margin: 24px 0 0;
+}
+
+.lv-about-hiring-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 248, 236, 0.45);
+}
+
+.lv-about-hiring-link:hover {
+  text-decoration-color: var(--gold);
 }
 
 @media (min-width: 769px) {
   .lv-about-m1 {
-    padding: 160px 32px 140px;
+    padding: 160px 32px 88px;
   }
   .lv-about-m2 {
-    padding: 140px 32px;
+    padding: 88px 32px;
+  }
+  .lv-about-founder {
+    padding: 88px 32px 150px;
   }
   .lv-about-m3 {
-    padding: 140px 32px 104px;
+    padding: 150px 32px 32px;
+  }
+  .lv-about-facts {
+    padding: 104px 32px 32px;
+  }
+  .lv-about-close {
+    padding: 104px 32px 150px;
   }
 }
 
