@@ -208,6 +208,14 @@ export default function AboutPage() {
                 conversational agent design. Lyric is the product version of
                 the problem I spent those years solving by hand.
               </p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="lv-about-founder-signature"
+                src="/images/about_signature.webp"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
             </div>
           </ScrollReveal>
         </div>
@@ -283,6 +291,20 @@ export default function AboutPage() {
                     <dd className="lv-about-fact-value">Self-funded</dd>
                   </div>
                 </dl>
+              </ScrollReveal>
+              <ScrollReveal delay={220}>
+                {/* Dotted US map in the original band's language, regenerated
+                    with the right geometry (the legacy about_4.svg is a UK
+                    map from the imprint era): olive dot lattice, gold marks
+                    on the three cities. Generated from us-atlas data. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="lv-about-locations-map"
+                  src="/images/about-map-us.svg"
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                />
               </ScrollReveal>
             </div>
 
