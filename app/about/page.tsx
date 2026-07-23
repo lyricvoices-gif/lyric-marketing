@@ -19,6 +19,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
+import AboutMapUS from "@/components/about/AboutMapUS"
 
 export const metadata: Metadata = {
   title: "About",
@@ -36,12 +37,14 @@ const CITIES = [
   {
     name: "San Francisco",
     src: "/images/about_5.jpg",
-    address: "95 3rd St 2nd Floor, San Francisco, CA 94103",
+    street: "95 3rd St 2nd Floor",
+    region: "San Francisco, CA 94103",
   },
   {
     name: "Atlanta",
     src: "/images/about_6.webp",
-    address: "3565 Piedmont Rd NE, Atlanta, GA 30305",
+    street: "3565 Piedmont Rd NE",
+    region: "Atlanta, GA 30305",
   },
 ] as const
 
@@ -73,6 +76,11 @@ export default function AboutPage() {
                 attention to how the brand actually showed up in the voice.
               </p>
             </ScrollReveal>
+          </div>
+          <div className="lv-scroll-cue" aria-hidden="true">
+            <span className="lv-scroll-cue-mouse">
+              <span className="lv-scroll-cue-wheel" />
+            </span>
           </div>
         </section>
 
@@ -167,17 +175,9 @@ export default function AboutPage() {
           <div className="lv-about-locations-layout">
             <ScrollReveal>
               {/* Dotted US map in the original band's arrangement (map as
-                  the left column), regenerated with the right geometry (the
-                  legacy about_4.svg is a UK map from the imprint era): olive
-                  dot lattice, gold marks on the two cities. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="lv-about-locations-map"
-                src="/images/about-map-us.svg"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-              />
+                  the left column). Inline SVG so the two office markers
+                  carry hover states: gold dot lifts, labeled pill appears. */}
+              <AboutMapUS />
             </ScrollReveal>
 
             <div>
@@ -213,7 +213,11 @@ export default function AboutPage() {
                         <img src={c.src} alt={c.name} loading="lazy" />
                       </div>
                       <h3 className="lv-about-location-city">{c.name}</h3>
-                      <p className="lv-about-location-line">{c.address}</p>
+                      <p className="lv-about-location-line">
+                        {c.street}
+                        <br />
+                        {c.region}
+                      </p>
                     </div>
                   </ScrollReveal>
                 ))}

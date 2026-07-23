@@ -37,6 +37,14 @@ export default function HomeHero() {
           <CallioDriftVisual />
         </div>
       </div>
+
+      {/* Scroll cue — animated mouse glyph at the hero's foot (shared with
+          the About hero; motion gated by prefers-reduced-motion in CSS). */}
+      <div className="lv-scroll-cue" aria-hidden="true">
+        <span className="lv-scroll-cue-mouse">
+          <span className="lv-scroll-cue-wheel" />
+        </span>
+      </div>
     </section>
   )
 }
