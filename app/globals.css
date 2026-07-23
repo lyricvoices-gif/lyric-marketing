@@ -112,6 +112,9 @@
      Black and white are reserved for sparing contrast moments. */
   --bg-dark:   #2b2a25;   /* legacy dark — used by sections not yet revised */
   --bg-light:  #FFF8EC;   /* warm off-white — primary ground */
+  --surface-bright: #FFFDF7; /* bright warm surface — one deliberate tonal
+                             step lighter than --bg-light for the governance
+                             capabilities section; warm, never pure white */
   --bg-card:   #ffffff;
   --text-1:    #1c1a17;   /* legacy primary text — used by older sections */
   --text-2:    #6b6257;
@@ -587,41 +590,39 @@ main:has(.lv-hero) { padding-top: 0; }
    The cream→olive boundary is a hard edge — restraint reads as
    conviction; soft fades read as hesitation. */
 .lv-products {
-  background: var(--olive);
-  color: var(--bg-light);
+  background: var(--surface-bright);
+  color: var(--olive);
   padding: 120px 20px;
+  /* Cream → bright seam: both grounds are light, so a crisp hairline makes
+     the tonal step read as designed rather than as color drift. The bottom
+     edge (bright → charcoal proof section) is the page's act break and
+     stays a hard cut. */
+  border-top: 1px solid var(--border);
+}
+
+/* Shares the proof section's inner column (lv-audiences-inner is 1120px) so
+   the light and dark halves of the governance story sit on one grid. */
+.lv-products-inner {
+  max-width: 1120px;
+  margin: 0 auto;
 }
 
 .lv-products-header {
-  /* Shares the carousel's container and left spine below it, so the whole
-     section reads as one composition: eyebrow, headline, intro, step label,
-     step headline, body, and dots all sit on a single axis, with the gold
-     numerals hanging in the left margin (desktop). */
-  max-width: 680px;
-  margin: 0 auto 56px;
+  /* Positioning block above the capabilities grid; copy measure stays
+     editorial while the section's inner column matches the proof section. */
+  max-width: 640px;
+  margin: 0 0 64px;
   text-align: left;
-}
-
-@media (min-width: 769px) {
-  .lv-products-header {
-    /* Land the header text on the carousel's copy column: number rail
-       (76px) + gap (40px). */
-    padding-left: 116px;
-  }
 }
 
 .lv-products-header .lv-philosophy-eyebrow {
   margin: 0 0 28px;
 }
 
-/* Eyebrow inside the products section — text becomes cream, dot swaps to
-   gold (sage on olive is too low-contrast). */
+/* Eyebrow inside the products section — light regime: primary-label olive
+   text (the dot keeps the sitewide eyebrow accent). */
 .lv-products-header .lv-philosophy-eyebrow > span:last-child {
-  color: var(--bg-light);
-}
-
-.lv-products-header .lv-eyebrow-dot {
-  background: var(--gold);
+  color: var(--olive);
 }
 
 .lv-products-headline {
@@ -630,7 +631,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-weight: 500;
   letter-spacing: 0;
   line-height: 1.1;
-  color: var(--bg-light);
+  color: var(--olive);
   margin: 0 0 18px;
 }
 
@@ -644,185 +645,72 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.55;
-  color: var(--cream-body);
+  color: var(--text-1);
   margin: 0;
   max-width: 540px;
 }
 
-/* ── Brand Governance Layer carousel ─────────────────────────────────────
-   The four moves (01 Codify → 04 Monitor) rotate one at a time under the
-   centered section header. Slides stack in a single grid cell so the stage
-   holds the tallest slide's height — nothing below reflows as they change.
-   Markup + rotation: components/GovernanceCarousel.tsx. */
-.lv-govcar {
-  max-width: 680px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.lv-govcar-stage {
+/* ── Capabilities grid — four parallel moves, all visible at once ──
+   Light regime on the bright surface. Icon and name are quiet anchors in
+   olive; the serif tagline (with the section's italic emphasis) carries
+   each cell; the body sits at the light-regime readable tier. Markup:
+   components/GovernanceGrid.tsx. */
+.lv-capgrid {
   display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
 }
 
-.lv-govcar-slide {
-  grid-area: 1 / 1;
-  min-width: 0;
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
+@media (min-width: 769px) {
+  .lv-capgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 64px 72px;
+  }
 }
 
-.lv-govcar-slide.is-active {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
+.lv-cap-icon {
+  display: inline-flex;
+  color: var(--olive);
+  margin: 0 0 14px;
 }
 
-/* The per-slide label, set the way the old inline eyebrow style set it. */
-.lv-govcar-label {
+.lv-cap-name {
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--olive);
+  margin: 0 0 12px;
 }
 
-.lv-govcar-slide .lv-audience-body {
-  max-width: 480px;
+.lv-cap-tagline {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.15;
+  color: var(--olive);
+  margin: 0 0 14px;
+}
+
+.lv-cap-tagline em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.lv-cap-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  /* ≈4.9:1 on --surface-bright — AA with margin, quieter than the intro. */
+  color: color-mix(in srgb, var(--olive) 88%, transparent);
   margin: 0;
+  max-width: 44ch;
 }
 
-/* Story-style pagination: each step is a dot; the active step stretches into
-   a short track and the gold fill sweeps across it for the slide's dwell.
-   The fill's animationend advances the carousel, so the sweep and the
-   rotation share one clock. */
-.lv-govcar-dots {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  margin-top: 44px;
-}
-
-.lv-govcar-dot {
-  position: relative;
-  width: 6px;
-  height: 6px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 248, 236, 0.28);
-  cursor: pointer;
-  transition:
-    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.3s ease;
-}
-
-/* Generous invisible hit area around the 6px dot. */
-.lv-govcar-dot::before {
-  content: "";
-  position: absolute;
-  inset: -12px;
-}
-
-.lv-govcar-dot:hover {
-  background: rgba(255, 248, 236, 0.5);
-}
-
-.lv-govcar-dot:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 4px;
-}
-
-.lv-govcar-dot.is-active {
-  width: 44px;
-  background: rgba(255, 248, 236, 0.22);
-}
-
-/* Without autoplay (reduced motion, no JS) there is no sweep — the active
-   step reads as a solid gold pill instead. */
-.lv-govcar:not(.is-anim) .lv-govcar-dot.is-active {
-  background: var(--gold);
-}
-
-.lv-govcar-dot-fill {
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  animation-name: lv-govcar-fill;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-  /* Paused until the carousel is on screen; hovering pauses the sweep (and
-     with it the rotation) in place. */
-  animation-play-state: paused;
-}
-
-.lv-govcar.is-inview .lv-govcar-dot-fill {
-  animation-play-state: running;
-}
-
-.lv-govcar.is-inview:hover .lv-govcar-dot-fill {
-  animation-play-state: paused;
-}
-
-@keyframes lv-govcar-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lv-govcar-slide,
-  .lv-govcar-dot {
-    transition: none;
-  }
-}
-
-/* Desktop composition: the gold number sits in a left rail, right-aligned
-   against the copy column; label, headline, and body read left-aligned to
-   its right. The composition as a whole stays centered under the header;
-   the dots align to the copy column's left edge (rail + gap). Mobile keeps
-   the centered stack above. (This block sits after the base govcar rules —
-   same specificity, so cascade order is what lets these win.) */
-@media (min-width: 769px) {
-  .lv-govcar {
-    max-width: 680px;
-  }
-
-  .lv-govcar-slide {
-    display: flex;
-    gap: 40px;
-    text-align: left;
-  }
-
-  .lv-govcar-slide .lv-audience-number {
-    flex: 0 0 76px;
-    margin: 4px 0 0;
-    text-align: right;
-  }
-
-  .lv-govcar-copy {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .lv-govcar-slide .lv-audience-body {
-    margin: 0;
-  }
-
-  .lv-govcar-dots {
-    justify-content: flex-start;
-    margin-left: 116px;
-  }
-}
 
 /* Scrollytelling pillars — replaces the older alternating two-column
    blocks. One pinned frame, three movements: a copy rail on the left,
@@ -3228,9 +3116,9 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 
   .lv-products {
-    /* Tighter outer padding (32) than the typical 48 used elsewhere — pulls
-       the grid edges closer to the viewport so tiles have room to breathe. */
-    padding: 160px 32px;
+    /* Side padding matches the proof section (lv-audiences, 24px) so the
+       two 1120px inner columns align exactly below 1168px viewports. */
+    padding: 160px 24px;
   }
 
   .lv-products-header {
@@ -8283,7 +8171,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(255, 248, 236, 0.72);
+  color: var(--cream-body);
   margin: 0;
   max-width: 46ch;
 }
@@ -8332,8 +8220,9 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* 0.55 clears WCAG AA on the panel ground; 0.5 sits just under it. */
-  color: rgba(255, 248, 236, 0.55);
+  /* Matches the section eyebrow's full cream — the kicker is the panel's
+     primary label; subordination comes from its 10px mono size. */
+  color: var(--bg-light);
   margin: 0 0 16px;
 }
 
@@ -8570,8 +8459,9 @@ main:has(.lv-hero) { padding-top: 0; }
   font-size: 9px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  /* The only textual speaker attribution — held at AA contrast. */
-  color: rgba(255, 248, 236, 0.55);
+  /* Speaker attribution at the dark-ground body tier — subordinate through
+     size, not dimming. */
+  color: var(--cream-body);
   margin: 0 0 6px;
 }
 
@@ -8666,7 +8556,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.04em;
-  color: rgba(255, 248, 236, 0.55);
+  color: var(--cream-body);
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -8700,7 +8590,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.55;
-  color: rgba(255, 248, 236, 0.62);
+  color: var(--cream-body);
   max-width: 38ch;
 }
 

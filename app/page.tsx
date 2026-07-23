@@ -7,7 +7,7 @@ import MeasurementSection from "@/components/MeasurementSection"
 import IntegrationsSection from "@/components/IntegrationsSection"
 import VerticalsSection from "@/components/VerticalsSection"
 import GovernanceProof from "@/components/governance/GovernanceProof"
-import GovernanceCarousel from "@/components/GovernanceCarousel"
+import GovernanceGrid from "@/components/GovernanceGrid"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -140,39 +140,38 @@ export default function HomePage() {
         <LogoCycler className="lv-on-floret" />
       </div>
 
-      {/* The control plane + how it works. Olive chapter break (the hard
-          cream→olive edge carries over from the old Products section). The
-          header and the carousel below share one left spine (the gold
-          numerals hang in the left margin at desktop); the four moves
-          (Codify / Govern / Port / Monitor) rotate through an auto-playing
-          carousel with story-style progress dots — one at a time, in the
-          audience-block type treatment (GovernanceCarousel). */}
+      {/* The control plane. Bright warm surface (a deliberate tonal step up
+          from the cream above, and the light half of a light/dark pair with
+          the dark proof section below — the page's act break). Positioning
+          block on top, then the four parallel capabilities as a static 2x2
+          grid, all visible at once (GovernanceGrid). Shares the proof
+          section's 1120px inner column. */}
       <section className="lv-products">
-        <div className="lv-products-header">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Brand Governance Layer</span>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2 className="lv-products-headline">
-              We direct the engines.<br /> We are not <em>one of them</em>.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p className="lv-products-supporting">
-              Lyric sits above the language model and the speech engine. It
-              doesn&apos;t generate text or audio. It codifies your brand into a
-              portable spec and holds every agent to it, regardless of the engine
-              underneath.
-            </p>
-          </ScrollReveal>
-        </div>
+        <div className="lv-products-inner">
+          <div className="lv-products-header">
+            <ScrollReveal>
+              <div className="lv-philosophy-eyebrow">
+                <span className="lv-eyebrow-dot" aria-hidden="true" />
+                <span>Brand Governance Layer</span>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <h2 className="lv-products-headline">
+                We direct the engines.<br /> We are not <em>one of them</em>.
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={220}>
+              <p className="lv-products-supporting">
+                Lyric sits above the language model and the speech engine. It
+                doesn&apos;t generate text or audio. It codifies your brand into a
+                portable spec and holds every agent to it, regardless of the engine
+                underneath.
+              </p>
+            </ScrollReveal>
+          </div>
 
-        <ScrollReveal delay={300}>
-          <GovernanceCarousel />
-        </ScrollReveal>
+          <GovernanceGrid />
+        </div>
       </section>
 
       {/* What Lyric governs — the two dimensions, sound and communication.

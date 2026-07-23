@@ -19,6 +19,7 @@ The previous (2026 v1) landing page is preserved in `archive/landing-page-v1-202
 ### Colors (CSS vars in `globals.css :root`)
 ```css
 --bg-light:  #FFF8EC   /* warm off-white — primary ground */
+--surface-bright: #FFFDF7 /* one tonal step lighter than cream — governance capabilities section; hairline seam against cream */
 --olive:     #5A5E43   /* dark olive — primary text on cream; products section bg */
 --gold:      #F3D171   /* accent — use sparingly */
 --sage:      #C1C17E   /* paired accent with gold */
@@ -30,7 +31,7 @@ Per-voice identity colors: Atlas `#7A9B82`, Hex `#E0834A`, Morgan `#F3D171`, Nov
 ### Contrast regimes — which text token on which ground
 The site has TWO contrast regimes, and a value tuned for one silently fails on the other. Warm cream tolerates far less dimming than white or dark grounds; never dim text with opacity/alpha below these floors, and never reuse a cream-ground token on olive (or vice versa).
 
-**On cream (`--bg-light`)** — text darkens toward olive:
+**On cream (`--bg-light`) or bright (`--surface-bright`)** — text darkens toward olive:
 | Tier | Token | Ratio | Use |
 |---|---|---|---|
 | Body / emphasis | `--text-1` or `--olive` | 16:1 / 6.4:1 | paragraphs, headlines |
