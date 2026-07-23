@@ -32,17 +32,16 @@ const DARK = "#2b2a25"
 const CALLIO_CTA_HREF = "/callio"
 const CAREERS_HREF = "/careers"
 
-/* Addresses are placeholders pending the real ones. */
 const CITIES = [
   {
     name: "San Francisco",
     src: "/images/about_5.jpg",
-    address: "[Street address], San Francisco, CA",
+    address: "95 3rd St 2nd Floor, San Francisco, CA 94103",
   },
   {
     name: "Atlanta",
     src: "/images/about_6.webp",
-    address: "[Street address], Atlanta, GA",
+    address: "3565 Piedmont Rd NE, Atlanta, GA 30305",
   },
 ] as const
 

@@ -4667,7 +4667,7 @@ main:has(.lv-hero) { padding-top: 0; }
   margin: 0 0 24px;
 }
 
-.lv-about-origin-prose-col p:last-child {
+.lv-about-origin-prose-col > :last-child p:last-child {
   margin-bottom: 0;
 }
 
