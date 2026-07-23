@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { Activity, ArrowLeftRight, ScrollText, Target, type LucideIcon } from "lucide-react"
+import { Activity, ArrowLeftRight, CircleDot, ScrollText, type LucideIcon } from "lucide-react"
 import ScrollReveal from "@/components/ScrollReveal"
 
 /* Brand Governance Layer — the four capabilities as a static 2x2 grid on the
@@ -29,10 +29,12 @@ const CAPABILITIES: readonly Capability[] = [
         Your brand becomes a <em>portable specification</em>.
       </>
     ),
-    body: "One versioned source of truth for how every agent should sound and speak.",
+    body: "One versioned source of truth for how every agent should sound\u00A0and\u00A0speak.",
   },
   {
-    icon: Target,
+    /* CircleDot: a point held within a boundary — the literal picture of
+       "in tolerance" (Target read as "hit the goal" instead). */
+    icon: CircleDot,
     name: "Govern",
     tagline: (
       <>
