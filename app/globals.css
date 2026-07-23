@@ -8415,7 +8415,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-govchat-track {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 22px;
   width: 100%;
 }
 
@@ -8460,9 +8460,15 @@ main:has(.lv-hero) { padding-top: 0; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   /* Speaker attribution at the dark-ground body tier — subordinate through
-     size, not dimming. */
+     size, not dimming. The 8px side insets are optical: the mono's trailing
+     letter-space and the bubble's 16px corner radius make a geometrically
+     flush label read as overhanging its bubble. */
   color: var(--cream-body);
-  margin: 0 0 6px;
+  margin: 0 0 6px 8px;
+}
+
+.lv-govchat-row.is-customer .lv-govchat-meta {
+  margin: 0 8px 6px 0;
 }
 
 .lv-govchat-bubble {

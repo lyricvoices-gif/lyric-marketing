@@ -376,8 +376,9 @@ export default function GovernanceProof() {
             <p className="lv-govp-kicker">Read it</p>
             <p className="lv-govp-caption-title">How it communicates</p>
             <p className="lv-govp-caption-body">
-              Word choice, tone, and disclosure. What an agent says, and what
-              it must not.
+              Word choice, tone, and disclosure.
+              <br />
+              What an agent says, and what it must not.
             </p>
           </div>
           <div className="lv-govp-stage lv-govp-stage-chat">
