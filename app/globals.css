@@ -5212,11 +5212,134 @@ img.lv-about-locations-map {
   text-decoration-color: var(--gold);
 }
 
-img.lv-about-locations-map {
+svg.lv-about-locations-map {
   width: 100%;
   max-width: 440px;
   height: auto;
   margin: 0 auto;
+}
+
+/* ── Map marker hover states — the two Lyric offices ──
+   Base lattice is quiet olive; each office is a gold dot with an olive
+   core. Hover (or keyboard focus) lifts the dot and reveals a labeled
+   pill naming the office. */
+.lv-map-base {
+  fill: var(--olive);
+  opacity: 0.42;
+}
+
+.lv-map-city {
+  cursor: default;
+  outline: none;
+}
+
+.lv-map-city-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.lv-map-city-dot {
+  fill: var(--gold);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.lv-map-city-core {
+  fill: var(--olive);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.lv-map-city-label {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.lv-map-city-label rect {
+  fill: var(--olive-deep);
+}
+
+.lv-map-city-label text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--bg-light);
+}
+
+.lv-map-city:hover .lv-map-city-dot,
+.lv-map-city:focus-visible .lv-map-city-dot {
+  transform: scale(1.45);
+}
+
+.lv-map-city:hover .lv-map-city-label,
+.lv-map-city:focus-visible .lv-map-city-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Scroll cue — animated mouse glyph at the hero's foot (home + About) ── */
+.lv-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.lv-scroll-cue-mouse {
+  display: block;
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid var(--ink-label);
+  border-radius: 12px;
+  position: relative;
+}
+
+.lv-scroll-cue-wheel {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--ink-label);
+  animation: lv-scroll-cue 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes lv-scroll-cue {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(9px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-scroll-cue-wheel {
+    animation: none;
+  }
+  .lv-map-city-dot,
+  .lv-map-city-core,
+  .lv-map-city-label {
+    transition: none;
+  }
 }
 
 
