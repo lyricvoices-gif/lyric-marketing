@@ -193,16 +193,10 @@ export default function AboutPage() {
                 </h2>
               </ScrollReveal>
               <ScrollReveal delay={160}>
-                <dl className="lv-about-facts-rows">
-                  <div className="lv-about-fact">
-                    <dt className="lv-about-fact-label">Founded</dt>
-                    <dd className="lv-about-fact-value">2026</dd>
-                  </div>
-                  <div className="lv-about-fact">
-                    <dt className="lv-about-fact-label">Funding</dt>
-                    <dd className="lv-about-fact-value">Self-funded</dd>
-                  </div>
-                </dl>
+                <p className="lv-about-section-supporting">
+                  Founded in 2026 and self-funded, Lyric is built by a team
+                  working from San Francisco and Atlanta.
+                </p>
               </ScrollReveal>
               <div className="lv-about-locations">
                 {CITIES.map((c, i) => (
