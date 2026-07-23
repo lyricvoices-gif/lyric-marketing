@@ -4873,7 +4873,8 @@ main:has(.lv-hero) { padding-top: 0; }
    anchored by a hairline so the ruled register continues the products
    list pattern above. */
 .lv-about-locations-section {
-  background: rgba(193, 193, 126, 0.28);
+  background: var(--surface-bright);
+  border-top: 1px solid var(--border);
 }
 
 /* Two-column layout — dotted USA map on the left, eyebrow/headline/cards
@@ -4952,8 +4953,7 @@ main:has(.lv-hero) { padding-top: 0; }
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.55;
-  color: var(--olive);
-  opacity: 0.82;
+  color: rgba(90, 94, 67, 0.88);
   margin: 0;
 }
 
@@ -5179,12 +5179,26 @@ img.lv-about-locations-map {
   color: #2b2a25;
 }
 
+/* Outranks the shared .lv-final .lv-cta-row a cream rule (0-2-1), which
+   otherwise sets this filled pill's label cream-on-cream. */
+.lv-final .lv-cta-row .lv-about-close-cta {
+  color: var(--olive);
+}
+
+.lv-final .lv-cta-row .lv-about-close-cta:hover {
+  color: #2b2a25;
+}
+
 .lv-about-hiring {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   color: var(--cream-body);
   margin: 28px 0 0;
+}
+
+.lv-final .lv-about-hiring {
+  text-align: center;
 }
 
 .lv-about-hiring-link {

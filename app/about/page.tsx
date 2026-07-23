@@ -1,18 +1,20 @@
-/* About — the classic editorial layout (floret hero, origin image row,
-   magazine spread, olive pull-quote band, product row, locations, olive
-   closing), carrying the current governance narrative.
+/* About — one continuous brand story on the home page's grounds.
 
-   The structure is the pre-pivot About page's layout system, resurrected
-   from its CSS (lv-about-section / origin / spread / reference / locations /
-   closing) and refitted with the present copy: the three acts (dead air,
-   the pattern, Lyric), the company facts, and the Callio close. Section
-   headlines are promoted first sentences of existing copy, not new
-   writing.
+   The hero drops the floret photograph for the home hero's gradient ground
+   (the shared .lv-floret-ground wrapper paints it once; the hero and the
+   origin section sit transparent on top, so the image row and the prose
+   blend up from the gradient exactly as the home page's sections do). Below
+   the origin triptych, the entire narrative — the problem, where we come
+   from, the creed, and what we built — reads as one synthesized story in
+   the original About page's two-column prose grid. The locations band uses
+   the home page's bright surface (map left, company facts and the two city
+   cards with addresses right), and the page ends with the home page's full
+   dark treatment: the resolve as the final callout over the Callio CTA and
+   the quiet careers line, flowing into the dark footer.
 
-   Images are the original about assets: the hero floret, the origin
-   triptych (about_1/2/3), the city shots (about_5 SF, about_6 Atlanta),
-   and a dotted US map regenerated in the original band's language.
-   Animation is ScrollReveal only. */
+   Copy is the existing narrative, stitched into continuous prose; the only
+   new lines are the eyebrows and the address placeholders (marked, pending
+   the real addresses). Animation is ScrollReveal only. */
 
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -24,208 +26,143 @@ export const metadata: Metadata = {
     "We spent years building voice and conversational AI and watched the same pattern repeat: the systems worked, and still the brand came through differently on every agent and every call. So we built Lyric, a governance layer that holds every agent to one brand voice.",
 }
 
+const DARK = "#2b2a25"
+
 /* Placeholder destinations — real URLs to be supplied. */
 const CALLIO_CTA_HREF = "/callio"
 const CAREERS_HREF = "/careers"
 
+/* Addresses are placeholders pending the real ones. */
 const CITIES = [
-  { name: "San Francisco", src: "/images/about_5.jpg" },
-  { name: "Atlanta", src: "/images/about_6.webp" },
+  {
+    name: "San Francisco",
+    src: "/images/about_5.jpg",
+    address: "[Street address], San Francisco, CA",
+  },
+  {
+    name: "Atlanta",
+    src: "/images/about_6.webp",
+    address: "[Street address], Atlanta, GA",
+  },
 ] as const
 
 export default function AboutPage() {
   return (
     <main className="lv-about">
-      {/* ── Hero — floret behind a cream scrim; the hook is the statement. ── */}
-      <section className="lv-hero lv-about-hero">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="lv-hero-floret"
-          src="/images/floret-about-hero.jpg"
-          alt=""
-          aria-hidden="true"
-        />
-        <div className="lv-hero-statement">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow lv-about-hero-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>01 / Dead air</span>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <h1 className="lv-about-hook">
-              Three seconds of silence on a call, and the caller assumes the
-              worst. The system broke. The agent is gone. They say{" "}
-              <em>&ldquo;hello?&rdquo;</em> into the quiet.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={200}>
-            <p className="lv-about-hero-supporting">
-              The engine was working fine. What was missing was anyone paying
-              attention to how the brand actually showed up in the voice.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Origin — the image row, then the rest of Act 01. ── */}
-      <section className="lv-about-section lv-about-origin">
-        <div className="lv-about-inner">
-          <ScrollReveal>
-            <div className="lv-about-origin-images">
-              {/* eslint-disable @next/next/no-img-element */}
-              <div className="lv-about-origin-image">
-                <img src="/images/about_1.jpg" alt="" loading="lazy" />
-              </div>
-              <div className="lv-about-origin-image">
-                <img src="/images/about_2.webp" alt="" loading="lazy" />
-              </div>
-              <div className="lv-about-origin-image">
-                <img src="/images/about_3.webp" alt="" loading="lazy" />
-              </div>
-              {/* eslint-enable @next/next/no-img-element */}
-            </div>
-          </ScrollReveal>
-
-          <div className="lv-about-origin-prose">
-            <div className="lv-about-origin-prose-col">
-              <ScrollReveal>
-                <p>
-                  We have seen this happen for years. A voice that sounds
-                  capable until it mispronounces the company&rsquo;s own name.
-                  An agent that is warm in one place and cold in another, so
-                  customers feel like they are talking to different companies.
-                  The dead air, the robotic delivery, the term said wrong for
-                  the hundredth time. None of it was a synthesis problem. The
-                  synthesis got good.{" "}
-                  <span className="lv-about-prose-emph">
-                    What never got solved was the governance of how a brand
-                    sounds and speaks when a machine is doing the talking.
-                  </span>
-                </p>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Act 02 — magazine spread: headline left, body right. ── */}
-      <section className="lv-about-section lv-about-pattern">
-        <div className="lv-about-inner">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>02 / The pattern</span>
-            </div>
-          </ScrollReveal>
-
-          <div className="lv-about-spread">
+      {/* One gradient ground spans the hero and the origin section, the same
+          way the home page paints its hero through the founders strip. */}
+      <div className="lv-floret-ground">
+        {/* ── Hero — the hook as the statement on the gradient. ── */}
+        <section className="lv-hero lv-about-hero lv-on-floret">
+          <div className="lv-hero-statement">
             <ScrollReveal>
-              <h2 className="lv-about-spread-headline">
-                We come from <em>this work</em>.
-              </h2>
+              <div className="lv-philosophy-eyebrow lv-about-hero-eyebrow">
+                <span className="lv-eyebrow-dot" aria-hidden="true" />
+                <span>About Lyric</span>
+              </div>
             </ScrollReveal>
-            <div className="lv-about-spread-body">
-              <ScrollReveal delay={120}>
-                <p>
-                  We have spent years designing and building AI agents across a
-                  brand&rsquo;s communication stack, voice most of all. That is
-                  where we watched the pattern repeat: the systems worked, and
-                  still the brand came through differently on every channel, in
-                  every agent, on every call.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={180}>
-                <p>
-                  The pattern became undeniable across this work, and that is
-                  where Lyric began.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={240}>
-                <p>
-                  Our background is in voice. Production, performance, and the
-                  work of making a voice feel like it belongs to someone. That
-                  taught us what the current wave of AI voice keeps missing:
-                </p>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── The creed — olive band, display pull-quote. ── */}
-      <section className="lv-about-reference">
-        <div className="lv-about-inner">
-          <ScrollReveal>
-            <p className="lv-about-pullquote">
-              A voice is not just audio. It is a brand keeping a{" "}
-              <em>promise</em> about how it will behave.
-            </p>
-          </ScrollReveal>
-          <div className="lv-about-reference-body">
-            <ScrollReveal delay={140}>
-              <p>
-                When every agent keeps that promise differently, the brand
-                erodes, one call at a time.
-              </p>
+            <ScrollReveal delay={100}>
+              <h1 className="lv-about-hook">
+                Three seconds of silence on a call, and the caller assumes the
+                worst. The system broke. The agent is gone. They say{" "}
+                <em>&ldquo;hello?&rdquo;</em> into the quiet.
+              </h1>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <p>
-                Generating speech has become cheap and good. Anyone can ship a
-                fluent voice in an afternoon. The hard part, the part that did
-                not get easier, is making every agent across every channel
-                sound like one company, say the right words, and handle the
-                sensitive moments the same way every time.
+              <p className="lv-about-hero-supporting">
+                The engine was working fine. What was missing was anyone paying
+                attention to how the brand actually showed up in the voice.
               </p>
             </ScrollReveal>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Act 03 — what we built, with the product row. ── */}
-      <section className="lv-about-section lv-about-lyric">
-        <div className="lv-about-inner">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>03 / Lyric</span>
+        {/* ── Origin — the triptych, then the whole story in the original
+              two-column prose grid. ── */}
+        <section className="lv-about-section lv-about-origin lv-on-floret">
+          <div className="lv-about-inner">
+            <ScrollReveal>
+              <div className="lv-about-origin-images">
+                {/* eslint-disable @next/next/no-img-element */}
+                <div className="lv-about-origin-image">
+                  <img src="/images/about_1.jpg" alt="" loading="lazy" />
+                </div>
+                <div className="lv-about-origin-image">
+                  <img src="/images/about_2.webp" alt="" loading="lazy" />
+                </div>
+                <div className="lv-about-origin-image">
+                  <img src="/images/about_3.webp" alt="" loading="lazy" />
+                </div>
+                {/* eslint-enable @next/next/no-img-element */}
+              </div>
+            </ScrollReveal>
+
+            <div className="lv-about-origin-prose">
+              <div className="lv-about-origin-prose-col">
+                <ScrollReveal>
+                  <p>
+                    We have seen this happen for years. A voice that sounds
+                    capable until it mispronounces the company&rsquo;s own
+                    name. An agent that is warm in one place and cold in
+                    another, so customers feel like they are talking to
+                    different companies. The dead air, the robotic delivery,
+                    the term said wrong for the hundredth time. None of it was
+                    a synthesis problem. The synthesis got good.{" "}
+                    <span className="lv-about-prose-emph">
+                      What never got solved was the governance of how a brand
+                      sounds and speaks when a machine is doing the talking.
+                    </span>
+                  </p>
+                </ScrollReveal>
+                <ScrollReveal delay={100}>
+                  <p>
+                    We come from this work. We have spent years designing and
+                    building AI agents across a brand&rsquo;s communication
+                    stack, voice most of all. That is where we watched the
+                    pattern repeat: the systems worked, and still the brand
+                    came through differently on every channel, in every agent,
+                    on every call. The pattern became undeniable, and that is
+                    where Lyric began.
+                  </p>
+                </ScrollReveal>
+              </div>
+              <div className="lv-about-origin-prose-col">
+                <ScrollReveal delay={160}>
+                  <p>
+                    Our background is in voice. Production, performance, and
+                    the work of making a voice feel like it belongs to someone.
+                    That taught us what the current wave of AI voice keeps
+                    missing: a voice is not just audio. It is a brand keeping a
+                    promise about how it will behave. When every agent keeps
+                    that promise differently, the brand erodes, one call at a
+                    time.
+                  </p>
+                </ScrollReveal>
+                <ScrollReveal delay={220}>
+                  <p>
+                    Generating speech has become cheap and good. Anyone can
+                    ship a fluent voice in an afternoon. The hard part, the
+                    part that did not get easier, is making every agent across
+                    every channel sound like one company, say the right words,
+                    and handle the sensitive moments the same way every time.
+                    So we built Lyric. It sits above the language model and the
+                    speech engine and does not replace either.{" "}
+                    <span className="lv-about-prose-emph">
+                      It codifies a brand into a portable specification and
+                      holds every agent to it, whatever engine is underneath.
+                    </span>{" "}
+                    The result is the thing we spent years watching teams fail
+                    to achieve by hand.
+                  </p>
+                </ScrollReveal>
+              </div>
             </div>
-          </ScrollReveal>
+          </div>
+        </section>
+      </div>
 
-          <ScrollReveal delay={100}>
-            <h2 className="lv-about-section-headline">
-              So we <em>built</em> Lyric.
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal delay={180}>
-            <p className="lv-about-section-supporting">
-              It sits above the language model and the speech engine and does
-              not replace either. It codifies a brand into a portable
-              specification and holds every agent to it, whatever engine is
-              underneath. The result is the thing we spent years watching teams
-              fail to achieve by hand.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={240}>
-            <ul className="lv-about-products">
-              <li className="lv-about-product">
-                <span className="lv-about-product-name">Callio</span>
-                <span className="lv-about-product-desc">
-                  The governance layer. Your brand, codified into a portable
-                  spec and held across every agent.
-                </span>
-                <Link href={CALLIO_CTA_HREF} className="lv-link-cta lv-about-product-cta">
-                  See how Callio works <span aria-hidden="true">&rarr;</span>
-                </Link>
-              </li>
-            </ul>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Locations — sage band: facts left, cities right. ── */}
+      {/* ── Locations — the home page's bright surface: map left, company
+            facts and the city cards with addresses right. ── */}
       <section className="lv-about-section lv-about-locations-section">
         <div className="lv-about-inner">
           <div className="lv-about-locations-layout">
@@ -277,6 +214,7 @@ export default function AboutPage() {
                         <img src={c.src} alt={c.name} loading="lazy" />
                       </div>
                       <h3 className="lv-about-location-city">{c.name}</h3>
+                      <p className="lv-about-location-line">{c.address}</p>
                     </div>
                   </ScrollReveal>
                 ))}
@@ -286,22 +224,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Closing — olive, centered; the resolve, the CTA, the quiet
-            careers line. ── */}
-      <section className="lv-about-closing">
+      {/* ── Final callout — the home page's full dark treatment; the resolve
+            is the callout, over the Callio CTA and the quiet careers line.
+            The dark footer follows and completes the treatment. ── */}
+      <section className="lv-final" style={{ background: DARK }}>
         <ScrollReveal>
-          <p className="lv-about-closing-line">
-            all your agents,
+          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>What we built</span>
+          </div>
+          <h2>
+            <span className="lv-final-line">All your agents,</span>
             <br />
-            one brand voice.
-          </p>
-        </ScrollReveal>
-        <ScrollReveal delay={160}>
-          <Link href={CALLIO_CTA_HREF} className="lv-cta lv-about-close-cta">
-            See how Callio works
-          </Link>
-        </ScrollReveal>
-        <ScrollReveal delay={240}>
+            <span className="lv-final-line">
+              one <em>brand voice</em>.
+            </span>
+          </h2>
+          <div className="lv-cta-row lv-cta-row-center">
+            <Link href={CALLIO_CTA_HREF} className="lv-cta lv-about-close-cta">
+              See how Callio works
+            </Link>
+          </div>
           <p className="lv-about-hiring">
             Currently hiring{" "}
             <Link href={CAREERS_HREF} className="lv-about-hiring-link">
