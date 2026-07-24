@@ -5035,13 +5035,7 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-about-locations-layout {
     grid-template-columns: minmax(260px, 1fr) 1.6fr;
     gap: 64px;
-    align-items: start;
-  }
-
-  /* The landscape US map fills its column, anchored to the headline row
-     rather than floating at the layout's center. */
-  svg.lv-about-locations-map {
-    margin-top: 40px;
+    align-items: center;
   }
 
   .lv-about-locations-map {
