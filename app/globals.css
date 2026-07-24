@@ -5035,6 +5035,13 @@ main:has(.lv-hero) { padding-top: 0; }
   .lv-about-locations-layout {
     grid-template-columns: minmax(260px, 1fr) 1.6fr;
     gap: 64px;
+    align-items: start;
+  }
+
+  /* The landscape US map fills its column, anchored to the headline row
+     rather than floating at the layout's center. */
+  svg.lv-about-locations-map {
+    margin-top: 40px;
   }
 
   .lv-about-locations-map {
@@ -5183,9 +5190,8 @@ img.lv-about-locations-map {
 
 svg.lv-about-locations-map {
   width: 100%;
-  max-width: 440px;
   height: auto;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* ── Map marker hover states — the two Lyric offices ──
@@ -5194,7 +5200,7 @@ svg.lv-about-locations-map {
    pill naming the office. */
 .lv-map-base {
   fill: var(--olive);
-  opacity: 0.42;
+  opacity: 0.5;
 }
 
 .lv-map-city {
