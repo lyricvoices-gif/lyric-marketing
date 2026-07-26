@@ -4914,7 +4914,7 @@ main:has(.lv-hero) { padding-top: 0; }
 .lv-about-location-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 2px;
   margin: 0 0 22px;
@@ -4930,12 +4930,21 @@ main:has(.lv-hero) { padding-top: 0; }
 
 .lv-about-location-city {
   font-family: var(--font-display);
-  font-size: clamp(26px, 3vw, 36px);
+  font-size: clamp(20px, 2.2vw, 24px);
   font-weight: 500;
   letter-spacing: 0;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--olive);
-  margin: 0 0 8px;
+  margin: 0 0 2px;
+}
+
+/* Office designation under the city, the reference's two-line title. */
+.lv-about-location-org {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--olive);
+  margin: 0 0 16px;
 }
 
 .lv-about-location-name {
@@ -5043,8 +5052,8 @@ main:has(.lv-hero) { padding-top: 0; }
   }
 
   .lv-about-locations {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: repeat(2, minmax(0, 280px));
+    gap: 48px;
   }
 
   .lv-about-closing {
@@ -5194,7 +5203,7 @@ svg.lv-about-locations-map {
    pill naming the office. */
 .lv-map-base {
   fill: var(--olive);
-  opacity: 0.5;
+  opacity: 0.78;
 }
 
 .lv-map-city {

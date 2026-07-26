@@ -36,12 +36,14 @@ const CAREERS_HREF = "/careers"
 const CITIES = [
   {
     name: "San Francisco",
+    org: "Lyric HQ",
     src: "/images/about_5.jpg",
     street: "95 3rd St 2nd Floor",
     region: "San Francisco, CA 94103",
   },
   {
     name: "Atlanta",
+    org: "Lyric East",
     src: "/images/about_6.webp",
     street: "3565 Piedmont Rd NE",
     region: "Atlanta, GA 30305",
@@ -207,6 +209,7 @@ export default function AboutPage() {
                         <img src={c.src} alt={c.name} loading="lazy" />
                       </div>
                       <h3 className="lv-about-location-city">{c.name}</h3>
+                      <p className="lv-about-location-org">{c.org}</p>
                       <p className="lv-about-location-line">
                         {c.street}
                         <br />
