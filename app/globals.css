@@ -5043,7 +5043,10 @@ main:has(.lv-hero) { padding-top: 0; }
 
   .lv-about-locations-layout {
     grid-template-columns: minmax(260px, 1fr) 1.6fr;
-    gap: 64px;
+    /* Wider gutter so the map sits clearly apart from the office column;
+       with the 1fr map column, the extra gap also pulls the map's right
+       edge left. */
+    gap: 96px;
     align-items: center;
   }
 
