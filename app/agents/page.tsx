@@ -114,7 +114,9 @@ export default function AgentsPage() {
       {/* ── Split hero (the callio build's layout): copy panel left, the demo
            stage right — Chat / Voice toggle, orb-led voice mode by default. ── */}
       <section className="lv-agents-hero">
-        <div className="lv-agents-hero-left">
+        {/* Same ground as the home hero (lv-floret-ground) so the band under
+            the nav reads continuous with the rest of the site's top. */}
+        <div className="lv-agents-hero-left lv-floret-ground">
           <div className="lv-agents-hero-copy">
             <ScrollReveal>
               <div className="lv-philosophy-eyebrow">

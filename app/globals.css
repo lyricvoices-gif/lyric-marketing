@@ -10295,10 +10295,10 @@ svg.lv-about-locations-map {
 /* ── Hero: full split (the callio build's layout) — copy panel on cream
    left, the demo stage panel on charcoal right. On mobile the panels
    stack, the stage running edge to edge. ── */
-/* This page runs its own pairing: white copy panel (not cream), sage
-   accent (not gold) against the charcoal stage. */
+/* The copy panel takes the home hero's floret ground (class applied in
+   markup — no background here or it would override lv-floret-ground);
+   the page accent is sage, not gold, against the charcoal stage. */
 .lv-agents-hero-left {
-  background: var(--surface-bright);
   padding: 48px 24px 48px;
 }
 
@@ -10540,12 +10540,22 @@ svg.lv-about-locations-map {
   pointer-events: none;
 }
 
-.lv-agdemo.is-playing .lv-agdemo-pulse-1 {
+/* Speaking: slow emanating pulses. Connecting: quick ring pulses, the
+   call opening. */
+.lv-agdemo[data-state="speaking"] .lv-agdemo-pulse-1 {
   animation: lv-agdemo-pulse 2.4s ease-out infinite;
 }
 
-.lv-agdemo.is-playing .lv-agdemo-pulse-2 {
+.lv-agdemo[data-state="speaking"] .lv-agdemo-pulse-2 {
   animation: lv-agdemo-pulse 2.4s ease-out 1.2s infinite;
+}
+
+.lv-agdemo[data-state="connecting"] .lv-agdemo-pulse-1 {
+  animation: lv-agdemo-pulse 1.1s ease-out infinite;
+}
+
+.lv-agdemo[data-state="connecting"] .lv-agdemo-pulse-2 {
+  animation: lv-agdemo-pulse 1.1s ease-out 0.55s infinite;
 }
 
 @keyframes lv-agdemo-pulse {
@@ -10574,7 +10584,23 @@ svg.lv-about-locations-map {
   animation: lv-agdemo-breathe 7s ease-in-out infinite;
 }
 
-.lv-agdemo.is-playing .lv-agdemo-orb {
+/* Connecting: the orb holds its breath slightly dimmed while the call
+   opens. */
+.lv-agdemo[data-state="connecting"] .lv-agdemo-orb {
+  filter: saturate(0.85) brightness(0.96);
+}
+
+/* Speaking with live analysis: breathing hands over to the audio-reactive
+   transform (--orb-level is written per frame by the analyser loop). */
+.lv-agdemo[data-state="speaking"][data-viz="live"] .lv-agdemo-orb {
+  animation: none;
+  transform: scale(calc(1 + var(--orb-level, 0) * 0.09));
+  will-change: transform;
+}
+
+/* Speaking without analysis (cross-origin audio, reduced motion, or an
+   unavailable AudioContext): the faster CSS breathe carries the state. */
+.lv-agdemo[data-state="speaking"][data-viz="css"] .lv-agdemo-orb {
   animation-duration: 2.8s;
 }
 
@@ -10941,6 +10967,7 @@ svg.lv-about-locations-map {
   .lv-agdemo-pulse,
   .lv-agdemo-orb {
     animation: none !important;
+    transform: none !important;
   }
 
   .lv-agdemo-playpill-prog {

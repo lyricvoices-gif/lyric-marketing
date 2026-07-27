@@ -3,10 +3,17 @@
 /* The hero's demo panel, matching the callio build's split-hero layout:
    a Chat / Voice toggle at the top, then one mode at a time.
 
-   Voice (default): a gradient orb as the centerpiece with a single pill
-   action beneath it — Play call. No transcript in this mode; the voice
-   demo stays a voice instrument. This page runs the sage accent (the
-   design system's paired accent), not gold.
+   Voice (default): the agent orb as the centerpiece, moving through the
+   call's states — idle (slow breathe), connecting (quick ring pulses
+   while the call opens), speaking (audio-reactive: the orb scales with
+   the live level of the call via a WebAudio analyser, with a CSS
+   fast-breathe fallback when analysis is unavailable). One pill action
+   beneath it, Play call. This page runs the sage accent, not gold.
+
+   NOTE: the exact orb-state implementation lives in the callio repo,
+   which is outside this session's repository scope; this is a faithful
+   reconstruction. Swap in the callio component when a session has that
+   repo attached.
 
    Chat: the same governed call as a readable thread (the site's governed-
    chat grammar, with the governance notes). Switching modes never stops
@@ -20,6 +27,8 @@
 import { useEffect, useRef, useState } from "react"
 
 const DEMO_CALL_SRC = "/GovernedSample.mp3"
+
+type CallState = "idle" | "connecting" | "speaking"
 
 type Turn = { who: "caller" | "agent"; text: string; note?: string }
 
@@ -73,9 +82,16 @@ function PauseGlyph() {
 
 export default function DemoCallPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const rootRef = useRef<HTMLDivElement | null>(null)
+  const ctxRef = useRef<AudioContext | null>(null)
+  const analyserRef = useRef<AnalyserNode | null>(null)
+  const rafRef = useRef(0)
+  const levelRef = useRef(0)
   const [mode, setMode] = useState<"chat" | "voice">("voice")
-  const [playing, setPlaying] = useState(false)
+  const [callState, setCallState] = useState<CallState>("idle")
+  const [liveViz, setLiveViz] = useState(false)
   const [progress, setProgress] = useState(0)
+  const active = callState !== "idle"
 
   useEffect(() => {
     const a = audioRef.current
@@ -83,40 +99,111 @@ export default function DemoCallPlayer() {
     const onTime = () => {
       if (a.duration > 0) setProgress(a.currentTime / a.duration)
     }
+    const onPlaying = () => setCallState("speaking")
     const reset = () => {
-      setPlaying(false)
+      setCallState("idle")
       setProgress(0)
     }
     a.addEventListener("timeupdate", onTime)
+    a.addEventListener("playing", onPlaying)
     a.addEventListener("ended", reset)
     a.addEventListener("error", reset)
     return () => {
       a.removeEventListener("timeupdate", onTime)
+      a.removeEventListener("playing", onPlaying)
       a.removeEventListener("ended", reset)
       a.removeEventListener("error", reset)
+    }
+  }, [])
+
+  /* Audio-reactive level: RMS of the call's waveform, smoothed, written to
+     --orb-level on the panel for the orb's speaking transform. Only wired
+     for the same-origin source (a cross-origin source without CORS headers
+     would silence a MediaElementSource) and never under reduced motion —
+     both fall back to the CSS fast-breathe. */
+  const startAnalysis = () => {
+    if (analyserRef.current) return
+    if (!DEMO_CALL_SRC.startsWith("/")) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const a = audioRef.current
+    if (!a) return
+    try {
+      const Ctx = window.AudioContext
+      const ctx = new Ctx()
+      const src = ctx.createMediaElementSource(a)
+      const analyser = ctx.createAnalyser()
+      analyser.fftSize = 512
+      src.connect(analyser)
+      analyser.connect(ctx.destination)
+      ctxRef.current = ctx
+      analyserRef.current = analyser
+      setLiveViz(true)
+    } catch {
+      /* Analysis is decoration; playback continues without it. */
+    }
+  }
+
+  useEffect(() => {
+    if (callState !== "speaking" || !analyserRef.current) return
+    const analyser = analyserRef.current
+    const data = new Uint8Array(analyser.fftSize)
+    const tick = () => {
+      analyser.getByteTimeDomainData(data)
+      let sum = 0
+      for (let i = 0; i < data.length; i++) {
+        const d = (data[i] - 128) / 128
+        sum += d * d
+      }
+      const rms = Math.sqrt(sum / data.length)
+      /* Smooth attack/decay so the orb swells rather than jitters. */
+      const target = Math.min(1, rms * 3.2)
+      levelRef.current += (target - levelRef.current) * (target > levelRef.current ? 0.35 : 0.12)
+      rootRef.current?.style.setProperty("--orb-level", levelRef.current.toFixed(3))
+      rafRef.current = requestAnimationFrame(tick)
+    }
+    rafRef.current = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(rafRef.current)
+      rootRef.current?.style.setProperty("--orb-level", "0")
+    }
+  }, [callState])
+
+  useEffect(() => {
+    return () => {
+      ctxRef.current?.close().catch(() => {})
     }
   }, [])
 
   const toggle = () => {
     const a = audioRef.current
     if (!a) return
-    if (playing) {
+    if (active) {
       a.pause()
-      setPlaying(false)
+      setCallState("idle")
       setProgress(0)
       return
     }
+    startAnalysis()
+    ctxRef.current?.resume().catch(() => {})
     a.src = DEMO_CALL_SRC
     setProgress(0)
-    setPlaying(true)
+    setCallState("connecting")
     a.play().catch(() => {
-      setPlaying(false)
+      setCallState("idle")
       setProgress(0)
     })
   }
 
+  const pillLabel =
+    callState === "idle" ? "Play call" : callState === "connecting" ? "Calling" : "Pause"
+
   return (
-    <div className={`lv-agdemo${playing ? " is-playing" : ""}`}>
+    <div
+      ref={rootRef}
+      className="lv-agdemo"
+      data-state={callState}
+      data-viz={liveViz ? "live" : "css"}
+    >
       <div className="lv-agdemo-top">
         <span className="lv-agdemo-top-label">
           Governed call &middot; Sol &middot; FS agent
@@ -155,19 +242,19 @@ export default function DemoCallPlayer() {
             type="button"
             className="lv-agdemo-playpill"
             onClick={toggle}
-            aria-label={playing ? "Pause the governed call" : "Play the governed call"}
-            aria-pressed={playing}
+            aria-label={active ? "Pause the governed call" : "Play the governed call"}
+            aria-pressed={active}
           >
-            {/* Progress fills the pill's hairline underlay while playing. */}
+            {/* Progress fills the pill's underlay while playing. */}
             <span
               className="lv-agdemo-playpill-prog"
-              style={{ transform: `scaleX(${playing ? progress : 0})` }}
+              style={{ transform: `scaleX(${active ? progress : 0})` }}
               aria-hidden="true"
             />
             <span className="lv-agdemo-playpill-glyph">
-              {playing ? <PauseGlyph /> : <PlayGlyph />}
+              {active ? <PauseGlyph /> : <PlayGlyph />}
             </span>
-            <span>{playing ? "Pause" : "Play call"}</span>
+            <span>{pillLabel}</span>
           </button>
         </div>
       ) : (
