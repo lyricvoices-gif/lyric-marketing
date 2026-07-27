@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "Products",
     items: [
       { href: "/callio", label: "Callio" },
-      { href: "/voices", label: "Voices & Sounds" },
+      { href: "/agents", label: "Agents" },
     ],
   },
   { type: "link", href: "/pricing", label: "Pricing" },

@@ -82,7 +82,7 @@ export default function Footer() {
       heading: "Products",
       links: [
         { label: "Callio",            href: "/callio" },
-        { label: "Voices & Sounds", href: "/voices" },
+        { label: "Agents", href: "/agents" },
       ],
     },
     {
