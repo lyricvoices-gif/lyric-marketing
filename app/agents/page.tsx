@@ -9,28 +9,26 @@
    would otherwise force a sales call; talking to us is the escape hatch at
    the bottom, not the front door.
 
-   Structure: scenario-framed demo + what-to-listen-for -> CTAs -> voice
-   roster (Sol / Sam / James, no provider badges) -> the governance story for
-   the compliance reader -> coming-soon verticals -> self-service FAQ (the
-   pricing page's Q&A pattern) -> final CTA.
-
-   Voice accents reuse the existing per-voice tokens (VOICE_COLORS): Sol
-   takes Morgan's gold (the Anchor's authority), Sam takes Atlas green
-   (crisp, clear), James takes Riven russet (refined depth).
+   Structure: compact split hero (scenario copy + CTAs left, playable call
+   right, viewport-scale) -> what-to-listen-for strip -> voice gallery (Sol /
+   Sam / James in the Voices-page lv-vtile treatment, no provider badges) ->
+   the governance story for the compliance reader -> the home page's verticals
+   section minus Financial Services -> self-service FAQ accordion (first item
+   open) -> final CTA.
 
    PLACEHOLDERS (marked): demo audio is the governed-sample stand-in until
    the produced call ships (scripts/generate-fs-demo-call.mjs); the
    get-started route is a stub; TRY_HREF shares the site's existing /start
-   destination; Sam/James roster sample URLs follow the callio produced-audio
-   convention but are unverified from this environment. */
+   destination; Sam/James gallery sample URLs follow the callio
+   produced-audio convention but are unverified from this environment. */
 
 import type { Metadata } from "next"
 import Link from "next/link"
-import type { CSSProperties } from "react"
 import ScrollReveal from "@/components/ScrollReveal"
 import DemoCallPlayer from "@/components/agents/DemoCallPlayer"
-import RosterSamplePlay from "@/components/agents/RosterSamplePlay"
-import { VOICE_COLORS } from "@/components/listen/data"
+import AgentsVoicesGallery from "@/components/agents/AgentsVoicesGallery"
+import AgentsFaq from "@/components/agents/AgentsFaq"
+import VerticalsSection from "@/components/VerticalsSection"
 
 export const metadata: Metadata = {
   title: "Agents",
@@ -45,41 +43,6 @@ const DARK = "#2b2a25"
 const TRY_HREF = "/start"
 const GET_STARTED_HREF = "/agents/get-started"
 const CONTACT_HREF = "mailto:info@lyricvoices.ai?subject=Prebuilt%20FS%20agent"
-
-/* Produced-audio convention from the callio pipeline:
-   {AUDIO_BASE}/phone/{token}_default.mp3. Sol has no static sample yet;
-   her card points at the demo call above. */
-const AUDIO_BASE = "https://pub-9142daf6eac140228b494c56e7b13b22.r2.dev/phone"
-
-const VOICES = [
-  {
-    id: "sol",
-    name: "Sol",
-    character: "Senior, warm, unhurried",
-    accent: VOICE_COLORS.morgan,
-    body:
-      "The voice of a senior client services professional at a financial institution. Someone who has been doing this for fifteen years and has time for you.",
-    sample: null,
-  },
-  {
-    id: "sam",
-    name: "Sam",
-    character: "Crisp, conversational, efficient",
-    accent: VOICE_COLORS.atlas,
-    body:
-      "American and direct. Sam keeps the call moving without ever sounding rushed, and says the hard terms plainly.",
-    sample: `${AUDIO_BASE}/sam_default.mp3`,
-  },
-  {
-    id: "james",
-    name: "James",
-    character: "British, refined, polished",
-    accent: VOICE_COLORS.riven,
-    body:
-      "Measured and precise. James brings a formal register for institutions whose brand leans traditional.",
-    sample: `${AUDIO_BASE}/james_default.mp3`,
-  },
-] as const
 
 const LISTEN_FOR = [
   {
@@ -118,13 +81,6 @@ const GOVERNANCE = [
   },
 ] as const
 
-const VERTICALS = [
-  { name: "Financial Services", status: "live" },
-  { name: "Property Management", status: "soon" },
-  { name: "Travel & Hospitality", status: "soon" },
-  { name: "Healthcare", status: "soon" },
-] as const
-
 const FAQ = [
   {
     q: "What does the agent include out of the box?",
@@ -150,12 +106,12 @@ const FAQ = [
     q: "Can we change the voice or the wording?",
     a: "Both. Pick Sol, Sam, or James for delivery, and your counsel's disclosure and verification wording drops into the spec. The governed register holds either way.",
   },
-] as const
+]
 
 export default function AgentsPage() {
   return (
     <main className="lv-agents">
-      {/* ── The lead: scenario, then the governed call you can play. ── */}
+      {/* ── Compact split hero: scenario + CTAs left, the playable call right. ── */}
       <section className="lv-agents-hero">
         <div className="lv-agents-inner">
           <div className="lv-agents-hero-copy">
@@ -190,21 +146,6 @@ export default function AgentsPage() {
                 </Link>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal delay={340}>
-              <div className="lv-agents-listenfor">
-                <p className="lv-agents-listenfor-head">What to listen for</p>
-                {LISTEN_FOR.map((l) => (
-                  <div key={l.label} className="lv-agents-listenfor-item">
-                    <span className="lv-agents-listenfor-dot" aria-hidden="true" />
-                    <div>
-                      <p className="lv-agents-listenfor-label">{l.label}</p>
-                      <p className="lv-agents-listenfor-body">{l.body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
           </div>
 
           <ScrollReveal delay={160}>
@@ -213,7 +154,29 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* ── The roster: you choose who delivers it. No provider badges. ── */}
+      {/* ── What to listen for: the governed behaviors, as a slim strip. ── */}
+      <section className="lv-agents-listenfor" aria-label="What to listen for">
+        <div className="lv-agents-inner">
+          <ScrollReveal>
+            <p className="lv-agents-listenfor-head">What to listen for</p>
+          </ScrollReveal>
+          <div className="lv-agents-listenfor-grid">
+            {LISTEN_FOR.map((l, i) => (
+              <ScrollReveal key={l.label} delay={80 + i * 80}>
+                <div className="lv-agents-listenfor-item">
+                  <span className="lv-agents-listenfor-dot" aria-hidden="true" />
+                  <div>
+                    <p className="lv-agents-listenfor-label">{l.label}</p>
+                    <p className="lv-agents-listenfor-body">{l.body}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── The voices: the gallery-tile treatment. No provider badges. ── */}
       <section className="lv-agents-roster">
         <div className="lv-agents-inner-narrow">
           <ScrollReveal>
@@ -227,31 +190,9 @@ export default function AgentsPage() {
               Same agent. <em>You choose who delivers it.</em>
             </h2>
           </ScrollReveal>
-
-          <div className="lv-agents-voices">
-            {VOICES.map((v, i) => (
-              <ScrollReveal key={v.id} delay={i * 90}>
-                <div
-                  className="lv-agents-voice"
-                  style={{ ["--voice-accent" as string]: v.accent } as CSSProperties}
-                >
-                  <div className="lv-agents-voice-head">
-                    <span className="lv-agents-voice-dot" aria-hidden="true" />
-                    <h3 className="lv-agents-voice-name">{v.name}</h3>
-                  </div>
-                  <p className="lv-agents-voice-character">{v.character}</p>
-                  <p className="lv-agents-voice-body">{v.body}</p>
-                  {v.sample ? (
-                    <RosterSamplePlay name={v.name} src={v.sample} />
-                  ) : (
-                    <a className="lv-agents-voice-hear" href="#top">
-                      Sol carries the call above
-                    </a>
-                  )}
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal delay={160}>
+            <AgentsVoicesGallery />
+          </ScrollReveal>
         </div>
       </section>
 
@@ -283,42 +224,12 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* ── The line this page is first of. ── */}
-      <section className="lv-agents-verticals">
-        <div className="lv-agents-inner-narrow">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Verticals</span>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <h2 className="lv-agents-section-head">
-              Financial Services is live. <em>More are coming.</em>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={160}>
-            <div className="lv-agents-vert-rows">
-              {VERTICALS.map((v) => (
-                <div key={v.name} className="lv-agents-vert-row">
-                  <span className="lv-agents-vert-name">{v.name}</span>
-                  {v.status === "live" ? (
-                    <span className="lv-agents-vert-live">
-                      <span className="lv-agents-vert-live-dot" aria-hidden="true" />
-                      Live
-                    </span>
-                  ) : (
-                    <span className="lv-agents-vert-soon">Coming soon</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      {/* ── The verticals: the home page's section, minus Financial Services
+           (this page already covers it). ── */}
+      <VerticalsSection exclude={["Financial Services"]} />
 
-      {/* ── Self-service FAQ: the pricing page's Q&A pattern. ── */}
-      <section className="lv-pricing-faq lv-agents-faq">
+      {/* ── Self-service FAQ: accordion, first item open. ── */}
+      <section className="lv-agents-faq">
         <div className="lv-agents-inner-narrow">
           <ScrollReveal>
             <div className="lv-philosophy-eyebrow">
@@ -331,16 +242,9 @@ export default function AgentsPage() {
               The answers, <em>self-served</em>.
             </h2>
           </ScrollReveal>
-          <dl className="lv-pricing-faq-list">
-            {FAQ.map((item, i) => (
-              <ScrollReveal key={item.q} delay={120 + i * 60}>
-                <div className="lv-pricing-faq-item">
-                  <dt className="lv-pricing-faq-q">{item.q}</dt>
-                  <dd className="lv-pricing-faq-a">{item.a}</dd>
-                </div>
-              </ScrollReveal>
-            ))}
-          </dl>
+          <ScrollReveal delay={160}>
+            <AgentsFaq items={FAQ} />
+          </ScrollReveal>
         </div>
       </section>
 

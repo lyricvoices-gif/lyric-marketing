@@ -10292,9 +10292,12 @@ svg.lv-about-locations-map {
   margin: 0 auto;
 }
 
-/* ── Hero: scenario + playable call ── */
+/* ── Hero: compact split — scenario + CTAs left, playable call right,
+   vertically centered at viewport scale on desktop. The layout's main
+   wrapper already clears the fixed nav (128px to first content), so the
+   hero's own top padding stays small. ── */
 .lv-agents-hero {
-  padding: 132px 24px 96px;
+  padding: 48px 24px 56px;
 }
 
 .lv-agents-hero .lv-philosophy-eyebrow {
@@ -10328,7 +10331,7 @@ svg.lv-about-locations-map {
 }
 
 .lv-agents-cta-row {
-  margin: 0 0 44px;
+  margin: 0 0 40px;
 }
 
 .lv-agents-cta-primary,
@@ -10387,11 +10390,15 @@ svg.lv-about-locations-map {
   border-color: var(--bg-light);
 }
 
-/* What to listen for — the governed behaviors, named. */
+/* What to listen for — the governed behaviors as a slim strip under the
+   hero (4-across on desktop). */
 .lv-agents-listenfor {
+  padding: 0 24px 72px;
+}
+
+.lv-agents-listenfor .lv-agents-inner {
   border-top: 1px solid var(--border);
-  padding-top: 24px;
-  max-width: 460px;
+  padding-top: 32px;
 }
 
 .lv-agents-listenfor-head {
@@ -10400,13 +10407,18 @@ svg.lv-about-locations-map {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-label);
-  margin: 0 0 18px;
+  margin: 0 0 22px;
+}
+
+.lv-agents-listenfor-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .lv-agents-listenfor-item {
   display: flex;
   gap: 12px;
-  margin: 0 0 16px;
 }
 
 .lv-agents-listenfor-dot {
@@ -10438,7 +10450,7 @@ svg.lv-about-locations-map {
 .lv-agdemo {
   background: #2b2a25;
   border-radius: 20px;
-  padding: 24px 26px 28px;
+  padding: 22px 24px 24px;
   max-width: 560px;
   box-shadow: 0 2px 6px rgba(43, 42, 37, 0.08), 0 28px 60px -30px rgba(43, 42, 37, 0.45);
 }
@@ -10566,11 +10578,12 @@ svg.lv-about-locations-map {
 }
 
 /* Transcript thread — the governed-chat grammar, scoped to the card. */
+/* Kept short so the whole card fits a compact hero; the thread scrolls. */
 .lv-agdemo-thread {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  max-height: 380px;
+  gap: 16px;
+  max-height: 236px;
   overflow-y: auto;
   padding-right: 6px;
 }
@@ -10668,90 +10681,14 @@ svg.lv-about-locations-map {
 
 .lv-agents-roster .lv-philosophy-eyebrow,
 .lv-agents-gov .lv-philosophy-eyebrow,
-.lv-agents-verticals .lv-philosophy-eyebrow,
 .lv-agents-faq .lv-philosophy-eyebrow {
   margin: 0 0 22px;
 }
 
-/* Voice cards — accent is the voice's identity color (existing tokens). */
-.lv-agents-voices {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-}
-
-.lv-agents-voice {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--bg-light);
-  padding: 26px 26px 24px;
-}
-
-.lv-agents-voice-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 6px;
-}
-
-.lv-agents-voice-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--voice-accent);
-}
-
-.lv-agents-voice-name {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 500;
-  letter-spacing: 0;
-  color: var(--olive);
-  margin: 0;
-}
-
-.lv-agents-voice-character {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-label);
-  margin: 0 0 14px;
-}
-
-.lv-agents-voice-body {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(90, 94, 67, 0.88);
-  margin: 0 0 20px;
-}
-
-.lv-agents-voice-sample,
-.lv-agents-voice-hear {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 0;
-  padding: 0 0 3px;
-  background: none;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--olive);
-  border-bottom: 1px solid currentColor;
-  cursor: pointer;
-}
-
-.lv-agents-voice-sample:focus-visible,
-.lv-agents-voice-hear:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-}
-
-.lv-agents-voice-sample-glyph {
-  font-size: 10px;
-}
+/* The voice gallery reuses the Voices-page lv-vtile treatment (accent
+   top-rule, 60px play ring, hover-reveal description) — those styles live
+   in the gallery block above. On the bright roster surface the tiles keep
+   their cream-mix hover; the seam is invisible at 10% accent. */
 
 /* ── Governance story (charcoal) ── */
 .lv-agents-gov {
@@ -10783,60 +10720,90 @@ svg.lv-about-locations-map {
   margin: 0;
 }
 
-/* ── Verticals — hairline rows, one live ── */
-.lv-agents-verticals {
-  padding: 104px 24px;
+/* ── FAQ accordion — first item open by default (AgentsFaq). Open/close
+   animates via 0fr -> 1fr grid rows; gated for reduced motion below. ── */
+.lv-agents-faq {
+  padding: 104px 24px 120px;
 }
 
-.lv-agents-vert-rows {
+.lv-agfaq {
   border-top: 1px solid var(--border);
 }
 
-.lv-agents-vert-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 22px 0;
+.lv-agfaq-item {
   border-bottom: 1px solid var(--border);
 }
 
-.lv-agents-vert-name {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2.4vw, 28px);
-  font-weight: 500;
-  color: var(--olive);
+.lv-agfaq-h {
+  margin: 0;
 }
 
-.lv-agents-vert-live {
-  display: inline-flex;
+.lv-agfaq-q {
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
   color: var(--olive);
+  transition: color 0.2s ease;
 }
 
-.lv-agents-vert-live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold);
+.lv-agfaq-q:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
-.lv-agents-vert-soon {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.lv-agfaq-chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
   color: var(--ink-label);
+  transition: transform 0.3s ease;
 }
 
-/* FAQ wrapper: the shared pricing pattern, agents section spacing. */
-.lv-agents-faq {
-  padding: 104px 24px 120px;
+.lv-agfaq-item.is-open .lv-agfaq-chevron {
+  transform: rotate(180deg);
+}
+
+.lv-agfaq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.lv-agfaq-item.is-open .lv-agfaq-panel {
+  grid-template-rows: 1fr;
+}
+
+.lv-agfaq-panel-inner {
+  overflow: hidden;
+  /* visibility flips discretely at the transition edges, keeping the closed
+     answer out of the tab/reading order without a display toggle. */
+  visibility: hidden;
+  transition: visibility 0.35s;
+}
+
+.lv-agfaq-item.is-open .lv-agfaq-panel-inner {
+  visibility: visible;
+}
+
+.lv-agfaq-a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(90, 94, 67, 0.88);
+  margin: 0;
+  padding: 0 0 24px;
+  max-width: 68ch;
 }
 
 /* ── Get-started stub ── */
@@ -10858,15 +10825,25 @@ svg.lv-about-locations-map {
 
 /* ── Desktop ── */
 @media (min-width: 1000px) {
+  /* Viewport-scale split hero: both columns vertically centered, the whole
+     frame capped so it never towers. 128px = nav clearance above the hero. */
   .lv-agents-hero {
-    padding: 168px 32px 128px;
+    min-height: min(calc(100vh - 128px), 720px);
+    display: flex;
+    align-items: center;
+    padding: 24px 32px 40px;
   }
 
-  .lv-agents-inner {
+  .lv-agents-hero .lv-agents-inner {
+    width: 100%;
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
     gap: 72px;
-    align-items: start;
+    align-items: center;
+  }
+
+  .lv-agents-cta-row {
+    margin: 0;
   }
 
   .lv-agdemo {
@@ -10874,16 +10851,19 @@ svg.lv-about-locations-map {
     width: 100%;
   }
 
-  .lv-agents-roster,
-  .lv-agents-gov,
-  .lv-agents-verticals {
-    padding-left: 32px;
-    padding-right: 32px;
+  .lv-agents-listenfor {
+    padding: 0 32px 88px;
   }
 
-  .lv-agents-voices {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
+  .lv-agents-listenfor-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .lv-agents-roster,
+  .lv-agents-gov {
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   .lv-agents-gov-grid {
@@ -10895,5 +10875,11 @@ svg.lv-about-locations-map {
 @media (prefers-reduced-motion: reduce) {
   .lv-agdemo-pulse {
     animation: none !important;
+  }
+
+  .lv-agfaq-chevron,
+  .lv-agfaq-panel,
+  .lv-agfaq-panel-inner {
+    transition: none !important;
   }
 }
