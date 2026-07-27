@@ -9,12 +9,11 @@
    would otherwise force a sales call; talking to us is the escape hatch at
    the bottom, not the front door.
 
-   Structure: compact split hero (scenario copy + CTAs left, playable call
-   right, viewport-scale) -> what-to-listen-for strip -> voice gallery (Sol /
-   Sam / James in the Voices-page lv-vtile treatment, no provider badges) ->
-   the governance story for the compliance reader -> the home page's verticals
-   section minus Financial Services -> self-service FAQ accordion (first item
-   open) -> final CTA.
+   Structure: split hero (scenario copy + CTAs left, the agent's aura demo
+   right) -> voice gallery (Sol / Sam / James in the Voices-page lv-vtile
+   treatment, no provider badges) -> the governance story for the compliance
+   reader -> the home page's verticals section minus Financial Services ->
+   self-service FAQ accordion (first item open) -> final CTA.
 
    PLACEHOLDERS (marked): demo audio is the governed-sample stand-in until
    the produced call ships (scripts/generate-fs-demo-call.mjs); the
@@ -43,25 +42,6 @@ const DARK = "#2b2a25"
 const TRY_HREF = "/start"
 const GET_STARTED_HREF = "/agents/get-started"
 const CONTACT_HREF = "mailto:info@lyricvoices.ai?subject=Prebuilt%20FS%20agent"
-
-const LISTEN_FOR = [
-  {
-    label: "Acknowledge before process",
-    body: "She meets the situation first. The workflow starts only after the caller has been heard.",
-  },
-  {
-    label: "Verify before disclose",
-    body: "No account detail crosses her lips until identity is confirmed. A hard gate, not a habit.",
-  },
-  {
-    label: "Careful before reassuring",
-    body: "She will not call it fraud before it is confirmed. Comfort never outruns the facts.",
-  },
-  {
-    label: "Composed throughout",
-    body: "The register holds from hello to resolution, under a stressed caller, at every turn.",
-  },
-] as const
 
 const GOVERNANCE = [
   {
@@ -154,28 +134,6 @@ export default function AgentsPage() {
           <ScrollReveal delay={160}>
             <DemoCallPlayer />
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── What to listen for: the governed behaviors, as a slim strip. ── */}
-      <section className="lv-agents-listenfor" aria-label="What to listen for">
-        <div className="lv-agents-inner">
-          <ScrollReveal>
-            <p className="lv-agents-listenfor-head">What to listen for</p>
-          </ScrollReveal>
-          <div className="lv-agents-listenfor-grid">
-            {LISTEN_FOR.map((l, i) => (
-              <ScrollReveal key={l.label} delay={80 + i * 80}>
-                <div className="lv-agents-listenfor-item">
-                  <span className="lv-agents-listenfor-dot" aria-hidden="true" />
-                  <div>
-                    <p className="lv-agents-listenfor-label">{l.label}</p>
-                    <p className="lv-agents-listenfor-body">{l.body}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
       </section>
 

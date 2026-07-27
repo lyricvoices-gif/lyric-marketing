@@ -10467,138 +10467,51 @@ svg.lv-about-locations-map {
   border-color: var(--bg-light);
 }
 
-/* What to listen for — the governed behaviors as a slim strip under the
-   hero (4-across on desktop). */
-.lv-agents-listenfor {
-  padding: 56px 24px 72px;
-}
-
-.lv-agents-listenfor .lv-agents-inner {
-  border-top: 1px solid var(--border);
-  padding-top: 32px;
-}
-
-.lv-agents-listenfor-head {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-label);
-  margin: 0 0 22px;
-}
-
-.lv-agents-listenfor-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-
-.lv-agents-listenfor-item {
-  display: flex;
-  gap: 12px;
-}
-
-.lv-agents-listenfor-dot {
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--sage);
-  margin-top: 6px;
-}
-
-.lv-agents-listenfor-label {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--olive);
-  margin: 0 0 2px;
-}
-
-.lv-agents-listenfor-body {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.55;
-  color: rgba(90, 94, 67, 0.88);
-  margin: 0;
-}
-
-/* ── The demo stage panel — Chat / Voice toggle, then one mode at a time. ── */
+/* ── The demo stage panel — the aura and the Play call pill. ── */
 .lv-agdemo {
   width: 100%;
   max-width: 560px;
   margin: 0 auto;
 }
 
-.lv-agdemo-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin: 0 0 28px;
-}
-
-.lv-agdemo-top-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cream-body);
-}
-
-.lv-agdemo-toggle {
-  display: inline-flex;
-  gap: 2px;
-  padding: 4px;
-  border-radius: 100px;
-  background: rgba(255, 248, 236, 0.08);
-}
-
-.lv-agdemo-toggle-btn {
-  border: 0;
-  background: transparent;
-  border-radius: 100px;
-  padding: 7px 16px;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--cream-body);
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.lv-agdemo-toggle-btn[aria-selected="true"] {
-  background: var(--bg-light);
-  color: #2b2a25;
-}
-
-.lv-agdemo-toggle-btn:focus-visible {
-  outline: 2px solid var(--sage);
-  outline-offset: 2px;
-}
-
-/* Voice mode — the LiveKit Agents UI wave as the agent's visual
+/* Voice mode — the LiveKit Agents UI aura as the agent's visual
    personality (vendored, components/agents-ui). At rest it tours the
-   agent's states on a loop; during the call it speaks with the audio. */
+   agent's states on a loop; during the call it speaks with the audio.
+   Everything in the column is centered. */
 .lv-agdemo-voice {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 0 4px;
+  padding: 0 0 4px;
 }
 
 .lv-agdemo-wave-wrap {
   width: 100%;
-  margin: 16px 0 36px;
+  margin: 0 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* The shader canvas fills this box. */
-.lv-agdemo-wave {
-  width: 100%;
-  height: 240px;
+/* The shader canvas fills this square box. Explicit height (not
+   aspect-ratio): the canvas's intrinsic size would otherwise stretch the
+   box and feed a resize loop. */
+.lv-agdemo-aura {
+  --aura-size: min(300px, 64vw);
+  width: var(--aura-size);
+  height: var(--aura-size);
+  overflow: hidden;
+}
+
+/* Reduced-motion stand-in: the aura's still pose as a soft sage disc. */
+.lv-agdemo-aura-static {
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(193, 193, 126, 0.55) 0%,
+    rgba(193, 193, 126, 0.2) 55%,
+    rgba(193, 193, 126, 0) 100%
+  );
 }
 
 /* The current state, named — the quiet caption under the wave. */
@@ -10648,80 +10561,6 @@ svg.lv-about-locations-map {
 .lv-agdemo-playpill-glyph svg {
   width: 100%;
   height: 100%;
-}
-
-/* Chat mode — the governed call as a readable thread. */
-.lv-agdemo-thread {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-height: 420px;
-  overflow-y: auto;
-  padding-right: 6px;
-}
-
-.lv-agdemo-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.lv-agdemo-row.is-caller {
-  align-items: flex-end;
-}
-
-.lv-agdemo-meta {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--cream-body);
-  margin: 0 0 5px 8px;
-}
-
-.lv-agdemo-row.is-caller .lv-agdemo-meta {
-  margin: 0 8px 5px 0;
-}
-
-.lv-agdemo-bubble {
-  max-width: 92%;
-  padding: 11px 15px;
-  border-radius: 14px;
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--cream-body);
-  margin: 0;
-}
-
-.lv-agdemo-row.is-agent .lv-agdemo-bubble {
-  background: rgba(255, 248, 236, 0.05);
-  border: 1px solid rgba(255, 248, 236, 0.12);
-  border-bottom-left-radius: 5px;
-}
-
-.lv-agdemo-row.is-caller .lv-agdemo-bubble {
-  background: rgba(255, 248, 236, 0.13);
-  border-bottom-right-radius: 5px;
-}
-
-.lv-agdemo-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin: 6px 0 0 8px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--cream-body);
-}
-
-.lv-agdemo-note-dot {
-  flex: none;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--sage);
 }
 
 /* ── Section shells ── */
@@ -10897,18 +10736,17 @@ svg.lv-about-locations-map {
 
 /* ── Desktop ── */
 @media (min-width: 1000px) {
-  /* Full split at viewport scale: two equal panels, both contents centered.
-     64px = the main wrapper's nav clearance above the hero. */
+  /* Full split, natural height: the panels are only as tall as the demo
+     content needs, like the header band on other pages. */
   .lv-agents-hero {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    min-height: min(calc(100vh - 64px), 860px);
   }
 
   .lv-agents-hero-left {
     display: flex;
     align-items: center;
-    padding: 56px 64px 72px max(calc((100vw - 1280px) / 2), 32px);
+    padding: 56px 64px 64px max(calc((100vw - 1280px) / 2), 32px);
   }
 
   .lv-agents-hero-copy {
@@ -10919,20 +10757,7 @@ svg.lv-about-locations-map {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 48px max(calc((100vw - 1280px) / 2), 32px) 56px 64px;
-  }
-
-  .lv-agents-listenfor {
-    padding: 64px 32px 88px;
-  }
-
-  .lv-agdemo-wave {
-    height: 320px;
-  }
-
-  .lv-agents-listenfor-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 32px;
+    padding: 40px max(calc((100vw - 1280px) / 2), 32px) 48px 64px;
   }
 
   .lv-agents-roster,

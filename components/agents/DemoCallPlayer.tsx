@@ -1,19 +1,14 @@
 "use client"
 
-/* The hero's demo panel: a Chat / Voice toggle at the top, then one mode
-   at a time.
-
-   Voice (default): the LiveKit Agents UI wave (vendored under
-   components/agents-ui) is the agent's visual personality. At rest it
+/* The hero's demo panel: the LiveKit Agents UI aura (vendored under
+   components/agents-ui) as the agent's visual personality. At rest it
    demos the agent's states on a loop — connecting, listening, speaking,
    thinking, a few seconds each — until the visitor presses Play call;
    then it holds the speaking state for the duration of the call, with
-   the wave's amplitude driven by the call's live level (WebAudio
-   analyser). One pill action beneath it, Play call. Sage accent.
-
-   Chat: the same governed call as a readable thread (the site's governed-
-   chat grammar, with the governance notes). Switching modes never stops
-   playback — the audio element is shared and lives outside the modes.
+   the aura's scale driven by the call's live level (WebAudio analyser).
+   One pill action beneath it, Play call. Sage accent. Under reduced
+   motion the shader (which animates continuously) is replaced with a
+   still sage disc.
 
    DEMO_CALL_SRC: STAND-IN. The produced two-voice call (Sol + caller,
    scripts/generate-fs-demo-call.mjs) replaces this with its R2 URL, path
@@ -22,13 +17,13 @@
 
 import { useEffect, useRef, useState } from "react"
 
-import { AgentAudioVisualizerWave } from "@/components/agents-ui/agent-audio-visualizer-wave"
+import { AgentAudioVisualizerAura } from "@/components/agents-ui/agent-audio-visualizer-aura"
 import { type AgentState } from "@/components/agents-ui/use-agent-audio-visualizer-wave"
 
 const DEMO_CALL_SRC = "/GovernedSample.mp3"
 
-/* The page accent (sage) carries the wave. */
-const WAVE_COLOR = "#C1C17E" as const
+/* The page accent (sage) carries the aura. */
+const AURA_COLOR = "#C1C17E" as const
 
 /* The resting demo loop: each state holds a few seconds, then hands off. */
 const ATTRACT_STATES: readonly AgentState[] = [
@@ -40,39 +35,6 @@ const ATTRACT_STATES: readonly AgentState[] = [
 const ATTRACT_STEP_MS = 3200
 
 type CallState = "idle" | "connecting" | "speaking"
-
-type Turn = { who: "caller" | "agent"; text: string; note?: string }
-
-/* The locked call script, written form (the audio speaks the normalized
-   form: "three hundred twelve dollars", spelled digits). */
-const TRANSCRIPT: readonly Turn[] = [
-  {
-    who: "caller",
-    text:
-      "Hi, um, I'm looking at my account and there's a charge here I definitely didn't make. Three hundred and twelve dollars. I have no idea what this is.",
-  },
-  {
-    who: "agent",
-    text:
-      "I understand, and I'll help you get to the bottom of it. An unexpected charge like that is unsettling. Before I pull up any account details, I need to verify your identity. Can you confirm the phone number or email on the account?",
-    note: "acknowledges, then verifies before any account detail",
-  },
-  { who: "caller", text: "Yeah, it's the phone ending in 4-7-1-2." },
-  { who: "agent", text: "Thank you. I'll verify that now." },
-  {
-    who: "agent",
-    text:
-      "I've confirmed your identity. I can see the $312 charge you mentioned. I can't say yet whether it's fraud until we look closer, so let's review it together. Do you recognize the merchant name, or is it completely unfamiliar?",
-    note: "careful before reassuring: not “fraud” until confirmed",
-  },
-  { who: "caller", text: "Completely unfamiliar. I've never heard of them." },
-  {
-    who: "agent",
-    text:
-      "Understood. I'm going to open a dispute on that transaction and place a temporary hold so nothing else moves on it while we investigate. You won't be held responsible for a charge you didn't authorize. I'll walk you through what happens next.",
-    note: "resolves with next steps, register held throughout",
-  },
-]
 
 function PlayGlyph() {
   return (
@@ -97,7 +59,6 @@ export default function DemoCallPlayer() {
   const analyserRef = useRef<AnalyserNode | null>(null)
   const rafRef = useRef(0)
   const levelRef = useRef(0)
-  const [mode, setMode] = useState<"chat" | "voice">("voice")
   const [callState, setCallState] = useState<CallState>("idle")
   const [attractIndex, setAttractIndex] = useState(0)
   const [volume, setVolume] = useState(0)
@@ -227,77 +188,38 @@ export default function DemoCallPlayer() {
 
   return (
     <div className="lv-agdemo" data-state={callState}>
-      <div className="lv-agdemo-top">
-        <span className="lv-agdemo-top-label">
-          Governed call &middot; Sol &middot; FS agent
-        </span>
-        <div className="lv-agdemo-toggle" role="tablist" aria-label="Demo mode">
-          <button
-            type="button"
-            role="tab"
-            className="lv-agdemo-toggle-btn"
-            aria-selected={mode === "chat"}
-            onClick={() => setMode("chat")}
-          >
-            Chat
-          </button>
-          <button
-            type="button"
-            role="tab"
-            className="lv-agdemo-toggle-btn"
-            aria-selected={mode === "voice"}
-            onClick={() => setMode("voice")}
-          >
-            Voice
-          </button>
-        </div>
-      </div>
-
-      {mode === "voice" ? (
-        <div className="lv-agdemo-voice">
-          <div className="lv-agdemo-wave-wrap">
-            <AgentAudioVisualizerWave
-              className="lv-agdemo-wave"
+      <div className="lv-agdemo-voice">
+        <div className="lv-agdemo-wave-wrap">
+          {reducedMotion ? (
+            <div className="lv-agdemo-aura lv-agdemo-aura-static" aria-hidden="true" />
+          ) : (
+            <AgentAudioVisualizerAura
+              className="lv-agdemo-aura"
               state={waveState}
-              color={WAVE_COLOR}
-              colorShift={0.25}
-              lineWidth={2}
-              volume={callState === "speaking" ? volume : undefined}
+              color={AURA_COLOR}
+              colorShift={0.3}
+              themeMode="dark"
+              volume={callState === "speaking" ? volume : 0}
               aria-hidden="true"
             />
-            {/* The state, named — reads the resting loop as a tour. */}
-            <p className="lv-agdemo-wave-state">{waveState}</p>
-          </div>
+          )}
+          {/* The state, named — reads the resting loop as a tour. */}
+          <p className="lv-agdemo-wave-state">{waveState}</p>
+        </div>
 
-          <button
-            type="button"
-            className="lv-agdemo-playpill"
-            onClick={toggle}
-            aria-label={active ? "Pause the governed call" : "Play the governed call"}
-            aria-pressed={active}
-          >
-            <span className="lv-agdemo-playpill-glyph">
-              {active ? <PauseGlyph /> : <PlayGlyph />}
-            </span>
-            <span>{pillLabel}</span>
-          </button>
-        </div>
-      ) : (
-        <div className="lv-agdemo-thread">
-          {TRANSCRIPT.map((t, i) => (
-            <div key={i} className={`lv-agdemo-row is-${t.who}`}>
-              <span className="lv-agdemo-meta">{t.who === "agent" ? "Sol" : "Caller"}</span>
-              <p className="lv-agdemo-bubble">{t.text}</p>
-              {t.note && (
-                <span className="lv-agdemo-note">
-                  <span className="lv-agdemo-note-dot" aria-hidden="true" />
-                  {t.note}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+        <button
+          type="button"
+          className="lv-agdemo-playpill"
+          onClick={toggle}
+          aria-label={active ? "Pause the governed call" : "Play the governed call"}
+          aria-pressed={active}
+        >
+          <span className="lv-agdemo-playpill-glyph">
+            {active ? <PauseGlyph /> : <PlayGlyph />}
+          </span>
+          <span>{pillLabel}</span>
+        </button>
+      </div>
 
       <audio ref={audioRef} preload="none" />
     </div>
