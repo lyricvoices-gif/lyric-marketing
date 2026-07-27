@@ -10295,7 +10295,10 @@ svg.lv-about-locations-map {
 /* ── Hero: full split (the callio build's layout) — copy panel on cream
    left, the demo stage panel on charcoal right. On mobile the panels
    stack, the stage running edge to edge. ── */
+/* This page runs its own pairing: white copy panel (not cream), sage
+   accent (not gold) against the charcoal stage. */
 .lv-agents-hero-left {
+  background: var(--surface-bright);
   padding: 48px 24px 48px;
 }
 
@@ -10368,7 +10371,7 @@ svg.lv-about-locations-map {
 }
 
 .lv-agents-cta-primary:hover {
-  background: var(--gold);
+  background: var(--sage);
   color: #2b2a25;
 }
 
@@ -10439,7 +10442,7 @@ svg.lv-about-locations-map {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--sage);
   margin-top: 6px;
 }
 
@@ -10509,7 +10512,7 @@ svg.lv-about-locations-map {
 }
 
 .lv-agdemo-toggle-btn:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--sage);
   outline-offset: 2px;
 }
 
@@ -10532,7 +10535,7 @@ svg.lv-about-locations-map {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(243, 209, 113, 0.35);
+  border: 1px solid rgba(193, 193, 126, 0.4);
   opacity: 0;
   pointer-events: none;
 }
@@ -10556,17 +10559,17 @@ svg.lv-about-locations-map {
   }
 }
 
-/* The orb: brand gradient (sage into olive, gold blooming from the lower
-   edge), breathing slowly at rest and faster while the call plays. */
+/* The orb: sage into olive with a light-sage bloom from the lower edge,
+   breathing slowly at rest and faster while the call plays. */
 .lv-agdemo-orb {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   background:
-    radial-gradient(120% 120% at 70% 80%, rgba(243, 209, 113, 0.95) 0%, rgba(243, 209, 113, 0) 46%),
-    radial-gradient(130% 130% at 28% 24%, #cdd39a 0%, #8a8f63 45%, #4a4d38 78%, #3a3d2c 100%);
+    radial-gradient(120% 120% at 70% 80%, rgba(228, 231, 183, 0.95) 0%, rgba(228, 231, 183, 0) 46%),
+    radial-gradient(130% 130% at 28% 24%, #c1c17e 0%, #7c8158 48%, #454834 80%, #34372a 100%);
   box-shadow:
-    0 40px 90px -40px rgba(243, 209, 113, 0.35),
+    0 40px 90px -40px rgba(193, 193, 126, 0.4),
     inset 0 -20px 50px rgba(43, 42, 37, 0.35);
   animation: lv-agdemo-breathe 7s ease-in-out infinite;
 }
@@ -10585,96 +10588,60 @@ svg.lv-about-locations-map {
   }
 }
 
-.lv-agdemo-actions {
-  display: flex;
-  align-items: flex-start;
-  gap: 48px;
-}
-
-.lv-agdemo-action {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.lv-agdemo-action-btn {
+/* One action: the Play call pill. Progress fills it left to right as a
+   sage underlay while the call plays. */
+.lv-agdemo-playpill {
   position: relative;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 28px;
   border: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.lv-agdemo-action-primary {
+  border-radius: 100px;
   background: var(--bg-light);
   color: #2b2a25;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
   transition: background 0.2s ease;
 }
 
-.lv-agdemo-action-primary:hover {
-  background: var(--gold);
+.lv-agdemo-playpill:hover {
+  background: var(--sage);
 }
 
-.lv-agdemo-action-secondary {
-  background: rgba(255, 248, 236, 0.07);
-  color: var(--bg-light);
-  border: 1px solid rgba(255, 248, 236, 0.4);
-  transition: border-color 0.2s ease;
+.lv-agdemo-playpill:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 3px;
 }
 
-.lv-agdemo-action-secondary:hover {
-  border-color: var(--bg-light);
-}
-
-.lv-agdemo-action-btn:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 4px;
-}
-
-/* Gold progress arc hugging the primary action while the call plays. */
-.lv-agdemo-action-ring {
+.lv-agdemo-playpill-prog {
   position: absolute;
-  inset: -5px;
-  width: calc(100% + 10px);
-  height: calc(100% + 10px);
-  transform: rotate(-90deg);
+  inset: 0;
+  background: rgba(193, 193, 126, 0.45);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.2s linear;
   pointer-events: none;
 }
 
-.lv-agdemo-action-ring-prog {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.2s linear;
-}
-
-.lv-agdemo-action-glyph {
+.lv-agdemo-playpill-glyph {
+  position: relative;
   display: inline-flex;
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
 }
 
-.lv-agdemo-action-glyph svg {
+.lv-agdemo-playpill-glyph svg {
   width: 100%;
   height: 100%;
 }
 
-.lv-agdemo-action-glyph-phone {
-  width: 22px;
-  height: 22px;
-}
-
-.lv-agdemo-action-label {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--cream-body);
+.lv-agdemo-playpill > span:last-child {
+  position: relative;
 }
 
 /* Chat mode — the governed call as a readable thread. */
@@ -10857,7 +10824,7 @@ svg.lv-about-locations-map {
 }
 
 .lv-agfaq-q:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--olive);
   outline-offset: 3px;
 }
 
@@ -10976,7 +10943,7 @@ svg.lv-about-locations-map {
     animation: none !important;
   }
 
-  .lv-agdemo-action-ring-prog {
+  .lv-agdemo-playpill-prog {
     transition: none;
   }
 

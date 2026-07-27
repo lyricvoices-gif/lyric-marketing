@@ -3,10 +3,10 @@
 /* The hero's demo panel, matching the callio build's split-hero layout:
    a Chat / Voice toggle at the top, then one mode at a time.
 
-   Voice (default): a gradient orb as the centerpiece with two labeled round
-   actions beneath it — play the governed call (functional, with a progress
-   ring) and call the agent live (links to the try path). No transcript in
-   this mode; the voice demo stays a voice instrument.
+   Voice (default): a gradient orb as the centerpiece with a single pill
+   action beneath it — Play call. No transcript in this mode; the voice
+   demo stays a voice instrument. This page runs the sage accent (the
+   design system's paired accent), not gold.
 
    Chat: the same governed call as a readable thread (the site's governed-
    chat grammar, with the governance notes). Switching modes never stops
@@ -18,13 +18,8 @@
    on the existing governed FS sample so the instrument is real. */
 
 import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
 
 const DEMO_CALL_SRC = "/GovernedSample.mp3"
-const TRY_HREF = "/start"
-
-const BTN_R = 30
-const BTN_C = 2 * Math.PI * BTN_R
 
 type Turn = { who: "caller" | "agent"; text: string; note?: string }
 
@@ -72,22 +67,6 @@ function PauseGlyph() {
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <rect x="7" y="5" width="3.5" height="14" rx="1" />
       <rect x="13.5" y="5" width="3.5" height="14" rx="1" />
-    </svg>
-  )
-}
-
-function PhoneGlyph() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.9"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   )
 }
@@ -172,49 +151,24 @@ export default function DemoCallPlayer() {
             <div className="lv-agdemo-orb" aria-hidden="true" />
           </div>
 
-          <div className="lv-agdemo-actions">
-            <div className="lv-agdemo-action">
-              <button
-                type="button"
-                className="lv-agdemo-action-btn lv-agdemo-action-primary"
-                onClick={toggle}
-                aria-label={playing ? "Pause the governed call" : "Play the governed call"}
-                aria-pressed={playing}
-              >
-                <svg className="lv-agdemo-action-ring" viewBox="0 0 64 64" aria-hidden="true">
-                  <circle
-                    className="lv-agdemo-action-ring-prog"
-                    cx="32"
-                    cy="32"
-                    r={BTN_R}
-                    style={{
-                      strokeDasharray: BTN_C,
-                      strokeDashoffset: BTN_C * (1 - progress),
-                    }}
-                  />
-                </svg>
-                <span className="lv-agdemo-action-glyph">
-                  {playing ? <PauseGlyph /> : <PlayGlyph />}
-                </span>
-              </button>
-              <span className="lv-agdemo-action-label">
-                {playing ? "Playing" : "Play the call"}
-              </span>
-            </div>
-
-            <div className="lv-agdemo-action">
-              <Link
-                href={TRY_HREF}
-                className="lv-agdemo-action-btn lv-agdemo-action-secondary"
-                aria-label="Call the agent live"
-              >
-                <span className="lv-agdemo-action-glyph lv-agdemo-action-glyph-phone">
-                  <PhoneGlyph />
-                </span>
-              </Link>
-              <span className="lv-agdemo-action-label">Call it live</span>
-            </div>
-          </div>
+          <button
+            type="button"
+            className="lv-agdemo-playpill"
+            onClick={toggle}
+            aria-label={playing ? "Pause the governed call" : "Play the governed call"}
+            aria-pressed={playing}
+          >
+            {/* Progress fills the pill's hairline underlay while playing. */}
+            <span
+              className="lv-agdemo-playpill-prog"
+              style={{ transform: `scaleX(${playing ? progress : 0})` }}
+              aria-hidden="true"
+            />
+            <span className="lv-agdemo-playpill-glyph">
+              {playing ? <PauseGlyph /> : <PlayGlyph />}
+            </span>
+            <span>{playing ? "Pause" : "Play call"}</span>
+          </button>
         </div>
       ) : (
         <div className="lv-agdemo-thread">
