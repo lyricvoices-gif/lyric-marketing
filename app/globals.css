@@ -10330,3 +10330,629 @@ svg.lv-about-locations-map {
   font-style: italic;
   font-display: swap;
 }
+
+/* ═══ Prebuilt Agents (/agents) ═════════════════════════════════════════════
+   Replaces Voices & Sounds. Lead: the governed FS dispute call as a playable
+   dark call-card beside the scenario copy and the what-to-listen-for rail;
+   then the voice roster on the bright surface, the governance story on
+   charcoal, verticals, the pricing-pattern FAQ, and the dark final CTA.
+   Light regime on cream/bright, dark regime on charcoal, per CLAUDE.md. */
+
+.lv-agents {
+  background: var(--bg-light);
+  color: var(--olive);
+}
+
+.lv-agents-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.lv-agents-inner-narrow {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ── Hero: full split (the callio build's layout) — copy panel on cream
+   left, the demo stage panel on charcoal right. On mobile the panels
+   stack, the stage running edge to edge. ── */
+/* The copy panel takes the home hero's floret ground (class applied in
+   markup — no background here or it would override lv-floret-ground);
+   the page accent is sage, not gold, against the charcoal stage. */
+.lv-agents-hero-left {
+  padding: 48px 24px 48px;
+}
+
+.lv-agents-hero-copy {
+  max-width: 560px;
+}
+
+.lv-agents-hero-right {
+  background: #2b2a25;
+  padding: 32px 24px 48px;
+}
+
+/* The reveal wrapper between panel and demo must span the panel. */
+.lv-agents-hero-right > div {
+  width: 100%;
+}
+
+.lv-agents-hero .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+.lv-agents-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.6vw, 54px);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.08;
+  color: var(--olive);
+  margin: 0 0 18px;
+  max-width: 16ch;
+}
+
+.lv-agents-headline em {
+  font-family: inherit;
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-agents-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-1);
+  margin: 0 0 28px;
+  max-width: 44ch;
+}
+
+.lv-agents-cta-row {
+  margin: 0;
+}
+
+.lv-agents-cta-primary,
+.lv-agents-cta-outline {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+
+.lv-agents-cta-primary {
+  background: var(--olive-deep);
+  color: var(--bg-light);
+  border: 1px solid transparent;
+}
+
+.lv-agents-cta-primary:hover {
+  background: var(--sage);
+  color: #2b2a25;
+}
+
+.lv-agents-cta-outline {
+  background: transparent;
+  color: var(--olive);
+  border: 1px solid rgba(90, 94, 67, 0.45);
+}
+
+.lv-agents-cta-outline:hover {
+  border-color: var(--olive);
+}
+
+/* Outline variant on the dark final section. */
+.lv-agents-cta-outline-dark {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--bg-light);
+  border: 1px solid rgba(255, 248, 236, 0.4);
+  transition: border-color 0.22s ease;
+}
+
+.lv-agents-cta-outline-dark:hover {
+  border-color: var(--bg-light);
+}
+
+/* What to listen for — the governed behaviors as a slim strip under the
+   hero (4-across on desktop). */
+.lv-agents-listenfor {
+  padding: 56px 24px 72px;
+}
+
+.lv-agents-listenfor .lv-agents-inner {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+.lv-agents-listenfor-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+  margin: 0 0 22px;
+}
+
+.lv-agents-listenfor-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.lv-agents-listenfor-item {
+  display: flex;
+  gap: 12px;
+}
+
+.lv-agents-listenfor-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sage);
+  margin-top: 6px;
+}
+
+.lv-agents-listenfor-label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--olive);
+  margin: 0 0 2px;
+}
+
+.lv-agents-listenfor-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(90, 94, 67, 0.88);
+  margin: 0;
+}
+
+/* ── The demo stage panel — Chat / Voice toggle, then one mode at a time. ── */
+.lv-agdemo {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.lv-agdemo-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 28px;
+}
+
+.lv-agdemo-top-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-body);
+}
+
+.lv-agdemo-toggle {
+  display: inline-flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 100px;
+  background: rgba(255, 248, 236, 0.08);
+}
+
+.lv-agdemo-toggle-btn {
+  border: 0;
+  background: transparent;
+  border-radius: 100px;
+  padding: 7px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream-body);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lv-agdemo-toggle-btn[aria-selected="true"] {
+  background: var(--bg-light);
+  color: #2b2a25;
+}
+
+.lv-agdemo-toggle-btn:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+}
+
+/* Voice mode — the LiveKit Agents UI wave as the agent's visual
+   personality (vendored, components/agents-ui). At rest it tours the
+   agent's states on a loop; during the call it speaks with the audio. */
+.lv-agdemo-voice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0 4px;
+}
+
+.lv-agdemo-wave-wrap {
+  width: 100%;
+  margin: 16px 0 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The shader canvas fills this box. */
+.lv-agdemo-wave {
+  width: 100%;
+  height: 240px;
+}
+
+/* The current state, named — the quiet caption under the wave. */
+.lv-agdemo-wave-state {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-body);
+  margin: 4px 0 0;
+}
+
+/* One action: the Play call pill. */
+.lv-agdemo-playpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 100px;
+  background: var(--bg-light);
+  color: #2b2a25;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lv-agdemo-playpill:hover {
+  background: var(--sage);
+}
+
+.lv-agdemo-playpill:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 3px;
+}
+
+.lv-agdemo-playpill-glyph {
+  position: relative;
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+}
+
+.lv-agdemo-playpill-glyph svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Chat mode — the governed call as a readable thread. */
+.lv-agdemo-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.lv-agdemo-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lv-agdemo-row.is-caller {
+  align-items: flex-end;
+}
+
+.lv-agdemo-meta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-body);
+  margin: 0 0 5px 8px;
+}
+
+.lv-agdemo-row.is-caller .lv-agdemo-meta {
+  margin: 0 8px 5px 0;
+}
+
+.lv-agdemo-bubble {
+  max-width: 92%;
+  padding: 11px 15px;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--cream-body);
+  margin: 0;
+}
+
+.lv-agdemo-row.is-agent .lv-agdemo-bubble {
+  background: rgba(255, 248, 236, 0.05);
+  border: 1px solid rgba(255, 248, 236, 0.12);
+  border-bottom-left-radius: 5px;
+}
+
+.lv-agdemo-row.is-caller .lv-agdemo-bubble {
+  background: rgba(255, 248, 236, 0.13);
+  border-bottom-right-radius: 5px;
+}
+
+.lv-agdemo-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 6px 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--cream-body);
+}
+
+.lv-agdemo-note-dot {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+/* ── Section shells ── */
+.lv-agents-section-head {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--olive);
+  margin: 0 0 44px;
+}
+
+.lv-agents-section-head em {
+  font-family: inherit;
+  font-style: italic;
+  color: inherit;
+}
+
+.lv-agents-section-head-cream {
+  color: var(--bg-light);
+}
+
+.lv-agents-roster {
+  background: var(--surface-bright);
+  border-top: 1px solid var(--border);
+  padding: 104px 24px;
+}
+
+.lv-agents-roster .lv-philosophy-eyebrow,
+.lv-agents-gov .lv-philosophy-eyebrow,
+.lv-agents-faq .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+/* The voice gallery reuses the Voices-page lv-vtile treatment (accent
+   top-rule, 60px play ring, hover-reveal description) — those styles live
+   in the gallery block above. On the bright roster surface the tiles keep
+   their cream-mix hover; the seam is invisible at 10% accent. */
+
+/* ── Governance story (charcoal) ── */
+.lv-agents-gov {
+  padding: 112px 24px;
+  color: var(--bg-light);
+}
+
+.lv-agents-gov-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.lv-agents-gov-title {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 2vw, 22px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.25;
+  color: var(--bg-light);
+  margin: 0 0 12px;
+}
+
+.lv-agents-gov-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--cream-body);
+  margin: 0;
+}
+
+/* ── FAQ accordion — first item open by default (AgentsFaq). Open/close
+   animates via 0fr -> 1fr grid rows; gated for reduced motion below. ── */
+.lv-agents-faq {
+  padding: 104px 24px 120px;
+}
+
+.lv-agfaq {
+  border-top: 1px solid var(--border);
+}
+
+.lv-agfaq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.lv-agfaq-h {
+  margin: 0;
+}
+
+.lv-agfaq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--olive);
+  transition: color 0.2s ease;
+}
+
+.lv-agfaq-q:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+}
+
+.lv-agfaq-chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--ink-label);
+  transition: transform 0.3s ease;
+}
+
+.lv-agfaq-item.is-open .lv-agfaq-chevron {
+  transform: rotate(180deg);
+}
+
+.lv-agfaq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.lv-agfaq-item.is-open .lv-agfaq-panel {
+  grid-template-rows: 1fr;
+}
+
+.lv-agfaq-panel-inner {
+  overflow: hidden;
+  /* visibility flips discretely at the transition edges, keeping the closed
+     answer out of the tab/reading order without a display toggle. */
+  visibility: hidden;
+  transition: visibility 0.35s;
+}
+
+.lv-agfaq-item.is-open .lv-agfaq-panel-inner {
+  visibility: visible;
+}
+
+.lv-agfaq-a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(90, 94, 67, 0.88);
+  margin: 0;
+  padding: 0 0 24px;
+  max-width: 68ch;
+}
+
+/* ── Get-started stub ── */
+.lv-agents-start {
+  background: var(--bg-light);
+  color: var(--olive);
+}
+
+.lv-agents-start-hero {
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 24px 96px;
+}
+
+.lv-agents-start-hero .lv-philosophy-eyebrow {
+  margin: 0 0 22px;
+}
+
+/* ── Desktop ── */
+@media (min-width: 1000px) {
+  /* Full split at viewport scale: two equal panels, both contents centered.
+     64px = the main wrapper's nav clearance above the hero. */
+  .lv-agents-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: min(calc(100vh - 64px), 860px);
+  }
+
+  .lv-agents-hero-left {
+    display: flex;
+    align-items: center;
+    padding: 56px 64px 72px max(calc((100vw - 1280px) / 2), 32px);
+  }
+
+  .lv-agents-hero-copy {
+    max-width: 520px;
+  }
+
+  .lv-agents-hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px max(calc((100vw - 1280px) / 2), 32px) 56px 64px;
+  }
+
+  .lv-agents-listenfor {
+    padding: 64px 32px 88px;
+  }
+
+  .lv-agdemo-wave {
+    height: 320px;
+  }
+
+  .lv-agents-listenfor-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .lv-agents-roster,
+  .lv-agents-gov {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .lv-agents-gov-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The wave is pinned to its still pose in JS (state "disconnected"). */
+
+  .lv-agfaq-chevron,
+  .lv-agfaq-panel,
+  .lv-agfaq-panel-inner {
+    transition: none !important;
+  }
+}

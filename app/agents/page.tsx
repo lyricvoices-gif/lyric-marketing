@@ -1,0 +1,287 @@
+/* Prebuilt agents (/agents) — replaces the Voices & Sounds page. The pitch:
+   adopt an agent Callio has already built and governed for your vertical and
+   run it without going through intake. Financial Services is live; other
+   verticals are signaled as coming.
+
+   The page practices what Callio sells: self-service first. The lead is the
+   playable governed dispute call (the page's strongest asset) with the two
+   primary CTAs attached at peak intent; the FAQ absorbs the questions that
+   would otherwise force a sales call; talking to us is the escape hatch at
+   the bottom, not the front door.
+
+   Structure: compact split hero (scenario copy + CTAs left, playable call
+   right, viewport-scale) -> what-to-listen-for strip -> voice gallery (Sol /
+   Sam / James in the Voices-page lv-vtile treatment, no provider badges) ->
+   the governance story for the compliance reader -> the home page's verticals
+   section minus Financial Services -> self-service FAQ accordion (first item
+   open) -> final CTA.
+
+   PLACEHOLDERS (marked): demo audio is the governed-sample stand-in until
+   the produced call ships (scripts/generate-fs-demo-call.mjs); the
+   get-started route is a stub; TRY_HREF shares the site's existing /start
+   destination; Sam/James gallery sample URLs follow the callio
+   produced-audio convention but are unverified from this environment. */
+
+import type { Metadata } from "next"
+import Link from "next/link"
+import ScrollReveal from "@/components/ScrollReveal"
+import DemoCallPlayer from "@/components/agents/DemoCallPlayer"
+import AgentsVoicesGallery from "@/components/agents/AgentsVoicesGallery"
+import AgentsFaq from "@/components/agents/AgentsFaq"
+import VerticalsSection from "@/components/VerticalsSection"
+
+export const metadata: Metadata = {
+  title: "Agents",
+  description:
+    "Prebuilt, governed AI agents by vertical. Financial Services is live: a dispute-call agent that verifies before it discloses, stays on brand under stress, and is ready to adopt without an intake engagement.",
+}
+
+const DARK = "#2b2a25"
+
+/* Try path: the site's existing try destination. Get-started: route stub,
+   checkout mechanics to be designed. Both placeholders, both marked. */
+const TRY_HREF = "/start"
+const GET_STARTED_HREF = "/agents/get-started"
+const CONTACT_HREF = "mailto:info@lyricvoices.ai?subject=Prebuilt%20FS%20agent"
+
+const LISTEN_FOR = [
+  {
+    label: "Acknowledge before process",
+    body: "She meets the situation first. The workflow starts only after the caller has been heard.",
+  },
+  {
+    label: "Verify before disclose",
+    body: "No account detail crosses her lips until identity is confirmed. A hard gate, not a habit.",
+  },
+  {
+    label: "Careful before reassuring",
+    body: "She will not call it fraud before it is confirmed. Comfort never outruns the facts.",
+  },
+  {
+    label: "Composed throughout",
+    body: "The register holds from hello to resolution, under a stressed caller, at every turn.",
+  },
+] as const
+
+const GOVERNANCE = [
+  {
+    title: "Verify before disclose, enforced in code",
+    body:
+      "Identity verification is a gate in the call flow, not a suggestion to the model. The agent cannot read an account detail before the gate passes, on any call, in any mood the model is in.",
+  },
+  {
+    title: "Character that cannot drift",
+    body:
+      "Sol's register, acknowledge, verify, review, resolve, is specified in the governed spec, not improvised per call. The thousandth call sounds like the first one.",
+  },
+  {
+    title: "Every call accountable",
+    body:
+      "Each call records what was said, which disclosures were delivered, and which spec version governed it. When compliance asks why the agent said something, there is an answer.",
+  },
+] as const
+
+const FAQ = [
+  {
+    q: "What does the agent include out of the box?",
+    a: "The governed Financial Services build: the verify-before-disclose call flow, dispute and hold handling, the FS pronunciation and voice output standards, disclosure delivery, and a produced voice (Sol, Sam, or James) held to the governed register. It is the same agent behind the demo on this page.",
+  },
+  {
+    q: "What do we still provide?",
+    a: "The words your counsel owns: your exact disclosure lines and your identity-verification policy, plus your brand name and terms. The agent arrives governed; your counsel approves the specific language it is required to say.",
+  },
+  {
+    q: "How does it connect to our systems?",
+    a: "The agent sits above your telephony and account systems. Verification checks and account lookups call your endpoints at call time; the governance layer stays vendor-agnostic across models and speech engines, so it is not a rip-and-replace of your stack.",
+  },
+  {
+    q: "How is it priced?",
+    a: "Governance is priced by the number of agents you govern, the same agent-based model on our pricing page. Specific pricing for prebuilt vertical agents is being finalized; the get-started flow will carry it when it ships.",
+  },
+  {
+    q: "What about data and compliance?",
+    a: "Callio governs what the agent says and records how it said it. It is brand-voice governance monitoring, not security or compliance certification. Your account systems and customer data stay in your stack; the agent reads from them at call time through your integration.",
+  },
+  {
+    q: "Can we change the voice or the wording?",
+    a: "Both. Pick Sol, Sam, or James for delivery, and your counsel's disclosure and verification wording drops into the spec. The governed register holds either way.",
+  },
+]
+
+export default function AgentsPage() {
+  return (
+    <main className="lv-agents">
+      {/* ── Split hero (the callio build's layout): copy panel left, the demo
+           stage right — Chat / Voice toggle, orb-led voice mode by default. ── */}
+      <section className="lv-agents-hero">
+        {/* Same ground as the home hero (lv-floret-ground) so the band under
+            the nav reads continuous with the rest of the site's top. */}
+        <div className="lv-agents-hero-left lv-floret-ground">
+          <div className="lv-agents-hero-copy">
+            <ScrollReveal>
+              <div className="lv-philosophy-eyebrow">
+                <span className="lv-eyebrow-dot" aria-hidden="true" />
+                <span>Prebuilt agents &middot; Financial Services</span>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <h1 className="lv-agents-headline">
+                A caller reports a charge they{" "}
+                <em>don&rsquo;t recognize</em>.
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <p className="lv-agents-sub">
+                This is how a governed Financial Services agent handles it.
+                Already built, already governed, ready to adopt without an
+                intake engagement.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={280}>
+              <div className="lv-cta-row lv-agents-cta-row">
+                <Link href={TRY_HREF} className="lv-cta lv-agents-cta-primary">
+                  Try the agent live
+                </Link>
+                <Link href={GET_STARTED_HREF} className="lv-cta lv-agents-cta-outline">
+                  Get started with this agent
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+
+        <div className="lv-agents-hero-right">
+          <ScrollReveal delay={160}>
+            <DemoCallPlayer />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── What to listen for: the governed behaviors, as a slim strip. ── */}
+      <section className="lv-agents-listenfor" aria-label="What to listen for">
+        <div className="lv-agents-inner">
+          <ScrollReveal>
+            <p className="lv-agents-listenfor-head">What to listen for</p>
+          </ScrollReveal>
+          <div className="lv-agents-listenfor-grid">
+            {LISTEN_FOR.map((l, i) => (
+              <ScrollReveal key={l.label} delay={80 + i * 80}>
+                <div className="lv-agents-listenfor-item">
+                  <span className="lv-agents-listenfor-dot" aria-hidden="true" />
+                  <div>
+                    <p className="lv-agents-listenfor-label">{l.label}</p>
+                    <p className="lv-agents-listenfor-body">{l.body}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── The voices: the gallery-tile treatment. No provider badges. ── */}
+      <section className="lv-agents-roster">
+        <div className="lv-agents-inner-narrow">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>The voices</span>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <h2 className="lv-agents-section-head">
+              Same agent. <em>You choose who delivers it.</em>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={160}>
+            <AgentsVoicesGallery />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── The governance story, for the compliance reader. Dark. ── */}
+      <section className="lv-agents-gov" style={{ background: DARK }}>
+        <div className="lv-agents-inner-narrow">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>The proof behind the proof</span>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <h2 className="lv-agents-section-head lv-agents-section-head-cream">
+              What <em>governed</em> means here.
+            </h2>
+          </ScrollReveal>
+
+          <div className="lv-agents-gov-grid">
+            {GOVERNANCE.map((g, i) => (
+              <ScrollReveal key={g.title} delay={140 + i * 90}>
+                <div className="lv-agents-gov-item">
+                  <h3 className="lv-agents-gov-title">{g.title}</h3>
+                  <p className="lv-agents-gov-body">{g.body}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── The verticals: the home page's section, minus Financial Services
+           (this page already covers it). ── */}
+      <VerticalsSection exclude={["Financial Services"]} />
+
+      {/* ── Self-service FAQ: accordion, first item open. ── */}
+      <section className="lv-agents-faq">
+        <div className="lv-agents-inner-narrow">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>Before you ask sales</span>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <h2 className="lv-agents-section-head">
+              The answers, <em>self-served</em>.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={160}>
+            <AgentsFaq items={FAQ} />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Final CTA: try / adopt primary, talk-to-us the escape hatch. ── */}
+      <section className="lv-final" style={{ background: DARK }}>
+        <ScrollReveal>
+          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>Prebuilt &middot; governed &middot; ready</span>
+          </div>
+          <h2>
+            <span className="lv-final-line">The agent is built.</span>
+            <br />
+            <span className="lv-final-line">
+              <em>Make it yours.</em>
+            </span>
+          </h2>
+          <div className="lv-cta-row lv-cta-row-center">
+            <Link href={GET_STARTED_HREF} className="lv-cta lv-about-close-cta">
+              Get started
+            </Link>
+            <Link href={TRY_HREF} className="lv-cta lv-agents-cta-outline-dark">
+              Try it live
+            </Link>
+          </div>
+          <p className="lv-about-hiring">
+            Questions the FAQ did not answer?{" "}
+            <a href={CONTACT_HREF} className="lv-about-hiring-link">
+              Talk to us
+            </a>
+            .
+          </p>
+        </ScrollReveal>
+      </section>
+    </main>
+  )
+}

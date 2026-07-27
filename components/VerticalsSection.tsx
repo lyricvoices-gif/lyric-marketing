@@ -9,7 +9,7 @@
 import ScrollReveal from "@/components/ScrollReveal"
 import VerticalsCarousel from "@/components/verticals/VerticalsCarousel"
 
-export default function VerticalsSection() {
+export default function VerticalsSection({ exclude }: { exclude?: string[] }) {
   return (
     <section className="lv-vert-section">
       <div className="lv-vert-inner">
@@ -33,7 +33,7 @@ export default function VerticalsSection() {
         </div>
 
         <ScrollReveal delay={140}>
-          <VerticalsCarousel />
+          <VerticalsCarousel exclude={exclude} />
         </ScrollReveal>
       </div>
     </section>

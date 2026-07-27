@@ -86,10 +86,13 @@ const SAME_POS = 40
 
 type Position = { left: number; cardIndex: number }
 
-export default function VerticalsCarousel() {
+/* `exclude` drops named verticals (by headline) — the agents page reuses this
+   section minus Financial Services, which that page already covers. */
+export default function VerticalsCarousel({ exclude = [] }: { exclude?: string[] }) {
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
   const [positions, setPositions] = useState<Position[]>([])
+  const verticals = VERTICALS.filter((v) => !exclude.includes(v.headline))
 
   useEffect(() => {
     const el = trackRef.current
@@ -153,7 +156,7 @@ export default function VerticalsCarousel() {
   return (
     <div className="lv-vert-carousel">
       <div className="lv-vert-track" ref={trackRef}>
-        {VERTICALS.map((v) => (
+        {verticals.map((v) => (
           <VerticalCard
             key={v.headline}
             label={v.label}
@@ -181,7 +184,7 @@ export default function VerticalsCarousel() {
               role="tab"
               className={`lv-vert-dot${i === active ? " is-active" : ""}`}
               aria-selected={i === active}
-              aria-label={`Show ${VERTICALS[p.cardIndex].headline}`}
+              aria-label={`Show ${verticals[p.cardIndex].headline}`}
               onClick={() => goTo(p)}
             />
           ))}
