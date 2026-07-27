@@ -189,6 +189,11 @@ export default function DemoCallPlayer() {
   return (
     <div className="lv-agdemo" data-state={callState}>
       <div className="lv-agdemo-voice">
+        <div className="lv-agdemo-eyebrow">
+          <span className="lv-eyebrow-dot" aria-hidden="true" />
+          <span>Example call with FS Agent</span>
+        </div>
+
         <div className="lv-agdemo-wave-wrap">
           {reducedMotion ? (
             <div className="lv-agdemo-aura lv-agdemo-aura-static" aria-hidden="true" />
