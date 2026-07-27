@@ -1,14 +1,16 @@
 "use client"
 
-/* The FS Agents page's lead instrument: the governed dispute call, playable,
-   with its transcript laid out as the site's governed-chat grammar and a
-   "what to listen for" rail naming the governed behaviors the call
-   demonstrates. Play-on-click, one shared audio element, gold progress ring
-   (the site's featured-stage conventions).
+/* The hero's demo panel, matching the callio build's split-hero layout:
+   a Chat / Voice toggle at the top, then one mode at a time.
 
-   The transcript is static in v1 (all turns visible). The produced per-line
-   clips are kept in the pipeline output so a transcript-synced player can
-   follow once line timings exist.
+   Voice (default): a gradient orb as the centerpiece with two labeled round
+   actions beneath it — play the governed call (functional, with a progress
+   ring) and call the agent live (links to the try path). No transcript in
+   this mode; the voice demo stays a voice instrument.
+
+   Chat: the same governed call as a readable thread (the site's governed-
+   chat grammar, with the governance notes). Switching modes never stops
+   playback — the audio element is shared and lives outside the modes.
 
    DEMO_CALL_SRC: STAND-IN. The produced two-voice call (Sol + caller,
    scripts/generate-fs-demo-call.mjs) replaces this with its R2 URL, path
@@ -16,11 +18,13 @@
    on the existing governed FS sample so the instrument is real. */
 
 import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 
 const DEMO_CALL_SRC = "/GovernedSample.mp3"
+const TRY_HREF = "/start"
 
-const STAGE_R = 54
-const STAGE_C = 2 * Math.PI * STAGE_R
+const BTN_R = 30
+const BTN_C = 2 * Math.PI * BTN_R
 
 type Turn = { who: "caller" | "agent"; text: string; note?: string }
 
@@ -72,8 +76,25 @@ function PauseGlyph() {
   )
 }
 
+function PhoneGlyph() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  )
+}
+
 export default function DemoCallPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [mode, setMode] = useState<"chat" | "voice">("voice")
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
 
@@ -117,57 +138,100 @@ export default function DemoCallPlayer() {
 
   return (
     <div className={`lv-agdemo${playing ? " is-playing" : ""}`}>
-      <div className="lv-agdemo-bar">
-        <span className="lv-agdemo-bar-label">Governed call &middot; Financial Services</span>
-        <span className="lv-agdemo-bar-agent">Sol &middot; FS agent</span>
-      </div>
-
-      <div className="lv-agdemo-stage">
-        <div className="lv-agdemo-instrument">
-          <span className="lv-agdemo-pulse lv-agdemo-pulse-1" aria-hidden="true" />
-          <span className="lv-agdemo-pulse lv-agdemo-pulse-2" aria-hidden="true" />
+      <div className="lv-agdemo-top">
+        <span className="lv-agdemo-top-label">
+          Governed call &middot; Sol &middot; FS agent
+        </span>
+        <div className="lv-agdemo-toggle" role="tablist" aria-label="Demo mode">
           <button
             type="button"
-            className={`lv-agdemo-play${playing ? " is-playing" : ""}`}
-            onClick={toggle}
-            aria-label={playing ? "Pause the governed call" : "Play the governed call"}
-            aria-pressed={playing}
+            role="tab"
+            className="lv-agdemo-toggle-btn"
+            aria-selected={mode === "chat"}
+            onClick={() => setMode("chat")}
           >
-            <svg className="lv-agdemo-ring" viewBox="0 0 116 116" aria-hidden="true">
-              <circle className="lv-agdemo-ring-track" cx="58" cy="58" r={STAGE_R} />
-              <circle
-                className="lv-agdemo-ring-prog"
-                cx="58"
-                cy="58"
-                r={STAGE_R}
-                style={{
-                  strokeDasharray: STAGE_C,
-                  strokeDashoffset: STAGE_C * (1 - progress),
-                }}
-              />
-            </svg>
-            <span className="lv-agdemo-glyph">{playing ? <PauseGlyph /> : <PlayGlyph />}</span>
+            Chat
+          </button>
+          <button
+            type="button"
+            role="tab"
+            className="lv-agdemo-toggle-btn"
+            aria-selected={mode === "voice"}
+            onClick={() => setMode("voice")}
+          >
+            Voice
           </button>
         </div>
-        <p className="lv-agdemo-listen-hint">
-          A caller disputes a charge. Sol answers. Press play.
-        </p>
       </div>
 
-      <div className="lv-agdemo-thread">
-        {TRANSCRIPT.map((t, i) => (
-          <div key={i} className={`lv-agdemo-row is-${t.who}`}>
-            <span className="lv-agdemo-meta">{t.who === "agent" ? "Sol" : "Caller"}</span>
-            <p className="lv-agdemo-bubble">{t.text}</p>
-            {t.note && (
-              <span className="lv-agdemo-note">
-                <span className="lv-agdemo-note-dot" aria-hidden="true" />
-                {t.note}
-              </span>
-            )}
+      {mode === "voice" ? (
+        <div className="lv-agdemo-voice">
+          <div className="lv-agdemo-orb-wrap">
+            <span className="lv-agdemo-pulse lv-agdemo-pulse-1" aria-hidden="true" />
+            <span className="lv-agdemo-pulse lv-agdemo-pulse-2" aria-hidden="true" />
+            <div className="lv-agdemo-orb" aria-hidden="true" />
           </div>
-        ))}
-      </div>
+
+          <div className="lv-agdemo-actions">
+            <div className="lv-agdemo-action">
+              <button
+                type="button"
+                className="lv-agdemo-action-btn lv-agdemo-action-primary"
+                onClick={toggle}
+                aria-label={playing ? "Pause the governed call" : "Play the governed call"}
+                aria-pressed={playing}
+              >
+                <svg className="lv-agdemo-action-ring" viewBox="0 0 64 64" aria-hidden="true">
+                  <circle
+                    className="lv-agdemo-action-ring-prog"
+                    cx="32"
+                    cy="32"
+                    r={BTN_R}
+                    style={{
+                      strokeDasharray: BTN_C,
+                      strokeDashoffset: BTN_C * (1 - progress),
+                    }}
+                  />
+                </svg>
+                <span className="lv-agdemo-action-glyph">
+                  {playing ? <PauseGlyph /> : <PlayGlyph />}
+                </span>
+              </button>
+              <span className="lv-agdemo-action-label">
+                {playing ? "Playing" : "Play the call"}
+              </span>
+            </div>
+
+            <div className="lv-agdemo-action">
+              <Link
+                href={TRY_HREF}
+                className="lv-agdemo-action-btn lv-agdemo-action-secondary"
+                aria-label="Call the agent live"
+              >
+                <span className="lv-agdemo-action-glyph lv-agdemo-action-glyph-phone">
+                  <PhoneGlyph />
+                </span>
+              </Link>
+              <span className="lv-agdemo-action-label">Call it live</span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="lv-agdemo-thread">
+          {TRANSCRIPT.map((t, i) => (
+            <div key={i} className={`lv-agdemo-row is-${t.who}`}>
+              <span className="lv-agdemo-meta">{t.who === "agent" ? "Sol" : "Caller"}</span>
+              <p className="lv-agdemo-bubble">{t.text}</p>
+              {t.note && (
+                <span className="lv-agdemo-note">
+                  <span className="lv-agdemo-note-dot" aria-hidden="true" />
+                  {t.note}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       <audio ref={audioRef} preload="none" />
     </div>

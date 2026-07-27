@@ -111,9 +111,10 @@ const FAQ = [
 export default function AgentsPage() {
   return (
     <main className="lv-agents">
-      {/* ── Compact split hero: scenario + CTAs left, the playable call right. ── */}
+      {/* ── Split hero (the callio build's layout): copy panel left, the demo
+           stage right — Chat / Voice toggle, orb-led voice mode by default. ── */}
       <section className="lv-agents-hero">
-        <div className="lv-agents-inner">
+        <div className="lv-agents-hero-left">
           <div className="lv-agents-hero-copy">
             <ScrollReveal>
               <div className="lv-philosophy-eyebrow">
@@ -134,8 +135,6 @@ export default function AgentsPage() {
                 intake engagement.
               </p>
             </ScrollReveal>
-
-            {/* Peak intent: the CTAs live with the demo. */}
             <ScrollReveal delay={280}>
               <div className="lv-cta-row lv-agents-cta-row">
                 <Link href={TRY_HREF} className="lv-cta lv-agents-cta-primary">
@@ -147,7 +146,9 @@ export default function AgentsPage() {
               </div>
             </ScrollReveal>
           </div>
+        </div>
 
+        <div className="lv-agents-hero-right">
           <ScrollReveal delay={160}>
             <DemoCallPlayer />
           </ScrollReveal>
