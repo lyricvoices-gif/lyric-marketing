@@ -10469,12 +10469,14 @@ svg.lv-about-locations-map {
   margin: 0 auto;
 }
 
+/* Centered header: the call label, the mode toggle beneath it. */
 .lv-agdemo-top {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
-  margin: 0 0 28px;
+  margin: 0 0 12px;
+  text-align: center;
 }
 
 .lv-agdemo-top-label {
@@ -10516,28 +10518,44 @@ svg.lv-about-locations-map {
   outline-offset: 2px;
 }
 
-/* Voice mode — the LiveKit Agents UI wave as the agent's visual
+/* Voice mode — the LiveKit Agents UI aura as the agent's visual
    personality (vendored, components/agents-ui). At rest it tours the
-   agent's states on a loop; during the call it speaks with the audio. */
+   agent's states on a loop; during the call it speaks with the audio.
+   Everything in the column is centered. */
 .lv-agdemo-voice {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 0 4px;
+  padding: 0 0 4px;
 }
 
 .lv-agdemo-wave-wrap {
   width: 100%;
-  margin: 16px 0 36px;
+  margin: 0 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* The shader canvas fills this box. */
-.lv-agdemo-wave {
-  width: 100%;
-  height: 240px;
+/* The shader canvas fills this square box. Explicit height (not
+   aspect-ratio): the canvas's intrinsic size would otherwise stretch the
+   box and feed a resize loop. */
+.lv-agdemo-aura {
+  --aura-size: min(300px, 64vw);
+  width: var(--aura-size);
+  height: var(--aura-size);
+  overflow: hidden;
+}
+
+/* Reduced-motion stand-in: the aura's still pose as a soft sage disc. */
+.lv-agdemo-aura-static {
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(193, 193, 126, 0.55) 0%,
+    rgba(193, 193, 126, 0.2) 55%,
+    rgba(193, 193, 126, 0) 100%
+  );
 }
 
 /* The current state, named — the quiet caption under the wave. */
@@ -10836,18 +10854,17 @@ svg.lv-about-locations-map {
 
 /* ── Desktop ── */
 @media (min-width: 1000px) {
-  /* Full split at viewport scale: two equal panels, both contents centered.
-     64px = the main wrapper's nav clearance above the hero. */
+  /* Full split, natural height: the panels are only as tall as the demo
+     content needs, like the header band on other pages. */
   .lv-agents-hero {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    min-height: min(calc(100vh - 64px), 860px);
   }
 
   .lv-agents-hero-left {
     display: flex;
     align-items: center;
-    padding: 56px 64px 72px max(calc((100vw - 1280px) / 2), 32px);
+    padding: 56px 64px 64px max(calc((100vw - 1280px) / 2), 32px);
   }
 
   .lv-agents-hero-copy {
@@ -10858,15 +10875,11 @@ svg.lv-about-locations-map {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 48px max(calc((100vw - 1280px) / 2), 32px) 56px 64px;
+    padding: 40px max(calc((100vw - 1280px) / 2), 32px) 48px 64px;
   }
 
   .lv-agents-listenfor {
     padding: 64px 32px 88px;
-  }
-
-  .lv-agdemo-wave {
-    height: 320px;
   }
 
   .lv-agents-listenfor-grid {

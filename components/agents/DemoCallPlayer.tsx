@@ -3,15 +3,17 @@
 /* The hero's demo panel: a Chat / Voice toggle at the top, then one mode
    at a time.
 
-   Voice (default): the LiveKit Agents UI wave (vendored under
+   Voice (default): the LiveKit Agents UI aura (vendored under
    components/agents-ui) is the agent's visual personality. At rest it
    demos the agent's states on a loop — connecting, listening, speaking,
    thinking, a few seconds each — until the visitor presses Play call;
    then it holds the speaking state for the duration of the call, with
-   the wave's amplitude driven by the call's live level (WebAudio
-   analyser). One pill action beneath it, Play call. Sage accent.
+   the aura's scale driven by the call's live level (WebAudio analyser).
+   One pill action beneath it, Play call. Sage accent. Under reduced
+   motion the shader (which animates continuously) is replaced with a
+   still sage disc. */
 
-   Chat: the same governed call as a readable thread (the site's governed-
+/* Chat: the same governed call as a readable thread (the site's governed-
    chat grammar, with the governance notes). Switching modes never stops
    playback — the audio element is shared and lives outside the modes.
 
@@ -22,13 +24,13 @@
 
 import { useEffect, useRef, useState } from "react"
 
-import { AgentAudioVisualizerWave } from "@/components/agents-ui/agent-audio-visualizer-wave"
+import { AgentAudioVisualizerAura } from "@/components/agents-ui/agent-audio-visualizer-aura"
 import { type AgentState } from "@/components/agents-ui/use-agent-audio-visualizer-wave"
 
 const DEMO_CALL_SRC = "/GovernedSample.mp3"
 
-/* The page accent (sage) carries the wave. */
-const WAVE_COLOR = "#C1C17E" as const
+/* The page accent (sage) carries the aura. */
+const AURA_COLOR = "#C1C17E" as const
 
 /* The resting demo loop: each state holds a few seconds, then hands off. */
 const ATTRACT_STATES: readonly AgentState[] = [
@@ -256,15 +258,19 @@ export default function DemoCallPlayer() {
       {mode === "voice" ? (
         <div className="lv-agdemo-voice">
           <div className="lv-agdemo-wave-wrap">
-            <AgentAudioVisualizerWave
-              className="lv-agdemo-wave"
-              state={waveState}
-              color={WAVE_COLOR}
-              colorShift={0.25}
-              lineWidth={2}
-              volume={callState === "speaking" ? volume : undefined}
-              aria-hidden="true"
-            />
+            {reducedMotion ? (
+              <div className="lv-agdemo-aura lv-agdemo-aura-static" aria-hidden="true" />
+            ) : (
+              <AgentAudioVisualizerAura
+                className="lv-agdemo-aura"
+                state={waveState}
+                color={AURA_COLOR}
+                colorShift={0.3}
+                themeMode="dark"
+                volume={callState === "speaking" ? volume : 0}
+                aria-hidden="true"
+              />
+            )}
             {/* The state, named — reads the resting loop as a tour. */}
             <p className="lv-agdemo-wave-state">{waveState}</p>
           </div>
