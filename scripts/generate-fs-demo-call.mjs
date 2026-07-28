@@ -125,10 +125,10 @@ const LINES = [
   {
     who: "sol",
     text:
-      "I understand, and I'm sorry for the concern. Let's get this resolved for you right away. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
-    /* Empathy stays crisp and realistic: acknowledge, brief apology,
-       straight to action. The agent never abbreviates: "account
-       information", not "info". */
+      "I'm sorry to hear that. Let's get this resolved for you right away. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
+    /* Empathy stays crisp and realistic: brief apology, straight to
+       action. The agent never abbreviates: "account information", not
+       "info". */
   },
   {
     who: "caller",
