@@ -119,41 +119,56 @@ const LINES = [
     who: "caller",
     text:
       "Hi, um, I'm looking at my account and there's a charge for three hundred and twelve dollars that I definitely didn't make.",
+    /* APPROVED TAKE 2026-07-28. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-02-caller.mp3",
   },
   {
     who: "sol",
     text:
-      "I understand, and I'll help you get to the bottom of it. An unexpected charge like that is unsettling. Before I can pull up any account info, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
+      "I understand, and I'll help you get to the bottom of it. An unexpected charge like that is unsettling. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
+    /* The agent never abbreviates: "account information", not "info". */
   },
   {
     who: "caller",
     text: "For sure. It's the account ending in two, two, four, five.",
+    /* APPROVED TAKE 2026-07-28. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-04-caller.mp3",
   },
   {
     who: "sol",
     text: "Thank you. I'll verify that now.",
-    /* The verifying beat: two to three seconds before confirmation. */
+    /* APPROVED TAKE 2026-07-28. The verifying beat: two to three
+       seconds before confirmation. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-05-sol.mp3",
     gapAfterMs: 2500,
   },
   {
     who: "sol",
     text: "I've confirmed your identity. One moment while I look into that charge.",
-    /* The lookup beat: four to five seconds before Sol comes back. */
+    /* APPROVED TAKE 2026-07-28. The lookup beat: four to five seconds
+       before Sol comes back. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-06-sol.mp3",
     gapAfterMs: 4500,
   },
   {
     who: "sol",
     text:
       "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant name, or is it completely unfamiliar?",
+    /* APPROVED TAKE 2026-07-28. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-07-sol.mp3",
   },
   {
     who: "caller",
     text: "Completely unfamiliar. I've never heard of them.",
+    /* APPROVED TAKE 2026-07-28. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-08-caller.mp3",
   },
   {
     who: "sol",
     text:
-      "Understood. I'm going to open a dispute on that transaction and place a temporary hold so nothing else moves on it while we investigate. You won't be held responsible for a charge you didn't authorize. I'll walk you through what happens next.",
+      "Understood. I've opened a dispute for the three hundred twelve dollar charge, and I've applied a temporary credit to your account for that amount while we investigate. You won't be responsible for any charges you didn't authorize. I'll walk you through what happens next.",
+    /* Standard FS dispute language: dispute opened, temporary credit
+       applied to the account, zero-liability assurance, next steps. */
   },
 ]
 
