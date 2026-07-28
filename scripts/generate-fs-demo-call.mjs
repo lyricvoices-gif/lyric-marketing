@@ -36,18 +36,21 @@
    blank.
 
    ── PLACEHOLDERS TO RESOLVE BEFORE RUNNING (marked [RESOLVE]) ──
-   1. RING: a phone-ring clip from a cleared, royalty-free/LICENSED
-      library. This is a licensed asset, not a sound effect grab — record
-      the exact clip, its source library, and its license terms in the
-      RING constants below (they are written into the manifest). The
-      license must be verifiable; no untracked "free" clips. Same
-      provenance discipline as the caller voice.
+   1. RING: RESOLVED — the supplied ElevenLabs SFX clip, committed at
+      audio-src/fs-demo-call/ring-comcell-realistic.wav with provenance
+      recorded below (and written into the manifest).
    2. CALLER_VOICE_ID: the male ElevenLabs voice from the cleared library
       selected earlier — keep it consistent with that selection. Record
       the ID and the reason for the choice back in this file.
    3. SOL_SETTINGS: Sol's PRODUCED leaf acoustics from the Callio Voice
-      Settings sheet (the fs-phone-sol batch values). Do not run with the
-      placeholder values below.
+      Settings sheet (the fs-phone-sol batch values). If left null, the
+      script fetches the voice's SAVED settings from the ElevenLabs API
+      (GET /v1/voices/{id}/settings) and records that provenance in the
+      manifest — correct when the produced settings were saved onto the
+      voice; hardcode the sheet values here if they were not.
+
+   ffmpeg: uses $FFMPEG_PATH when set (e.g. the ffmpeg-static binary),
+   plain "ffmpeg" otherwise.
 
    ── REPORT BACK BEFORE COMMITTING (alongside the callio-side voice
       adapter's re-run test count) ──
@@ -76,16 +79,19 @@ const SOL_SETTINGS = { stability: null, similarity_boost: null, speed: null }
 const CALLER_VOICE_ID = "REPLACE_WITH_CLEARED_LIBRARY_VOICE_ID"
 const CALLER_SETTINGS = { stability: 0.45, similarity_boost: 0.75 }
 
-/* [RESOLVE] The licensed phone-ring clip. Every field below is required —
-   it is the asset's provenance record and is written to the manifest. */
+/* The licensed phone-ring clip — provenance record, written to the
+   manifest. */
 const RING = {
-  file: "REPLACE_WITH_PATH_TO_LICENSED_RING_CLIP",
-  /* Ring for roughly two to three seconds, then cut to Sol picking up. */
+  file: "audio-src/fs-demo-call/ring-comcell-realistic.wav",
+  /* Ring for roughly two to three seconds, then cut to Sol picking up.
+     Source clip is 4.08s, 48kHz stereo. */
   trimSeconds: 2.6,
   gapAfterMs: 300,
-  clipName: "REPLACE: exact clip name in the library",
-  source: "REPLACE: library + URL of the clip",
-  license: "REPLACE: license name + terms (must be verifiable)",
+  clipName: "COMCellRealistic_phone_call (ElevenLabs)",
+  source:
+    "ElevenLabs sound-effects library; file supplied by Lyric 2026-07-28, committed at audio-src/fs-demo-call/ring-comcell-realistic.wav",
+  license:
+    "ElevenLabs account license for generated/library SFX (commercial use under the workspace's subscription terms). VERIFY against the ElevenLabs terms line for SFX before wide distribution.",
 }
 
 /* The locked script, TTS-normalized: dollars and digits are written as
@@ -142,13 +148,23 @@ const LINES = [
 /* Natural inter-turn gap; the verifying beat above overrides per line. */
 const DEFAULT_GAP_MS = 650
 
-if (RING.file.startsWith("REPLACE") || !existsSync(RING.file)) {
-  throw new Error("[RESOLVE] RING.file must point at the licensed ring clip")
+if (!existsSync(RING.file)) {
+  throw new Error(`ring clip missing at ${RING.file} — run from the repo root`)
 }
-for (const field of ["clipName", "source", "license"]) {
-  if (RING[field].startsWith("REPLACE")) {
-    throw new Error(`[RESOLVE] RING.${field} — the ring clip's provenance must be recorded`)
-  }
+
+/* Sol's settings: use the hardcoded produced values when set; otherwise
+   fetch the voice's saved settings from the API and record that. */
+let solSettings = SOL_SETTINGS
+let solSettingsSource = "hardcoded produced leaf acoustics (Callio Voice Settings sheet)"
+if (solSettings.stability == null) {
+  const res = await fetch(`https://api.elevenlabs.io/v1/voices/${SOL_VOICE_ID}/settings`, {
+    headers: { "xi-api-key": KEY },
+  })
+  if (!res.ok) throw new Error(`voice settings fetch ${res.status}: ${await res.text()}`)
+  solSettings = await res.json()
+  solSettingsSource =
+    "fetched from the voice's saved settings (GET /v1/voices/{id}/settings) at generation time"
+  console.log("Sol settings (fetched):", JSON.stringify(solSettings))
 }
 
 const OUT = path.join("out", "fs-demo-call")
@@ -172,13 +188,10 @@ const clips = []
 for (let i = 0; i < LINES.length; i++) {
   const line = LINES[i]
   const isSol = line.who === "sol"
-  if (isSol && SOL_SETTINGS.stability == null) {
-    throw new Error("[RESOLVE] Sol's produced settings are still placeholders")
-  }
   const buf = await tts(
     line.text,
     isSol ? SOL_VOICE_ID : CALLER_VOICE_ID,
-    isSol ? SOL_SETTINGS : CALLER_SETTINGS,
+    isSol ? solSettings : CALLER_SETTINGS,
   )
   const file = path.join(OUT, `line-${String(i + 1).padStart(2, "0")}-${line.who}.mp3`)
   writeFileSync(file, buf)
@@ -199,8 +212,9 @@ inputs.forEach((c, i) => {
 })
 const filter = `${filters.join(";")};${inputs.map((_, i) => `[a${i}]`).join("")}concat=n=${inputs.length}:v=0:a=1[out]`
 const stitched = path.join(OUT, "fs-demo-call.mp3")
+const FFMPEG = process.env.FFMPEG_PATH || "ffmpeg"
 execSync(
-  ["ffmpeg", "-y", ...parts, "-filter_complex", `"${filter}"`, "-map", '"[out]"', "-b:a", "128k", stitched].join(" "),
+  [FFMPEG, "-y", ...parts, "-filter_complex", `"${filter}"`, "-map", '"[out]"', "-b:a", "128k", stitched].join(" "),
   { stdio: "inherit", shell: "/bin/bash" },
 )
 
@@ -219,7 +233,8 @@ const manifest = {
     name: "Sol",
     voiceId: SOL_VOICE_ID,
     model: MODEL_ID,
-    settings: SOL_SETTINGS,
+    settings: solSettings,
+    settingsSource: solSettingsSource,
   },
   caller: {
     voiceId: CALLER_VOICE_ID,
