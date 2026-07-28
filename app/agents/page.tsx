@@ -185,9 +185,23 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* ── The verticals: the home page's section, minus Financial Services
-           (this page already covers it). ── */}
-      <VerticalsSection exclude={["Financial Services"]} />
+      {/* ── The verticals: the home page's section layout, reframed as the
+           line this agent is first of — prebuilt agents for these verticals
+           are coming. FS excluded (this page covers it); dots off, the
+           three cards fit one view. ── */}
+      <VerticalsSection
+        exclude={["Financial Services"]}
+        eyebrow="Verticals"
+        headline={
+          <>
+            Financial Services is live. <em>More are coming.</em>
+          </>
+        }
+        supporting="The Financial Services agent is the first of a line. Prebuilt agents for these verticals are being built and governed now, ready to adopt the same way."
+        allComingSoon
+        showDots={false}
+        fit
+      />
 
       {/* ── Self-service FAQ: accordion, first item open. ── */}
       <section className="lv-agents-faq">

@@ -7849,6 +7849,21 @@ svg.lv-about-locations-map {
   display: none;
 }
 
+/* Fit mode (agents page): on desktop the visible cards shrink to share one
+   row — no overflow, no pagination. Below desktop the swipe track stays. */
+@media (min-width: 1000px) {
+  .lv-vert-carousel[data-fit] .lv-vert-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    overflow-x: visible;
+  }
+
+  .lv-vert-carousel[data-fit] .lv-vert-card {
+    width: auto;
+  }
+}
+
 /* Pagination dots — the scroll affordance. One dot per card; the active dot
    (the card nearest the left edge) stretches into a pill. Buttons scroll the
    track to their card. */

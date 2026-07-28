@@ -87,8 +87,22 @@ const SAME_POS = 40
 type Position = { left: number; cardIndex: number }
 
 /* `exclude` drops named verticals (by headline) — the agents page reuses this
-   section minus Financial Services, which that page already covers. */
-export default function VerticalsCarousel({ exclude = [] }: { exclude?: string[] }) {
+   section minus Financial Services, which that page already covers.
+   `allComingSoon` marks every card's status badge (the agents page framing:
+   prebuilt agents for these verticals are coming). `showDots` off suppresses
+   pagination when the visible cards fit one view. */
+export default function VerticalsCarousel({
+  exclude = [],
+  allComingSoon = false,
+  showDots = true,
+  fit = false,
+}: {
+  exclude?: string[]
+  allComingSoon?: boolean
+  showDots?: boolean
+  /* Desktop: shrink the visible cards to share one row (no overflow). */
+  fit?: boolean
+}) {
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
   const [positions, setPositions] = useState<Position[]>([])
@@ -154,7 +168,7 @@ export default function VerticalsCarousel({ exclude = [] }: { exclude?: string[]
   }
 
   return (
-    <div className="lv-vert-carousel">
+    <div className="lv-vert-carousel" data-fit={fit ? "" : undefined}>
       <div className="lv-vert-track" ref={trackRef}>
         {verticals.map((v) => (
           <VerticalCard
@@ -163,7 +177,7 @@ export default function VerticalsCarousel({ exclude = [] }: { exclude?: string[]
             headline={v.headline}
             body={v.body}
             accent={v.accent}
-            comingSoon={v.comingSoon}
+            comingSoon={allComingSoon || v.comingSoon}
           >
             <VerticalMockup
               contexts={v.contexts}
@@ -175,7 +189,7 @@ export default function VerticalsCarousel({ exclude = [] }: { exclude?: string[]
         ))}
       </div>
 
-      {positions.length > 1 && (
+      {showDots && positions.length > 1 && (
         <div className="lv-vert-dots" role="tablist" aria-label="Industries">
           {positions.map((p, i) => (
             <button
