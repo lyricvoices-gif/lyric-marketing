@@ -60,7 +60,7 @@
    - confirmation the KB counsel slot is still empty and untouched */
 
 import { execSync } from "node:child_process"
-import { existsSync, mkdirSync, writeFileSync } from "node:fs"
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import path from "node:path"
 
 const API = "https://api.elevenlabs.io/v1/text-to-speech"
@@ -111,32 +111,40 @@ const LINES = [
     who: "sol",
     text:
       "For quality and training purposes, calls may be recorded. Thank you for calling Oakhaven Capital. I'm your banking concierge. How can I help?",
-    /* ^ Pronunciation stress test: listen to "Oakhaven Capital" first. */
+    /* APPROVED TAKE 2026-07-28 — reuse the committed clip; do not
+       re-render (TTS is non-deterministic and this take is signed off). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-01-sol.mp3",
   },
   {
     who: "caller",
     text:
-      "Hi, um, I'm looking at my account and there's a charge here I definitely didn't make. Three hundred and twelve dollars. I have no idea what this is.",
+      "Hi, um, I'm looking at my account and there's a charge for three hundred and twelve dollars that I definitely didn't make.",
   },
   {
     who: "sol",
     text:
-      "I understand, and I'll help you get to the bottom of it. An unexpected charge like that is unsettling. Before I pull up any account details, I need to verify your identity. Can you confirm the phone number or email on the account?",
+      "I understand, and I'll help you get to the bottom of it. An unexpected charge like that is unsettling. Before I can pull up any account info, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
   },
   {
     who: "caller",
-    text: "Yeah, it's the phone ending in four, seven, one, two.",
+    text: "For sure. It's the account ending in two, two, four, five.",
   },
   {
     who: "sol",
     text: "Thank you. I'll verify that now.",
-    /* The marked verifying pause follows this line. */
-    gapAfterMs: 1500,
+    /* The verifying beat: two to three seconds before confirmation. */
+    gapAfterMs: 2500,
+  },
+  {
+    who: "sol",
+    text: "I've confirmed your identity. One moment while I look into that charge.",
+    /* The lookup beat: four to five seconds before Sol comes back. */
+    gapAfterMs: 4500,
   },
   {
     who: "sol",
     text:
-      "I've confirmed your identity. I can see the three hundred twelve dollar charge you mentioned. I can't say yet whether it's fraud until we look closer, so let's review it together. Do you recognize the merchant name, or is it completely unfamiliar?",
+      "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant name, or is it completely unfamiliar?",
   },
   {
     who: "caller",
@@ -192,15 +200,21 @@ const clips = []
 for (let i = 0; i < LINES.length; i++) {
   const line = LINES[i]
   const isSol = line.who === "sol"
-  const buf = await tts(
-    line.text,
-    isSol ? SOL_VOICE_ID : CALLER_VOICE_ID,
-    isSol ? solSettings : CALLER_SETTINGS,
-  )
   const file = path.join(OUT, `line-${String(i + 1).padStart(2, "0")}-${line.who}.mp3`)
-  writeFileSync(file, buf)
+  if (line.reuseFile && existsSync(line.reuseFile)) {
+    /* Approved take: copy the committed clip instead of re-rendering. */
+    writeFileSync(file, readFileSync(line.reuseFile))
+    console.log("reused   ", file, "<-", line.reuseFile)
+  } else {
+    const buf = await tts(
+      line.text,
+      isSol ? SOL_VOICE_ID : CALLER_VOICE_ID,
+      isSol ? solSettings : CALLER_SETTINGS,
+    )
+    writeFileSync(file, buf)
+    console.log("generated", file)
+  }
   clips.push({ file, gapAfterMs: line.gapAfterMs ?? DEFAULT_GAP_MS })
-  console.log("generated", file)
 }
 
 /* Stitch: ring (trimmed) -> Sol's opening -> caller -> rest of the locked
