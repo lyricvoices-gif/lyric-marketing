@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-28T12:30:26.329Z",
+  "stitched": "fs-demo-call.mp3",
+  "stitchOrder": [
+    "ring",
+    "sol",
+    "caller",
+    "sol",
+    "caller",
+    "sol",
+    "sol",
+    "caller",
+    "sol"
+  ],
+  "ring": {
+    "clipName": "COMCellRealistic_phone_call (ElevenLabs)",
+    "source": "ElevenLabs sound-effects library; file supplied by Lyric 2026-07-28, committed at audio-src/fs-demo-call/ring-comcell-realistic.wav",
+    "license": "ElevenLabs account license for generated/library SFX (commercial use under the workspace's subscription terms). VERIFY against the ElevenLabs terms line for SFX before wide distribution.",
+    "trimSeconds": 2.6
+  },
+  "agent": {
+    "name": "Sol",
+    "voiceId": "saV6oP1dYO4fund8B2Hr",
+    "model": "eleven_flash_v2_5",
+    "settings": {
+      "stability": 0.5,
+      "use_speaker_boost": true,
+      "similarity_boost": 0.75,
+      "style": 0,
+      "speed": 1
+    },
+    "settingsSource": "fetched from the voice's saved settings (GET /v1/voices/{id}/settings) at generation time"
+  },
+  "caller": {
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "library": "ElevenLabs cleared voice library",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.75
+    }
+  },
+  "counselSlot": "GREETING_DISCLOSURE in the adoption spec is untouched and emit-empty; the demo greeting is a demo-render value only."
+}

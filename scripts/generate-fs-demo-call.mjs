@@ -74,9 +74,13 @@ const SOL_VOICE_ID = "saV6oP1dYO4fund8B2Hr"
    batch settings before running. */
 const SOL_SETTINGS = { stability: null, similarity_boost: null, speed: null }
 
-/* [RESOLVE] Cleared-library caller voice (the male voice selected
-   earlier — keep it consistent). */
-const CALLER_VOICE_ID = "REPLACE_WITH_CLEARED_LIBRARY_VOICE_ID"
+/* Caller voice: Chris (ElevenLabs premade, "Charming, Down-to-Earth" —
+   male, American, middle_aged, conversational). Chosen 2026-07-28:
+   premade voices carry unambiguous commercial clearance, and the
+   down-to-earth everyday register reads as a real caller, clearly
+   distinct from Sol's polished senior-professional delivery without
+   competing with it. */
+const CALLER_VOICE_ID = "iP95p4xoKVk53GoZ742B"
 const CALLER_SETTINGS = { stability: 0.45, similarity_boost: 0.75 }
 
 /* The licensed phone-ring clip — provenance record, written to the
