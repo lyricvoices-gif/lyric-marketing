@@ -125,8 +125,10 @@ const LINES = [
   {
     who: "sol",
     text:
-      "I understand, and I'll help you get to the bottom of it. An unexpected charge like that is unsettling. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
-    /* The agent never abbreviates: "account information", not "info". */
+      "I understand, and I'm sorry for the concern. Let's get this resolved for you right away. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
+    /* Empathy stays crisp and realistic: acknowledge, brief apology,
+       straight to action. The agent never abbreviates: "account
+       information", not "info". */
   },
   {
     who: "caller",
@@ -167,8 +169,10 @@ const LINES = [
     who: "sol",
     text:
       "Understood. I've opened a dispute for the three hundred twelve dollar charge, and I've applied a temporary credit to your account for that amount while we investigate. You won't be responsible for any charges you didn't authorize. I'll walk you through what happens next.",
-    /* Standard FS dispute language: dispute opened, temporary credit
-       applied to the account, zero-liability assurance, next steps. */
+    /* APPROVED TAKE 2026-07-28. Standard FS dispute language: dispute
+       opened, temporary credit applied to the account, zero-liability
+       assurance, next steps. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-09-sol.mp3",
   },
 ]
 
