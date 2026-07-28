@@ -10,10 +10,15 @@
    motion the shader (which animates continuously) is replaced with a
    still sage disc.
 
-   DEMO_CALL_SRC: STAND-IN. The produced two-voice call (Sol + caller,
-   scripts/generate-fs-demo-call.mjs) replaces this with its R2 URL, path
-   pattern {AUDIO_BASE}/phone/fs-demo-call.mp3. Until then the player runs
-   on the existing governed FS sample so the instrument is real. */
+   DEMO_CALL_SRC: STAND-IN. The produced inbound call (ring -> Sol's
+   Oakhaven opening -> the locked dispute scenario;
+   scripts/generate-fs-demo-call.mjs) replaces this. Swap path: keep the
+   src SAME-ORIGIN — add a next.config rewrite from /audio/fs-demo-call.mp3
+   to the R2 URL ({AUDIO_BASE}/phone/fs-demo-call.mp3) and point
+   DEMO_CALL_SRC at /audio/fs-demo-call.mp3. A direct cross-origin R2 src
+   without CORS headers would disable the WebAudio analyser (the aura's
+   live level). Until then the player runs on the existing governed FS
+   sample so the instrument is real. */
 
 import { useEffect, useRef, useState } from "react"
 
