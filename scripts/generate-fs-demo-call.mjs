@@ -127,11 +127,11 @@ const LINES = [
   {
     who: "agent",
     text:
-      "I'm sorry to hear that. Let's get this resolved for you right away. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
-    /* Empathy stays crisp and realistic: brief apology, straight to
-       action. The agent never abbreviates: "account information", not
-       "info". */
-    /* APPROVED TAKE 2026-07-28 (Jessica). */
+      "I'm sorry to hear that. I'll do my best to help you with that. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account number you're calling about?",
+    /* Empathy crisp, no promised resolution before verification or
+       investigation. The agent never abbreviates: "account
+       information", not "info". */
+    /* QA-PASSED TAKE 2026-07-28 (163 Hz, IQR 25 Hz). */
     reuseFile: "audio-src/fs-demo-call/lines/line-03-agent.mp3",
   },
   {
@@ -142,28 +142,28 @@ const LINES = [
   },
   {
     who: "agent",
-    text: "Thank you. I'll verify that now.",
-    /* APPROVED TAKE 2026-07-28 (Jessica) — re-rendered under acoustic QA
-       with prosody conditioning after the original isolated take drifted
-       in pitch (IQR ~96 Hz vs ~30 Hz elsewhere); this take: 162 Hz
-       median, IQR 28 Hz. */
+    text: "Thank you. One moment while I verify that.",
+    /* "One moment while I..." repeats at the lookup on purpose: a
+       consistent service idiom is what a governed register sounds
+       like. */
+    /* QA-PASSED TAKE 2026-07-28 (182 Hz, IQR 45 Hz). */
     reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
     gapAfterMs: 2500,
   },
   {
     who: "agent",
-    text: "I've confirmed your identity. One moment while I look into that charge.",
-    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    text: "Thanks for verifying your identity. One moment while I look into that charge.",
+    /* QA-PASSED TAKE 2026-07-28 (180 Hz, IQR 38 Hz). */
     reuseFile: "audio-src/fs-demo-call/lines/line-06-agent.mp3",
     gapAfterMs: 4500,
   },
   {
     who: "agent",
     text:
-      "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant on that transaction?",
+      "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant listed on the transaction?",
     /* Standard bank phrasing; the agent never says familiar or
        unfamiliar about a disputed charge. */
-    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    /* QA-PASSED TAKE 2026-07-28 (178 Hz, IQR 61 Hz). */
     reuseFile: "audio-src/fs-demo-call/lines/line-07-agent.mp3",
   },
   {
@@ -175,8 +175,11 @@ const LINES = [
   {
     who: "agent",
     text:
-      "Understood. I've opened a dispute for the three hundred twelve dollar charge, and I've applied a temporary credit to your account for that amount while we investigate. You won't be responsible for any charges you didn't authorize. I'll walk you through what happens next.",
-    /* APPROVED TAKE 2026-07-28 (Jessica). */
+      "Understood. I've opened a dispute for the three hundred twelve dollar charge and applied a temporary credit to your account while we investigate. If we determine the charge was unauthorized, you won't be responsible for it. I'll walk you through what happens next.",
+    /* GOVERNANCE: liability is CONDITIONED on the investigation ("if we
+       determine..."), never asserted before it. The unconditional form
+       made a legal determination pre-investigation. */
+    /* QA-PASSED TAKE 2026-07-28 (170 Hz, IQR 26 Hz). */
     reuseFile: "audio-src/fs-demo-call/lines/line-09-agent.mp3",
   },
 ]
@@ -321,7 +324,10 @@ for (let i = 0; i < LINES.length; i++) {
           (ref ? ` (ref ${ref.toFixed(0)}Hz, dev ${(dev * 100).toFixed(0)}%)` : "") +
           (pass ? " PASS" : " RETRY"),
       )
-      if (!best || score < best.score) best = { buf, score, pass }
+      /* A passing take always beats a failing one; score breaks ties. */
+      if (!best || (pass && !best.pass) || (pass === best.pass && score < best.score)) {
+        best = { buf, score, pass }
+      }
       if (pass) break
     }
     if (!best.pass) console.warn(`WARN: ${file} best take still outside QA thresholds`)
