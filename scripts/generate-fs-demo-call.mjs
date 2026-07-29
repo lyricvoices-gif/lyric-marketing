@@ -143,8 +143,8 @@ const LINES = [
   {
     who: "agent",
     text: "Thank you. I'll verify that now.",
-    /* APPROVED TAKE 2026-07-28 (Jessica). */
-    reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
+    /* Re-rendered under acoustic QA 2026-07-28: the original isolated
+       take drifted in pitch (IQR ~96 Hz vs ~30 Hz elsewhere). */
     gapAfterMs: 2500,
   },
   {
@@ -160,10 +160,14 @@ const LINES = [
       "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant on that transaction?",
     /* Standard bank phrasing; the agent never says familiar or
        unfamiliar about a disputed charge. */
+    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-07-agent.mp3",
   },
   {
     who: "caller",
     text: "No, I've never heard of them.",
+    /* APPROVED TAKE 2026-07-28. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-08-caller.mp3",
   },
   {
     who: "agent",
@@ -199,7 +203,59 @@ if (agentSettings.stability == null) {
 const OUT = path.join("out", "fs-demo-call")
 mkdirSync(OUT, { recursive: true })
 
-async function tts(text, voiceId, settings) {
+const FFMPEG = process.env.FFMPEG_PATH || "ffmpeg"
+
+/* ── Acoustic QA ────────────────────────────────────────────────────────
+   Separately generated takes can drift in pitch (most audible on short
+   lines rendered without context). Every fresh take is measured — median
+   f0 and interquartile range via autocorrelation on the decoded PCM —
+   and compared against the speaker's approved takes. A take fails QA
+   when its median deviates more than 12% from the speaker's reference
+   or its IQR exceeds 65 Hz (an erratic take); failing takes regenerate
+   up to MAX_TAKES times and the best-scoring one wins. */
+const MAX_TAKES = 3
+
+function f0Stats(file) {
+  const raw = execSync(`${FFMPEG} -i ${file} -f s16le -acodec pcm_s16le -ac 1 -ar 16000 - 2>/dev/null`, {
+    maxBuffer: 1 << 28,
+  })
+  const n = raw.length >> 1
+  const s = new Float32Array(n)
+  for (let i = 0; i < n; i++) s[i] = raw.readInt16LE(i << 1) / 32768
+  const frame = 640
+  const hop = 320
+  const minLag = Math.floor(16000 / 350)
+  const maxLag = Math.floor(16000 / 120)
+  const f0s = []
+  for (let start = 0; start + frame + maxLag < n; start += hop) {
+    let energy = 0
+    for (let i = 0; i < frame; i++) energy += s[start + i] * s[start + i]
+    if (energy / frame < 0.0004) continue
+    let best = 0
+    let bestLag = 0
+    let norm0 = 0
+    for (let i = 0; i < frame; i++) norm0 += s[start + i] * s[start + i]
+    for (let lag = minLag; lag <= maxLag; lag++) {
+      let c = 0
+      let norm1 = 0
+      for (let i = 0; i < frame; i++) {
+        c += s[start + i] * s[start + i + lag]
+        norm1 += s[start + i + lag] * s[start + i + lag]
+      }
+      const r = c / Math.sqrt(norm0 * norm1 + 1e-9)
+      if (r > best) {
+        best = r
+        bestLag = lag
+      }
+    }
+    if (best > 0.6 && bestLag > 0) f0s.push(16000 / bestLag)
+  }
+  f0s.sort((a, b) => a - b)
+  const q = (p) => f0s[Math.floor(f0s.length * p)] ?? 0
+  return { median: q(0.5), iqr: q(0.75) - q(0.25), frames: f0s.length }
+}
+
+async function tts(text, voiceId, settings, previousText, nextText) {
   const res = await fetch(`${API}/${voiceId}?output_format=mp3_44100_128`, {
     method: "POST",
     headers: { "xi-api-key": KEY, "Content-Type": "application/json" },
@@ -207,10 +263,27 @@ async function tts(text, voiceId, settings) {
       text,
       model_id: MODEL_ID,
       voice_settings: settings,
+      /* Prosody conditioning: the same speaker's surrounding lines, so a
+         take is rendered in context instead of in isolation. */
+      ...(previousText ? { previous_text: previousText } : {}),
+      ...(nextText ? { next_text: nextText } : {}),
     }),
   })
   if (!res.ok) throw new Error(`TTS ${res.status}: ${await res.text()}`)
   return Buffer.from(await res.arrayBuffer())
+}
+
+/* Reference pitch per speaker, seeded from the approved (reused) takes. */
+const refF0 = { agent: [], caller: [] }
+for (const line of LINES) {
+  if (line.reuseFile && existsSync(line.reuseFile)) {
+    const st = f0Stats(line.reuseFile)
+    if (st.frames > 10) refF0[line.who].push(st.median)
+  }
+}
+const refMedian = (who) => {
+  const a = [...refF0[who]].sort((x, y) => x - y)
+  return a.length ? a[Math.floor(a.length / 2)] : null
 }
 
 const clips = []
@@ -223,13 +296,37 @@ for (let i = 0; i < LINES.length; i++) {
     writeFileSync(file, readFileSync(line.reuseFile))
     console.log("reused   ", file, "<-", line.reuseFile)
   } else {
-    const buf = await tts(
-      line.text,
-      isAgent ? AGENT_VOICE_ID : CALLER_VOICE_ID,
-      isAgent ? agentSettings : CALLER_SETTINGS,
-    )
-    writeFileSync(file, buf)
-    console.log("generated", file)
+    const prev = LINES.slice(0, i).reverse().find((l) => l.who === line.who)?.text
+    const next = LINES.slice(i + 1).find((l) => l.who === line.who)?.text
+    const ref = refMedian(line.who)
+    let best = null
+    for (let take = 1; take <= MAX_TAKES; take++) {
+      const buf = await tts(
+        line.text,
+        isAgent ? AGENT_VOICE_ID : CALLER_VOICE_ID,
+        isAgent ? agentSettings : CALLER_SETTINGS,
+        prev,
+        next,
+      )
+      writeFileSync(file, buf)
+      const st = f0Stats(file)
+      const dev = ref ? Math.abs(st.median - ref) / ref : 0
+      const pass = st.iqr <= 65 && dev <= 0.12
+      const score = st.iqr + (ref ? Math.abs(st.median - ref) : 0)
+      console.log(
+        `generated ${file} take ${take}: f0 ${st.median.toFixed(0)}Hz iqr ${st.iqr.toFixed(0)}Hz` +
+          (ref ? ` (ref ${ref.toFixed(0)}Hz, dev ${(dev * 100).toFixed(0)}%)` : "") +
+          (pass ? " PASS" : " RETRY"),
+      )
+      if (!best || score < best.score) best = { buf, score, pass }
+      if (pass) break
+    }
+    if (!best.pass) console.warn(`WARN: ${file} best take still outside QA thresholds`)
+    writeFileSync(file, best.buf)
+    if (isAgent || line.who === "caller") {
+      const st = f0Stats(file)
+      if (st.frames > 10) refF0[line.who].push(st.median)
+    }
   }
   clips.push({ file, gapAfterMs: line.gapAfterMs ?? DEFAULT_GAP_MS })
 }
@@ -247,7 +344,6 @@ inputs.forEach((c, i) => {
 })
 const filter = `${filters.join(";")};${inputs.map((_, i) => `[a${i}]`).join("")}concat=n=${inputs.length}:v=0:a=1[out]`
 const stitched = path.join(OUT, "fs-demo-call.mp3")
-const FFMPEG = process.env.FFMPEG_PATH || "ffmpeg"
 execSync(
   [FFMPEG, "-y", ...parts, "-filter_complex", `"${filter}"`, "-map", '"[out]"', "-b:a", "128k", stitched].join(" "),
   { stdio: "inherit", shell: "/bin/bash" },
