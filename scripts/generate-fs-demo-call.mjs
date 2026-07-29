@@ -1,4 +1,4 @@
-/* Generate the FS Agents demo call — a real inbound call: phone ring, Sol
+/* Generate the FS Agents demo call — a real inbound call: phone ring, the agent
    picks up with the full Oakhaven Capital opening (recording notice,
    institution name, AI-identity concierge framing), then the locked
    unauthorized-charge scenario unchanged. Stitched into one file for the
@@ -21,7 +21,7 @@
 
    ── LISTEN FIRST: "Oakhaven Capital" ──
    Sol's opening is a live pronunciation stress test. Before anything else,
-   play line-01-sol.mp3 and listen to how "Oakhaven Capital" lands. Clean:
+   play line-01-agent.mp3 and listen to how "Oakhaven Capital" lands. Clean:
    the demo doubles as proof the voice handles real institution names.
    Mangled: STOP — add "Oakhaven" to the FS per-voice pronunciation list,
    re-render, and only then stitch. Do not ship a demo with a mangled
@@ -42,7 +42,7 @@
    2. CALLER_VOICE_ID: the male ElevenLabs voice from the cleared library
       selected earlier — keep it consistent with that selection. Record
       the ID and the reason for the choice back in this file.
-   3. SOL_SETTINGS: Sol's PRODUCED leaf acoustics from the Callio Voice
+   3. AGENT_SETTINGS: Sol's PRODUCED leaf acoustics from the Callio Voice
       Settings sheet (the fs-phone-sol batch values). If left null, the
       script fetches the voice's SAVED settings from the ElevenLabs API
       (GET /v1/voices/{id}/settings) and records that provenance in the
@@ -69,10 +69,13 @@ if (!KEY) throw new Error("ELEVENLABS_API_KEY is not set")
 
 const MODEL_ID = "eleven_flash_v2_5"
 
-const SOL_VOICE_ID = "saV6oP1dYO4fund8B2Hr"
-/* [RESOLVE] Sol's produced leaf acoustics — replace with the fs-phone-sol
-   batch settings before running. */
-const SOL_SETTINGS = { stability: null, similarity_boost: null, speed: null }
+/* Agent voice switched 2026-07-28 from Sol (saV6oP1dYO4fund8B2Hr) to
+   Jessica Anne Bogart — "Chatty and Friendly", female, American,
+   conversational (ElevenLabs professional library, cleared in the
+   workspace). Settings auto-fetch from the voice's saved values, which
+   are deliberately tuned (stability 0.43, style 0.55, speed 0.98). */
+const AGENT_VOICE_ID = "g6xIsTj2HwM6VR4iXFCw"
+const AGENT_SETTINGS = { stability: null, similarity_boost: null, speed: null }
 
 /* Caller voice: Chris (ElevenLabs premade, "Charming, Down-to-Earth" —
    male, American, middle_aged, conversational). Chosen 2026-07-28:
@@ -87,7 +90,7 @@ const CALLER_SETTINGS = { stability: 0.45, similarity_boost: 0.75 }
    manifest. */
 const RING = {
   file: "audio-src/fs-demo-call/ring-comcell-realistic.wav",
-  /* Ring for roughly two to three seconds, then cut to Sol picking up.
+  /* Ring for roughly two to three seconds, then cut to the agent picking up.
      Source clip is 4.08s, 48kHz stereo. */
   trimSeconds: 2.6,
   gapAfterMs: 300,
@@ -108,12 +111,9 @@ const RING = {
    locked call, unchanged. */
 const LINES = [
   {
-    who: "sol",
+    who: "agent",
     text:
       "For quality and training purposes, calls may be recorded. Thank you for calling Oakhaven Capital. I'm your banking concierge. How can I help?",
-    /* APPROVED TAKE 2026-07-28 — reuse the committed clip; do not
-       re-render (TTS is non-deterministic and this take is signed off). */
-    reuseFile: "audio-src/fs-demo-call/lines/line-01-sol.mp3",
   },
   {
     who: "caller",
@@ -123,7 +123,7 @@ const LINES = [
     reuseFile: "audio-src/fs-demo-call/lines/line-02-caller.mp3",
   },
   {
-    who: "sol",
+    who: "agent",
     text:
       "I'm sorry to hear that. Let's get this resolved for you right away. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account you're calling in about?",
     /* Empathy stays crisp and realistic: brief apology, straight to
@@ -137,27 +137,19 @@ const LINES = [
     reuseFile: "audio-src/fs-demo-call/lines/line-04-caller.mp3",
   },
   {
-    who: "sol",
+    who: "agent",
     text: "Thank you. I'll verify that now.",
-    /* APPROVED TAKE 2026-07-28. The verifying beat: two to three
-       seconds before confirmation. */
-    reuseFile: "audio-src/fs-demo-call/lines/line-05-sol.mp3",
     gapAfterMs: 2500,
   },
   {
-    who: "sol",
+    who: "agent",
     text: "I've confirmed your identity. One moment while I look into that charge.",
-    /* APPROVED TAKE 2026-07-28. The lookup beat: four to five seconds
-       before Sol comes back. */
-    reuseFile: "audio-src/fs-demo-call/lines/line-06-sol.mp3",
     gapAfterMs: 4500,
   },
   {
-    who: "sol",
+    who: "agent",
     text:
       "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant name, or is it completely unfamiliar?",
-    /* APPROVED TAKE 2026-07-28. */
-    reuseFile: "audio-src/fs-demo-call/lines/line-07-sol.mp3",
   },
   {
     who: "caller",
@@ -166,13 +158,9 @@ const LINES = [
     reuseFile: "audio-src/fs-demo-call/lines/line-08-caller.mp3",
   },
   {
-    who: "sol",
+    who: "agent",
     text:
       "Understood. I've opened a dispute for the three hundred twelve dollar charge, and I've applied a temporary credit to your account for that amount while we investigate. You won't be responsible for any charges you didn't authorize. I'll walk you through what happens next.",
-    /* APPROVED TAKE 2026-07-28. Standard FS dispute language: dispute
-       opened, temporary credit applied to the account, zero-liability
-       assurance, next steps. */
-    reuseFile: "audio-src/fs-demo-call/lines/line-09-sol.mp3",
   },
 ]
 
@@ -185,17 +173,17 @@ if (!existsSync(RING.file)) {
 
 /* Sol's settings: use the hardcoded produced values when set; otherwise
    fetch the voice's saved settings from the API and record that. */
-let solSettings = SOL_SETTINGS
-let solSettingsSource = "hardcoded produced leaf acoustics (Callio Voice Settings sheet)"
-if (solSettings.stability == null) {
-  const res = await fetch(`https://api.elevenlabs.io/v1/voices/${SOL_VOICE_ID}/settings`, {
+let agentSettings = AGENT_SETTINGS
+let agentSettingsSource = "hardcoded produced leaf acoustics (Callio Voice Settings sheet)"
+if (agentSettings.stability == null) {
+  const res = await fetch(`https://api.elevenlabs.io/v1/voices/${AGENT_VOICE_ID}/settings`, {
     headers: { "xi-api-key": KEY },
   })
   if (!res.ok) throw new Error(`voice settings fetch ${res.status}: ${await res.text()}`)
-  solSettings = await res.json()
-  solSettingsSource =
+  agentSettings = await res.json()
+  agentSettingsSource =
     "fetched from the voice's saved settings (GET /v1/voices/{id}/settings) at generation time"
-  console.log("Sol settings (fetched):", JSON.stringify(solSettings))
+  console.log("Sol settings (fetched):", JSON.stringify(agentSettings))
 }
 
 const OUT = path.join("out", "fs-demo-call")
@@ -218,7 +206,7 @@ async function tts(text, voiceId, settings) {
 const clips = []
 for (let i = 0; i < LINES.length; i++) {
   const line = LINES[i]
-  const isSol = line.who === "sol"
+  const isAgent = line.who === "agent"
   const file = path.join(OUT, `line-${String(i + 1).padStart(2, "0")}-${line.who}.mp3`)
   if (line.reuseFile && existsSync(line.reuseFile)) {
     /* Approved take: copy the committed clip instead of re-rendering. */
@@ -227,8 +215,8 @@ for (let i = 0; i < LINES.length; i++) {
   } else {
     const buf = await tts(
       line.text,
-      isSol ? SOL_VOICE_ID : CALLER_VOICE_ID,
-      isSol ? solSettings : CALLER_SETTINGS,
+      isAgent ? AGENT_VOICE_ID : CALLER_VOICE_ID,
+      isAgent ? agentSettings : CALLER_SETTINGS,
     )
     writeFileSync(file, buf)
     console.log("generated", file)
@@ -267,11 +255,11 @@ const manifest = {
     trimSeconds: RING.trimSeconds,
   },
   agent: {
-    name: "Sol",
-    voiceId: SOL_VOICE_ID,
+    name: "FS agent (voice: Jessica Anne Bogart)",
+    voiceId: AGENT_VOICE_ID,
     model: MODEL_ID,
-    settings: solSettings,
-    settingsSource: solSettingsSource,
+    settings: agentSettings,
+    settingsSource: agentSettingsSource,
   },
   caller: {
     voiceId: CALLER_VOICE_ID,

@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-07-28T13:48:59.011Z",
+  "generatedAt": "2026-07-29T11:03:35.030Z",
   "stitched": "fs-demo-call.mp3",
   "stitchOrder": [
     "ring",
-    "sol",
+    "agent",
     "caller",
-    "sol",
+    "agent",
     "caller",
-    "sol",
-    "sol",
-    "sol",
+    "agent",
+    "agent",
+    "agent",
     "caller",
-    "sol"
+    "agent"
   ],
   "ring": {
     "clipName": "COMCellRealistic_phone_call (ElevenLabs)",
@@ -20,15 +20,15 @@
     "trimSeconds": 2.6
   },
   "agent": {
-    "name": "Sol",
-    "voiceId": "saV6oP1dYO4fund8B2Hr",
+    "name": "FS agent (voice: Jessica Anne Bogart)",
+    "voiceId": "g6xIsTj2HwM6VR4iXFCw",
     "model": "eleven_flash_v2_5",
     "settings": {
-      "stability": 0.5,
+      "stability": 0.43,
       "use_speaker_boost": true,
-      "similarity_boost": 0.75,
-      "style": 0,
-      "speed": 1
+      "similarity_boost": 0.57,
+      "style": 0.55,
+      "speed": 0.98
     },
     "settingsSource": "fetched from the voice's saved settings (GET /v1/voices/{id}/settings) at generation time"
   },
