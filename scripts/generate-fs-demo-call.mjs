@@ -114,6 +114,8 @@ const LINES = [
     who: "agent",
     text:
       "For quality and training purposes, calls may be recorded. Thank you for calling Oakhaven Capital. I'm your banking concierge. How can I help?",
+    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-01-agent.mp3",
   },
   {
     who: "caller",
@@ -129,6 +131,8 @@ const LINES = [
     /* Empathy stays crisp and realistic: brief apology, straight to
        action. The agent never abbreviates: "account information", not
        "info". */
+    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-03-agent.mp3",
   },
   {
     who: "caller",
@@ -139,28 +143,34 @@ const LINES = [
   {
     who: "agent",
     text: "Thank you. I'll verify that now.",
+    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
     gapAfterMs: 2500,
   },
   {
     who: "agent",
     text: "I've confirmed your identity. One moment while I look into that charge.",
+    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-06-agent.mp3",
     gapAfterMs: 4500,
   },
   {
     who: "agent",
     text:
-      "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant name, or is it completely unfamiliar?",
+      "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant on that transaction?",
+    /* Standard bank phrasing; the agent never says familiar or
+       unfamiliar about a disputed charge. */
   },
   {
     who: "caller",
-    text: "Completely unfamiliar. I've never heard of them.",
-    /* APPROVED TAKE 2026-07-28. */
-    reuseFile: "audio-src/fs-demo-call/lines/line-08-caller.mp3",
+    text: "No, I've never heard of them.",
   },
   {
     who: "agent",
     text:
       "Understood. I've opened a dispute for the three hundred twelve dollar charge, and I've applied a temporary credit to your account for that amount while we investigate. You won't be responsible for any charges you didn't authorize. I'll walk you through what happens next.",
+    /* APPROVED TAKE 2026-07-28 (Jessica). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-09-agent.mp3",
   },
 ]
 
