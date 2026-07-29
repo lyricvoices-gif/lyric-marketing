@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T16:26:19.831Z",
+  "generatedAt": "2026-07-29T16:33:01.438Z",
   "stitched": "fs-demo-call.mp3",
   "stitchOrder": [
     "ring",
@@ -40,5 +40,73 @@
       "similarity_boost": 0.75
     }
   },
-  "counselSlot": "GREETING_DISCLOSURE in the adoption spec is untouched and emit-empty; the demo greeting is a demo-render value only."
+  "counselSlot": "GREETING_DISCLOSURE in the adoption spec is untouched and emit-empty; the demo greeting is a demo-render value only.",
+  "acousticQa": {
+    "method": "median f0 + IQR per take (autocorrelation, 120-350 Hz, 40ms frames); fresh takes gated at IQR <= 65 Hz and <= 12% median deviation from the speaker's approved-take reference, up to 3 takes, best wins; TTS conditioned with same-speaker previous_text/next_text",
+    "report": [
+      {
+        "file": "line-01-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 176,
+        "iqrHz": 33,
+        "voicedFrames": 233
+      },
+      {
+        "file": "line-02-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 127,
+        "iqrHz": 15,
+        "voicedFrames": 48
+      },
+      {
+        "file": "line-03-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 167,
+        "iqrHz": 21,
+        "voicedFrames": 355
+      },
+      {
+        "file": "line-04-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 188,
+        "iqrHz": 43,
+        "voicedFrames": 6
+      },
+      {
+        "file": "line-05-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 162,
+        "iqrHz": 28,
+        "voicedFrames": 53
+      },
+      {
+        "file": "line-06-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 188,
+        "iqrHz": 39,
+        "voicedFrames": 116
+      },
+      {
+        "file": "line-07-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 182,
+        "iqrHz": 26,
+        "voicedFrames": 229
+      },
+      {
+        "file": "line-08-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 123,
+        "iqrHz": 23,
+        "voicedFrames": 4
+      },
+      {
+        "file": "line-09-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 184,
+        "iqrHz": 42,
+        "voicedFrames": 467
+      }
+    ]
+  }
 }

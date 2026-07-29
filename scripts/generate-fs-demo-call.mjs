@@ -143,8 +143,11 @@ const LINES = [
   {
     who: "agent",
     text: "Thank you. I'll verify that now.",
-    /* Re-rendered under acoustic QA 2026-07-28: the original isolated
-       take drifted in pitch (IQR ~96 Hz vs ~30 Hz elsewhere). */
+    /* APPROVED TAKE 2026-07-28 (Jessica) — re-rendered under acoustic QA
+       with prosody conditioning after the original isolated take drifted
+       in pitch (IQR ~96 Hz vs ~30 Hz elsewhere); this take: 162 Hz
+       median, IQR 28 Hz. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
     gapAfterMs: 2500,
   },
   {
@@ -349,6 +352,26 @@ execSync(
   { stdio: "inherit", shell: "/bin/bash" },
 )
 
+/* Acoustic QA report over the FINAL takes (reused and fresh alike):
+   per-clip median f0 + IQR, per-speaker spread. Written alongside the
+   manifest so every shipped stitch carries its measurements. */
+const qaReport = clips.map((c, i) => {
+  const st = f0Stats(c.file)
+  return {
+    file: path.basename(c.file),
+    who: LINES[i].who,
+    medianF0Hz: Math.round(st.median),
+    iqrHz: Math.round(st.iqr),
+    voicedFrames: st.frames,
+  }
+})
+for (const who of ["agent", "caller"]) {
+  const meds = qaReport.filter((r) => r.who === who).map((r) => r.medianF0Hz)
+  const spread = Math.max(...meds) - Math.min(...meds)
+  console.log(`QA ${who}: medians ${meds.join("/")} Hz, cross-take spread ${spread} Hz`)
+}
+console.table(qaReport)
+
 /* Provenance manifest — every third-party asset in the demo, verifiable. */
 const manifest = {
   generatedAt: new Date().toISOString(),
@@ -374,6 +397,11 @@ const manifest = {
   },
   counselSlot:
     "GREETING_DISCLOSURE in the adoption spec is untouched and emit-empty; the demo greeting is a demo-render value only.",
+  acousticQa: {
+    method:
+      "median f0 + IQR per take (autocorrelation, 120-350 Hz, 40ms frames); fresh takes gated at IQR <= 65 Hz and <= 12% median deviation from the speaker's approved-take reference, up to 3 takes, best wins; TTS conditioned with same-speaker previous_text/next_text",
+    report: qaReport,
+  },
 }
 writeFileSync(path.join(OUT, "manifest.json"), JSON.stringify(manifest, null, 2))
 
