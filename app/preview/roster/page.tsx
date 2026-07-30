@@ -9,6 +9,7 @@ import type { Metadata } from "next"
 import AgentsVoicesGallery from "@/components/agents/AgentsVoicesGallery"
 import RosterVariantA from "@/components/agents/roster-variants/RosterVariantA"
 import RosterVariantB from "@/components/agents/roster-variants/RosterVariantB"
+import RosterVariantC from "@/components/agents/roster-variants/RosterVariantC"
 
 export const metadata: Metadata = {
   title: "Roster layout preview — Lyric",
@@ -48,7 +49,13 @@ function Head() {
 export default function RosterPreviewPage() {
   return (
     <main style={{ background: "var(--bg-light)", paddingBottom: 120 }}>
-      <section id="current" style={{ padding: "40px 0 60px" }}>
+      <section id="variant-c" style={{ padding: "40px 0 60px" }}>
+        <Label>Variant C — voice library rows</Label>
+        <Head />
+        <RosterVariantC />
+      </section>
+
+      <section id="current" style={{ padding: "40px 0 60px", borderTop: "1px solid var(--border)" }}>
         <Label>Current — gallery tiles</Label>
         <Head />
         <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 24px" }}>
