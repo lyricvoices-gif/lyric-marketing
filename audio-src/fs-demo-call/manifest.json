@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T19:10:05.645Z",
+  "generatedAt": "2026-07-30T19:23:53.073Z",
   "stitched": "fs-demo-call.mp3",
   "stitchOrder": [
     "ring",
@@ -63,30 +63,30 @@
       {
         "file": "line-03-agent.mp3",
         "who": "agent",
-        "medianF0Hz": 165,
-        "iqrHz": 24,
-        "voicedFrames": 350
+        "medianF0Hz": 172,
+        "iqrHz": 37,
+        "voicedFrames": 326
       },
       {
         "file": "line-04-caller.mp3",
         "who": "caller",
-        "medianF0Hz": 188,
-        "iqrHz": 43,
-        "voicedFrames": 6
+        "medianF0Hz": 128,
+        "iqrHz": 10,
+        "voicedFrames": 27
       },
       {
         "file": "line-05-agent.mp3",
         "who": "agent",
-        "medianF0Hz": 158,
-        "iqrHz": 28,
-        "voicedFrames": 233
+        "medianF0Hz": 163,
+        "iqrHz": 23,
+        "voicedFrames": 249
       },
       {
         "file": "line-06-caller.mp3",
         "who": "caller",
-        "medianF0Hz": 128,
-        "iqrHz": 0,
-        "voicedFrames": 1
+        "medianF0Hz": 137,
+        "iqrHz": 14,
+        "voicedFrames": 30
       },
       {
         "file": "line-07-agent.mp3",

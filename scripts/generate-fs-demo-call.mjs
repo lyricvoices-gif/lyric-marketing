@@ -127,36 +127,32 @@ const LINES = [
   {
     who: "agent",
     text:
-      "I'm sorry to hear that. I'll do my best to help. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account number you're calling about?",
-    /* Empathy crisp, no promised resolution before verification or
-       investigation ("I'll do my best to help" — short form, 2026-07-30).
-       The agent never abbreviates: "account information", not "info". */
-    /* QA-PASSED TAKE 2026-07-30 (165 Hz, IQR 24 Hz); STT verbatim. */
+      "I'm sorry to hear that. I'll do my best to help. Before I can access your account, I'll need to verify your identity. Can you confirm the last four digits of the account number you're calling about?",
+    /* Empathy beat kept; verification ask in Lyric's 2026-07-30 wording
+       ("access your account" / "confirm the last four digits"). */
     reuseFile: "audio-src/fs-demo-call/lines/line-03-agent.mp3",
   },
   {
     who: "caller",
-    text: "For sure. It's the account ending in two, two, four, five.",
-    /* APPROVED TAKE 2026-07-28. */
+    text: "It's the account ending in two, two, four, five.",
+    /* Lyric's 2026-07-30 wording — no "For sure" opener. */
     reuseFile: "audio-src/fs-demo-call/lines/line-04-caller.mp3",
   },
   {
     who: "agent",
     text:
-      "Thank you. As a second step, I've just sent a six digit verification code to the phone number we have on file. Can you read that code back to me once it arrives?",
-    /* TWO-FACTOR STEP (restored 2026-07-30 per Lyric): knowledge factor
-       (last four) plus possession factor (OTP to the phone on file). */
-    /* QA-PASSED TAKE 2026-07-30 (158 Hz, IQR 28 Hz); STT verbatim. */
+      "Thank you. For added security, I've just sent a one-time verification code to the mobile number ending in four two. Could you read that code back to me?",
+    /* TWO-FACTOR STEP, Lyric's 2026-07-30 wording. "42" spoken as
+       "four two" per the normalization discipline above. */
     reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
     gapAfterMs: 2200,
   },
   {
     who: "caller",
-    text: "Sure, one sec... okay, got it. It's four, seven, one, two, nine, five.",
-    /* Code digits spelled with commas for beat separation, per the
-       normalization discipline above. */
-    /* QA-PASSED TAKE 2026-07-30 (128 Hz, dev 1% vs caller ref); STT
-       verbatim including all six digits. */
+    text: "Sure, one sec... okay, got it. It's four seven one two... nine five.",
+    /* ANTI-ROBOTIC: no per-digit commas — a comma after every digit
+       renders as a staccato list. Digits grouped 4+2 with an ellipsis
+       beat, the way a person reads a code off their phone. */
     reuseFile: "audio-src/fs-demo-call/lines/line-06-caller.mp3",
   },
   {
