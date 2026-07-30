@@ -5782,7 +5782,7 @@ svg.lv-about-locations-map {
   background: transparent;
   color: var(--olive);
   cursor: pointer;
-  margin-bottom: 22px;
+  flex: none;
   overflow: visible;
   transition: color 0.45s ease;
 }
@@ -5846,9 +5846,12 @@ svg.lv-about-locations-map {
   color: var(--voice);
 }
 
+/* Name left, play control right — the control is anchored to the name row
+   rather than floating above the copy. */
 .lv-vtile-namerow {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
 }
 .lv-vtile-dot {

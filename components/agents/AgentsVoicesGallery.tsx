@@ -43,8 +43,9 @@ const VOICES: AgentVoice[] = [
     name: "Sam",
     credit: "The efficient one",
     character: "Crisp. Conversational. Direct.",
+    /* PLACEHOLDER COPY (2026-07-30): Lyric will do a copy pass. */
     desc:
-      "American and direct. Sam keeps the call moving without ever sounding rushed, and says the hard terms plainly.",
+      "A voice that respects the caller's time. Gets to the point without ever feeling rushed, and handles the routine so smoothly you barely notice the work.",
     sample: `${AUDIO_BASE}/sam_default.mp3`,
     color: VOICE_COLORS.atlas,
   },
@@ -53,8 +54,9 @@ const VOICES: AgentVoice[] = [
     name: "James",
     credit: "The refined one",
     character: "British. Refined. Polished.",
+    /* PLACEHOLDER COPY (2026-07-30): Lyric will do a copy pass. */
     desc:
-      "Measured and precise. James brings a formal register for institutions whose brand leans traditional.",
+      "A composed British voice with an unhurried polish. Measured, precise, and quietly reassuring on the calls that need a steady hand.",
     sample: `${AUDIO_BASE}/james_default.mp3`,
     color: VOICE_COLORS.riven,
   },
@@ -134,32 +136,30 @@ export default function AgentsVoicesGallery() {
             className={`lv-vtile${isOn ? " is-playing" : ""}`}
             style={{ ["--voice" as string]: v.color } as CSSProperties}
           >
-            <button
-              type="button"
-              className={`lv-vtile-play${isOn ? " is-playing" : ""}`}
-              onClick={() => toggle(v)}
-              aria-label={isOn ? `Pause ${v.name} sample` : `Play ${v.name} sample`}
-              aria-pressed={isOn}
-            >
-              <svg className="lv-vtile-ring" viewBox="0 0 60 60" aria-hidden="true">
-                <circle className="lv-vtile-ring-track" cx="30" cy="30" r={TILE_R} />
-                <circle
-                  className="lv-vtile-ring-prog"
-                  cx="30"
-                  cy="30"
-                  r={TILE_R}
-                  style={{
-                    strokeDasharray: TILE_C,
-                    strokeDashoffset: TILE_C * (1 - prog),
-                  }}
-                />
-              </svg>
-              <span className="lv-vtile-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
-            </button>
-
             <div className="lv-vtile-namerow">
-              <span className="lv-vtile-dot" aria-hidden="true" />
               <h3 className="lv-vtile-name">{v.name}</h3>
+              <button
+                type="button"
+                className={`lv-vtile-play${isOn ? " is-playing" : ""}`}
+                onClick={() => toggle(v)}
+                aria-label={isOn ? `Pause ${v.name} sample` : `Play ${v.name} sample`}
+                aria-pressed={isOn}
+              >
+                <svg className="lv-vtile-ring" viewBox="0 0 60 60" aria-hidden="true">
+                  <circle className="lv-vtile-ring-track" cx="30" cy="30" r={TILE_R} />
+                  <circle
+                    className="lv-vtile-ring-prog"
+                    cx="30"
+                    cy="30"
+                    r={TILE_R}
+                    style={{
+                      strokeDasharray: TILE_C,
+                      strokeDashoffset: TILE_C * (1 - prog),
+                    }}
+                  />
+                </svg>
+                <span className="lv-vtile-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
+              </button>
             </div>
             <p className="lv-vtile-credit">{v.credit}</p>
             <p className="lv-vtile-character">{v.character}</p>
