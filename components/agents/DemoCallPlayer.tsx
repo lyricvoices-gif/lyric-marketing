@@ -10,17 +10,21 @@
    motion the shader (which animates continuously) is replaced with a
    still sage disc.
 
-   DEMO_CALL_SRC: STAND-IN. The produced two-voice call (Sol + caller,
-   scripts/generate-fs-demo-call.mjs) replaces this with its R2 URL, path
-   pattern {AUDIO_BASE}/phone/fs-demo-call.mp3. Until then the player runs
-   on the existing governed FS sample so the instrument is real. */
+   DEMO_CALL_SRC: the PRODUCED inbound call (ring -> Sol's Oakhaven
+   opening -> the locked dispute scenario), generated 2026-07-28 by
+   scripts/generate-fs-demo-call.mjs and committed at
+   public/audio/fs-demo-call.mp3 (provenance: audio-src/fs-demo-call/
+   manifest.json; per-line clips kept there for a future transcript-
+   synced player). Served same-origin so the WebAudio analyser that
+   drives the aura keeps working — if this ever moves to R2, front it
+   with a next.config rewrite rather than a cross-origin src. */
 
 import { useEffect, useRef, useState } from "react"
 
 import { AgentAudioVisualizerAura } from "@/components/agents-ui/agent-audio-visualizer-aura"
 import { type AgentState } from "@/components/agents-ui/use-agent-audio-visualizer-wave"
 
-const DEMO_CALL_SRC = "/GovernedSample.mp3"
+const DEMO_CALL_SRC = "/audio/fs-demo-call.mp3"
 
 /* The page accent (sage) carries the aura. */
 const AURA_COLOR = "#C1C17E" as const

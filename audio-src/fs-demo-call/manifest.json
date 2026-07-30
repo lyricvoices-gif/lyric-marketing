@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-07-30T19:23:53.073Z",
+  "stitched": "fs-demo-call.mp3",
+  "stitchOrder": [
+    "ring",
+    "agent",
+    "caller",
+    "agent",
+    "caller",
+    "agent",
+    "caller",
+    "agent",
+    "agent",
+    "agent",
+    "caller",
+    "agent"
+  ],
+  "ring": {
+    "clipName": "COMCellRealistic_phone_call (ElevenLabs)",
+    "source": "ElevenLabs sound-effects library; file supplied by Lyric 2026-07-28, committed at audio-src/fs-demo-call/ring-comcell-realistic.wav",
+    "license": "ElevenLabs account license for generated/library SFX (commercial use under the workspace's subscription terms). VERIFY against the ElevenLabs terms line for SFX before wide distribution.",
+    "trimSeconds": 2.6
+  },
+  "agent": {
+    "name": "FS agent (voice: Jessica Anne Bogart)",
+    "voiceId": "g6xIsTj2HwM6VR4iXFCw",
+    "model": "eleven_flash_v2_5",
+    "settings": {
+      "stability": 0.43,
+      "use_speaker_boost": true,
+      "similarity_boost": 0.57,
+      "style": 0.55,
+      "speed": 0.98
+    },
+    "settingsSource": "fetched from the voice's saved settings (GET /v1/voices/{id}/settings) at generation time"
+  },
+  "caller": {
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "library": "ElevenLabs cleared voice library",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.75
+    }
+  },
+  "counselSlot": "GREETING_DISCLOSURE in the adoption spec is untouched and emit-empty; the demo greeting is a demo-render value only.",
+  "acousticQa": {
+    "method": "median f0 + IQR per take (autocorrelation, 120-350 Hz, 40ms frames); fresh takes gated at IQR <= 65 Hz and <= 12% median deviation from the speaker's approved-take reference, up to 3 takes, best wins; TTS conditioned with same-speaker previous_text/next_text",
+    "report": [
+      {
+        "file": "line-01-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 176,
+        "iqrHz": 33,
+        "voicedFrames": 233
+      },
+      {
+        "file": "line-02-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 127,
+        "iqrHz": 15,
+        "voicedFrames": 48
+      },
+      {
+        "file": "line-03-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 172,
+        "iqrHz": 37,
+        "voicedFrames": 326
+      },
+      {
+        "file": "line-04-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 128,
+        "iqrHz": 10,
+        "voicedFrames": 27
+      },
+      {
+        "file": "line-05-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 163,
+        "iqrHz": 23,
+        "voicedFrames": 249
+      },
+      {
+        "file": "line-06-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 137,
+        "iqrHz": 14,
+        "voicedFrames": 30
+      },
+      {
+        "file": "line-07-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 182,
+        "iqrHz": 45,
+        "voicedFrames": 80
+      },
+      {
+        "file": "line-08-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 180,
+        "iqrHz": 38,
+        "voicedFrames": 159
+      },
+      {
+        "file": "line-09-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 178,
+        "iqrHz": 61,
+        "voicedFrames": 234
+      },
+      {
+        "file": "line-10-caller.mp3",
+        "who": "caller",
+        "medianF0Hz": 123,
+        "iqrHz": 23,
+        "voicedFrames": 4
+      },
+      {
+        "file": "line-11-agent.mp3",
+        "who": "agent",
+        "medianF0Hz": 170,
+        "iqrHz": 26,
+        "voicedFrames": 393
+      }
+    ]
+  }
+}
