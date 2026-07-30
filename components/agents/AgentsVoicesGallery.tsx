@@ -43,8 +43,9 @@ const VOICES: AgentVoice[] = [
     name: "Sam",
     credit: "The efficient one",
     character: "Crisp. Conversational. Direct.",
+    /* PLACEHOLDER COPY (2026-07-30): Lyric will do a copy pass. */
     desc:
-      "American and direct. Sam keeps the call moving without ever sounding rushed, and says the hard terms plainly.",
+      "A voice that respects the caller's time. Gets to the point without ever feeling rushed, and handles the routine so smoothly you barely notice the work.",
     sample: `${AUDIO_BASE}/sam_default.mp3`,
     color: VOICE_COLORS.atlas,
   },
@@ -53,8 +54,9 @@ const VOICES: AgentVoice[] = [
     name: "James",
     credit: "The refined one",
     character: "British. Refined. Polished.",
+    /* PLACEHOLDER COPY (2026-07-30): Lyric will do a copy pass. */
     desc:
-      "Measured and precise. James brings a formal register for institutions whose brand leans traditional.",
+      "A composed British voice with an unhurried polish. Measured, precise, and quietly reassuring on the calls that need a steady hand.",
     sample: `${AUDIO_BASE}/james_default.mp3`,
     color: VOICE_COLORS.riven,
   },
