@@ -131,6 +131,7 @@ const LINES = [
     /* Empathy crisp, no promised resolution before verification or
        investigation ("I'll do my best to help" — short form, 2026-07-30).
        The agent never abbreviates: "account information", not "info". */
+    /* QA-PASSED TAKE 2026-07-30 (165 Hz, IQR 24 Hz); STT verbatim. */
     reuseFile: "audio-src/fs-demo-call/lines/line-03-agent.mp3",
   },
   {
@@ -145,6 +146,7 @@ const LINES = [
       "Thank you. As a second step, I've just sent a six digit verification code to the phone number we have on file. Can you read that code back to me once it arrives?",
     /* TWO-FACTOR STEP (restored 2026-07-30 per Lyric): knowledge factor
        (last four) plus possession factor (OTP to the phone on file). */
+    /* QA-PASSED TAKE 2026-07-30 (158 Hz, IQR 28 Hz); STT verbatim. */
     reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
     gapAfterMs: 2200,
   },
@@ -153,6 +155,8 @@ const LINES = [
     text: "Sure, one sec... okay, got it. It's four, seven, one, two, nine, five.",
     /* Code digits spelled with commas for beat separation, per the
        normalization discipline above. */
+    /* QA-PASSED TAKE 2026-07-30 (128 Hz, dev 1% vs caller ref); STT
+       verbatim including all six digits. */
     reuseFile: "audio-src/fs-demo-call/lines/line-06-caller.mp3",
   },
   {
