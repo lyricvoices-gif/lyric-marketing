@@ -136,32 +136,30 @@ export default function AgentsVoicesGallery() {
             className={`lv-vtile${isOn ? " is-playing" : ""}`}
             style={{ ["--voice" as string]: v.color } as CSSProperties}
           >
-            <button
-              type="button"
-              className={`lv-vtile-play${isOn ? " is-playing" : ""}`}
-              onClick={() => toggle(v)}
-              aria-label={isOn ? `Pause ${v.name} sample` : `Play ${v.name} sample`}
-              aria-pressed={isOn}
-            >
-              <svg className="lv-vtile-ring" viewBox="0 0 60 60" aria-hidden="true">
-                <circle className="lv-vtile-ring-track" cx="30" cy="30" r={TILE_R} />
-                <circle
-                  className="lv-vtile-ring-prog"
-                  cx="30"
-                  cy="30"
-                  r={TILE_R}
-                  style={{
-                    strokeDasharray: TILE_C,
-                    strokeDashoffset: TILE_C * (1 - prog),
-                  }}
-                />
-              </svg>
-              <span className="lv-vtile-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
-            </button>
-
             <div className="lv-vtile-namerow">
-              <span className="lv-vtile-dot" aria-hidden="true" />
               <h3 className="lv-vtile-name">{v.name}</h3>
+              <button
+                type="button"
+                className={`lv-vtile-play${isOn ? " is-playing" : ""}`}
+                onClick={() => toggle(v)}
+                aria-label={isOn ? `Pause ${v.name} sample` : `Play ${v.name} sample`}
+                aria-pressed={isOn}
+              >
+                <svg className="lv-vtile-ring" viewBox="0 0 60 60" aria-hidden="true">
+                  <circle className="lv-vtile-ring-track" cx="30" cy="30" r={TILE_R} />
+                  <circle
+                    className="lv-vtile-ring-prog"
+                    cx="30"
+                    cy="30"
+                    r={TILE_R}
+                    style={{
+                      strokeDasharray: TILE_C,
+                      strokeDashoffset: TILE_C * (1 - prog),
+                    }}
+                  />
+                </svg>
+                <span className="lv-vtile-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
+              </button>
             </div>
             <p className="lv-vtile-credit">{v.credit}</p>
             <p className="lv-vtile-character">{v.character}</p>
