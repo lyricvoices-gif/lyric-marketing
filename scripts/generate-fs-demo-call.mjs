@@ -127,11 +127,10 @@ const LINES = [
   {
     who: "agent",
     text:
-      "I'm sorry to hear that. I'll do my best to help you with that. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account number you're calling about?",
+      "I'm sorry to hear that. I'll do my best to help. Before I can pull up any account information, I need to verify your identity. Can you verify the last four digits of the account number you're calling about?",
     /* Empathy crisp, no promised resolution before verification or
-       investigation. The agent never abbreviates: "account
-       information", not "info". */
-    /* QA-PASSED TAKE 2026-07-28 (163 Hz, IQR 25 Hz). */
+       investigation ("I'll do my best to help" — short form, 2026-07-30).
+       The agent never abbreviates: "account information", not "info". */
     reuseFile: "audio-src/fs-demo-call/lines/line-03-agent.mp3",
   },
   {
@@ -142,19 +141,35 @@ const LINES = [
   },
   {
     who: "agent",
+    text:
+      "Thank you. As a second step, I've just sent a six digit verification code to the phone number we have on file. Can you read that code back to me once it arrives?",
+    /* TWO-FACTOR STEP (restored 2026-07-30 per Lyric): knowledge factor
+       (last four) plus possession factor (OTP to the phone on file). */
+    reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
+    gapAfterMs: 2200,
+  },
+  {
+    who: "caller",
+    text: "Sure, one sec... okay, got it. It's four, seven, one, two, nine, five.",
+    /* Code digits spelled with commas for beat separation, per the
+       normalization discipline above. */
+    reuseFile: "audio-src/fs-demo-call/lines/line-06-caller.mp3",
+  },
+  {
+    who: "agent",
     text: "Thank you. One moment while I verify that.",
     /* "One moment while I..." repeats at the lookup on purpose: a
        consistent service idiom is what a governed register sounds
        like. */
     /* QA-PASSED TAKE 2026-07-28 (182 Hz, IQR 45 Hz). */
-    reuseFile: "audio-src/fs-demo-call/lines/line-05-agent.mp3",
+    reuseFile: "audio-src/fs-demo-call/lines/line-07-agent.mp3",
     gapAfterMs: 2500,
   },
   {
     who: "agent",
     text: "Thanks for verifying your identity. One moment while I look into that charge.",
     /* QA-PASSED TAKE 2026-07-28 (180 Hz, IQR 38 Hz). */
-    reuseFile: "audio-src/fs-demo-call/lines/line-06-agent.mp3",
+    reuseFile: "audio-src/fs-demo-call/lines/line-08-agent.mp3",
     gapAfterMs: 4500,
   },
   {
@@ -164,13 +179,13 @@ const LINES = [
     /* Standard bank phrasing; the agent never says familiar or
        unfamiliar about a disputed charge. */
     /* QA-PASSED TAKE 2026-07-28 (178 Hz, IQR 61 Hz). */
-    reuseFile: "audio-src/fs-demo-call/lines/line-07-agent.mp3",
+    reuseFile: "audio-src/fs-demo-call/lines/line-09-agent.mp3",
   },
   {
     who: "caller",
     text: "No, I've never heard of them.",
     /* APPROVED TAKE 2026-07-28. */
-    reuseFile: "audio-src/fs-demo-call/lines/line-08-caller.mp3",
+    reuseFile: "audio-src/fs-demo-call/lines/line-10-caller.mp3",
   },
   {
     who: "agent",
@@ -180,7 +195,7 @@ const LINES = [
        determine..."), never asserted before it. The unconditional form
        made a legal determination pre-investigation. */
     /* QA-PASSED TAKE 2026-07-28 (170 Hz, IQR 26 Hz). */
-    reuseFile: "audio-src/fs-demo-call/lines/line-09-agent.mp3",
+    reuseFile: "audio-src/fs-demo-call/lines/line-11-agent.mp3",
   },
 ]
 
