@@ -1,13 +1,14 @@
-/* Pricing — the hybrid model: a one-time Foundation purchase and a recurring
-   Governance subscription, plus an Enterprise talk-to-us path. The one-time
-   Foundation is the on-ramp; the Governance subscription is the business, so the
-   page steers toward subscribing (Governance is the hero tier) while keeping
-   Foundation a real, standalone paid option (there is no free output).
+/* Pricing — the settled commercial model: two purchase paths, both one-time
+   (Prebuilt Financial Services Agent $40,000; Govern Your Existing Agent
+   $25,000), plus consulting as an optional per-engagement add-on on either
+   path. No subscription, no recurring license, no annual fee, no activation
+   fee, no platform fee, no agent-count billing. The evaluation and monitoring
+   layer is included on both paths, never an upsell.
 
-   Cream ground, restrained editorial register, of-a-piece with the rest of the
-   site. All prices live in components/pricing/pricing-data.ts (placeholders).
-   The previous generation-count pricing page (PlanGrid / FaqAccordion) is
-   retired here; those components remain in the repo, just unused by this route. */
+   Copy rules for this page: no em dashes, no exclamation points, no hype, no
+   reference to Callio's cost structure. Bullets describe what the customer
+   receives. Cream ground, restrained editorial register, of-a-piece with the
+   rest of the site. Amounts live in components/pricing/pricing-data.ts. */
 
 import type { Metadata } from "next"
 import type { CSSProperties, ReactNode } from "react"
@@ -18,21 +19,21 @@ import PricingTiers from "@/components/pricing/PricingTiers"
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Buy a governed voice output once, or subscribe to keep every agent on brand over time. Enterprise engagements available.",
+    "Two one-time purchase paths: the prebuilt Financial Services agent, or governance built around your existing agent. Consulting available per engagement.",
 }
 
 const FAQ = [
   {
-    q: "What is the difference between Foundation and Governance?",
-    a: "Foundation is a one-time deliverable: the guided intake and a governed voice spec for one agent. Governance is a subscription that includes that output and then keeps every agent on brand over time, with evals, drift monitoring, and re-tuning as models and engines change.",
+    q: "Is there anything recurring?",
+    a: "No. Both paths are a single one-time purchase. There is no subscription, no annual fee, and nothing billed by agent count. The governance you license is yours, and there is no charge to keep using it.",
   },
   {
-    q: "How does agent-based pricing work?",
-    a: "Governance is priced by the number of agents you govern. Pick the tier that covers your fleet, from a single agent up, and move up as you add more.",
+    q: "Which path is right for us?",
+    a: "If you are a financial institution and want a governed agent in service quickly, the prebuilt agent is complete and requires no intake. If you already run an agent you want held to a governed spec, the custom intake builds the governance around it.",
   },
   {
-    q: "Is there a free output?",
-    a: "No. The free trial leads into the paid output flow, so you can try Lyric before you commit, but the governed output itself is a paid deliverable.",
+    q: "Is consulting required?",
+    a: "No. Both paths are complete on their own, and the evaluation and monitoring layer is included in each. Consulting is there if you want hands-on help with implementation, integration, or the evaluation layer, at purchase or at any point after.",
   },
 ]
 
@@ -112,14 +113,14 @@ export default function PricingPage() {
           </ScrollReveal>
           <ScrollReveal delay={100}>
             <h1 className="lv-pricing-headline">
-              Buy it once, or <em>keep it on brand</em>.
+              Buy it once. <em>Own it.</em>
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={180}>
             <p className="lv-pricing-supporting">
-              Run the intake and get a governed voice spec for one agent, as a
-              one-time output. Or subscribe, and Lyric keeps every agent on brand
-              as your models and engines change.
+              Two ways to bring a governed agent into service, each a single
+              one-time purchase. The governance you license is yours, and
+              Callio does not charge you to keep using it.
             </p>
           </ScrollReveal>
         </div>
