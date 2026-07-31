@@ -26,29 +26,28 @@ export default function PricingTiers() {
           <span className="lv-price-period"> one time</span>
         </p>
         <p className="lv-price-desc">
-          The governed Financial Services agent, complete and ready to bring
-          into service.
+          The governed Financial Services agent, complete and production-ready.
         </p>
         <ul className="lv-price-includes">
+          <li>Governed FS specification authored by domain experts</li>
           <li>
-            The complete governed Financial Services specification, authored by
-            domain experts
+            Verify-before-disclose workflow including dispute handling, hold
+            handling, escalation controls, and disclosure delivery
           </li>
           <li>
-            Verify-before-disclose call flow, dispute and hold handling,
-            escalation controls, and disclosure delivery
+            Scenario exemplars showing consistent, on-brand handling for
+            financial services situations
           </li>
           <li>
-            Scenario exemplars showing on-brand handling for financial services
-            situations
+            FS pronunciation and voice-output standards for clear and compliant
+            communication
           </li>
-          <li>Financial services pronunciation and voice-output standards</li>
-          <li>Your choice of produced voice: Sol, Sam, or James</li>
+          <li>Choice of produced voice: Sol, Sam, or James</li>
           <li>
-            The evaluation and monitoring layer, included, so you can observe
-            drift and governance adherence yourself
+            Evaluation and monitoring layer included, so you can observe drift
+            and governance adherence directly
           </li>
-          <li>Ready to deploy, with no intake process required</li>
+          <li>Ready to deploy with no intake process required</li>
         </ul>
         <Link href={GET_STARTED} className="lv-price-cta lv-price-cta-primary">
           Get started with this agent
