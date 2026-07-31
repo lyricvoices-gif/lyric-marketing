@@ -188,8 +188,8 @@ export default function CallioPage() {
             <p className="lv-callio-what-body">
               It sits above your models, voice engines, and agent channels. It
               translates your brand, compliance, and CX rules into a portable
-              communication spec that every agent follows. It does not build
-              agents. It governs how the agents you already run speak.
+              communication spec that every agent follows, whether you adopt a
+              governed agent from Callio or bring one your team built.
             </p>
           </ScrollReveal>
 

@@ -1,125 +1,131 @@
-/* The three pricing tiers. Foundation (one-time, understated) is the starting
-   point; Governance (subscription) is the hero — raised, gold-accented, with a
-   "Recommended" badge; Enterprise (custom) is the quiet talk-to-us path.
+/* The two purchase paths and the optional consulting add-on. Both paths are
+   one-time purchases; each card leads with its single price. Consulting is a
+   quieter third card and must never read as required. The evaluation and
+   monitoring layer is included on both paths, never an upsell.
 
-   Annual is the loud default — there is no monthly/annual toggle. The annual
-   price leads; monthly is demoted to one quiet "or $X/mo billed monthly" line.
-   The per-agent ladder (annual) shows value-based pricing where the per-agent
-   cost drops as the fleet grows; above the top rung it routes to Enterprise. All
-   numbers come from components/pricing/pricing-data.ts — the single editable place.
-
-   CTAs use named routes: "Try for free" -> /start (the trial leads into the paid
-   flow); "Talk to us" -> /contact (a named placeholder for a contact path built
-   later). No dead "#" links. */
+   All amounts come from components/pricing/pricing-data.ts. CTAs use named
+   routes: the prebuilt agent routes to the agents get-started stub; the
+   custom path and consulting route to /contact (named placeholder). */
 
 import Link from "next/link"
 import { PRICING } from "@/components/pricing/pricing-data"
 
-const START = "/start"
+const GET_STARTED = "/agents/get-started"
 const CONTACT = "/contact"
 
 export default function PricingTiers() {
-  const gov = PRICING.governance
-  const entry = gov.annual[gov.agentTiers[0].key]
-
   return (
     <div className="lv-pricing-grid">
-      {/* Tier 1 — Foundation (one-time, understated) */}
-      <article className="lv-price-card">
-        <p className="lv-price-name">Foundation</p>
-        <p className="lv-price-billing">One-time</p>
-        <p className="lv-price-amount">
-          {PRICING.foundation.amount}
-          <span className="lv-price-period"> once</span>
-        </p>
-        <p className="lv-price-sub">
-          The one-time starting point. Build the Foundation, then govern it.
-        </p>
-        <p className="lv-price-desc">
-          Run the guided intake and walk away with your brand&rsquo;s governed
-          voice spec for one agent. A complete deliverable you own.
-        </p>
-        <ul className="lv-price-includes">
-          <li>Guided intake with Sonic</li>
-          <li>Governed voice spec for one agent</li>
-          <li>Ready to deploy on your engine</li>
-        </ul>
-        <p className="lv-price-note">
-          Custom voice and sound packs available as one-off add-ons.
-        </p>
-        <Link href={START} className="lv-price-cta lv-price-cta-ghost">
-          Try for free
-        </Link>
-      </article>
-
-      {/* Tier 2 — Governance (subscription) — HERO. Annual leads; monthly quiet. */}
+      {/* Path 1 — Prebuilt Financial Services Agent */}
       <article className="lv-price-card lv-price-card-hero">
-        <span className="lv-price-badge">Recommended</span>
-        <p className="lv-price-name">Governance</p>
-        <p className="lv-price-billing">Subscription</p>
-
+        <span className="lv-price-badge">Ready to deploy</span>
+        <p className="lv-price-name">Prebuilt Financial Services Agent</p>
+        <p className="lv-price-billing">{PRICING.prebuilt.billing}</p>
         <p className="lv-price-amount">
-          <span className="lv-price-from">from</span> {entry}
-          <span className="lv-price-period">/yr</span>
-        </p>
-        <p className="lv-price-monthly">or {gov.monthlyFrom}/mo billed monthly</p>
-        <p className="lv-price-sub">
-          Billed annually. About the cost of a one-time Foundation, with a year of
-          governance on top.
+          {PRICING.prebuilt.amount}
+          <span className="lv-price-period"> one time</span>
         </p>
         <p className="lv-price-desc">
-          Everything in Foundation, plus ongoing governance. Evals, drift
-          monitoring, and re-tuning as models and engines change, across every
-          agent you run.
+          The governed Financial Services agent, complete and ready to bring
+          into service.
         </p>
         <ul className="lv-price-includes">
-          <li>Everything in Foundation</li>
-          <li>Evals and drift monitoring</li>
-          <li>Re-tuning as engines change</li>
-          <li>Custom voice and sound packs included</li>
-          <li>Manage multiple agents</li>
+          <li>
+            The complete governed Financial Services specification, authored by
+            domain experts
+          </li>
+          <li>
+            Verify-before-disclose call flow, dispute and hold handling,
+            escalation controls, and disclosure delivery
+          </li>
+          <li>
+            Scenario exemplars showing on-brand handling for financial services
+            situations
+          </li>
+          <li>Financial services pronunciation and voice-output standards</li>
+          <li>Your choice of produced voice: Sol, Sam, or James</li>
+          <li>
+            The evaluation and monitoring layer, included, so you can observe
+            drift and governance adherence yourself
+          </li>
+          <li>Ready to deploy, with no intake process required</li>
         </ul>
-
-        <div className="lv-price-tiers">
-          <p className="lv-price-tiers-label">Priced by agents governed</p>
-          <ul>
-            {gov.agentTiers.map((t) => (
-              <li key={t.key}>
-                <span>{t.label}</span>
-                <span className="lv-price-tiers-amount">
-                  {gov.annual[t.key]}/yr
-                </span>
-              </li>
-            ))}
-            <li className="lv-price-tiers-more">
-              <span>{gov.aboveLabel}</span>
-              <Link href={CONTACT}>Talk to us</Link>
-            </li>
-          </ul>
-        </div>
-
-        <Link href={START} className="lv-price-cta lv-price-cta-primary">
-          Try for free
+        <Link href={GET_STARTED} className="lv-price-cta lv-price-cta-primary">
+          Get started with this agent
         </Link>
       </article>
 
-      {/* Tier 3 — Enterprise (custom, quiet) */}
+      {/* Path 2 — Custom Governed Agent: commissioned and authored for the
+          customer's business and vertical, to the same standard as the FS
+          agent. NOT governance wrapped around an agent the customer brings. */}
       <article className="lv-price-card">
-        <p className="lv-price-name">Enterprise</p>
-        <p className="lv-price-billing">Custom</p>
-        <p className="lv-price-amount">{PRICING.enterprise.amount}</p>
+        <p className="lv-price-name">Custom Governed Agent</p>
+        <p className="lv-price-billing">{PRICING.custom.billing}</p>
+        <p className="lv-price-amount">
+          {PRICING.custom.amount}
+          <span className="lv-price-period"> one time</span>
+        </p>
         <p className="lv-price-desc">
-          A hands-on engagement. We codify your brand across a large agent fleet
-          and govern it under a recurring contract. It starts with a paid pilot.
+          A governed agent authored for your business and your vertical, built
+          to the same standard as the Financial Services agent.
         </p>
         <ul className="lv-price-includes">
-          <li>Brand codified across a large fleet</li>
-          <li>Paid diagnostic and pilot</li>
-          <li>Recurring governance contract</li>
-          <li>Hands-on, bespoke onboarding</li>
+          <li>
+            Discovery and definition of your vertical&rsquo;s workflows,
+            controls, and escalation patterns
+          </li>
+          <li>
+            A complete governance specification authored for your business, not
+            adapted from a template
+          </li>
+          <li>
+            Scenario exemplars written for the situations your agent will
+            actually handle
+          </li>
+          <li>
+            Character definition, plus pronunciation and output standards for
+            your vocabulary
+          </li>
+          <li>Your choice of produced voice</li>
+          <li>
+            Testing and approval support through to a governed specification
+            you own
+          </li>
+          <li>
+            The evaluation and monitoring layer, included, on the same terms as
+            the prebuilt agent
+          </li>
         </ul>
         <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
           Talk to us
+        </Link>
+      </article>
+
+      {/* Optional add-on — Consulting. Never required, available on either
+          path, at purchase or at any point after. */}
+      <article className="lv-price-card">
+        <p className="lv-price-name">Consulting</p>
+        <p className="lv-price-billing">{PRICING.consulting.billing}</p>
+        <p className="lv-price-amount">{PRICING.consulting.amount}</p>
+        <p className="lv-price-desc">
+          An optional add-on. Both paths are complete without it.
+        </p>
+        <ul className="lv-price-includes">
+          <li>
+            Implementation and integration support with your telephony and
+            account systems
+          </li>
+          <li>Configuration assistance and validation for your institution</li>
+          <li>
+            Setup and interpretation of the evaluation layer, including ongoing
+            monitoring if you want Callio watching it with you
+          </li>
+          <li>
+            Available on either path, at purchase or at any point after
+          </li>
+        </ul>
+        <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
+          Ask about consulting
         </Link>
       </article>
     </div>
