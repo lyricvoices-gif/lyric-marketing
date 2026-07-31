@@ -86,27 +86,27 @@ const GOVERNANCE = [
 const FAQ = [
   {
     q: "What does the agent include out of the box?",
-    a: "The governed Financial Services build: the verify-before-disclose call flow, dispute and hold handling, the FS pronunciation and voice output standards, disclosure delivery, and a produced voice (Sol, Sam, or James) held to the governed register. It is the same agent behind the demo on this page.",
+    a: "The governed Financial Services build: the verify-before-disclose call flow, dispute and hold handling, disclosure delivery, and FS pronunciation and voice-output standards. You choose one of three produced voices, Sol, Sam, or James, each delivering the same governed agent. It is the same agent behind the demo on this page, governed by the full Callio Financial Services spec.",
   },
   {
-    q: "What do we still provide?",
-    a: "The words your counsel owns: your exact disclosure lines and your identity-verification policy, plus your brand name and terms. The agent arrives governed; your counsel approves the specific language it is required to say.",
+    q: "What do you provide, and what does your team approve?",
+    a: "The agent arrives fully governed by Callio. What your team approves is the exact language it is legally required to say: your disclosure lines, your identity-verification requirements, and your brand name and terms. Callio governs how the agent behaves; your legal and compliance team approves the specific words behind that behavior.",
   },
   {
     q: "How does it connect to our systems?",
-    a: "The agent sits above your telephony and account systems. Verification checks and account lookups call your endpoints at call time; the governance layer stays vendor-agnostic across models and speech engines, so it is not a rip-and-replace of your stack.",
+    a: "The agent sits on top of your existing telephony and account systems rather than replacing them. Verification checks and account lookups call your endpoints at call time, so your systems of record stay where they are. And because the governance layer is vendor-agnostic across models and speech engines, you are not locked into a single provider either.",
   },
   {
     q: "How is it priced?",
-    a: "Governance is priced by the number of agents you govern, the same agent-based model on our pricing page. Specific pricing for prebuilt vertical agents is being finalized; the get-started flow will carry it when it ships.",
+    a: "Governance uses our agent-based model: you pay by the number of agents you govern. See the pricing page for the details, including how prebuilt vertical agents are priced.",
   },
   {
     q: "What about data and compliance?",
-    a: "Callio governs what the agent says and records how it said it. It is brand-voice governance monitoring, not security or compliance certification. Your account systems and customer data stay in your stack; the agent reads from them at call time through your integration.",
+    a: "Callio governs what the agent is allowed to say and keeps a record of how it said it. That is brand and behavior governance, not a security or compliance certification, and it does not replace your own controls. Your account systems and customer data stay in your stack. The agent reads from them at call time through your integration, so Callio is not a store or a processor of your customer data.",
   },
   {
     q: "Can we change the voice or the wording?",
-    a: "Both. Pick Sol, Sam, or James for delivery, and your counsel's disclosure and verification wording drops into the spec. The governed register holds either way.",
+    a: "Both. Choose Sol, Sam, or James for delivery, and your own disclosure and verification wording is what the agent uses. The governance holds either way, whichever voice you pick and whatever your legal and compliance team approves.",
   },
 ]
 
@@ -162,7 +162,7 @@ export default function AgentsPage() {
           <ScrollReveal>
             <div className="lv-philosophy-eyebrow">
               <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>The voices</span>
+              <span>The agents</span>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={100}>
@@ -247,7 +247,7 @@ export default function AgentsPage() {
           <ScrollReveal>
             <div className="lv-philosophy-eyebrow">
               <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Before you ask sales</span>
+              <span>FAQs</span>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={100}>
