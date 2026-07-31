@@ -1,7 +1,7 @@
 /* Pricing — the settled commercial model: two purchase paths, both one-time
-   (Prebuilt Financial Services Agent $40,000; Govern Your Existing Agent
-   $25,000), plus consulting as an optional per-engagement add-on on either
-   path. No subscription, no recurring license, no annual fee, no activation
+   (Prebuilt Financial Services Agent $40,000; Custom Governed Agent $25,000,
+   authored for the customer's business and vertical), plus consulting as an
+   optional per-engagement add-on on either path. No subscription, no recurring license, no annual fee, no activation
    fee, no platform fee, no agent-count billing. The evaluation and monitoring
    layer is included on both paths, never an upsell.
 
@@ -19,7 +19,7 @@ import PricingTiers from "@/components/pricing/PricingTiers"
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Two one-time purchase paths: the prebuilt Financial Services agent, or governance built around your existing agent. Consulting available per engagement.",
+    "Two one-time purchase paths: the prebuilt Financial Services agent, or a custom governed agent authored for your business and your vertical. Consulting available per engagement.",
 }
 
 const FAQ = [
@@ -29,7 +29,7 @@ const FAQ = [
   },
   {
     q: "Which path is right for us?",
-    a: "If you are a financial institution and want a governed agent in service quickly, the prebuilt agent is complete and requires no intake. If you already run an agent you want held to a governed spec, the custom intake builds the governance around it.",
+    a: "If you are a financial institution and want a governed agent in service quickly, the prebuilt agent is complete and ready to deploy. If your business or vertical calls for its own agent, the custom path authors one for you to the same standard, from discovery through to a governed specification you own.",
   },
   {
     q: "Is consulting required?",

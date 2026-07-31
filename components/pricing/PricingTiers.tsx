@@ -55,30 +55,41 @@ export default function PricingTiers() {
         </Link>
       </article>
 
-      {/* Path 2 — Govern Your Existing Agent */}
+      {/* Path 2 — Custom Governed Agent: commissioned and authored for the
+          customer's business and vertical, to the same standard as the FS
+          agent. NOT governance wrapped around an agent the customer brings. */}
       <article className="lv-price-card">
-        <p className="lv-price-name">Govern Your Existing Agent</p>
-        <p className="lv-price-billing">{PRICING.governExisting.billing}</p>
+        <p className="lv-price-name">Custom Governed Agent</p>
+        <p className="lv-price-billing">{PRICING.custom.billing}</p>
         <p className="lv-price-amount">
-          {PRICING.governExisting.amount}
+          {PRICING.custom.amount}
           <span className="lv-price-period"> one time</span>
         </p>
         <p className="lv-price-desc">
-          A custom intake that builds the governance around the agent you
-          already run.
+          A governed agent authored for your business and your vertical, built
+          to the same standard as the Financial Services agent.
         </p>
         <ul className="lv-price-includes">
-          <li>Full intake and assessment of your existing agent</li>
           <li>
-            Governance specification built around your agent, your workflows,
-            and your approved language
+            Discovery and definition of your vertical&rsquo;s workflows,
+            controls, and escalation patterns
           </li>
           <li>
-            Exemplar selection, scenario coverage, escalation patterns, and
-            character definition
+            A complete governance specification authored for your business, not
+            adapted from a template
           </li>
           <li>
-            Testing and approval support through to a governed spec you own
+            Scenario exemplars written for the situations your agent will
+            actually handle
+          </li>
+          <li>
+            Character definition, plus pronunciation and output standards for
+            your vocabulary
+          </li>
+          <li>Your choice of produced voice</li>
+          <li>
+            Testing and approval support through to a governed specification
+            you own
           </li>
           <li>
             The evaluation and monitoring layer, included, on the same terms as
