@@ -118,9 +118,10 @@ export default function PricingPage() {
           </ScrollReveal>
           <ScrollReveal delay={180}>
             <p className="lv-pricing-supporting">
-              Two ways to bring a governed agent into service, each a single
-              one-time purchase. The governance you license is yours, and
-              Callio does not charge you to keep using it.
+              There are two ways to bring a governed agent into service, and
+              both are a single one-time purchase. The governance you license
+              is yours permanently, and Callio does not charge for ongoing
+              use.
             </p>
           </ScrollReveal>
         </div>
