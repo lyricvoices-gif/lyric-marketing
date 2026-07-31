@@ -10318,6 +10318,14 @@ main.lv-agents {
   margin: 0 auto;
 }
 
+/* The governance section borrows the home Brand Governance Layer layout,
+   including its wider 1120px measure — the narrow column reads tight with
+   three cells on the dark canvas. */
+.lv-agents-inner-wide {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
 /* ── Hero: full split (the callio build's layout) — copy panel on cream
    left, the demo stage panel on charcoal right. On mobile the panels
    stack, the stage running edge to edge. ── */
@@ -10768,7 +10776,7 @@ main.lv-agents {
 
   .lv-agents-gov-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 48px;
+    gap: 64px 72px;
   }
 }
 

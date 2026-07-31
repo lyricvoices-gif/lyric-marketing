@@ -181,7 +181,7 @@ export default function AgentsPage() {
 
       {/* ── The governance story, for the compliance reader. Dark. ── */}
       <section className="lv-agents-gov" style={{ background: DARK }}>
-        <div className="lv-agents-inner-narrow">
+        <div className="lv-agents-inner-wide">
           <ScrollReveal>
             <div className="lv-philosophy-eyebrow">
               <span className="lv-eyebrow-dot" aria-hidden="true" />
