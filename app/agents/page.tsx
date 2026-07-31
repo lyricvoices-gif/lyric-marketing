@@ -134,17 +134,14 @@ export default function AgentsPage() {
             </ScrollReveal>
             <ScrollReveal delay={200}>
               <p className="lv-agents-sub">
-                This is how a governed Financial Services agent handles it.
-                Already built, already governed, ready to adopt without an
+                Here&rsquo;s how the governed Financial Services agent handles
+                it. It is live, consistent, and ready to deploy without an
                 intake engagement.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={280}>
               <div className="lv-cta-row lv-agents-cta-row">
-                <Link href={TRY_HREF} className="lv-cta lv-agents-cta-primary">
-                  Try the agent live
-                </Link>
-                <Link href={GET_STARTED_HREF} className="lv-cta lv-agents-cta-outline">
+                <Link href={GET_STARTED_HREF} className="lv-cta lv-agents-cta-primary">
                   Get started with this agent
                 </Link>
               </div>
