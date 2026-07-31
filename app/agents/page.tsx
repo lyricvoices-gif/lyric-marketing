@@ -233,7 +233,9 @@ export default function AgentsPage() {
         eyebrow="Verticals"
         headline={
           <>
-            Financial Services is live. <em>More are on the way.</em>
+            Financial Services is live.
+            <br />
+            <em>More are on the way.</em>
           </>
         }
         supporting="The Financial Services agent is the first in the lineup. Pre-built governed agents for additional verticals are already in development, and each will be ready to adopt the same way."
