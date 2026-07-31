@@ -10582,34 +10582,49 @@ main.lv-agents {
    in the gallery block above. On the bright roster surface the tiles keep
    their cream-mix hover; the seam is invisible at 10% accent. */
 
-/* ── Governance story (charcoal) ── */
+/* ── Governance story (charcoal) — the home page's Brand Governance Layer
+   layout (header block + capability cells with icon / mono name / serif
+   tagline / body), re-grounded for the dark regime: labels and display at
+   full cream, body at --cream-body. ── */
 .lv-agents-gov {
   padding: 112px 24px;
   color: var(--bg-light);
 }
 
+/* Eyebrow label on the dark ground: full cream, never the olive value that
+   is tuned for cream grounds (illegible on charcoal). */
+.lv-agents-gov .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+
+.lv-agents-gov-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--cream-body);
+  margin: 0 0 72px;
+  max-width: 620px;
+}
+
 .lv-agents-gov-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 48px;
 }
 
-.lv-agents-gov-title {
-  font-family: var(--font-display);
-  font-size: clamp(19px, 2vw, 22px);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.25;
+/* Cell anatomy borrowed from .lv-cap-* (bright regime) — dark overrides. */
+.lv-agents-gov .lv-cap-icon,
+.lv-agents-gov .lv-cap-name,
+.lv-agents-gov .lv-cap-tagline {
   color: var(--bg-light);
-  margin: 0 0 12px;
 }
 
-.lv-agents-gov-body {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.65;
+.lv-agents-gov .lv-cap-tagline {
+  font-size: clamp(21px, 2.4vw, 26px);
+}
+
+.lv-agents-gov .lv-cap-body {
   color: var(--cream-body);
-  margin: 0;
 }
 
 /* ── FAQ accordion — first item open by default (AgentsFaq). Open/close

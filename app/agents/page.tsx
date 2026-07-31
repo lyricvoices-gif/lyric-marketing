@@ -23,6 +23,7 @@
 
 import type { Metadata } from "next"
 import Link from "next/link"
+import { Route, ScrollText, ShieldCheck } from "lucide-react"
 import ScrollReveal from "@/components/ScrollReveal"
 import DemoCallPlayer from "@/components/agents/DemoCallPlayer"
 import AgentsVoicesGallery from "@/components/agents/AgentsVoicesGallery"
@@ -43,21 +44,42 @@ const TRY_HREF = "/start"
 const GET_STARTED_HREF = "/agents/get-started"
 const CONTACT_HREF = "mailto:info@lyricvoices.ai?subject=Prebuilt%20FS%20agent"
 
+/* The governance cells follow the home page's Brand Governance Layer cell
+   anatomy (GovernanceGrid): icon, mono name, serif tagline with the italic
+   emphasis, body — rendered here in the dark regime. */
 const GOVERNANCE = [
   {
-    title: "Verify before disclose, enforced in code",
+    icon: ShieldCheck,
+    name: "Verification",
+    tagline: (
+      <>
+        Verify before <em>disclose</em>.
+      </>
+    ),
     body:
-      "Identity verification is a gate in the call flow, not a suggestion to the model. The agent cannot read an account detail before the gate passes, on any call, in any mood the model is in.",
+      "Identity checks are enforced in code. The agent cannot access or reveal account details until verification passes, regardless of model behavior or channel.",
   },
   {
-    title: "Character that cannot drift",
+    icon: Route,
+    name: "Workflow",
+    tagline: (
+      <>
+        Character that stays <em>consistent</em>.
+      </>
+    ),
     body:
-      "Sol's register, acknowledge, verify, review, resolve, is specified in the governed spec, not improvised per call. The thousandth call sounds like the first one.",
+      "Each agent follows a governed workflow specific to its vertical. It does not improvise steps, tone, or disclosures. Every interaction follows the same pattern, so the experience is predictable and stable.",
   },
   {
-    title: "Every call accountable",
+    icon: ScrollText,
+    name: "Accountability",
+    tagline: (
+      <>
+        Every interaction <em>accountable</em>.
+      </>
+    ),
     body:
-      "Each call records what was said, which disclosures were delivered, and which spec version governed it. When compliance asks why the agent said something, there is an answer.",
+      "Each call, chat, or SMS records what was said, which disclosures were delivered, and which spec version governed it. Compliance always has a clear answer.",
   },
 ] as const
 
@@ -168,19 +190,36 @@ export default function AgentsPage() {
           </ScrollReveal>
           <ScrollReveal delay={100}>
             <h2 className="lv-agents-section-head lv-agents-section-head-cream">
-              What <em>governed</em> means here.
+              What <em>governed</em> means for these agents.
             </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={180}>
+            <p className="lv-agents-gov-supporting">
+              These agents are built on Callio&apos;s governance layer. Each one
+              enforces the same rules for verification, workflow, and
+              accountability across phone, chat, and SMS. When you select a
+              pre-built agent, you&apos;re choosing behavior that is consistent,
+              compliant, and repeatable from the first interaction to the
+              thousandth.
+            </p>
           </ScrollReveal>
 
           <div className="lv-agents-gov-grid">
-            {GOVERNANCE.map((g, i) => (
-              <ScrollReveal key={g.title} delay={140 + i * 90}>
-                <div className="lv-agents-gov-item">
-                  <h3 className="lv-agents-gov-title">{g.title}</h3>
-                  <p className="lv-agents-gov-body">{g.body}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+            {GOVERNANCE.map((g, i) => {
+              const Icon = g.icon
+              return (
+                <ScrollReveal key={g.name} delay={220 + i * 90}>
+                  <div className="lv-agents-gov-item">
+                    <span className="lv-cap-icon" aria-hidden="true">
+                      <Icon size={20} strokeWidth={2.25} />
+                    </span>
+                    <p className="lv-cap-name">{g.name}</p>
+                    <h3 className="lv-cap-tagline">{g.tagline}</h3>
+                    <p className="lv-cap-body">{g.body}</p>
+                  </div>
+                </ScrollReveal>
+              )
+            })}
           </div>
         </div>
       </section>
