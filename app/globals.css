@@ -6378,10 +6378,8 @@ svg.lv-about-locations-map {
     gap: 24px;
     align-items: start;
   }
-  /* Raise the hero so it reads as the focal tier. */
-  .lv-price-card-hero {
-    transform: translateY(-14px);
-  }
+  /* All cards share one baseline; the hero reads focal via the gold
+     border, shadow, and badge alone. */
   .lv-pricing-faq {
     padding: 32px 32px 140px;
   }
