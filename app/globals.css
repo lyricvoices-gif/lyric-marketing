@@ -6250,7 +6250,9 @@ svg.lv-about-locations-map {
   font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(90, 94, 67, 0.6);
+  /* Quiet-meta floor (#61644C): the note carries pricing-critical copy and
+     must stay legible; the old 0.6-alpha olive sat below the floor. */
+  color: #61644c;
   margin: 16px 0 0;
 }
 
