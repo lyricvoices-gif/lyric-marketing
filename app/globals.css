@@ -6072,8 +6072,8 @@ svg.lv-about-locations-map {
 
 
 /* ═══ Pricing (/pricing) ═════════════════════════════════════════════════════
-   Hybrid model: one-time Output (understated), Governance subscription (hero,
-   gold-accented, raised), Enterprise (quiet). Cream ground; restrained. */
+   Two one-time purchase paths, followed by a single shared-inclusions band
+   and a quiet consulting note. Cream ground; restrained editorial register. */
 
 .lv-pricing {
   background: var(--bg-light);
@@ -6118,7 +6118,12 @@ svg.lv-about-locations-map {
 }
 
 .lv-pricing-tiers-section {
-  padding: 32px 24px 88px;
+  padding: 32px 24px 80px;
+}
+
+.lv-pricing-offers {
+  display: grid;
+  gap: 28px;
 }
 
 /* ── Tier cards ── */
@@ -6126,45 +6131,68 @@ svg.lv-about-locations-map {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 .lv-price-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: var(--surface-bright);
   border: 1px solid rgba(90, 94, 67, 0.16);
   border-radius: 18px;
-  padding: 32px 28px;
+  padding: 30px 28px 28px;
 }
-/* Governance — the hero: gold border, gold-tinted shadow, badge, raised. */
+/* The ready-now option carries one restrained gold accent. The two cards
+   remain peers; the treatment communicates immediacy rather than a third
+   hierarchy or upsell. */
 .lv-price-card-hero {
   border: 1.5px solid var(--gold);
-  box-shadow: 0 30px 70px -46px color-mix(in srgb, var(--gold) 70%, rgba(43, 42, 37, 0.55));
+  box-shadow: 0 30px 70px -50px rgba(90, 94, 67, 0.5);
 }
-.lv-price-badge {
-  position: absolute;
-  top: -13px;
-  left: 28px;
-  display: inline-block;
+.lv-price-card-topline {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.lv-price-path {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+}
+.lv-price-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #2b2a25;
   background: var(--gold);
   border-radius: 100px;
-  padding: 6px 12px;
+  padding: 0 10px;
+}
+
+.lv-price-heading {
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.14);
 }
 
 .lv-price-name {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: clamp(28px, 3vw, 36px);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1.02;
   color: var(--olive);
   margin: 0;
+  max-width: 15ch;
 }
 .lv-price-billing {
   font-family: var(--font-mono);
@@ -6178,11 +6206,11 @@ svg.lv-about-locations-map {
 /* Billing toggle (Governance only) */
 .lv-price-amount {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
+  font-size: clamp(34px, 4vw, 46px);
   font-weight: 500;
   line-height: 1;
   color: var(--olive);
-  margin: 22px 0 0;
+  margin: 24px 0 0;
 }
 .lv-price-from {
   font-family: var(--font-body);
@@ -6215,7 +6243,39 @@ svg.lv-about-locations-map {
   font-size: 15px;
   line-height: 1.6;
   color: rgba(90, 94, 67, 0.86);
-  margin: 18px 0 0;
+  margin: 24px 0 0;
+  max-width: 46ch;
+}
+
+/* Three decision criteria per path. Editorial counters make these read as a
+   short comparison framework, not another deliverables inventory. */
+.lv-price-decisions {
+  counter-reset: price-decision;
+  list-style: none;
+  margin: 26px 0 28px;
+  padding: 0;
+  border-top: 1px solid rgba(90, 94, 67, 0.12);
+}
+.lv-price-decisions li {
+  counter-increment: price-decision;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.12);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(90, 94, 67, 0.88);
+}
+.lv-price-decisions li::before {
+  content: "0" counter(price-decision);
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-label);
 }
 
 /* Includes — a quiet list, a small accent dot per line (no heavy ticks grid). */
@@ -6312,7 +6372,7 @@ svg.lv-about-locations-map {
   align-items: center;
   justify-content: center;
   min-height: 50px;
-  margin-top: 28px;
+  margin-top: auto;
   padding: 0 22px;
   border-radius: 100px;
   font-family: var(--font-body);
@@ -6338,6 +6398,99 @@ svg.lv-about-locations-map {
 .lv-price-cta-ghost:hover {
   border-color: var(--olive);
   background: rgba(90, 94, 67, 0.05);
+}
+
+/* Shared deliverables belong in one visually separate system band, never
+   duplicated inside the decision cards. */
+.lv-shared-inclusions {
+  display: grid;
+  gap: 28px;
+  padding: 30px 28px;
+  border-radius: 18px;
+  background: var(--olive-deep);
+  color: var(--bg-light);
+}
+.lv-shared-kicker {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+.lv-shared-inclusions h2 {
+  margin: 0;
+  max-width: 13ch;
+  font-family: var(--font-display);
+  font-size: clamp(27px, 3vw, 36px);
+  font-weight: 500;
+  line-height: 1.04;
+  color: var(--bg-light);
+}
+.lv-shared-inclusions-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.18);
+}
+.lv-shared-inclusions-list li {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 42px;
+  border-bottom: 1px solid rgba(255, 248, 236, 0.18);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--cream-body);
+}
+.lv-shared-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--sage);
+  border-radius: 50%;
+  color: var(--sage);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.lv-pricing-consulting {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 2px 2px 0;
+  color: var(--ink-label);
+}
+.lv-pricing-consulting p {
+  max-width: 720px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.lv-pricing-consulting strong {
+  color: var(--olive);
+  font-weight: 500;
+}
+.lv-pricing-consulting a {
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.4);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--olive);
+  transition: border-color 0.2s ease;
+}
+.lv-pricing-consulting a:hover {
+  border-bottom-color: var(--olive);
 }
 
 /* ── FAQ (light) ── */
@@ -6373,22 +6526,43 @@ svg.lv-about-locations-map {
     padding: 168px 32px 48px;
   }
   .lv-pricing-tiers-section {
-    padding: 40px 32px 112px;
+    padding: 40px 32px 104px;
   }
   .lv-pricing-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
-    align-items: start;
+    align-items: stretch;
   }
-  /* All cards share one baseline; the hero reads focal via the gold
-     border, shadow, and badge alone. */
+  .lv-price-card {
+    padding: 34px 34px 32px;
+  }
+  .lv-shared-inclusions {
+    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+    gap: clamp(40px, 7vw, 88px);
+    align-items: center;
+    padding: 38px 40px;
+  }
+  .lv-shared-inclusions-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+  }
+  .lv-pricing-consulting {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .lv-pricing-consulting a {
+    flex: 0 0 auto;
+  }
   .lv-pricing-faq {
     padding: 32px 32px 140px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lv-price-cta {
+  .lv-price-cta,
+  .lv-pricing-consulting a {
     transition: none;
   }
 }

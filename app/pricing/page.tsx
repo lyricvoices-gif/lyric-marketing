@@ -1,8 +1,7 @@
-/* Pricing — the settled commercial model: two purchase paths, both one-time
-   (Prebuilt Financial Services Agent $40,000; Custom Governed Agent $25,000,
-   authored for the customer's business and vertical), plus consulting as an
-   optional per-engagement add-on on either path. No subscription, no recurring license, no annual fee, no activation
-   fee, no platform fee, no agent-count billing. The evaluation and monitoring
+/* Pricing — two one-time purchase paths, followed by one shared-inclusions
+   inventory. Consulting remains an optional per-engagement note, never a
+   third bundle. No subscription, recurring license, annual fee, activation
+   fee, platform fee, or agent-count billing. The evaluation and monitoring
    layer is included on both paths, never an upsell.
 
    Copy rules for this page: no em dashes, no exclamation points, no hype, no
@@ -15,6 +14,7 @@ import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import PricingTiers from "@/components/pricing/PricingTiers"
+import PricingFaq from "@/components/agents/AgentsFaq"
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -145,16 +145,11 @@ export default function PricingPage() {
               <span>Questions</span>
             </div>
           </ScrollReveal>
-          <dl className="lv-pricing-faq-list">
-            {FAQ.map((item, i) => (
-              <ScrollReveal key={item.q} delay={100 + i * 80}>
-                <div className="lv-pricing-faq-item">
-                  <dt className="lv-pricing-faq-q">{item.q}</dt>
-                  <dd className="lv-pricing-faq-a">{item.a}</dd>
-                </div>
-              </ScrollReveal>
-            ))}
-          </dl>
+          <ScrollReveal delay={100}>
+            <div className="lv-pricing-faq-list">
+              <PricingFaq items={FAQ} />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
