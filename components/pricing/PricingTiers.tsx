@@ -53,7 +53,7 @@ export default function PricingTiers() {
           <li>Ready to deploy with no intake process required</li>
         </ul>
         <Link href={GET_STARTED} className="lv-price-cta lv-price-cta-primary">
-          Get started with this agent
+          Get this governed agent
         </Link>
       </article>
 
