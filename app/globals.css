@@ -6128,6 +6128,26 @@ svg.lv-about-locations-map {
   gap: 20px;
   align-items: start;
 }
+
+/* ── Consulting band — Professional services as a full-width strip below
+   the two purchase cards: identity + CTA left, bullets right (2-col). ── */
+.lv-consult-band {
+  margin-top: 24px;
+}
+.lv-consult-band-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.lv-consult-band .lv-price-amount {
+  font-size: clamp(24px, 2.6vw, 32px);
+}
+.lv-consult-band .lv-price-cta {
+  margin-top: 28px;
+}
+.lv-consult-band .lv-price-includes {
+  margin-bottom: 0;
+}
 .lv-price-card {
   position: relative;
   display: flex;
@@ -6312,7 +6332,9 @@ svg.lv-about-locations-map {
   align-items: center;
   justify-content: center;
   min-height: 50px;
-  margin-top: 28px;
+  /* Pins the CTA to the card's bottom edge so both purchase cards share
+     one button baseline regardless of bullet count. */
+  margin-top: auto;
   padding: 0 22px;
   border-radius: 100px;
   font-family: var(--font-body);
@@ -6320,6 +6342,11 @@ svg.lv-about-locations-map {
   font-weight: 500;
   letter-spacing: 0;
   transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+/* Space between the card's last content block and the pinned CTA. */
+.lv-price-card > .lv-price-includes,
+.lv-price-card > .lv-price-note {
+  margin-bottom: 28px;
 }
 .lv-price-cta-primary {
   background: var(--olive);
@@ -6375,13 +6402,27 @@ svg.lv-about-locations-map {
   .lv-pricing-tiers-section {
     padding: 40px 32px 112px;
   }
+  /* Two purchase paths, equal height (stretch), CTAs pinned to one
+     baseline via margin-top:auto on the CTA. Consulting lives in the
+     full-width band below the grid, not in this row. */
   .lv-pricing-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
-    align-items: start;
+    align-items: stretch;
+    max-width: 880px;
+    margin: 0 auto;
   }
-  /* All cards share one baseline; the hero reads focal via the gold
-     border, shadow, and badge alone. */
+  .lv-consult-band-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: 48px;
+  }
+  .lv-consult-band .lv-price-includes {
+    columns: 2;
+    column-gap: 40px;
+  }
+  .lv-consult-band .lv-price-includes li {
+    break-inside: avoid;
+  }
   .lv-pricing-faq {
     padding: 32px 32px 140px;
   }

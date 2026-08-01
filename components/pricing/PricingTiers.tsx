@@ -18,7 +18,8 @@ const CONTACT = "/contact"
 
 export default function PricingTiers() {
   return (
-    <div className="lv-pricing-grid">
+    <>
+      <div className="lv-pricing-grid">
       {/* Path 1 — Prebuilt Financial Services Agent */}
       <article className="lv-price-card lv-price-card-hero">
         <span className="lv-price-badge">Ready to deploy</span>
@@ -107,15 +108,30 @@ export default function PricingTiers() {
         </Link>
       </article>
 
-      {/* Optional add-on — Consulting. Never required, available on either
-          path, at purchase or at any point after. */}
-      <article className="lv-price-card">
-        <p className="lv-price-name">Consulting</p>
-        <p className="lv-price-billing">{PRICING.consulting.billing}</p>
-        <p className="lv-price-amount">{PRICING.consulting.amount}</p>
-        <p className="lv-price-desc">
-          An optional add-on. Both product paths are complete without it.
-        </p>
+      </div>
+      <ConsultingBand />
+    </>
+  )
+}
+
+/* Optional add-on — Consulting as a full-width band below the two purchase
+   cards. Deliberately not a third card: it is a service on either path, and
+   pulling it out of the row keeps the two paths equal height. */
+function ConsultingBand() {
+  return (
+    <article className="lv-price-card lv-consult-band">
+      <div className="lv-consult-band-grid">
+        <div>
+          <p className="lv-price-name">Consulting</p>
+          <p className="lv-price-billing">{PRICING.consulting.billing}</p>
+          <p className="lv-price-amount">{PRICING.consulting.amount}</p>
+          <p className="lv-price-desc">
+            An optional add-on. Both product paths are complete without it.
+          </p>
+          <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
+            Schedule a call
+          </Link>
+        </div>
         <ul className="lv-price-includes">
           <li>
             Implementation and integration support across your AI
@@ -135,10 +151,7 @@ export default function PricingTiers() {
             service
           </li>
         </ul>
-        <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
-          Schedule a call
-        </Link>
-      </article>
-    </div>
+      </div>
+    </article>
   )
 }
