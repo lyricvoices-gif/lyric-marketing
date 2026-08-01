@@ -5,7 +5,7 @@
    one-time. Prebuilt is the FS agent; custom is a governed agent authored
    for the customer's business and vertical to the same standard (NOT
    governance wrapped around an agent they already run). No subscription, no
-   recurring license, no annual fee, no activation fee, no platform fee, no
+   recurring charge, no annual fee, no activation fee, no platform fee, no
    agent-count billing. Consulting is optional and mentioned outside the two
    purchase cards. The evaluation and monitoring layer is INCLUDED on both
    paths, never an upsell.

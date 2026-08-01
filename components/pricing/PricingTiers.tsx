@@ -16,7 +16,7 @@ const SHARED_INCLUSIONS = [
   "Scenario exemplars",
   "Channel-ready output for voice/text",
   "Evaluation and monitoring",
-  "A produced or tuned AI voice",
+  "A voice tuned for consistent, governed performance.",
 ] as const
 
 export default function PricingTiers() {
@@ -26,7 +26,6 @@ export default function PricingTiers() {
         <article className="lv-price-card lv-price-card-hero">
           <div className="lv-price-card-topline">
             <span className="lv-price-path">Ready now</span>
-            <span className="lv-price-badge">No intake</span>
           </div>
 
           <div className="lv-price-heading">
@@ -53,7 +52,8 @@ export default function PricingTiers() {
               escalation, and disclosure.
             </li>
             <li>
-              Ready to implement immediately, with no discovery or intake.
+              Ready to implement immediately, with no discovery or intake
+              required.
             </li>
           </ul>
 

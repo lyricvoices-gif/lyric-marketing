@@ -6165,21 +6165,6 @@ svg.lv-about-locations-map {
   text-transform: uppercase;
   color: var(--ink-label);
 }
-.lv-price-badge {
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #2b2a25;
-  background: var(--gold);
-  border-radius: 100px;
-  padding: 0 10px;
-}
-
 .lv-price-heading {
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(90, 94, 67, 0.14);
@@ -6400,15 +6385,18 @@ svg.lv-about-locations-map {
   background: rgba(90, 94, 67, 0.05);
 }
 
-/* Shared deliverables belong in one visually separate system band, never
-   duplicated inside the decision cards. */
+/* Shared deliverables sit in an open editorial band, never duplicated inside
+   the decision cards. The established light sage wash creates emphasis while
+   square edges and the absence of an outer rule keep this from reading as a
+   third card surface. */
 .lv-shared-inclusions {
   display: grid;
   gap: 28px;
-  padding: 30px 28px;
-  border-radius: 18px;
-  background: var(--olive-deep);
-  color: var(--bg-light);
+  padding: 32px 24px 34px;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--sage) 7%, var(--bg-light));
+  box-shadow: none;
+  color: var(--olive);
 }
 .lv-shared-kicker {
   margin: 0 0 10px;
@@ -6417,7 +6405,7 @@ svg.lv-about-locations-map {
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--sage);
+  color: var(--ink-label);
 }
 .lv-shared-inclusions h2 {
   margin: 0;
@@ -6426,7 +6414,7 @@ svg.lv-about-locations-map {
   font-size: clamp(27px, 3vw, 36px);
   font-weight: 500;
   line-height: 1.04;
-  color: var(--bg-light);
+  color: var(--olive);
 }
 .lv-shared-inclusions-list {
   display: grid;
@@ -6435,18 +6423,18 @@ svg.lv-about-locations-map {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid rgba(255, 248, 236, 0.18);
+  border-top: 1px solid rgba(90, 94, 67, 0.14);
 }
 .lv-shared-inclusions-list li {
   display: grid;
   grid-template-columns: 20px minmax(0, 1fr);
   gap: 10px;
   align-items: center;
-  min-height: 42px;
-  border-bottom: 1px solid rgba(255, 248, 236, 0.18);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.14);
   font-size: 13px;
   line-height: 1.35;
-  color: var(--cream-body);
+  color: rgba(90, 94, 67, 0.9);
 }
 .lv-shared-check {
   display: inline-flex;
@@ -6454,9 +6442,9 @@ svg.lv-about-locations-map {
   justify-content: center;
   width: 16px;
   height: 16px;
-  border: 1px solid var(--sage);
+  border: 1px solid rgba(90, 94, 67, 0.48);
   border-radius: 50%;
-  color: var(--sage);
+  color: var(--olive);
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
@@ -6495,7 +6483,7 @@ svg.lv-about-locations-map {
 
 /* ── FAQ (light) ── */
 .lv-pricing-faq {
-  padding: 24px 24px 120px;
+  padding: 72px 24px 120px;
 }
 .lv-pricing-faq-list {
   margin: 0;
@@ -6539,8 +6527,8 @@ svg.lv-about-locations-map {
   .lv-shared-inclusions {
     grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
     gap: clamp(40px, 7vw, 88px);
-    align-items: center;
-    padding: 38px 40px;
+    align-items: start;
+    padding: 40px 32px 42px;
   }
   .lv-shared-inclusions-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -6556,7 +6544,14 @@ svg.lv-about-locations-map {
     flex: 0 0 auto;
   }
   .lv-pricing-faq {
-    padding: 32px 32px 140px;
+    padding: 104px 32px 140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lv-pricing-consulting p {
+    max-width: none;
+    white-space: nowrap;
   }
 }
 
