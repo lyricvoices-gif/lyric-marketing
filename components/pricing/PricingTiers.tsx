@@ -69,7 +69,7 @@ export default function PricingTiers() {
         </p>
         <p className="lv-price-desc">
           A governed agent authored for your business and your vertical, built
-          to the same standard as the Financial Services agent.
+          to the same governed standard used across all Callio agents.
         </p>
         <ul className="lv-price-includes">
           <li>
@@ -114,20 +114,25 @@ export default function PricingTiers() {
         <p className="lv-price-billing">{PRICING.consulting.billing}</p>
         <p className="lv-price-amount">{PRICING.consulting.amount}</p>
         <p className="lv-price-desc">
-          An optional add-on. Both paths are complete without it.
+          An optional add-on. Both product paths are complete without it.
         </p>
         <ul className="lv-price-includes">
           <li>
-            Implementation and integration support with your telephony and
-            account systems
-          </li>
-          <li>Configuration assistance and validation for your institution</li>
-          <li>
-            Setup and interpretation of the evaluation layer, including ongoing
-            monitoring if you want Callio watching it with you
+            Implementation and integration support across your AI
+            communications stack
           </li>
           <li>
-            Available on either path, at purchase or at any point after
+            Configuration assistance and validation tailored to your
+            institution&rsquo;s requirements
+          </li>
+          <li>
+            Evaluation-layer setup and interpretation, including ongoing
+            monitoring if you want Callio observing governance adherence with
+            you
+          </li>
+          <li>
+            Available at any point, at purchase or after your agent is in
+            service
           </li>
         </ul>
         <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">

@@ -14,5 +14,5 @@
 export const PRICING = {
   prebuilt: { amount: "$40,000", billing: "One-time purchase" },
   custom: { amount: "$25,000", billing: "One-time purchase" },
-  consulting: { amount: "Per engagement", billing: "Optional" },
+  consulting: { amount: "Professional services", billing: "Optional" },
 } as const
