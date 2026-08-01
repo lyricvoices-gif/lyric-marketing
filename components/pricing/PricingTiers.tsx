@@ -11,6 +11,9 @@ import Link from "next/link"
 import { PRICING } from "@/components/pricing/pricing-data"
 
 const GET_STARTED = "/agents/get-started"
+/* The custom intake flow entry — the site's established named route (the
+   "Build your AI comms spec" destination on the home and Callio pages). */
+const INTAKE = "/start"
 const CONTACT = "/contact"
 
 export default function PricingTiers() {
@@ -95,8 +98,12 @@ export default function PricingTiers() {
             the prebuilt agent
           </li>
         </ul>
-        <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
-          Talk to us
+        <p className="lv-price-note">
+          The intake and the specification it generates are free; the $25,000
+          applies when you commission the build.
+        </p>
+        <Link href={INTAKE} className="lv-price-cta lv-price-cta-ghost">
+          Generate your governed spec
         </Link>
       </article>
 
@@ -124,7 +131,7 @@ export default function PricingTiers() {
           </li>
         </ul>
         <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
-          Ask about consulting
+          Schedule a call
         </Link>
       </article>
     </div>
