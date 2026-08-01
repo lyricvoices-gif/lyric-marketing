@@ -25,12 +25,13 @@ export default function PricingTiers() {
       <div className="lv-pricing-grid">
         <article className="lv-price-card lv-price-card-hero">
           <div className="lv-price-card-topline">
-            <span className="lv-price-path">Ready now</span>
+            <span className="lv-price-path">Prebuilt</span>
           </div>
 
           <div className="lv-price-heading">
             <p className="lv-price-name">
-              Prebuilt Financial Services governed agent
+              <span className="lv-price-name-line">Financial Services</span>{" "}
+              <span className="lv-price-name-line">Governed Agent</span>
             </p>
             <p className="lv-price-amount">
               {PRICING.prebuilt.amount}
@@ -71,7 +72,10 @@ export default function PricingTiers() {
           </div>
 
           <div className="lv-price-heading">
-            <p className="lv-price-name">Custom Governed Agent</p>
+            <p className="lv-price-name">
+              <span className="lv-price-name-line">Custom</span>{" "}
+              <span className="lv-price-name-line">Governed Agent</span>
+            </p>
             <p className="lv-price-amount">
               {PRICING.custom.amount}
               <span className="lv-price-period"> one time</span>
