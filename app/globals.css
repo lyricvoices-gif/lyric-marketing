@@ -6395,8 +6395,9 @@ svg.lv-about-locations-map {
   display: grid;
   gap: 28px;
   padding: 30px 28px;
-  border-radius: 18px;
+  border-radius: 0;
   background: var(--olive-deep);
+  box-shadow: none;
   color: var(--bg-light);
 }
 .lv-shared-kicker {
