@@ -4671,6 +4671,28 @@ main:has(.lv-hero) { padding-top: 0; }
   margin-bottom: 0;
 }
 
+.lv-about-origin-signoff {
+  margin: 28px 0 0;
+  text-align: left;
+}
+
+.lv-about-origin-signature {
+  display: block;
+  width: 180px;
+  max-width: 48%;
+  height: auto;
+  margin: 0;
+  /* The source artwork has a 94px transparent left gutter in its 512px
+     canvas. Offset by that same proportion so the first inked stroke aligns
+     with the paragraph edge while the signoff container stays on-grid. */
+  transform: translateX(-18.36%);
+}
+
+.lv-about-origin-prose-col .lv-about-origin-signoff-role {
+  /* Typography comes directly from the About paragraph rule above. */
+  margin: -4px 0 0;
+}
+
 /* ─── Sections 2 & 4: Two-column editorial spread ─────────────────────── */
 /* Magazine feature-opener pattern. Eyebrow + display headline anchors
    the left column; multi-paragraph body flows in the right. Stacks on
@@ -5320,6 +5342,52 @@ svg.lv-about-locations-map {
   .lv-map-city-core,
   .lv-map-city-label {
     transition: none;
+  }
+}
+
+/* About ground — a page-specific gradient sampled from FLORET background
+   05_1. Like the homepage ground, it is painted once behind multiple sections:
+   the cool hero blooms into ivory and ochre, then fades through the supplied
+   photo row and opening story before settling into the site's warm cream. */
+.lv-about > .lv-floret-ground {
+  background-color: #fbf4e2;
+  background-image:
+    radial-gradient(82% 60% at 50% 38%, rgba(255, 252, 244, 0.96) 0%, rgba(247, 238, 220, 0.72) 38%, rgba(247, 238, 220, 0) 69%),
+    radial-gradient(38% 34% at 57% 47%, rgba(204, 170, 105, 0.28) 0%, rgba(204, 170, 105, 0) 73%),
+    radial-gradient(30% 30% at 66% 57%, rgba(89, 96, 72, 0.2) 0%, rgba(89, 96, 72, 0) 75%),
+    linear-gradient(158deg, #b8c4c6 0%, #d6ddda 18%, #f2ece1 44%, #f7efdf 72%, #fbf4e2 100%);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size:
+    100% 1700px,
+    100% 1700px,
+    100% 1700px,
+    100% 100%;
+}
+
+.lv-about .lv-about-hero {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+
+.lv-about .lv-about-hero .lv-hero-statement {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .lv-about > .lv-floret-ground {
+    background-image:
+      radial-gradient(112% 54% at 48% 38%, rgba(255, 252, 244, 0.96) 0%, rgba(247, 238, 220, 0.72) 40%, rgba(247, 238, 220, 0) 72%),
+      radial-gradient(54% 30% at 57% 49%, rgba(204, 170, 105, 0.25) 0%, rgba(204, 170, 105, 0) 76%),
+      radial-gradient(44% 28% at 68% 58%, rgba(89, 96, 72, 0.18) 0%, rgba(89, 96, 72, 0) 78%),
+      linear-gradient(164deg, #bcc7c8 0%, #d8dedb 18%, #f2ece1 44%, #f7efdf 72%, #fbf4e2 100%);
+    background-size:
+      100% 1500px,
+      100% 1500px,
+      100% 1500px,
+      100% 100%;
   }
 }
 

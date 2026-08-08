@@ -1,9 +1,9 @@
 /* About — one continuous brand story on the home page's grounds.
 
-   The hero drops the floret photograph for the home hero's gradient ground
-   (the shared .lv-floret-ground wrapper paints it once; the hero and the
-   origin section sit transparent on top, so the image row and the prose
-   blend up from the gradient exactly as the home page's sections do). Below
+   The hero uses a page-specific layered gradient sampled from FLORET 05_1,
+   following the same restrained radial-gradient approach as the home hero.
+   The origin section then returns to the shared .lv-floret-ground, so its image
+   row and prose blend up from that ground exactly as the home page's sections do. Below
    the origin triptych, the entire narrative — the problem, where we come
    from, the creed, and what we built — reads as one synthesized story in
    the original About page's two-column prose grid. The locations band uses
@@ -56,7 +56,7 @@ export default function AboutPage() {
       {/* One gradient ground spans the hero and the origin section, the same
           way the home page paints its hero through the founders strip. */}
       <div className="lv-floret-ground">
-        {/* ── Hero — the hook as the statement on the gradient. ── */}
+        {/* ── Hero — the hook over an About-specific FLORET gradient. ── */}
         <section className="lv-hero lv-about-hero lv-on-floret">
           <div className="lv-hero-statement">
             <ScrollReveal>
@@ -90,21 +90,37 @@ export default function AboutPage() {
               two-column prose grid. ── */}
         <section className="lv-about-section lv-about-origin lv-on-floret">
           <div className="lv-about-inner">
-            <ScrollReveal>
-              <div className="lv-about-origin-images">
-                {/* eslint-disable @next/next/no-img-element */}
+            <div className="lv-about-origin-images">
+              {/* eslint-disable @next/next/no-img-element */}
+              <ScrollReveal distance={28}>
                 <div className="lv-about-origin-image">
-                  <img src="/images/about_1.jpg" alt="" loading="lazy" />
+                  <img
+                    src="/images/about/origin-single.jpg"
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
+              </ScrollReveal>
+              <ScrollReveal delay={90} distance={28}>
                 <div className="lv-about-origin-image">
-                  <img src="/images/about_2.webp" alt="" loading="lazy" />
+                  <img
+                    src="/images/about/origin-floret.jpg"
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
+              </ScrollReveal>
+              <ScrollReveal delay={180} distance={28}>
                 <div className="lv-about-origin-image">
-                  <img src="/images/about_3.webp" alt="" loading="lazy" />
+                  <img
+                    src="/images/about/origin-team.jpg"
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
-                {/* eslint-enable @next/next/no-img-element */}
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
+              {/* eslint-enable @next/next/no-img-element */}
+            </div>
 
             <div className="lv-about-origin-prose">
               <div className="lv-about-origin-prose-col">
@@ -163,6 +179,18 @@ export default function AboutPage() {
                     The result is the thing we spent years watching teams fail
                     to achieve by hand.
                   </p>
+                  <div className="lv-about-origin-signoff">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="lv-about-origin-signature"
+                      src="/images/about_signature.webp"
+                      alt="Michael Lang"
+                      loading="lazy"
+                    />
+                    <p className="lv-about-origin-signoff-role">
+                      Founder &amp; CEO
+                    </p>
+                  </div>
                 </ScrollReveal>
               </div>
             </div>
