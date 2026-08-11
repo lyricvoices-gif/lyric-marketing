@@ -6806,6 +6806,112 @@ svg.lv-about-locations-map {
   padding: 4px 12px;
   white-space: nowrap;
 }
+/* Visuals: recording frame, real still, and the two diagram SVGs. */
+.lv-cin-recording video,
+.lv-cin-recording img,
+.lv-cin-ask-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-bright, #fffdf7);
+}
+.lv-cin-recording,
+.lv-cin-ask-visual {
+  margin: 0;
+}
+.lv-cin-recording-caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #61644c;
+  margin-top: 10px;
+}
+.lv-cin-inventory-visual {
+  margin-top: 40px;
+  background: var(--surface-bright, #fffdf7);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 28px 20px;
+}
+.lv-cin-hold-visual {
+  background: var(--surface-bright, #fffdf7);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.lv-cin-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lv-cin-svg-title,
+.lv-cin-svg-card-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  fill: var(--olive);
+}
+.lv-cin-svg-label,
+.lv-cin-svg-foot,
+.lv-cin-svg-card-sub {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: #61644c;
+}
+.lv-cin-svg-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--olive);
+}
+.lv-cin-svg-track {
+  fill: rgba(90, 94, 67, 0.1);
+}
+.lv-cin-svg-bar {
+  fill: var(--olive);
+}
+.lv-cin-svg-rule {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.lv-cin-svg-chip {
+  fill: rgba(90, 94, 67, 0.07);
+}
+.lv-cin-svg-chip-text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--olive);
+}
+.lv-cin-svg-card {
+  fill: var(--olive);
+}
+.lv-cin-svg-card-title[x="20"],
+.lv-cin-svg-card-sub[x="20"] {
+  fill: var(--bg-light);
+}
+.lv-cin-svg-card-sub[x="20"] {
+  fill: rgba(255, 248, 236, 0.75);
+}
+.lv-cin-svg-dot {
+  fill: var(--gold);
+}
+.lv-cin-svg-fieldbar {
+  fill: rgba(255, 248, 236, 0.35);
+}
+.lv-cin-svg-slot {
+  fill: none;
+  stroke: rgba(90, 94, 67, 0.55);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 2.4;
+}
 .lv-cin-fork {
   padding: 96px 24px 128px;
   border-top: 1px solid var(--border);

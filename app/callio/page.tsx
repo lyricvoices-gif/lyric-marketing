@@ -26,8 +26,12 @@
 import type { Metadata } from "next"
 import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import ScrollReveal from "@/components/ScrollReveal"
 import { INTAKE_FACTS } from "@/components/callio/intake-facts"
+import IntakeRecording from "@/components/callio/IntakeRecording"
+import InventoryMap from "@/components/callio/InventoryMap"
+import SpecHoldings from "@/components/callio/SpecHoldings"
 
 export const metadata: Metadata = {
   title: "Callio",
@@ -122,7 +126,11 @@ export default function CallioPage() {
               </p>
             </ScrollReveal>
           </div>
-          <div className="lv-cin-hero-visual">{/* visual: commit 3 (intake recording) */}</div>
+          <div className="lv-cin-hero-visual">
+            <ScrollReveal delay={200}>
+              <IntakeRecording />
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -236,7 +244,11 @@ export default function CallioPage() {
                 authored exemplar set, its count from INTAKE_FACTS, and what
                 example selection establishes. Renders nothing until then. */}
           </div>
-          <div className="lv-cin-inventory-visual">{/* visual: commit 3 (corpus map SVG) */}</div>
+          <ScrollReveal delay={140}>
+            <div className="lv-cin-inventory-visual">
+              <InventoryMap />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -286,7 +298,23 @@ export default function CallioPage() {
                 picks among exemplars) and raise INTAKE_FACTS.questionGroups.
                 Renders nothing until then. */}
           </div>
-          <div className="lv-cin-ask-visual">{/* visual: commit 3 (real intake still) */}</div>
+          <ScrollReveal delay={160}>
+            <figure className="lv-cin-ask-visual">
+              {/* REAL capture of the tone step, from the same recorded session
+                  as the hero video. Below the fold: lazy-loaded. */}
+              <Image
+                src="/images/callio/intake-tone-step.png"
+                alt="The tone question in the live intake: Trustworthy, Approachable, Authoritative, and Warm as selectable chips"
+                width={1280}
+                height={800}
+                sizes="(max-width: 900px) 94vw, 560px"
+                loading="lazy"
+              />
+              <figcaption className="lv-cin-recording-caption">
+                The persona question, from the live intake.
+              </figcaption>
+            </figure>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -336,8 +364,12 @@ export default function CallioPage() {
             {/* EXEMPLAR SLOT (what you hold) — when exemplars land in the
                 spec, add the exemplars entry to the holdings list here and
                 extend INTAKE_FACTS.spec. Renders nothing until then. */}
+            <ScrollReveal delay={160}>
+              <div className="lv-cin-hold-visual">
+                <SpecHoldings />
+              </div>
+            </ScrollReveal>
           </div>
-          <div className="lv-cin-hold-visual">{/* visual: commit 3 (spec + slots SVG) */}</div>
         </div>
       </section>
 
