@@ -33,10 +33,10 @@ function AuthoringVisual() {
 
 function GovernVisual() {
   return (
-    <div className="lv-cxp-govern-ui" aria-label="Illustration of a response governed in real time">
+    <div className="lv-cxp-govern-ui" aria-label="Illustration of the voice and text specification">
       <div className="lv-cxp-govern-top">
-        <span>Voice + text response</span>
-        <span><i aria-hidden="true" /> In tolerance</span>
+        <span>Voice + text spec</span>
+        <span><i aria-hidden="true" /> Specified</span>
       </div>
       <AgentAudioVisualizerWave
         state="speaking"
@@ -233,11 +233,13 @@ export default function CallioProductStory() {
             <ScrollReveal delay={90} className="lv-cxp-feature-reveal is-govern">
               <article className="lv-cxp-feature is-govern">
                 <div className="lv-cxp-feature-copy">
-                  <span>02 · Govern every response</span>
-                  <h3>Keep voice and text inside the lines.</h3>
+                  <span>02 · One standard across channels</span>
+                  <h3>Voice and text, governed the same way.</h3>
                   <p>
-                    Hold tone, terminology, required disclosures, and behavior to
-                    the approved standard before an answer reaches the customer.
+                    Tone, terminology, required disclosures, and behavior are
+                    specified once and carried into how the agent is
+                    instructed, so voice and text hold the same approved
+                    standard.
                   </p>
                 </div>
                 <GovernVisual />
