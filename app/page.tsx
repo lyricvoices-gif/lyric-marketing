@@ -150,11 +150,11 @@ export default function HomePage() {
             <div className="lv-agentstory-header">
               <div className="lv-philosophy-eyebrow">
                 <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>Pre-built agents</span>
+                <span>Prebuilt agents</span>
               </div>
               <h2 className="lv-agentstory-headline">Our Governed Agent, Sol.</h2>
               <p className="lv-agentstory-supporting">
-                Listen to our pre-built agent Sol navigate a real financial services scenario.
+                Listen to our prebuilt agent Sol navigate a financial services dispute scenario.
               </p>
               <div
                 className="lv-cxp-intro-points lv-agentstory-points"

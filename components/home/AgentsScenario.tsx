@@ -583,7 +583,7 @@ export default function AgentsScenario() {
 
       <ScrollReveal>
         <Link href="/agents" className="lv-splitdemo-link">
-          Explore our pre-built agents <span aria-hidden="true">↗</span>
+          Explore our prebuilt agents <span aria-hidden="true">↗</span>
         </Link>
       </ScrollReveal>
     </div>

@@ -6201,6 +6201,7 @@ svg.lv-about-locations-map {
   gap: 20px;
   align-items: stretch;
 }
+
 .lv-price-card {
   position: relative;
   display: flex;
@@ -6437,6 +6438,11 @@ svg.lv-about-locations-map {
   letter-spacing: 0;
   transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
 }
+/* Space between the card's last content block and the pinned CTA. */
+.lv-price-card > .lv-price-includes,
+.lv-price-card > .lv-price-note {
+  margin-bottom: 28px;
+}
 .lv-price-cta-primary {
   background: var(--olive);
   color: var(--bg-light);
@@ -6592,6 +6598,8 @@ svg.lv-about-locations-map {
   .lv-pricing-tiers-section {
     padding: 40px 32px 104px;
   }
+  /* Two purchase paths, equal height (stretch), CTAs pinned to one
+     baseline via margin-top:auto on the CTA. */
   .lv-pricing-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
