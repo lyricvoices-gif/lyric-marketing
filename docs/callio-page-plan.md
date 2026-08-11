@@ -146,6 +146,20 @@ support sentences; the two kept lines used verbatim)
   the honest empties with owners.
 - CTA head names the choice: begin a spec now, or take the prebuilt agent.
 
+## Spec excerpt regeneration (condition 1)
+
+The rendered excerpt shown in section 4 is generated in the callio repo and
+committed here as a static copy. It WILL drift; regenerate it whenever the
+governance doc or adapters change:
+
+    # from a checkout of lyricvoices-gif/callio at the SHA you want:
+    npx tsx <lyric-marketing>/tools/render-spec-excerpt.mts       --callio <path-to-callio-checkout>       --out <lyric-marketing>/components/callio/spec-excerpt.generated.ts
+
+The generator stamps the output header with the callio commit SHA, the
+adapter used, and the date. Never hand-edit the generated file; to change
+what appears, change what the generator renders (block selection lives in
+the generator), not what the render says.
+
 ## Figures
 
 components/callio/intake-facts.ts stands as the single source (Phase 1

@@ -26,11 +26,19 @@ export const INTAKE_FACTS = {
   decisionPoints: 6,
   approxClicks: 10,
   typedFields: 1, // company name
-  /* Duration: a shape claim, not a minute count. No human-session evidence
-     exists yet; a scripted complete run measured 26s wall-clock (the
-     mechanical floor, not a human figure). Exemplar selection will extend
-     this; the shape claim is written to survive that. */
+  /* Duration. Two measurements exist, both from this sandbox 2026-08-12:
+     - scriptedFloorSeconds: a bot-speed complete run (mechanical floor).
+     - humanPacedRunSeconds: one complete run under a documented human-pace
+       model: every assistant message read at 220 wpm from the actual
+       on-screen text, 4-6s consideration per decision, typing at 3.5
+       chars/sec, one 15s voice-sample listen, and the composed confirmation
+       listened to. Modeled pace, not a live human; replace when a real
+       human run is timed.
+     durationClaim is the copy-facing phrase. Exemplar selection will extend
+     it; it is phrased to survive added steps. */
   durationShape: "a single sitting",
+  durationClaim: "about three minutes",
+  humanPacedRunSeconds: 175,
   scriptedFloorSeconds: 26,
 
   /* Question groups the institution answers today. The exemplar and
