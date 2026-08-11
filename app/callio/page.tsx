@@ -1,398 +1,186 @@
-/* Callio page — an explainer for the intake process, not a specimen page.
-   The spec itself is generated in the app and is not shown here.
+/* Callio — the intake explainer, rebuilt per docs/callio-page-plan.md.
+   Structure commit: bands, rules, and layout. Copy lands in the next commit;
+   only the two kept lines and eyebrows render here. Visuals (re-recorded
+   captures + the real adapter render) land after the excerpt is approved.
 
-   Angle (per Lyric, 2026-08-11): the intake being short is the point. Callio
-   authored the governance in advance, so the page LEADS with the inventory of
-   what an institution receives, then shows the little it asks, then what the
-   institution holds at the end. Section order:
+   Band rhythm (home register): cream hero -> charcoal primary -> cream ask
+   -> bright hold -> charcoal fork. No rounded containers; hierarchy from
+   scale, weight, whitespace; hairline rules for separation; olive reserved
+   for the single emphasis moment in section 4.
 
-     1) Hero        — what this page is; the time commitment stated honestly
-     2) Inventory   — PRIMARY: what is already authored, with measured counts
-                      (channel depth folds in here, not into the questions)
-     3) What we ask — the short beat; the only thing the institution supplies
-     4) What you hold — the spec, its structure, the unfilled obligations
-                        shown honestly with their owners
-     5) Forked CTA  — start a custom spec (PRIMARY, free) / prebuilt (secondary)
-
-   Every figure on this page comes from components/callio/intake-facts.ts;
-   no number is written inline. Copy rules: no em dashes, no exclamation
-   points, no buzzwords; Callio is never described as intercepting or checking
-   output in the call path (the spec governs how the agent is instructed);
-   "prebuilt", never "pre-built".
-
-   Visual language: cream ground, olive cards, the site display serif for
-   headlines, mono eyebrows, pill tags. Scoped styles: lv-cin-* in globals.css. */
+   Figures: components/callio/intake-facts.ts only. Copy rules: short
+   declarative sentences, buyer's words, no em dashes, no exclamation points,
+   no interception framing (the spec governs how the agent is instructed);
+   "prebuilt", never "pre-built". */
 
 import type { Metadata } from "next"
-import type { CSSProperties, ReactNode } from "react"
+import type { ReactNode } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import ScrollReveal from "@/components/ScrollReveal"
-import { INTAKE_FACTS } from "@/components/callio/intake-facts"
 import IntakeRecording from "@/components/callio/IntakeRecording"
-import InventoryMap from "@/components/callio/InventoryMap"
-import SpecHoldings from "@/components/callio/SpecHoldings"
+import { INTAKE_FACTS } from "@/components/callio/intake-facts"
 
 export const metadata: Metadata = {
   title: "Callio",
   description:
-    "How the Callio intake works: what is already authored before you arrive, the few things it asks, and the governed specification you hold at the end.",
+    "The Callio intake: the governance is already written when you arrive. What it asks, and the governed specification you hold at the end.",
 }
 
 const F = INTAKE_FACTS
 const START = "/start"
 const AGENTS = "/agents"
 
-/* Pill CTA, mirroring the homepage / pricing Final CTA buttons. */
-function CTA({
-  href,
-  children,
-  variant = "dark",
-}: {
-  href: string
-  children: ReactNode
-  variant?: "dark" | "light" | "outline"
-}) {
-  const style: CSSProperties = {
-    minHeight: "54px",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 24px",
-    borderRadius: "100px",
-    fontSize: "15px",
-    fontWeight: 500,
-    letterSpacing: "0",
-    background:
-      variant === "light"
-        ? "var(--bg-light)"
-        : variant === "dark"
-          ? "var(--olive)"
-          : "transparent",
-    color:
-      variant === "light"
-        ? "var(--olive)"
-        : variant === "dark"
-          ? "var(--bg-light)"
-          : "inherit",
-    border: variant === "outline" ? "1px solid currentColor" : "1px solid transparent",
-    transition: "background 0.22s ease, color 0.22s ease, transform 0.22s ease",
-  }
+function Eyebrow({ label, dark = false }: { label: string; dark?: boolean }) {
   return (
-    <Link href={href} className={`lv-cta lv-cta-${variant}`} style={style}>
-      {children}
-    </Link>
-  )
-}
-
-/* Mono small-caps eyebrow, dot + label. */
-function Eyebrow({ label }: { label: string }) {
-  return (
-    <div className="lv-philosophy-eyebrow lv-opus-eyebrow">
+    <div className={`lv-philosophy-eyebrow lv-cin2-eyebrow${dark ? " is-dark" : ""}`}>
       <span className="lv-eyebrow-dot" aria-hidden="true" />
       <span>{label}</span>
     </div>
   )
 }
 
-/* Mono pill tag (counts, owners, channel names). */
-function Pill({ children }: { children: ReactNode }) {
-  return <span className="lv-cin-pill">{children}</span>
+/* Ruled inventory row: title + sentence left, aligned mono figure right. */
+function Row({
+  title,
+  children,
+  figure,
+}: {
+  title: ReactNode
+  children?: ReactNode
+  figure?: ReactNode
+}) {
+  return (
+    <div className="lv-cin2-row">
+      <div className="lv-cin2-row-text">
+        <h3 className="lv-cin2-row-title">{title}</h3>
+        {children ? <p className="lv-cin2-row-body">{children}</p> : null}
+      </div>
+      {figure ? <div className="lv-cin2-row-figure">{figure}</div> : null}
+    </div>
+  )
 }
 
 export default function CallioPage() {
   return (
-    <main className="lv-opus lv-cin">
-      {/* ── 1. Hero — what this page is, time commitment honest. ── */}
-      <section className="lv-cin-hero">
-        <div className="lv-opus-wrap lv-cin-hero-grid">
-          <div>
-            <ScrollReveal>
-              <Eyebrow label="Callio · The intake" />
-            </ScrollReveal>
-            <ScrollReveal delay={120}>
-              <h1 className="lv-opus-hero-head">
-                The intake is short because the work is <em>already done</em>.
-              </h1>
-            </ScrollReveal>
-            <ScrollReveal delay={220}>
-              <p className="lv-opus-hero-sub">
-                This page explains what the Callio intake asks, why it asks so
-                little, and what you hold when it finishes. An intake runs in{" "}
-                {F.durationShape}: {F.decisionPoints} decisions and{" "}
-                {F.typedFields} typed field. The governance behind your agent is
-                not produced in that sitting. It was authored, reviewed, and
-                structured before you arrived.
-              </p>
-            </ScrollReveal>
-          </div>
-          <div className="lv-cin-hero-visual">
-            <ScrollReveal delay={200}>
-              <IntakeRecording />
-            </ScrollReveal>
-          </div>
+    <main className="lv-cin2">
+      {/* ── 1. Hero (cream). The claim; the recording near full width. ── */}
+      <section className="lv-cin2-hero">
+        <div className="lv-cin2-wrap">
+          <ScrollReveal>
+            <Eyebrow label="Callio" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h1 className="lv-cin2-hero-head">{/* copy commit */}</h1>
+          </ScrollReveal>
+          <ScrollReveal delay={220}>
+            <p className="lv-cin2-hero-sub">{/* copy commit */}</p>
+          </ScrollReveal>
+        </div>
+        <div className="lv-cin2-wrap-wide">
+          <ScrollReveal delay={280}>
+            <IntakeRecording />
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* ── 2. Inventory — PRIMARY. What is already authored on arrival.
-            Channel-native depth belongs here (it is what the spec carries,
-            not intake branching). ── */}
-      <section className="lv-cin-inventory">
-        <div className="lv-opus-wrap">
+      {/* ── 2. Already authored (charcoal, PRIMARY). Ruled rows, figure
+            column; channel depth folds in here. ── */}
+      <section className="lv-cin2-authored">
+        <div className="lv-cin2-wrap">
           <ScrollReveal>
-            <Eyebrow label="Already authored" />
+            <Eyebrow label="Already authored" dark />
           </ScrollReveal>
           <ScrollReveal delay={120}>
-            <h2 className="lv-cin-section-head">
+            <h2 className="lv-cin2-section-head">
               What exists before you type a <em>word</em>.
             </h2>
           </ScrollReveal>
-          <ScrollReveal delay={180}>
-            <p className="lv-cin-lead">
-              Everything below arrives with the intake. It is what an
-              institution would otherwise have to author, build, and test
-              itself.
-            </p>
+          <ScrollReveal delay={200}>
+            <p className="lv-cin2-section-sub">{/* copy commit */}</p>
           </ScrollReveal>
-          <div className="lv-cin-inventory-grid">
-            <ScrollReveal>
-              <article className="lv-cin-card">
-                <p className="lv-cin-card-name">The authored governance</p>
-                <p className="lv-cin-card-body">
-                  {F.governance.totalBlocks} behavioral blocks written for
-                  financial services: {F.governance.promptBlocks} prompt-ready
-                  rules covering verification, disclosure, hedging, fair
-                  treatment, escalation, and register, plus{" "}
-                  {F.governance.mannerBlocks} character and delivery-manner
-                  blocks. {F.governance.counselGatedBlocks} of the{" "}
-                  {F.governance.promptBlocks} rules are compliance-adjacent and
-                  held behind a counsel-review gate.
-                </p>
-                <p className="lv-cin-card-pills">
-                  <Pill>{F.governance.totalBlocks} blocks</Pill>
-                  <Pill>{F.governance.counselGatedBlocks} counsel-gated</Pill>
-                </p>
-              </article>
-            </ScrollReveal>
-            <ScrollReveal delay={80}>
-              <article className="lv-cin-card">
-                <p className="lv-cin-card-name">The foundation</p>
-                <p className="lv-cin-card-body">
-                  {F.foundation.items} governed items in{" "}
-                  {F.foundation.categories} categories, established the moment
-                  the industry is set: {F.foundation.pronunciationEntries}{" "}
-                  pronunciation entries, {F.foundation.disclosures} required
-                  disclosure, {F.foundation.voiceOutputRules} voice-output
-                  rules, and {F.foundation.pacingRules} pacing rules enforced on
-                  every generated read.
-                </p>
-                <p className="lv-cin-card-pills">
-                  <Pill>{F.foundation.items} items</Pill>
-                  <Pill>{F.foundation.categories} categories</Pill>
-                </p>
-              </article>
-            </ScrollReveal>
-            <ScrollReveal delay={120}>
-              <article className="lv-cin-card">
-                <p className="lv-cin-card-name">Channel-native guidance</p>
-                <p className="lv-cin-card-body">
-                  Voice and text are not the same instrument. SMS, email, and
-                  chat each carry guidance written separately for that channel,
-                  and a normalization inversion states exactly how spoken forms
-                  and written forms diverge. {F.governance.voiceOnlyBlocks}{" "}
-                  blocks apply only to voice, {F.governance.textOnlyBlocks} only
-                  to text, and the rest hold everywhere. A generic form cannot
-                  carry this; it is authored depth.
-                </p>
-                <p className="lv-cin-card-pills">
-                  <Pill>SMS</Pill>
-                  <Pill>Email</Pill>
-                  <Pill>Chat</Pill>
-                </p>
-              </article>
-            </ScrollReveal>
-            <ScrollReveal delay={160}>
-              <article className="lv-cin-card">
-                <p className="lv-cin-card-name">The adapters</p>
-                <p className="lv-cin-card-body">
-                  {F.adapters} renderers carry the spec into use: a voice prompt
-                  adapter, a text prompt adapter per channel, deterministic
-                  checkable rules, and voice realization profiles keyed by
-                  voice, provider, and channel. The spec itself stays brand
-                  intent, so your stack remains yours.
-                </p>
-                <p className="lv-cin-card-pills">
-                  <Pill>{F.adapters} adapters</Pill>
-                </p>
-              </article>
-            </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <article className="lv-cin-card">
-                <p className="lv-cin-card-name">The evaluation layer</p>
-                <p className="lv-cin-card-body">
-                  Included with the spec, not sold beside it. It checks
-                  adherence outside the live interaction, so you can observe
-                  drift and governance adherence yourself, on your own terms.
-                </p>
-                <p className="lv-cin-card-pills">
-                  <Pill>Included</Pill>
-                </p>
-              </article>
-            </ScrollReveal>
-            {/* EXEMPLAR SLOT (inventory) — when exemplar and example-selection
-                work lands in the intake, add the exemplars card here: the
-                authored exemplar set, its count from INTAKE_FACTS, and what
-                example selection establishes. Renders nothing until then. */}
+          <div className="lv-cin2-rows">
+            {/* rows land in the copy commit:
+                governance / foundation / per-channel / voice-and-text /
+                adapters / evaluation layer */}
+            {/* EXEMPLAR SLOT (already authored) — when exemplar and
+                example-selection work lands, add its Row here with its
+                count from INTAKE_FACTS. Renders nothing until then. */}
           </div>
-          <ScrollReveal delay={140}>
-            <div className="lv-cin-inventory-visual">
-              <InventoryMap />
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
-      {/* ── 3. What we ask — the short beat. The only thing the institution
-            supplies; the contrast with the inventory is the argument. ── */}
-      <section className="lv-cin-ask">
-        <div className="lv-opus-wrap lv-cin-ask-grid">
-          <div>
-            <ScrollReveal>
-              <Eyebrow label="What we ask" />
-            </ScrollReveal>
-            <ScrollReveal delay={120}>
-              <h2 className="lv-cin-section-head">
-                Then we ask for <em>{F.questionGroups} things</em>.
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={180}>
-              <ol className="lv-cin-ask-list">
-                <li>
-                  <strong>Who you are.</strong> Your industry and your
-                  institution&rsquo;s name.
-                </li>
-                <li>
-                  <strong>Where the agent works.</strong> The channels it will
-                  speak and write on, and for phone, which contexts.
-                </li>
-                <li>
-                  <strong>How it should carry itself.</strong> The tone your
-                  institution leads with.
-                </li>
-                <li>
-                  <strong>Who delivers it.</strong> The produced voice, chosen
-                  from {F.voices} on the roster.
-                </li>
-              </ol>
-            </ScrollReveal>
-            <ScrollReveal delay={240}>
-              <p className="lv-cin-ask-note">
-                Delivery is not a question. Its {F.deliveryAxes} axes derive
-                from your answers, are stated back to you in plain language,
-                and stay overridable. In all: {F.decisionPoints} decisions,
-                roughly {F.approxClicks} clicks, {F.typedFields} typed field.
-              </p>
-            </ScrollReveal>
+      {/* ── 3. What we ask (cream, short). Numbered lines (real sequence),
+            then the persona capture near full width. ── */}
+      <section className="lv-cin2-ask">
+        <div className="lv-cin2-wrap">
+          <ScrollReveal>
+            <Eyebrow label="What we ask" />
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <h2 className="lv-cin2-section-head">{/* copy commit */}</h2>
+          </ScrollReveal>
+          <div className="lv-cin2-ask-list">
+            {/* four numbered lines + one closing sentence: copy commit */}
             {/* EXEMPLAR SLOT (what we ask) — when example selection ships,
-                add its question group here (what the institution reviews or
-                picks among exemplars) and raise INTAKE_FACTS.questionGroups.
-                Renders nothing until then. */}
+                add its numbered line here and raise
+                INTAKE_FACTS.questionGroups. Renders nothing until then. */}
           </div>
-          <ScrollReveal delay={160}>
-            <figure className="lv-cin-ask-visual">
-              {/* REAL capture of the tone step, from the same recorded session
-                  as the hero video. Below the fold: lazy-loaded. */}
-              <Image
-                src="/images/callio/intake-tone-step.png"
-                alt="The tone question in the live intake: Trustworthy, Approachable, Authoritative, and Warm as selectable chips"
-                width={1280}
-                height={800}
-                sizes="(max-width: 900px) 94vw, 560px"
-                loading="lazy"
-              />
-              <figcaption className="lv-cin-recording-caption">
-                The persona question, from the live intake.
-              </figcaption>
-            </figure>
+        </div>
+        <div className="lv-cin2-wrap-wide">
+          <ScrollReveal delay={200}>
+            <div className="lv-cin2-capture">{/* persona capture: visuals commit */}</div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── 4. What you hold — the spec, its structure, and the unfilled
-            obligations shown honestly with owners. ── */}
-      <section className="lv-cin-hold">
-        <div className="lv-opus-wrap">
+      {/* ── 4. What you hold (bright). Leads with what the spec governs;
+            the real rendered excerpt is the signature; the kept line is the
+            one olive moment; obligations as an aligned table. ── */}
+      <section className="lv-cin2-hold">
+        <div className="lv-cin2-wrap">
           <ScrollReveal>
             <Eyebrow label="What you hold" />
           </ScrollReveal>
           <ScrollReveal delay={120}>
-            <h2 className="lv-cin-section-head">
-              A specification you own, honest about what is <em>left</em>.
-            </h2>
+            <h2 className="lv-cin2-section-head">{/* copy commit */}</h2>
           </ScrollReveal>
-          <div className="lv-cin-hold-grid">
-            <ScrollReveal>
-              <div>
-                <p className="lv-cin-hold-body">
-                  The intake closes with a governed specification you can
-                  download and keep: {F.spec.fields} fields of brand intent,
-                  deliberately free of provider and model parameters, keyed
-                  into every layer of the inventory above. Realization stays
-                  separate, so the spec survives a change of model or speech
-                  engine.
-                </p>
-                <p className="lv-cin-hold-body">
-                  It also names what it does not yet contain.{" "}
-                  {F.obligations.total} obligations are emitted empty, each
-                  with its owner recorded: your counsel supplies{" "}
-                  {F.obligations.counsel}, your team supplies{" "}
-                  {F.obligations.institution},{" "}
-                  {F.obligations.sharedCounselInstitution} are shared between
-                  them, and {F.obligations.intake} belong to the intake itself
-                  as it grows. Nothing is silently defaulted.
-                </p>
-                <p className="lv-cin-hold-body">
-                  An empty slot with a named owner is the difference between a
-                  governance instrument and a generated document.
-                </p>
-                <p className="lv-cin-card-pills">
-                  <Pill>{F.spec.fields} spec fields</Pill>
-                  <Pill>{F.obligations.total} named obligations</Pill>
-                </p>
-              </div>
-            </ScrollReveal>
-            {/* EXEMPLAR SLOT (what you hold) — when exemplars land in the
-                spec, add the exemplars entry to the holdings list here and
-                extend INTAKE_FACTS.spec. Renders nothing until then. */}
-            <ScrollReveal delay={160}>
-              <div className="lv-cin-hold-visual">
-                <SpecHoldings />
-              </div>
-            </ScrollReveal>
+          <ScrollReveal delay={200}>
+            <p className="lv-cin2-section-sub">{/* copy commit */}</p>
+          </ScrollReveal>
+        </div>
+        <div className="lv-cin2-wrap-wide">
+          <div className="lv-cin2-document">
+            {/* THE SIGNATURE: real rendered specification excerpt, generated
+                from the adapters in the callio repo (visuals commit, after
+                the excerpt is approved). Never hand-edited. */}
           </div>
+          {/* EXEMPLAR SLOT (what you hold) — when exemplars land in the
+              spec, add their entry beside the document here and extend
+              INTAKE_FACTS.spec. Renders nothing until then. */}
+        </div>
+        <div className="lv-cin2-wrap">
+          <p className="lv-cin2-olive-line">
+            An empty slot with a named owner is the difference between a
+            governance instrument and a generated document.
+          </p>
+          <div className="lv-cin2-owners">{/* obligations table: copy commit */}</div>
         </div>
       </section>
 
-      {/* ── 5. Forked CTA — custom spec PRIMARY and free; prebuilt secondary.
-            Not equal visual weight. ── */}
-      <section className="lv-cin-fork">
-        <div className="lv-opus-wrap lv-cin-fork-inner">
+      {/* ── 5. Forked CTA (charcoal). The headline names the choice;
+            primary filled, secondary quiet. ── */}
+      <section className="lv-cin2-fork">
+        <div className="lv-cin2-wrap">
           <ScrollReveal>
-            <h2 className="lv-cin-section-head">
-              Start where <em>you are</em>.
-            </h2>
-            <p className="lv-cin-fork-sub">
-              Generating a spec is free, and it is yours either way. The
-              prebuilt Financial Services agent is there when you want delivery
-              without the wait.
-            </p>
-            <div className="lv-cta-row">
-              <CTA href={START} variant="dark">
+            <h2 className="lv-cin2-section-head">{/* copy commit */}</h2>
+            <p className="lv-cin2-section-sub">{/* copy commit */}</p>
+            <div className="lv-cin2-fork-actions">
+              <Link href={START} className="lv-cta lv-cin2-cta-primary">
                 Generate your governed spec
-              </CTA>
-              <CTA href={AGENTS} variant="outline">
+              </Link>
+              <Link href={AGENTS} className="lv-cin2-cta-quiet">
                 See the prebuilt agent
-              </CTA>
+              </Link>
             </div>
           </ScrollReveal>
         </div>
