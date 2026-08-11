@@ -252,8 +252,8 @@ export default function CallioProductStory() {
                   <span>03 · Prove it over time</span>
                   <h3>See when behavior holds and where it drifts.</h3>
                   <p>
-                    The included evaluation and monitoring layer checks adherence
-                    outside the live interaction. Use it when you want it.
+                    The included evaluation and monitoring layer checks
+                    adherence outside the live interaction.
                   </p>
                 </div>
                 <VerifyVisual />
