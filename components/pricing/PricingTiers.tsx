@@ -1,157 +1,139 @@
-/* The two purchase paths and the optional consulting add-on. Both paths are
-   one-time purchases; each card leads with its single price. Consulting is a
-   quieter third card and must never read as required. The evaluation and
-   monitoring layer is included on both paths, never an upsell.
-
-   All amounts come from components/pricing/pricing-data.ts. CTAs use named
-   routes: the prebuilt agent routes to the agents get-started stub; the
-   custom path and consulting route to /contact (named placeholder). */
+/* The two purchase paths share one deliverable inventory below the cards.
+   Card bullets stay decision-focused: they explain why a buyer would choose
+   one path over the other without repeating what both purchases include. */
 
 import Link from "next/link"
 import { PRICING } from "@/components/pricing/pricing-data"
 
-const GET_STARTED = "/agents/get-started"
-/* The custom intake flow entry — the site's established named route (the
-   "Build your AI comms spec" destination on the home and Callio pages). */
-const INTAKE = "/start"
-const CONTACT = "/contact"
+const PREBUILT_GET_STARTED = "/agents/get-started"
+const CUSTOM_INQUIRY =
+  "mailto:info@lyricvoices.ai?subject=Custom%20governed%20agent"
+const CONSULTING_INQUIRY =
+  "mailto:info@lyricvoices.ai?subject=Callio%20consulting"
+
+const SHARED_INCLUSIONS = [
+  "Governance specification",
+  "Scenario exemplars",
+  "Channel-ready output for voice/text",
+  "Evaluation and monitoring",
+  "A voice tuned for consistent, governed performance.",
+] as const
 
 export default function PricingTiers() {
   return (
-    <>
+    <div className="lv-pricing-offers">
       <div className="lv-pricing-grid">
-      {/* Path 1 — Prebuilt Financial Services Agent */}
-      <article className="lv-price-card lv-price-card-hero">
-        <span className="lv-price-badge">Ready to deploy</span>
-        <p className="lv-price-name">Prebuilt Financial Services Agent</p>
-        <p className="lv-price-billing">{PRICING.prebuilt.billing}</p>
-        <p className="lv-price-amount">
-          {PRICING.prebuilt.amount}
-          <span className="lv-price-period"> one time</span>
-        </p>
-        <p className="lv-price-desc">
-          The governed Financial Services agent, complete and production-ready.
-        </p>
-        <ul className="lv-price-includes">
-          <li>Governed FS specification authored by domain experts</li>
-          <li>
-            Verify-before-disclose workflow including dispute handling, hold
-            handling, escalation controls, and disclosure delivery
-          </li>
-          <li>
-            Scenario exemplars showing consistent, on-brand handling for
-            financial services situations
-          </li>
-          <li>
-            FS pronunciation and voice-output standards for clear and compliant
-            communication
-          </li>
-          <li>Choice of produced voice: Sol, Sam, or James</li>
-          <li>
-            Evaluation and monitoring layer included, so you can observe drift
-            and governance adherence directly
-          </li>
-          <li>Ready to deploy with no intake process required</li>
-        </ul>
-        <Link href={GET_STARTED} className="lv-price-cta lv-price-cta-primary">
-          Get this governed agent
-        </Link>
-      </article>
+        <article className="lv-price-card lv-price-card-hero">
+          <div className="lv-price-card-topline">
+            <span className="lv-price-path">Prebuilt</span>
+          </div>
 
-      {/* Path 2 — Custom Governed Agent: commissioned and authored for the
-          customer's business and vertical, to the same standard as the FS
-          agent. NOT governance wrapped around an agent the customer brings. */}
-      <article className="lv-price-card">
-        <p className="lv-price-name">Custom Governed Agent</p>
-        <p className="lv-price-billing">{PRICING.custom.billing}</p>
-        <p className="lv-price-amount">
-          {PRICING.custom.amount}
-          <span className="lv-price-period"> one time</span>
-        </p>
-        <p className="lv-price-desc">
-          A governed agent authored for your business and your vertical, built
-          to the same governed standard used across all Callio agents.
-        </p>
-        <ul className="lv-price-includes">
-          <li>
-            Discovery and definition of your vertical&rsquo;s workflows,
-            controls, and escalation patterns
-          </li>
-          <li>
-            A complete governance specification authored for your business, not
-            adapted from a template
-          </li>
-          <li>
-            Scenario exemplars written for the situations your agent will
-            actually handle
-          </li>
-          <li>
-            Character definition, plus pronunciation and output standards for
-            your vocabulary
-          </li>
-          <li>Your choice of produced voice</li>
-          <li>
-            Testing and approval support through to a governed specification
-            you own
-          </li>
-          <li>
-            The evaluation and monitoring layer, included, on the same terms as
-            the prebuilt agent
-          </li>
-        </ul>
-        <p className="lv-price-note">
-          The intake and the specification it generates are free; the $25,000
-          applies when you commission the build.
-        </p>
-        <Link href={INTAKE} className="lv-price-cta lv-price-cta-ghost">
-          Generate your governed spec
-        </Link>
-      </article>
+          <div className="lv-price-heading">
+            <p className="lv-price-name">
+              <span className="lv-price-name-line">Financial Services</span>{" "}
+              <span className="lv-price-name-line">Governed Agent</span>
+            </p>
+            <p className="lv-price-amount">
+              {PRICING.prebuilt.amount}
+              <span className="lv-price-period"> one time</span>
+            </p>
+          </div>
 
-      </div>
-      <ConsultingBand />
-    </>
-  )
-}
-
-/* Optional add-on — Consulting as a full-width band below the two purchase
-   cards. Deliberately not a third card: it is a service on either path, and
-   pulling it out of the row keeps the two paths equal height. */
-function ConsultingBand() {
-  return (
-    <article className="lv-price-card lv-consult-band">
-      <div className="lv-consult-band-grid">
-        <div>
-          <p className="lv-price-name">Consulting</p>
-          <p className="lv-price-billing">{PRICING.consulting.billing}</p>
-          <p className="lv-price-amount">{PRICING.consulting.amount}</p>
           <p className="lv-price-desc">
-            An optional add-on. Both product paths are complete without it.
+            Choose the proven financial-services path when speed and a defined
+            operating standard matter most.
           </p>
-          <Link href={CONTACT} className="lv-price-cta lv-price-cta-ghost">
-            Schedule a call
+
+          <ul className="lv-price-decisions">
+            <li>
+              Financial-services governance authored by domain experts.
+            </li>
+            <li>
+              High-risk workflows for verification, disputes, holds,
+              escalation, and disclosure.
+            </li>
+            <li>
+              Ready to implement immediately, with no discovery or intake
+              required.
+            </li>
+          </ul>
+
+          <Link
+            href={PREBUILT_GET_STARTED}
+            className="lv-price-cta lv-price-cta-primary"
+          >
+            Choose the prebuilt agent
           </Link>
-        </div>
-        <ul className="lv-price-includes">
-          <li>
-            Implementation and integration support across your AI
-            communications stack
-          </li>
-          <li>
-            Configuration assistance and validation tailored to your
-            institution&rsquo;s requirements
-          </li>
-          <li>
-            Evaluation-layer setup and interpretation, including ongoing
-            monitoring if you want Callio observing governance adherence with
-            you
-          </li>
-          <li>
-            Available at any point, at purchase or after your agent is in
-            service
-          </li>
-        </ul>
+        </article>
+
+        <article className="lv-price-card">
+          <div className="lv-price-card-topline">
+            <span className="lv-price-path">Authored for you</span>
+          </div>
+
+          <div className="lv-price-heading">
+            <p className="lv-price-name">
+              <span className="lv-price-name-line">Custom</span>{" "}
+              <span className="lv-price-name-line">Governed Agent</span>
+            </p>
+            <p className="lv-price-amount">
+              {PRICING.custom.amount}
+              <span className="lv-price-period"> one time</span>
+            </p>
+          </div>
+
+          <p className="lv-price-desc">
+            Choose the custom path when your business needs governance written
+            around the way it actually operates.
+          </p>
+
+          <ul className="lv-price-decisions">
+            <li>
+              Governance authored around your business, vertical, and real
+              workflows.
+            </li>
+            <li>
+              Custom controls, escalation patterns, scenarios, and vocabulary.
+            </li>
+            <li>
+              Discovery through approval, yielding a specification you own.
+            </li>
+          </ul>
+
+          <a
+            href={CUSTOM_INQUIRY}
+            className="lv-price-cta lv-price-cta-ghost"
+          >
+            Start a custom agent
+          </a>
+        </article>
       </div>
-    </article>
+
+      <section className="lv-shared-inclusions" aria-labelledby="shared-title">
+        <div className="lv-shared-inclusions-heading">
+          <p className="lv-shared-kicker">Included with either path</p>
+          <h2 id="shared-title">One complete governance system.</h2>
+        </div>
+        <ul className="lv-shared-inclusions-list">
+          {SHARED_INCLUSIONS.map((item) => (
+            <li key={item}>
+              <span className="lv-shared-check" aria-hidden="true">
+                ✓
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <aside className="lv-pricing-consulting" aria-label="Optional consulting">
+        <p>
+          <strong>Want hands-on support?</strong> Consulting is optional and
+          available per engagement for implementation, integration, or
+          monitoring support.
+        </p>
+        <a href={CONSULTING_INQUIRY}>Discuss consulting</a>
+      </aside>
+    </div>
   )
 }

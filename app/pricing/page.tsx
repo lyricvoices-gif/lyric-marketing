@@ -1,8 +1,7 @@
-/* Pricing — the settled commercial model: two purchase paths, both one-time
-   (Prebuilt Financial Services Agent $40,000; Custom Governed Agent $25,000,
-   authored for the customer's business and vertical), plus consulting as an
-   optional per-engagement add-on on either path. No subscription, no recurring license, no annual fee, no activation
-   fee, no platform fee, no agent-count billing. The evaluation and monitoring
+/* Pricing — two one-time purchase paths, followed by one shared-inclusions
+   inventory. Consulting remains an optional per-engagement note, never a
+   third bundle. No subscription, recurring charge, annual fee, activation
+   fee, platform fee, or agent-count billing. The evaluation and monitoring
    layer is included on both paths, never an upsell.
 
    Copy rules for this page: no em dashes, no exclamation points, no hype, no
@@ -15,6 +14,7 @@ import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import PricingTiers from "@/components/pricing/PricingTiers"
+import PricingFaq from "@/components/agents/AgentsFaq"
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -25,7 +25,15 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: "Is there anything recurring?",
-    a: "No. Both paths are a single one-time purchase. There is no subscription, no annual fee, and nothing billed by agent count. The governance you license is yours, and there is no charge to keep using it.",
+    a: "No. Both paths are a single one-time purchase. There is no subscription, no annual fee, and nothing billed by agent count. The governance you buy is yours, and there is no charge to keep using it. The only thing that can be ongoing is consulting, and only if you choose it.",
+  },
+  {
+    q: "What do we actually receive?",
+    a: "A complete governance specification for your agent, delivered after purchase. It defines how the agent behaves, what it is permitted to say, and how it handles the situations it will encounter, along with the evaluation layer for observing adherence over time. You deploy it on your own model and speech provider. Callio does not sit in the call path.",
+  },
+  {
+    q: "What does it cost to generate a spec?",
+    a: "Nothing. You can complete the intake and see the governance specification it produces at no charge. The $25,000 applies when you commission the build.",
   },
   {
     q: "Which path is right for us?",
@@ -119,7 +127,7 @@ export default function PricingPage() {
           <ScrollReveal delay={180}>
             <p className="lv-pricing-supporting">
               There are two ways to bring a governed agent into service, and
-              both are a single one-time purchase. The governance you license
+              both are a single one-time purchase. The governance you buy
               is yours permanently, and Callio does not charge for ongoing
               use.
             </p>
@@ -138,24 +146,17 @@ export default function PricingPage() {
 
       {/* Light FAQ */}
       <section className="lv-pricing-faq">
-        <div className="lv-pricing-inner-narrow">
-          <ScrollReveal>
+        <ScrollReveal distance={28}>
+          <div className="lv-pricing-inner-narrow">
             <div className="lv-philosophy-eyebrow">
               <span className="lv-eyebrow-dot" aria-hidden="true" />
               <span>Questions</span>
             </div>
-          </ScrollReveal>
-          <dl className="lv-pricing-faq-list">
-            {FAQ.map((item, i) => (
-              <ScrollReveal key={item.q} delay={100 + i * 80}>
-                <div className="lv-pricing-faq-item">
-                  <dt className="lv-pricing-faq-q">{item.q}</dt>
-                  <dd className="lv-pricing-faq-a">{item.a}</dd>
-                </div>
-              </ScrollReveal>
-            ))}
-          </dl>
-        </div>
+            <div className="lv-pricing-faq-list">
+              <PricingFaq items={FAQ} />
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* Closing CTA bookend — mirrors the homepage Final CTA, sitting just
