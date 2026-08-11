@@ -16,9 +16,11 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import ScrollReveal from "@/components/ScrollReveal"
 import IntakeRecording from "@/components/callio/IntakeRecording"
 import { INTAKE_FACTS } from "@/components/callio/intake-facts"
+import { SPEC_EXCERPT } from "@/components/callio/spec-excerpt.generated"
 
 export const metadata: Metadata = {
   title: "Callio",
@@ -224,7 +226,20 @@ export default function CallioPage() {
         </div>
         <div className="lv-cin2-wrap-wide">
           <ScrollReveal delay={200}>
-            <div className="lv-cin2-capture">{/* persona capture: visuals commit */}</div>
+            <figure className="lv-cin2-capture">
+              {/* REAL capture: the persona question in the live intake, 2x. */}
+              <Image
+                src="/images/callio/intake-tone-step.png"
+                alt="The persona question in the live intake, with Trustworthy, Approachable, Authoritative, and Warm as choices"
+                width={1600}
+                height={1000}
+                sizes="(max-width: 1180px) 94vw, 1132px"
+                loading="lazy"
+              />
+              <figcaption className="lv-cin2-capture-caption">
+                The persona question, from the live intake.
+              </figcaption>
+            </figure>
           </ScrollReveal>
         </div>
       </section>
@@ -251,11 +266,18 @@ export default function CallioPage() {
           </ScrollReveal>
         </div>
         <div className="lv-cin2-wrap-wide">
-          <div className="lv-cin2-document">
-            {/* THE SIGNATURE: real rendered specification excerpt, generated
-                from the adapters in the callio repo (visuals commit, after
-                the excerpt is approved). Never hand-edited. */}
-          </div>
+          <ScrollReveal delay={160}>
+            <figure className="lv-cin2-document">
+              {/* THE SIGNATURE: a real render from the adapters, verbatim.
+                  Generated file; see tools/render-spec-excerpt.mts. */}
+              <pre className="lv-cin2-document-pre">{SPEC_EXCERPT.text}</pre>
+              <figcaption className="lv-cin2-document-caption">
+                Rendered by the voice prompt adapter from callio{" "}
+                {SPEC_EXCERPT.callioShaShort}. One rule shown;{" "}
+                {SPEC_EXCERPT.blocksElided} elided.
+              </figcaption>
+            </figure>
+          </ScrollReveal>
           {/* EXEMPLAR SLOT (what you hold) — when exemplars land in the
               spec, add their entry beside the document here and extend
               INTAKE_FACTS.spec. Renders nothing until then. */}

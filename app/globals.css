@@ -6891,6 +6891,28 @@ svg.lv-about-locations-map {
   border: 1px solid var(--border);
   background: var(--bg-light);
 }
+.lv-cin2-document {
+  margin: 0;
+}
+.lv-cin2-document-pre {
+  margin: 0;
+  padding: clamp(24px, 3.5vw, 44px);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--text-1);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.lv-cin2-document-caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #61644c;
+  margin-top: 12px;
+}
 /* Critique guards: an empty well must render nothing, never a stray frame. */
 .lv-cin2-document:empty {
   display: none;

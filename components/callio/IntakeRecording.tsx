@@ -1,10 +1,10 @@
 "use client"
 
 /* The hero visual: a REAL capture of a complete Callio intake session,
-   recorded from the live app (Financial Services -> company + channels ->
-   tone -> voice -> composed confirmation) and played back at 1.8x. Not a
-   mockup. Re-record with scripts in the session scratchpad when the intake
-   changes (exemplar work will require a fresh capture).
+   recorded from the live app at 1600x1000 (Financial Services -> company +
+   channels -> tone -> voice -> composed confirmation), played back at 1.8x.
+   Not a mockup. Re-record with scripts in the session scratchpad when the
+   intake changes (exemplar work will require a fresh capture).
 
    Motion rules: autoplay, muted, loop, playsinline, poster; under
    prefers-reduced-motion the video never mounts and the poster still renders
@@ -46,9 +46,9 @@ export default function IntakeRecording() {
         <Image
           src={POSTER}
           alt="The Callio intake: the industry question answered, the voice spec panel beginning to fill"
-          width={1280}
-          height={800}
-          sizes="(max-width: 900px) 94vw, 640px"
+          width={1600}
+          height={1000}
+          sizes="(max-width: 1180px) 94vw, 1132px"
           priority
         />
       )}
