@@ -32,8 +32,9 @@ export const INTAKE_FACTS = {
        model: every assistant message read at 220 wpm from the actual
        on-screen text, 4-6s consideration per decision, typing at 3.5
        chars/sec, one 15s voice-sample listen, and the composed confirmation
-       listened to. Modeled pace, not a live human; replace when a real
-       human run is timed.
+       listened to. Modeled pace, not a live human. Per Lyric 2026-08-12:
+       durationClaim is an ESTIMATE and will be revised from real user
+       testing before go-live.
      durationClaim is the copy-facing phrase. Exemplar selection will extend
      it; it is phrased to survive added steps. */
   durationShape: "a single sitting",
