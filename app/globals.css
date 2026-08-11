@@ -6647,6 +6647,93 @@ svg.lv-about-locations-map {
 }
 
 
+/* ─── Callio intake explainer (/callio) — lv-cin-* ──────────────────────────
+   Cream ground, olive cards, display serif headlines, mono eyebrows, pill
+   tags. Figures render from components/callio/intake-facts.ts. */
+.lv-cin {
+  background: var(--bg-light);
+}
+.lv-cin-hero {
+  padding: 140px 24px 88px;
+}
+.lv-cin-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.lv-cin-section-head {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 500;
+  line-height: 1.12;
+  color: var(--olive);
+  margin: 0 0 20px;
+}
+.lv-cin-section-head em {
+  font-family: inherit;
+  font-style: italic;
+  color: inherit;
+}
+.lv-cin-inventory,
+.lv-cin-ask,
+.lv-cin-hold {
+  padding: 96px 24px;
+  border-top: 1px solid var(--border);
+}
+.lv-cin-inventory-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 44px;
+}
+.lv-cin-ask-grid,
+.lv-cin-hold-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+.lv-cin-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive);
+  background: rgba(90, 94, 67, 0.07);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+.lv-cin-fork {
+  padding: 96px 24px 128px;
+  border-top: 1px solid var(--border);
+}
+.lv-cin-fork-inner {
+  text-align: center;
+}
+.lv-cin-fork-inner .lv-cta-row {
+  justify-content: center;
+  margin-top: 28px;
+}
+@media (min-width: 900px) {
+  .lv-cin-hero-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 64px;
+  }
+  .lv-cin-inventory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .lv-cin-ask-grid,
+  .lv-cin-hold-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+}
+
 /* ─── Gradient preview ────────────────────────────────────────────────────
    Temporary comparison route at /preview/gradient. Three full-viewport
    hero mockups stacked vertically. Delete this block when a direction
