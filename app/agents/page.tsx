@@ -195,7 +195,7 @@ export default function AgentsPage() {
               These agents are built on Callio&apos;s governance layer. Each one
               enforces the same rules for verification, workflow, and
               accountability across phone, chat, and SMS. When you select a
-              pre-built agent, you&apos;re choosing behavior that is consistent,
+              prebuilt agent, you&apos;re choosing behavior that is consistent,
               compliant, and repeatable from the first interaction to the
               thousandth.
             </p>
@@ -235,7 +235,7 @@ export default function AgentsPage() {
             <em>More are on the way.</em>
           </>
         }
-        supporting="The Financial Services agent is the first in the lineup. Pre-built governed agents for additional verticals are already in development, and each will be ready to adopt the same way."
+        supporting="The Financial Services agent is the first in the lineup. Prebuilt governed agents for additional verticals are already in development, and each will be ready to adopt the same way."
         allComingSoon
         showDots={false}
         fit
