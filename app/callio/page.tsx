@@ -78,14 +78,18 @@ export default function CallioPage() {
           </ScrollReveal>
           <ScrollReveal delay={220}>
             <p className="lv-cin2-hero-sub">
-              The intake takes {F.durationClaim}. You make {F.decisionPoints}{" "}
-              decisions and type one name. Everything else your agent needs was
-              authored and reviewed before you arrived.
+              You make six decisions and type one name. Everything else your
+              agent needs was authored and reviewed before you arrived.
             </p>
           </ScrollReveal>
         </div>
+      </section>
+
+      {/* Product capture on its own charcoal band: the light app UI reads as
+          one contained object against the dark ground (C5). */}
+      <section className="lv-cin2-media-band">
         <div className="lv-cin2-wrap-wide">
-          <ScrollReveal delay={280}>
+          <ScrollReveal delay={120}>
             <IntakeRecording />
           </ScrollReveal>
         </div>
@@ -224,8 +228,12 @@ export default function CallioPage() {
                 INTAKE_FACTS.questionGroups. Renders nothing until then. */}
           </div>
         </div>
+      </section>
+
+      {/* Second capture, same dark-band treatment (C5). */}
+      <section className="lv-cin2-media-band">
         <div className="lv-cin2-wrap-wide">
-          <ScrollReveal delay={200}>
+          <ScrollReveal delay={120}>
             <figure className="lv-cin2-capture">
               {/* REAL capture: the persona question in the live intake, 2x. */}
               <Image
@@ -271,11 +279,6 @@ export default function CallioPage() {
               {/* THE SIGNATURE: a real render from the adapters, verbatim.
                   Generated file; see tools/render-spec-excerpt.mts. */}
               <pre className="lv-cin2-document-pre">{SPEC_EXCERPT.text}</pre>
-              <figcaption className="lv-cin2-document-caption">
-                Rendered by the voice prompt adapter from callio{" "}
-                {SPEC_EXCERPT.callioShaShort}. One rule shown;{" "}
-                {SPEC_EXCERPT.blocksElided} elided.
-              </figcaption>
             </figure>
           </ScrollReveal>
           {/* EXEMPLAR SLOT (what you hold) — when exemplars land in the
@@ -325,12 +328,11 @@ export default function CallioPage() {
         <div className="lv-cin2-wrap">
           <ScrollReveal>
             <h2 className="lv-cin2-section-head">
-              Generate a spec, or take the <em>prebuilt agent</em>.
+              The specification is yours to keep.
             </h2>
             <p className="lv-cin2-section-sub">
-              The intake is free and produces a specification you keep. The
-              prebuilt Financial Services agent is finished if you need one
-              sooner.
+              The intake is free. The prebuilt Financial Services agent is
+              finished if you need one sooner.
             </p>
             <div className="lv-cin2-fork-actions">
               <Link href={START} className="lv-cta lv-cin2-cta-primary">

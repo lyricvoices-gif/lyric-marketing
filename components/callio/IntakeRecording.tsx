@@ -52,9 +52,6 @@ export default function IntakeRecording() {
           priority
         />
       )}
-      <figcaption className="lv-cin-recording-caption">
-        A complete intake, recorded from the live product. Played at 1.8x.
-      </figcaption>
     </figure>
   )
 }

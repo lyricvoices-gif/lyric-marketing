@@ -6677,7 +6677,7 @@ svg.lv-about-locations-map {
 
 /* 1 · Hero (cream) */
 .lv-cin2-hero {
-  padding: 148px 0 96px;
+  padding: 148px 0 72px;
 }
 .lv-cin2-hero-head {
   font-family: var(--font-display);
@@ -6701,10 +6701,7 @@ svg.lv-about-locations-map {
   line-height: 1.6;
   color: var(--text-1);
   max-width: 58ch;
-  margin: 0 0 56px;
-}
-.lv-cin2-hero .lv-cin2-wrap-wide {
-  margin-top: 8px;
+  margin: 0;
 }
 
 /* Shared section head scale */
@@ -6721,6 +6718,29 @@ svg.lv-about-locations-map {
   line-height: 1.6;
   max-width: 58ch;
   margin: 0;
+}
+
+/* Product-capture bands (charcoal). The light app UI reads as one contained
+   object on the dark ground; thin cream hairline + soft inset = deliberate
+   frame (C5). */
+.lv-cin2-media-band {
+  background: #2b2a25;
+  padding: 72px 0;
+}
+.lv-cin2-media-band .lv-cin-recording video,
+.lv-cin2-media-band .lv-cin-recording img,
+.lv-cin2-media-band .lv-cin2-capture img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 248, 236, 0.22);
+  border-radius: 0;
+  box-shadow: 0 24px 70px -40px rgba(0, 0, 0, 0.9);
+  background: var(--surface-bright, #fffdf7);
+}
+.lv-cin2-media-band .lv-cin2-capture-caption {
+  /* Dark-regime floor: quiet meta still reads at --cream-body. */
+  color: var(--cream-body);
 }
 
 /* 2 · Already authored (charcoal, PRIMARY) */
@@ -6787,9 +6807,10 @@ svg.lv-about-locations-map {
   }
 }
 
-/* 3 · What we ask (cream, short) */
+/* 3 · What we ask (cream, deliberately short next to section 2: the mass
+   imbalance is the argument, C6) */
 .lv-cin2-ask {
-  padding: 120px 0 96px;
+  padding: 88px 0 72px;
 }
 .lv-cin2-ask .lv-cin2-section-head {
   color: var(--olive);
@@ -6801,6 +6822,8 @@ svg.lv-about-locations-map {
   display: grid;
   grid-template-columns: 56px minmax(0, 1fr);
   gap: 16px;
+  /* Numeral and label sit on one shared baseline (C7). */
+  align-items: baseline;
   padding: 18px 0;
   border-top: 1px solid var(--border);
   max-width: 760px;
@@ -6814,8 +6837,6 @@ svg.lv-about-locations-map {
   font-weight: 700;
   letter-spacing: 0.1em;
   color: #61644c;
-  /* Critique: align the numeral cap height with the item's first text line. */
-  padding-top: 7px;
 }
 .lv-cin2-ask-text {
   font-family: var(--font-body);
@@ -6835,9 +6856,7 @@ svg.lv-about-locations-map {
   max-width: 58ch;
   margin: 26px 0 0;
 }
-.lv-cin2-ask .lv-cin2-wrap-wide {
-  margin-top: 64px;
-}
+
 .lv-cin2-capture img,
 .lv-cin2-capture video {
   display: block;
