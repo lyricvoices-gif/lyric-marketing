@@ -70,10 +70,16 @@ export default function CallioPage() {
             <Eyebrow label="Callio" />
           </ScrollReveal>
           <ScrollReveal delay={120}>
-            <h1 className="lv-cin2-hero-head">{/* copy commit */}</h1>
+            <h1 className="lv-cin2-hero-head">
+              The governance is <em>already written</em>.
+            </h1>
           </ScrollReveal>
           <ScrollReveal delay={220}>
-            <p className="lv-cin2-hero-sub">{/* copy commit */}</p>
+            <p className="lv-cin2-hero-sub">
+              The intake takes {F.durationClaim}. You make {F.decisionPoints}{" "}
+              decisions and type one name. Everything else your agent needs was
+              authored and reviewed before you arrived.
+            </p>
           </ScrollReveal>
         </div>
         <div className="lv-cin2-wrap-wide">
@@ -96,12 +102,58 @@ export default function CallioPage() {
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={200}>
-            <p className="lv-cin2-section-sub">{/* copy commit */}</p>
+            <p className="lv-cin2-section-sub">
+              All of it comes with the intake. None of it is yours to write.
+            </p>
           </ScrollReveal>
           <div className="lv-cin2-rows">
-            {/* rows land in the copy commit:
-                governance / foundation / per-channel / voice-and-text /
-                adapters / evaluation layer */}
+            <ScrollReveal>
+              <Row
+                title="Rules your agent follows"
+                figure={`${F.governance.totalBlocks} rules`}
+              >
+                How it verifies a caller, delivers a required disclosure,
+                hedges a claim, treats every customer the same, and hands a
+                hard call to a human. The sensitive ones clear counsel review
+                first.
+              </Row>
+            </ScrollReveal>
+            <ScrollReveal delay={60}>
+              <Row
+                title="What financial services sounds like"
+                figure={`${F.foundation.items} items`}
+              >
+                How APR is pronounced, how a dollar amount is spoken, the
+                recording notice, and the pace a difficult call should hold.
+              </Row>
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <Row
+                title="Written separately for SMS, email, and chat"
+                figure={`${F.channels.textChannels} channels`}
+              >
+                A text message, an email, and a chat turn are different
+                instruments. Each has its own guidance, and a number spoken
+                aloud on a call is written as a figure in text.
+              </Row>
+            </ScrollReveal>
+            <ScrollReveal delay={180}>
+              <Row
+                title="Ready for whatever runs your calls"
+                figure={`${F.adapters} adapters`}
+              >
+                The specification is written to your brand, not to a vendor.
+                Adapters carry it to your phone system, your model, and your
+                speech engine, and it survives swapping any of them.
+              </Row>
+            </ScrollReveal>
+            <ScrollReveal delay={240}>
+              <Row title="Proof it is being followed" figure="included">
+                An evaluation layer comes with the specification. It measures
+                your agent against the standard outside the live interaction,
+                on your schedule.
+              </Row>
+            </ScrollReveal>
             {/* EXEMPLAR SLOT (already authored) — when exemplar and
                 example-selection work lands, add its Row here with its
                 count from INTAKE_FACTS. Renders nothing until then. */}
@@ -117,10 +169,54 @@ export default function CallioPage() {
             <Eyebrow label="What we ask" />
           </ScrollReveal>
           <ScrollReveal delay={120}>
-            <h2 className="lv-cin2-section-head">{/* copy commit */}</h2>
+            <h2 className="lv-cin2-section-head">
+              We ask for <em>four things</em>.
+            </h2>
           </ScrollReveal>
           <div className="lv-cin2-ask-list">
-            {/* four numbered lines + one closing sentence: copy commit */}
+            <ScrollReveal>
+              <div className="lv-cin2-ask-item">
+                <span className="lv-cin2-ask-num">01</span>
+                <p className="lv-cin2-ask-text">
+                  <strong>Who you are.</strong> Your industry and your
+                  institution&rsquo;s name.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={60}>
+              <div className="lv-cin2-ask-item">
+                <span className="lv-cin2-ask-num">02</span>
+                <p className="lv-cin2-ask-text">
+                  <strong>Where the agent works.</strong> Phone, text, chat, or
+                  email, and which kinds of calls.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={120}>
+              <div className="lv-cin2-ask-item">
+                <span className="lv-cin2-ask-num">03</span>
+                <p className="lv-cin2-ask-text">
+                  <strong>How it should sound.</strong> The tone your
+                  institution leads with.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={180}>
+              <div className="lv-cin2-ask-item">
+                <span className="lv-cin2-ask-num">04</span>
+                <p className="lv-cin2-ask-text">
+                  <strong>Which voice speaks.</strong> One of {F.voices}{" "}
+                  produced voices.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={240}>
+              <p className="lv-cin2-ask-close">
+                The delivery is set from your answers and read back in plain
+                language. You can change any of it. {F.decisionPoints}{" "}
+                decisions, about {F.approxClicks} clicks, one typed name.
+              </p>
+            </ScrollReveal>
             {/* EXEMPLAR SLOT (what we ask) — when example selection ships,
                 add its numbered line here and raise
                 INTAKE_FACTS.questionGroups. Renders nothing until then. */}
@@ -142,10 +238,16 @@ export default function CallioPage() {
             <Eyebrow label="What you hold" />
           </ScrollReveal>
           <ScrollReveal delay={120}>
-            <h2 className="lv-cin2-section-head">{/* copy commit */}</h2>
+            <h2 className="lv-cin2-section-head">
+              One document, <em>every conversation</em>.
+            </h2>
           </ScrollReveal>
           <ScrollReveal delay={200}>
-            <p className="lv-cin2-section-sub">{/* copy commit */}</p>
+            <p className="lv-cin2-section-sub">
+              The specification states how your agent verifies, discloses,
+              hedges, escalates, and speaks, on the phone and in writing. You
+              download it, and it is yours.
+            </p>
           </ScrollReveal>
         </div>
         <div className="lv-cin2-wrap-wide">
@@ -163,7 +265,35 @@ export default function CallioPage() {
             An empty slot with a named owner is the difference between a
             governance instrument and a generated document.
           </p>
-          <div className="lv-cin2-owners">{/* obligations table: copy commit */}</div>
+          <ScrollReveal>
+            <p className="lv-cin2-owners-intro">
+              The specification also names what it still needs.{" "}
+              {F.obligations.total} entries are left open on purpose, each
+              assigned to the only party who can fill it.
+            </p>
+          </ScrollReveal>
+          <div className="lv-cin2-owners">
+            <ScrollReveal>
+              <div className="lv-cin2-owner-row">
+                <span>Wording only your counsel can approve</span>
+                <span className="lv-cin2-owner-count">{F.obligations.counsel}</span>
+              </div>
+              <div className="lv-cin2-owner-row">
+                <span>Facts only your team can supply</span>
+                <span className="lv-cin2-owner-count">{F.obligations.institution}</span>
+              </div>
+              <div className="lv-cin2-owner-row">
+                <span>Approved by counsel and team together</span>
+                <span className="lv-cin2-owner-count">
+                  {F.obligations.sharedCounselInstitution}
+                </span>
+              </div>
+              <div className="lv-cin2-owner-row">
+                <span>Collected by the intake as it grows</span>
+                <span className="lv-cin2-owner-count">{F.obligations.intake}</span>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -172,8 +302,14 @@ export default function CallioPage() {
       <section className="lv-cin2-fork">
         <div className="lv-cin2-wrap">
           <ScrollReveal>
-            <h2 className="lv-cin2-section-head">{/* copy commit */}</h2>
-            <p className="lv-cin2-section-sub">{/* copy commit */}</p>
+            <h2 className="lv-cin2-section-head">
+              Generate a spec, or take the <em>prebuilt agent</em>.
+            </h2>
+            <p className="lv-cin2-section-sub">
+              The intake is free and produces a specification you keep. The
+              prebuilt Financial Services agent is finished if you need one
+              sooner.
+            </p>
             <div className="lv-cin2-fork-actions">
               <Link href={START} className="lv-cta lv-cin2-cta-primary">
                 Generate your governed spec

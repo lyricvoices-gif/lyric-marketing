@@ -6814,7 +6814,8 @@ svg.lv-about-locations-map {
   font-weight: 700;
   letter-spacing: 0.1em;
   color: #61644c;
-  padding-top: 5px;
+  /* Critique: align the numeral cap height with the item's first text line. */
+  padding-top: 7px;
 }
 .lv-cin2-ask-text {
   font-family: var(--font-body);
@@ -6911,8 +6912,16 @@ svg.lv-about-locations-map {
   max-width: 30ch;
   margin: 72px 0 0;
 }
+.lv-cin2-owners-intro {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-1);
+  max-width: 56ch;
+  margin: 64px 0 0;
+}
 .lv-cin2-owners {
-  margin-top: 48px;
+  margin-top: 24px;
 }
 .lv-cin2-owner-row {
   display: grid;
