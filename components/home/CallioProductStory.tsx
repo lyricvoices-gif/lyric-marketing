@@ -168,10 +168,10 @@ export default function CallioProductStory() {
                 <div className="lv-cxp-intro-points" aria-label="Callio product outcomes">
                   <span>Clear behavior</span>
                   <span>Portable controls</span>
-                  <span>Observable adherence</span>
+                  <span>Measured adherence</span>
                 </div>
                 <Link href="/callio" className="lv-splitdemo-link">
-                  Explore Callio <span aria-hidden="true">↗</span>
+                  See how it works <span aria-hidden="true">↗</span>
                 </Link>
               </div>
             </div>
