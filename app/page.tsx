@@ -3,13 +3,11 @@ import type React from "react"
 import HomeHero from "@/components/HomeHero"
 import LogoCycler from "@/components/LogoCycler"
 import MobileStickyCTA from "@/components/MobileStickyCTA"
-import MeasurementSection from "@/components/MeasurementSection"
-import IntegrationsSection from "@/components/IntegrationsSection"
 import VerticalsSection from "@/components/VerticalsSection"
-import GovernanceProof from "@/components/governance/GovernanceProof"
-import GovernanceGrid from "@/components/GovernanceGrid"
 import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
+import AgentsScenario from "@/components/home/AgentsScenario"
+import CallioProductStory from "@/components/home/CallioProductStory"
 
 /* Homepage — Lyric as a brand-governance layer for AI agents.
 
@@ -140,87 +138,51 @@ export default function HomePage() {
         <LogoCycler className="lv-on-floret" />
       </div>
 
-      {/* The control plane. Bright warm surface (a deliberate tonal step up
-          from the cream above, and the light half of a light/dark pair with
-          the dark proof section below — the page's act break). Positioning
-          block on top, then the four parallel capabilities as a static 2x2
-          grid, all visible at once (GovernanceGrid). Shares the proof
-          section's 1120px inner column. */}
-      <section className="lv-products">
-        <div className="lv-products-inner">
-          <div className="lv-products-header">
-            <ScrollReveal>
+      {/* A distinct product chapter: high-impact Callio introduction followed
+          by four purpose-built feature interfaces. */}
+      <CallioProductStory />
+
+      {/* Governed agents are the product story made practical: an open,
+          transcript-first demonstration of the standard holding in action. */}
+      <section className="lv-agentstory-section">
+        <div className="lv-agentstory-inner">
+          <ScrollReveal>
+            <div className="lv-agentstory-header">
               <div className="lv-philosophy-eyebrow">
                 <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>Brand Governance Layer</span>
+                <span>Pre-built agents</span>
               </div>
-            </ScrollReveal>
-            <ScrollReveal delay={120}>
-              <h2 className="lv-products-headline">
-                We direct the engines.<br /> We are not <em>one of them</em>.
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={220}>
-              <p className="lv-products-supporting">
-                Lyric sits above the language model and the speech engine. It
-                doesn&apos;t generate text or audio. It codifies your brand into a
-                portable spec and holds every agent to it, regardless of the engine
-                underneath.
+              <h2 className="lv-agentstory-headline">Our Governed Agent, Sol.</h2>
+              <p className="lv-agentstory-supporting">
+                Listen to our pre-built agent Sol navigate a real financial services scenario.
               </p>
-            </ScrollReveal>
-          </div>
+              <div
+                className="lv-cxp-intro-points lv-agentstory-points"
+                aria-label="Governance demonstrated by Sol"
+              >
+                <span>Warm &amp; assured</span>
+                <span>Verify before access</span>
+                <span>Disclosure first</span>
+              </div>
+            </div>
+          </ScrollReveal>
 
-          <GovernanceGrid />
+          <AgentsScenario />
         </div>
       </section>
 
-      {/* What Lyric governs — the two dimensions, sound and communication.
-          Header row (headline left, framing line right), then two co-equal
-          proof panels: a governed voice sample to hear, a governed chat
-          thread to read. Voice drift is heard; text drift is read — so the
-          two proofs are different types on purpose. Dark interlude. The
-          lv-govp-* classes keep this scoped to section 4; the shared
-          lv-audiences styles (used by section 3) are untouched. */}
-      <section className="lv-audiences" style={{ background: DARK }}>
-        <div className="lv-audiences-inner">
-          <div className="lv-govp-head">
-            <ScrollReveal>
-              <div className="lv-audiences-header lv-govp-header">
-                <div className="lv-philosophy-eyebrow">
-                  <span className="lv-eyebrow-dot" aria-hidden="true" />
-                  <span>What it governs</span>
-                </div>
-                <h2 className="lv-audiences-headline">
-                  <span className="lv-gov-headline-line">How it <em>sounds</em>.</span>
-                  <br />
-                  <span className="lv-gov-headline-line">How it <em>communicates</em>.</span>
-                </h2>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={120}>
-              <p className="lv-govp-lead">
-                Voice drift is heard. Text drift is read. One spec governs
-                both, so the proof comes two ways: a governed sample to hear,
-                and a governed thread to read.
-              </p>
-            </ScrollReveal>
-          </div>
-
-          <GovernanceProof />
-        </div>
-      </section>
-
-      {/* Who it's for — verticals card grid. Sits after "How it sounds /
-          How it communicates" and before the eval section. */}
-      <VerticalsSection />
-
-      {/* How we verify it — proof behind the governance claim. Sits before
-          the integrations section and the final CTA. */}
-      <MeasurementSection />
-
-      {/* Integrations — ecosystem compatibility, between infrastructure and
-          synthesis engines. Sits between measurement and the final CTA. */}
-      <IntegrationsSection />
+      {/* Homepage industry framing; shared section layout and cards stay intact. */}
+      <VerticalsSection
+        eyebrow="Industries"
+        headline={
+          <>
+            Industry-ready governance
+            <br />
+            for every agent
+          </>
+        }
+        supporting="Callio’s governance is authored one industry at a time, not adapted from a generic template. Each industry foundation defines the workflows, controls, and language that industry requires, and it produces both a prebuilt agent ready to deploy and the starting point for a custom build."
+      />
 
       <section className="lv-final" style={{ background: DARK }}>
         <ScrollReveal>

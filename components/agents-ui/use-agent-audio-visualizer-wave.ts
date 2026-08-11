@@ -119,8 +119,6 @@ export function useAgentAudioVisualizerWave({
       case "speaking":
       default:
         setSpeed(DEFAULT_SPEED * 2)
-        amplitude.tween(DEFAULT_AMPLITUDE, 0.2)
-        frequency.tween(DEFAULT_FREQUENCY, 0.2)
         opacity.tween(1.0, 0.2)
         return
     }

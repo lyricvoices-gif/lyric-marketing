@@ -47,21 +47,22 @@ export default function MobileStickyCTA() {
       <Link
         href="/start"
         style={{
-          flex: 1,
+          flex: 1.45,
           minHeight: "48px",
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "0 14px",
+          padding: "0 8px",
           borderRadius: "100px",
           background: LIGHT,
           color: DARK,
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: 500,
           letterSpacing: "0",
+          whiteSpace: "nowrap",
         }}
       >
-        Try for free
+        Generate your governed spec
       </Link>
       <Link
         href="/callio"
@@ -71,14 +72,15 @@ export default function MobileStickyCTA() {
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "0 14px",
+          padding: "0 8px",
           borderRadius: "100px",
           background: "transparent",
           color: "rgba(245,243,239,0.92)",
           border: "1px solid rgba(245,243,239,0.22)",
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: 500,
           letterSpacing: "0",
+          whiteSpace: "nowrap",
         }}
       >
         See how it works

@@ -32,7 +32,8 @@ const NAV_ITEMS: NavItem[] = [
 /* Primary self-service CTA target. /start is a named placeholder route for the
    product entry flow (the route may not be built yet); the nav and the mobile
    sticky CTA both point here, never a dead "#". */
-const TRY_FOR_FREE_HREF = "/start"
+const PRIMARY_CTA_HREF = "/start"
+const PRIMARY_CTA_LABEL = "Generate your governed spec"
 
 export default function Nav() {
   const pathname = usePathname()
@@ -283,7 +284,7 @@ export default function Nav() {
           {/* Primary self-service CTA — filled pill in the brand olive/cream
               treatment used for primary CTAs elsewhere on the site. */}
           <Link
-            href={TRY_FOR_FREE_HREF}
+            href={PRIMARY_CTA_HREF}
             className="lyric-nav-cta"
             style={{
               display: "inline-flex",
@@ -304,7 +305,7 @@ export default function Nav() {
               transition: "background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease",
             }}
           >
-            Try for free
+            {PRIMARY_CTA_LABEL}
           </Link>
         </div>
 
@@ -485,7 +486,7 @@ export default function Nav() {
 
           {/* Primary self-service CTA in the mobile overlay. */}
           <Link
-            href={TRY_FOR_FREE_HREF}
+            href={PRIMARY_CTA_HREF}
             onClick={() => setMenuOpen(false)}
             className="lyric-nav-cta"
             style={{
@@ -511,7 +512,7 @@ export default function Nav() {
               transitionDelay: menuOpen ? "320ms" : "0ms",
             }}
           >
-            Try for free
+            {PRIMARY_CTA_LABEL}
           </Link>
         </div>
       </div>

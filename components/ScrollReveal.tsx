@@ -4,6 +4,7 @@ import React from "react"
 
 interface Props {
   children: React.ReactNode
+  className?: string
   delay?: number
   from?: "bottom" | "left"
   display?: string
@@ -15,6 +16,7 @@ interface Props {
 
 export default function ScrollReveal({
   children,
+  className,
   delay = 0,
   from = "bottom",
   display = "block",
@@ -34,11 +36,20 @@ export default function ScrollReveal({
     const el = ref.current
     if (!el) return
 
+    /* Fail open in older or constrained browsers. Content should never stay
+       hidden merely because the observer API is unavailable. */
+    if (!("IntersectionObserver" in window)) {
+      setVisible(true)
+      return
+    }
+
+    let revealTimer: ReturnType<typeof setTimeout> | undefined
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           if (delay > 0) {
-            setTimeout(() => setVisible(true), delay)
+            revealTimer = setTimeout(() => setVisible(true), delay)
           } else {
             setVisible(true)
           }
@@ -48,7 +59,10 @@ export default function ScrollReveal({
       { threshold: 0.08 }
     )
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      if (revealTimer) clearTimeout(revealTimer)
+    }
   }, [delay])
 
   const translateStart =
@@ -57,6 +71,7 @@ export default function ScrollReveal({
   return (
     <div
       ref={ref}
+      className={className}
       style={{
         display,
         opacity: visible ? 1 : 0,
