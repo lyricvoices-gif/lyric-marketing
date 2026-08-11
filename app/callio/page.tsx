@@ -17,6 +17,7 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import BrowserFrame from "@/components/BrowserFrame"
 import ScrollReveal from "@/components/ScrollReveal"
 import IntakeRecording from "@/components/callio/IntakeRecording"
 import { INTAKE_FACTS } from "@/components/callio/intake-facts"
@@ -90,7 +91,11 @@ export default function CallioPage() {
       <section className="lv-cin2-media-band">
         <div className="lv-cin2-wrap-wide">
           <ScrollReveal delay={120}>
-            <IntakeRecording />
+            <BrowserFrame>
+              <div className="lv-cin2-frame-headroom">
+                <IntakeRecording />
+              </div>
+            </BrowserFrame>
           </ScrollReveal>
         </div>
       </section>
@@ -235,6 +240,8 @@ export default function CallioPage() {
         <div className="lv-cin2-wrap-wide">
           <ScrollReveal delay={120}>
             <figure className="lv-cin2-capture">
+              <BrowserFrame>
+                <div className="lv-cin2-frame-headroom">
               {/* REAL capture: the persona question in the live intake, 2x. */}
               <Image
                 src="/images/callio/intake-tone-step.png"
@@ -244,6 +251,8 @@ export default function CallioPage() {
                 sizes="(max-width: 1180px) 94vw, 1132px"
                 loading="lazy"
               />
+                </div>
+              </BrowserFrame>
               <figcaption className="lv-cin2-capture-caption">
                 The persona question, from the live intake.
               </figcaption>

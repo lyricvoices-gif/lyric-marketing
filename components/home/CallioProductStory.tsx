@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { AgentAudioVisualizerWave } from "@/components/agents-ui/agent-audio-visualizer-wave"
+import BrowserFrame from "@/components/BrowserFrame"
 import ScrollReveal from "@/components/ScrollReveal"
 
 function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {
@@ -178,13 +179,8 @@ export default function CallioProductStory() {
           </ScrollReveal>
 
           <ScrollReveal delay={120} className="lv-cxp-reveal-full">
-            <div className="lv-cxp-browser-shell" data-callio-screenshot-slot>
-              <div className="lv-cxp-browser-bar" aria-hidden="true">
-                <div className="lv-cxp-browser-dots"><span /><span /><span /></div>
-                <div className="lv-cxp-browser-address">app.callio.ai</div>
-                <div className="lv-cxp-browser-spacer" />
-              </div>
-              <div className="lv-cxp-browser-screen">
+            <BrowserFrame screenshotSlot>
+              <>
                 {/* Authentic Callio capture. Replace only this Image source when refreshed. */}
                 <Image
                   src="/images/home/callio-product-sol-confirmation.png"
@@ -194,8 +190,8 @@ export default function CallioProductStory() {
                   sizes="(max-width: 1120px) 94vw, 1120px"
                   priority={false}
                 />
-              </div>
-            </div>
+              </>
+            </BrowserFrame>
           </ScrollReveal>
         </div>
       </section>
