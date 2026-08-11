@@ -6693,6 +6693,106 @@ svg.lv-about-locations-map {
   grid-template-columns: 1fr;
   gap: 40px;
 }
+.lv-cin-lead {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-1);
+  max-width: 56ch;
+  margin: 0;
+}
+/* Olive cards — the dark regime in miniature: labels full cream, body at
+   --cream-body, pills as cream-on-olive washes. */
+.lv-cin-card {
+  background: var(--olive);
+  border-radius: 16px;
+  padding: 28px 26px;
+  height: 100%;
+}
+.lv-cin-card-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg-light);
+  margin: 0 0 12px;
+}
+.lv-cin-card-body {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--cream-body);
+  margin: 0;
+}
+.lv-cin-card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 0;
+}
+.lv-cin-card .lv-cin-pill {
+  color: var(--bg-light);
+  background: rgba(255, 248, 236, 0.12);
+}
+.lv-cin-ask-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cin-ask;
+}
+.lv-cin-ask-list li {
+  counter-increment: cin-ask;
+  position: relative;
+  padding: 14px 0 14px 44px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-1);
+}
+.lv-cin-ask-list li:first-child {
+  border-top: none;
+}
+.lv-cin-ask-list li::before {
+  content: "0" counter(cin-ask);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #61644c;
+}
+.lv-cin-ask-list strong {
+  color: var(--olive);
+  font-weight: 600;
+}
+.lv-cin-ask-note {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #61644c;
+  max-width: 52ch;
+  margin: 24px 0 0;
+}
+.lv-cin-hold-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-1);
+  margin: 0 0 18px;
+  max-width: 56ch;
+}
+.lv-cin-fork-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-1);
+  max-width: 52ch;
+  margin: 0 auto;
+}
 .lv-cin-pill {
   display: inline-block;
   font-family: var(--font-mono);
