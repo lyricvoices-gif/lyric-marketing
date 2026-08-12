@@ -92,9 +92,7 @@ export default function CallioPage() {
         <div className="lv-cin2-wrap-wide">
           <ScrollReveal delay={120}>
             <BrowserFrame>
-              <div className="lv-cin2-frame-headroom">
-                <IntakeRecording />
-              </div>
+              <IntakeRecording />
             </BrowserFrame>
           </ScrollReveal>
         </div>
@@ -173,7 +171,7 @@ export default function CallioPage() {
       </section>
 
       {/* ── 3. What we ask (cream, short). Numbered lines (real sequence),
-            then the persona capture near full width. ── */}
+            then the tone capture near full width. ── */}
       <section className="lv-cin2-ask">
         <div className="lv-cin2-wrap">
           <ScrollReveal>
@@ -241,21 +239,16 @@ export default function CallioPage() {
           <ScrollReveal delay={120}>
             <figure className="lv-cin2-capture">
               <BrowserFrame>
-                <div className="lv-cin2-frame-headroom">
-              {/* REAL capture: the persona question in the live intake, 2x. */}
-              <Image
-                src="/images/callio/intake-tone-step.png"
-                alt="The persona question in the live intake, with Trustworthy, Approachable, Authoritative, and Warm as choices"
-                width={1600}
-                height={1000}
-                sizes="(max-width: 1180px) 94vw, 1132px"
-                loading="lazy"
-              />
-                </div>
+                {/* REAL capture of the tone question in the live intake, 2x. */}
+                <Image
+                  src="/images/callio/intake-tone-step.png"
+                  alt="The tone question in the live intake, with Trustworthy, Approachable, Authoritative, and Warm as choices"
+                  width={1600}
+                  height={1000}
+                  sizes="(max-width: 1180px) 94vw, 1132px"
+                  loading="lazy"
+                />
               </BrowserFrame>
-              <figcaption className="lv-cin2-capture-caption">
-                The persona question, from the live intake.
-              </figcaption>
             </figure>
           </ScrollReveal>
         </div>

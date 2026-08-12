@@ -6743,17 +6743,6 @@ svg.lv-about-locations-map {
   border-radius: 0;
   background: var(--surface-bright, #fffdf7);
 }
-/* Headroom above the app UI inside the frame (item 3): the app's own
-   background color (--sonic-cream in the callio app), identical on both
-   captures so the logo never reads clipped. */
-.lv-cin2-frame-headroom {
-  background: #f7f8f9;
-  padding-top: 20px;
-}
-.lv-cin2-media-band .lv-cin2-capture-caption {
-  /* Dark-regime floor: quiet meta still reads at --cream-body. */
-  color: var(--cream-body);
-}
 
 /* 2 · Already authored (charcoal, PRIMARY) */
 .lv-cin2-authored {
@@ -6876,16 +6865,6 @@ svg.lv-about-locations-map {
   height: auto;
   border: 1px solid var(--border);
 }
-.lv-cin2-capture-caption {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #61644c;
-  margin-top: 12px;
-}
-
 /* Hero recording reuses the same frame treatment. */
 .lv-cin2 .lv-cin-recording video,
 .lv-cin2 .lv-cin-recording img {
