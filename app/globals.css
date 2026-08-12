@@ -11500,18 +11500,14 @@ main.lv-agents {
 .lv-cxp-govern-conversation-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   margin-bottom: 2px;
   font-family: var(--font-mono);
   font-size: 8px;
+  font-weight: 600;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: rgba(90, 94, 67, 0.52);
-}
-
-.lv-cxp-govern-conversation-head > span:last-child {
-  color: var(--olive);
+  color: rgba(90, 94, 67, 0.86);
 }
 
 .lv-cxp-govern-turn {
@@ -11547,14 +11543,16 @@ main.lv-agents {
   margin: 0 0 5px 2px;
   font-family: var(--font-mono);
   font-size: 7px;
+  font-weight: 600;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: rgba(90, 94, 67, 0.52);
+  color: rgba(90, 94, 67, 0.86);
 }
 
 .lv-cxp-govern-turn p {
   margin: 0;
   padding: 11px 14px;
+  border: 1px solid rgba(90, 94, 67, 0.72);
   border-radius: 15px 15px 15px 4px;
   background: color-mix(in srgb, var(--sage) 11%, white);
   font-family: var(--font-body);
@@ -11581,9 +11579,10 @@ main.lv-agents {
   gap: 6px;
   font-family: var(--font-mono);
   font-size: 7px;
+  font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: rgba(90, 94, 67, 0.64);
+  color: rgba(90, 94, 67, 0.86);
 }
 
 .lv-cxp-govern-annotations i {
@@ -11591,7 +11590,7 @@ main.lv-agents {
   height: 5px;
   flex: none;
   border-radius: 50%;
-  background: var(--sage);
+  background: var(--olive);
 }
 
 @keyframes lv-cxp-govern-opening {
@@ -14369,22 +14368,52 @@ main.lv-agents {
 }
 
 .lv-cxp-editorial-feature.is-port .lv-cxp-port-mark {
+  position: relative;
   padding: 5px 3px 6px;
-  border-bottom: 1px solid transparent;
   opacity: 0.68;
-  transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .lv-cxp-editorial-feature.is-port .lv-cxp-port-mark:hover,
 .lv-cxp-editorial-feature.is-port .lv-cxp-port-mark:focus-visible {
-  border-bottom-color: var(--gold);
   opacity: 1;
   transform: translateY(-2px);
 }
 
 .lv-cxp-editorial-feature.is-port .lv-cxp-port-mark:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--olive) 34%, transparent);
-  outline-offset: 3px;
+  outline: 2px solid var(--olive);
+  outline-offset: 4px;
+}
+
+.lv-cxp-port-tooltip {
+  position: absolute;
+  z-index: 4;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  max-width: min(140px, calc(100vw - 24px));
+  padding: 5px 7px;
+  border-radius: 4px;
+  background: var(--olive);
+  color: var(--bg-light);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+}
+
+.lv-cxp-port-mark:hover .lv-cxp-port-tooltip,
+.lv-cxp-port-mark:focus-visible .lv-cxp-port-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
 }
 
 @media (max-width: 820px) {
@@ -14466,6 +14495,10 @@ main.lv-agents {
   }
 
   .lv-cxp-editorial-feature.is-port .lv-cxp-port-mark {
+    transition: none;
+  }
+
+  .lv-cxp-port-tooltip {
     transition: none;
   }
 

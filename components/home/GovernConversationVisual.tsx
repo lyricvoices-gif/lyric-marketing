@@ -39,7 +39,6 @@ export default function GovernConversationVisual() {
     >
       <div className="lv-cxp-govern-conversation-head">
         <span>Voice + text</span>
-        <span>In tolerance</span>
       </div>
 
       <div className="lv-cxp-govern-turn is-agent is-opening">

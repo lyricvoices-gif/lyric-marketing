@@ -54,11 +54,13 @@ function PortabilityVisual() {
         <div className="lv-cxp-port-groups" aria-label="Example compatible providers by category">
           <div className="lv-cxp-port-group">
             <div className="lv-cxp-port-group-marks">
-              <span className="lv-cxp-port-mark is-logo is-anthropic" tabIndex={0}>
-                <Image src="/images/logos/anthropic.svg" alt="Anthropic" width={24} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-anthropic" role="img" aria-label="Anthropic" tabIndex={0}>
+                <Image src="/images/logos/anthropic.svg" alt="" aria-hidden="true" width={24} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">Anthropic</span>
               </span>
-              <span className="lv-cxp-port-mark is-logo is-kimi" tabIndex={0}>
-                <Image src="/images/logos/kimi.svg" alt="Kimi K3" width={24} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-kimi" role="img" aria-label="Kimi K3" tabIndex={0}>
+                <Image src="/images/logos/kimi.svg" alt="" aria-hidden="true" width={24} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">Kimi K3</span>
               </span>
             </div>
             <span className="lv-cxp-port-group-label">Models</span>
@@ -66,14 +68,17 @@ function PortabilityVisual() {
 
           <div className="lv-cxp-port-group">
             <div className="lv-cxp-port-group-marks">
-              <span className="lv-cxp-port-mark is-logo is-elevenlabs" tabIndex={0}>
-                <Image src="/images/logos/elevenlabs.svg" alt="ElevenLabs" width={24} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-elevenlabs" role="img" aria-label="ElevenLabs" tabIndex={0}>
+                <Image src="/images/logos/elevenlabs.svg" alt="" aria-hidden="true" width={24} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">ElevenLabs</span>
               </span>
-              <span className="lv-cxp-port-mark is-logo is-cartesia" tabIndex={0}>
-                <Image src="/images/logos/cartesia.svg" alt="Cartesia" width={26} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-cartesia" role="img" aria-label="Cartesia" tabIndex={0}>
+                <Image src="/images/logos/cartesia.svg" alt="" aria-hidden="true" width={26} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">Cartesia</span>
               </span>
-              <span className="lv-cxp-port-mark is-logo is-openai" tabIndex={0}>
-                <Image src="/images/logos/openai.svg" alt="OpenAI" width={24} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-openai" role="img" aria-label="OpenAI" tabIndex={0}>
+                <Image src="/images/logos/openai.svg" alt="" aria-hidden="true" width={24} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">OpenAI</span>
               </span>
             </div>
             <span className="lv-cxp-port-group-label">Voice / TTS</span>
@@ -81,11 +86,13 @@ function PortabilityVisual() {
 
           <div className="lv-cxp-port-group">
             <div className="lv-cxp-port-group-marks">
-              <span className="lv-cxp-port-mark is-logo is-twilio" tabIndex={0}>
-                <Image src="/images/logos/twilio.svg" alt="Twilio" width={72} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-twilio" role="img" aria-label="Twilio" tabIndex={0}>
+                <Image src="/images/logos/twilio.svg" alt="" aria-hidden="true" width={72} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">Twilio</span>
               </span>
-              <span className="lv-cxp-port-mark is-logo is-vonage" tabIndex={0}>
-                <Image src="/images/logos/vonage.svg" alt="Vonage" width={28} height={24} />
+              <span className="lv-cxp-port-mark is-logo is-vonage" role="img" aria-label="Vonage" tabIndex={0}>
+                <Image src="/images/logos/vonage.svg" alt="" aria-hidden="true" width={28} height={24} />
+                <span className="lv-cxp-port-tooltip" aria-hidden="true">Vonage</span>
               </span>
             </div>
             <span className="lv-cxp-port-group-label">Infrastructure</span>
