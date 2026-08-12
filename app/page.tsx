@@ -174,7 +174,13 @@ export default function HomePage() {
       {/* Homepage industry framing; shared section layout and cards stay intact. */}
       <VerticalsSection
         eyebrow="Industries"
-        headline="Industry-ready Governance for Every Agent"
+        headline={
+          <>
+            Industry-ready Governance
+            <br />
+            for Every Agent
+          </>
+        }
         supporting="Callio tailors its governance for each industry. It isn’t a generic template. Each industry foundation outlines the necessary workflows, controls, and terminology. It results in both a prebuilt agent ready to deploy and a starting point for a custom build."
       />
 
