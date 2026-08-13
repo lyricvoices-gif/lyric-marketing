@@ -183,15 +183,15 @@ export default function HomePage() {
         eyebrow="Industries"
         headline={
           <>
-            Built for interactions where<br />the standard has to hold.
+            Built for highly regulated industries.
           </>
         }
         supporting={
           <>
-            Lyric is designed for high-stakes, regulated environments where behavior,
-            terminology, escalation, and disclosures cannot drift. Financial Services is
-            our first pre-built foundation. Other industries can begin through a custom
-            Callio intake.
+            Callio is built for high‑stakes, regulated environments where behavior,
+            terminology, escalation, and disclosures must not drift. Financial Services is
+            our first prebuilt foundation, and other industries begin through a custom Callio
+            intake.
           </>
         }
       />
