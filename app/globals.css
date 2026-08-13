@@ -14506,3 +14506,302 @@ main.lv-agents {
     animation: none;
   }
 }
+
+/* Homepage product-story consolidation. The authentic Callio capture remains
+   the visual anchor, with the four product layers reduced to concise context. */
+.lv-cxp-product-shell {
+  width: min(100%, 840px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.lv-cxp-feature-register {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, 960px);
+  margin: 52px auto 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.16);
+}
+
+.lv-cxp-feature-anchor {
+  min-width: 0;
+  padding: 24px 24px 0 0;
+}
+
+.lv-cxp-feature-anchor + .lv-cxp-feature-anchor {
+  border-left: 1px solid rgba(255, 248, 236, 0.12);
+  padding-right: 20px;
+  padding-left: 24px;
+}
+
+.lv-cxp-feature-anchor:last-child {
+  padding-right: 0;
+}
+
+.lv-cxp-feature-anchor-meta {
+  margin: 0 0 15px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.lv-cxp-feature-anchor h3 {
+  margin: 0 0 9px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--bg-light);
+}
+
+.lv-cxp-feature-anchor > p:last-child {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(255, 248, 236, 0.68);
+}
+
+@media (max-width: 820px) {
+  .lv-cxp-feature-register {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .lv-cxp-feature-anchor,
+  .lv-cxp-feature-anchor + .lv-cxp-feature-anchor {
+    padding: 22px 18px 24px 0;
+    border-left: 0;
+  }
+
+  .lv-cxp-feature-anchor:nth-child(even) {
+    border-left: 1px solid rgba(255, 248, 236, 0.12);
+    padding-right: 0;
+    padding-left: 18px;
+  }
+
+  .lv-cxp-feature-anchor:nth-child(n + 3) {
+    border-top: 1px solid rgba(255, 248, 236, 0.12);
+  }
+}
+
+@media (max-width: 480px) {
+  .lv-cxp-feature-register {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lv-cxp-feature-anchor,
+  .lv-cxp-feature-anchor + .lv-cxp-feature-anchor,
+  .lv-cxp-feature-anchor:nth-child(even) {
+    border-top: 1px solid rgba(255, 248, 236, 0.12);
+    border-left: 0;
+    padding: 20px 0;
+  }
+
+  .lv-cxp-feature-anchor:first-child {
+    border-top: 0;
+  }
+}
+
+/* The pre-built proof follows on a light editorial ground. Playback and
+   transcript behavior remain unchanged; only the visual treatment shifts. */
+.lv-agentstory-section {
+  background: var(--surface-bright);
+  color: var(--olive);
+}
+
+.lv-agentstory-header .lv-philosophy-eyebrow,
+.lv-agentstory-header .lv-philosophy-eyebrow > span:last-child,
+.lv-agentstory-headline {
+  color: var(--olive);
+}
+
+.lv-agentstory-header .lv-eyebrow-dot {
+  background: var(--sage);
+}
+
+.lv-agentstory-supporting {
+  color: rgba(43, 42, 37, 0.72);
+}
+
+.lv-agentstory-points span {
+  border-color: rgba(90, 94, 67, 0.2);
+  color: rgba(90, 94, 67, 0.78);
+  background: rgba(90, 94, 67, 0.035);
+}
+
+.lv-splitdemo-transcript::after {
+  background: linear-gradient(180deg, transparent, var(--surface-bright));
+}
+
+.lv-splitdemo-speaker,
+.lv-splitdemo-proof,
+.lv-splitdemo-time {
+  color: rgba(90, 94, 67, 0.72);
+}
+
+.lv-splitdemo-turn p {
+  color: var(--bg-dark);
+}
+
+.lv-splitdemo-turn {
+  opacity: 0.48;
+}
+
+.lv-splitdemo-turn.is-current {
+  opacity: 1;
+}
+
+.lv-splitdemo-listen,
+.lv-splitdemo-mute {
+  color: var(--olive);
+}
+
+.lv-splitdemo-listen:hover,
+.lv-splitdemo-mute:hover {
+  color: var(--bg-dark);
+}
+
+.lv-splitdemo-timeline input::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0 var(--split-progress),
+    rgba(90, 94, 67, 0.25) var(--split-progress) 100%
+  );
+}
+
+.lv-splitdemo-timeline input::-webkit-slider-thumb {
+  border-color: var(--surface-bright);
+  box-shadow: 0 0 0 1px rgba(90, 94, 67, 0.45);
+}
+
+.lv-splitdemo-timeline input::-moz-range-track {
+  background: rgba(90, 94, 67, 0.25);
+}
+
+.lv-splitdemo-timeline input::-moz-range-thumb {
+  border-color: var(--surface-bright);
+}
+
+.lv-splitdemo-listen:focus-visible,
+.lv-splitdemo-mute:focus-visible,
+.lv-splitdemo-timeline input:focus-visible {
+  outline-color: var(--olive);
+}
+
+/* A compact, centered launch callout rather than a second comparison UI. */
+.lv-launch {
+  padding: 88px 20px 96px;
+  background: var(--olive);
+  color: var(--bg-light);
+}
+
+.lv-launch-inner {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.lv-launch-intro {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.lv-launch-intro .lv-philosophy-eyebrow {
+  justify-content: center;
+  margin: 0 0 22px;
+  color: var(--bg-light);
+}
+
+.lv-launch-intro h2 {
+  max-width: 17ch;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.8vw, 56px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+}
+
+.lv-launch .lv-eyebrow-dot {
+  background: var(--gold);
+}
+
+.lv-launch-paths {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 44px;
+  margin-top: 38px;
+}
+
+.lv-launch-path {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lv-launch-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 248, 236, 0.38);
+  padding-bottom: 4px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--bg-light);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.lv-launch-link span {
+  color: var(--bg-light);
+}
+
+.lv-launch-link:hover {
+  border-bottom-color: var(--bg-light);
+}
+
+.lv-launch-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+@media (max-width: 820px) {
+  .lv-launch {
+    padding: 82px 18px 90px;
+  }
+
+  .lv-launch-paths {
+    gap: 18px 36px;
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lv-launch {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .lv-launch-intro h2 {
+    max-width: 14ch;
+  }
+
+  .lv-launch-paths {
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-launch-link {
+    transition: none;
+  }
+}

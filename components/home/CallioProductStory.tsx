@@ -1,8 +1,29 @@
 import Image from "next/image"
-import Link from "next/link"
 
 import ScrollReveal from "@/components/ScrollReveal"
-import InsideCallioWalkthrough from "@/components/home/InsideCallioWalkthrough"
+
+const CALLIO_FEATURES = [
+  {
+    number: "01",
+    title: "Author",
+    body: "Turn real workflows into an implementation-ready specification.",
+  },
+  {
+    number: "02",
+    title: "Govern",
+    body: "Hold voice and text to approved behavior before they reach a customer.",
+  },
+  {
+    number: "03",
+    title: "Evaluate",
+    body: "Measure adherence over time and surface the moments that drift.",
+  },
+  {
+    number: "04",
+    title: "Implement",
+    body: "Carry the standard into the models, providers, and infrastructure you use.",
+  },
+] as const
 
 function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {
   return (
@@ -32,17 +53,14 @@ export default function CallioProductStory() {
                 <div className="lv-cxp-intro-points" aria-label="Callio product outcomes">
                   <span>Clear behavior</span>
                   <span>Portable controls</span>
-                  <span>Measured adherence</span>
+                  <span>Observable adherence</span>
                 </div>
-                <Link href="/callio" className="lv-splitdemo-link">
-                  See how it works <span aria-hidden="true">↗</span>
-                </Link>
               </div>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={120} className="lv-cxp-reveal-full">
-            <div className="lv-cxp-browser-shell" data-callio-screenshot-slot>
+            <div className="lv-cxp-browser-shell lv-cxp-product-shell" data-callio-screenshot-slot>
               <div className="lv-cxp-browser-bar" aria-hidden="true">
                 <div className="lv-cxp-browser-dots"><span /><span /><span /></div>
                 <div className="lv-cxp-browser-address">app.callio.ai</div>
@@ -51,35 +69,27 @@ export default function CallioProductStory() {
               <div className="lv-cxp-browser-screen">
                 {/* Authentic Callio capture. Replace only this Image source when refreshed. */}
                 <Image
-                  src="/images/home/callio-product-sol-confirmation.png"
-                  alt="Callio confirming Sol as the governed voice for a financial-services agent"
-                  width={1355}
-                  height={900}
-                  sizes="(max-width: 1120px) 94vw, 1120px"
+                  src="/images/home/callio-product-splash.png"
+                  alt="Callio intake landing screen with a prompt to begin defining a cross-channel brand voice"
+                  width={1944}
+                  height={1304}
+                  sizes="(max-width: 820px) 92vw, 840px"
                   priority={false}
                 />
               </div>
             </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      <section className="lv-cxp-features">
-        <div className="lv-cxp-wrap">
-          <ScrollReveal className="lv-cxp-reveal-full">
-            <div className="lv-cxp-features-head">
-              <div>
-                <Eyebrow>Inside Callio</Eyebrow>
-                <h2>Define the standard. Hold the line.</h2>
-              </div>
-              <p>
-                From authoring through deployment and evaluation, every layer is
-                built around one outcome: the agent behaves the way your business approved.
-              </p>
+          <ScrollReveal delay={200} className="lv-cxp-reveal-full">
+            <div className="lv-cxp-feature-register" aria-label="Inside Callio">
+              {CALLIO_FEATURES.map((feature) => (
+                <article key={feature.number} className="lv-cxp-feature-anchor">
+                  <p className="lv-cxp-feature-anchor-meta">{feature.number}</p>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.body}</p>
+                </article>
+              ))}
             </div>
           </ScrollReveal>
-
-          <InsideCallioWalkthrough />
         </div>
       </section>
     </>

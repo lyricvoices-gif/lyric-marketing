@@ -68,7 +68,7 @@ export default function AboutPage() {
             <ScrollReveal delay={100}>
               <h1 className="lv-about-hook">
                 Three seconds of silence on a call, and the caller assumes the
-                worst. The system broke. The agent is gone. They say{" "}
+                worst. The system&apos;s broken. The agent is gone. They say{" "}
                 <em>&ldquo;hello?&rdquo;</em> into the quiet.
               </h1>
             </ScrollReveal>

@@ -29,11 +29,10 @@ const NAV_ITEMS: NavItem[] = [
   { type: "link", href: "/notes", label: "Notes" },
 ]
 
-/* Primary self-service CTA target. /start is a named placeholder route for the
-   product entry flow (the route may not be built yet); the nav and the mobile
-   sticky CTA both point here, never a dead "#". */
-const PRIMARY_CTA_HREF = "/start"
-const PRIMARY_CTA_LABEL = "Generate your governed spec"
+/* Global navigation stays neutral between Lyric's two launch paths. Product-
+   specific pages can still use direct governed-spec CTAs in their own context. */
+const PRIMARY_CTA_HREF = "/pricing"
+const PRIMARY_CTA_LABEL = "Explore ways to launch"
 
 export default function Nav() {
   const pathname = usePathname()

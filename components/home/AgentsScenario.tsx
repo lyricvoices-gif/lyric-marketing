@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react"
 import {
   useCallback,
@@ -579,12 +578,6 @@ export default function AgentsScenario() {
     <div className="lv-splitdemo-wrap">
       <ScrollReveal className="lv-splitdemo-reveal" distance={28}>
         <LyricGovernedDemo demo={FS_HERO_DEMO} />
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <Link href="/agents" className="lv-splitdemo-link">
-          Explore our prebuilt agents <span aria-hidden="true">↗</span>
-        </Link>
       </ScrollReveal>
     </div>
   )
