@@ -155,9 +155,10 @@ export default function HomePage() {
               </div>
               <h2 className="lv-agentstory-headline">The foundation is already built.</h2>
               <p className="lv-agentstory-supporting">
-                Financial Services is our first pre-built agent foundation. The domain
-                patterns, guardrails, workflows, and evaluation criteria are already in
-                place—so your team starts by tailoring, not from a blank slate.
+                Financial Services is our first pre-built agent foundation. Your agents have
+                set behaviors, guardrails, workflows, and evaluation criteria. This means your
+                team can begin by adjusting a governed foundation rather than starting from
+                scratch.
               </p>
               <div
                 className="lv-cxp-intro-points lv-agentstory-points"
