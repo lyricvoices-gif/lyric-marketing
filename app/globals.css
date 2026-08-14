@@ -14718,6 +14718,10 @@ main.lv-agents {
   color: var(--bg-light);
 }
 
+.lv-launch-intro .lv-philosophy-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+
 .lv-launch-intro h2 {
   max-width: 17ch;
   margin: 0 auto;
