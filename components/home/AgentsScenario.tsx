@@ -118,7 +118,7 @@ const FS_HERO_TRANSCRIPT: readonly DemoTranscriptTurn[] = [
   },
 ] as const
 
-const FS_HERO_DEMO: GovernedExperienceDemo = {
+export const FS_HERO_DEMO: GovernedExperienceDemo = {
   id: "financial-services-hero-call",
   channel: "voice",
   audio: {
