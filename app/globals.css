@@ -185,6 +185,8 @@ main { padding-top: 64px; }
 main:has(.lv-hero) { padding-top: 0; }
 main:has(.lv-agents-v3),
 main.lv-agents-v3 { padding-top: 0; }
+main:has(.lv-pricing),
+main.lv-pricing { padding-top: 0; }
 
 /* Active nav link — subtle dot indicator instead of a pill background. */
 .lyric-nav-link {
@@ -6146,7 +6148,10 @@ svg.lv-about-locations-map {
    and a quiet consulting note. Cream ground; restrained editorial register. */
 
 .lv-pricing {
-  background: var(--bg-light);
+  background:
+    radial-gradient(ellipse 720px 620px at 82% 180px, rgba(193, 193, 126, 0.22), transparent 72%),
+    radial-gradient(ellipse 680px 620px at 18% 700px, rgba(243, 209, 113, 0.12), transparent 72%),
+    var(--bg-light);
   color: var(--olive);
 }
 .lv-pricing-inner {
@@ -6464,71 +6469,6 @@ svg.lv-about-locations-map {
   background: rgba(90, 94, 67, 0.05);
 }
 
-/* Shared deliverables form one inverse foundation beneath both purchase paths.
-   The full-width olive treatment is deliberately strong, but contains no
-   price, CTA, or selection mechanic and therefore remains clearly shared. */
-.lv-shared-inclusions {
-  display: grid;
-  gap: 28px;
-  padding: 30px 28px;
-  border-radius: 0;
-  background: var(--olive-deep);
-  box-shadow: none;
-  color: var(--bg-light);
-}
-.lv-shared-kicker {
-  margin: 0 0 10px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--sage);
-}
-.lv-shared-inclusions h2 {
-  margin: 0;
-  max-width: 13ch;
-  font-family: var(--font-display);
-  font-size: clamp(27px, 3vw, 36px);
-  font-weight: 500;
-  line-height: 1.04;
-  color: var(--bg-light);
-}
-.lv-shared-inclusions-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid rgba(255, 248, 236, 0.18);
-}
-.lv-shared-inclusions-list li {
-  display: grid;
-  grid-template-columns: 20px minmax(0, 1fr);
-  gap: 10px;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 248, 236, 0.18);
-  font-size: 13px;
-  line-height: 1.35;
-  color: var(--cream-body);
-}
-.lv-shared-check {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border: 1px solid var(--sage);
-  border-radius: 50%;
-  color: var(--sage);
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1;
-}
-
 .lv-pricing-consulting {
   display: flex;
   flex-direction: column;
@@ -6610,16 +6550,6 @@ svg.lv-about-locations-map {
   .lv-price-card {
     padding: 34px 34px 32px;
   }
-  .lv-shared-inclusions {
-    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
-    gap: clamp(40px, 7vw, 88px);
-    align-items: center;
-    padding: 38px 40px;
-  }
-  .lv-shared-inclusions-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 30px;
-  }
   .lv-pricing-consulting {
     flex-direction: row;
     align-items: center;
@@ -6644,6 +6574,596 @@ svg.lv-about-locations-map {
 @media (prefers-reduced-motion: reduce) {
   .lv-price-cta,
   .lv-pricing-consulting a {
+    transition: none;
+  }
+}
+
+/* ═══ Pricing 2026 enterprise narrative ═══════════════════════════════════
+   Open editorial purchase paths, followed by the owned system, its portable
+   implementation model, and the actual purchase sequence. These rules are
+   intentionally scoped to /pricing and supersede the retired card layout. */
+
+.lv-pricing-intro {
+  min-height: min(740px, 82svh);
+  display: flex;
+  align-items: center;
+  padding: 164px 24px 96px;
+  background: transparent;
+}
+.lv-pricing-headline {
+  max-width: 12ch;
+  margin-bottom: 28px;
+  font-size: clamp(48px, 7.2vw, 92px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+}
+.lv-pricing-supporting {
+  max-width: 650px;
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.58;
+}
+.lv-pricing-hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 34px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #61644c;
+}
+
+.lv-pricing-tiers-section {
+  padding: 0 24px 120px;
+}
+.lv-pricing-offers {
+  display: block;
+}
+.lv-pricing-paths,
+.lv-pricing-process {
+  padding: 116px 0;
+}
+.lv-pricing-paths {
+  padding-top: 88px;
+}
+.lv-pricing-section-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: 42px;
+  align-items: end;
+  margin-bottom: 66px;
+}
+.lv-pricing-section-kicker,
+.lv-pricing-system-kicker,
+.lv-pricing-path-eyebrow,
+.lv-pricing-portability-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.lv-pricing-section-kicker {
+  align-self: start;
+  padding-top: 10px;
+  color: var(--ink-label);
+}
+.lv-pricing-section-intro h2,
+.lv-pricing-system h2,
+.lv-pricing-close h2,
+.lv-pricing-faq-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+.lv-pricing-section-intro h2 {
+  grid-column: 2;
+  grid-row: 1;
+  max-width: 12ch;
+  font-size: clamp(42px, 5.4vw, 68px);
+  line-height: 0.98;
+}
+.lv-pricing-section-description {
+  grid-column: 2;
+  max-width: 610px;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(90, 94, 67, 0.82);
+}
+.lv-pricing-path-list {
+  border-top: 0;
+}
+.lv-pricing-path {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1.35fr) minmax(240px, 0.65fr);
+  gap: clamp(28px, 5vw, 76px);
+  padding: 52px 0 58px;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.22);
+}
+.lv-pricing-path:last-child {
+  border-bottom: 0;
+}
+.lv-pricing-path-index,
+.lv-pricing-artifact-number,
+.lv-pricing-process-list > li > span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ink-label);
+}
+.lv-pricing-path-index {
+  display: block;
+}
+.lv-pricing-path-eyebrow {
+  margin-bottom: 14px;
+  color: var(--ink-label);
+}
+.lv-pricing-path h3 {
+  max-width: 13ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.2vw, 52px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+.lv-pricing-path-description {
+  max-width: 590px;
+  margin: 22px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(90, 94, 67, 0.84);
+}
+.lv-pricing-path ul {
+  max-width: 620px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(90, 94, 67, 0.14);
+}
+.lv-pricing-path li {
+  position: relative;
+  padding: 13px 0 13px 18px;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.14);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(90, 94, 67, 0.86);
+}
+.lv-pricing-path li::before {
+  content: "";
+  position: absolute;
+  top: 21px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+.lv-pricing-path-purchase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 27px;
+}
+.lv-pricing-path-price {
+  margin: 0 0 30px;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4vw, 50px);
+  line-height: 1;
+}
+.lv-pricing-path-price span {
+  display: block;
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+}
+.lv-pricing-path-cta {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 21px;
+  border-radius: 100px;
+  background: var(--olive);
+  color: var(--bg-light);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.lv-pricing-path-cta:hover {
+  background: var(--gold);
+  color: #2b2a25;
+  transform: translateY(-1px);
+}
+.lv-pricing-path-cta span {
+  margin-left: 7px;
+}
+.lv-pricing-path-note {
+  max-width: 270px;
+  margin: 13px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #61644c;
+}
+
+.lv-pricing-system {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  padding: 76px max(24px, calc((100% - 1120px) / 2 + 24px));
+  background: var(--olive-deep);
+  color: var(--bg-light);
+}
+.lv-pricing-system-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(56px, 8vw, 108px);
+  align-items: start;
+}
+.lv-pricing-system-intro {
+  display: block;
+}
+.lv-pricing-system-kicker {
+  margin: 0 0 18px;
+  color: var(--sage);
+}
+.lv-pricing-system-intro h2 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(36px, 4.2vw, 52px);
+  line-height: 1;
+  color: var(--bg-light);
+}
+.lv-pricing-system-intro > p:last-child {
+  max-width: 420px;
+  margin: 24px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--cream-body);
+}
+.lv-pricing-artifacts {
+  display: block;
+  margin: 0;
+}
+.lv-pricing-artifacts article {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.46fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: baseline;
+  padding: 24px 0 26px;
+  border-top: 1px solid rgba(255, 248, 236, 0.24);
+}
+.lv-pricing-artifacts article + article {
+  padding-left: 0;
+  border-left: 0;
+}
+.lv-pricing-artifacts h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 500;
+  color: var(--bg-light);
+}
+.lv-pricing-artifacts p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--cream-body);
+}
+.lv-pricing-portability-statement {
+  max-width: none;
+  margin: 0;
+  padding: 24px 0 0;
+  border-top: 1px solid rgba(255, 248, 236, 0.24);
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.12;
+  color: var(--bg-light);
+}
+
+.lv-pricing-process-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lv-pricing-process-list li {
+  display: flex;
+  min-width: 0;
+  min-height: 218px;
+  flex-direction: column;
+  padding: 24px 20px 24px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 248, 236, 0.075);
+  box-shadow: none;
+}
+.lv-pricing-process-list li::before {
+  display: none;
+}
+.lv-pricing-process-list > li > span {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.lv-pricing-process-list h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--bg-light);
+}
+.lv-pricing-process-list p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 248, 236, 0.76);
+}
+.lv-pricing-process {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  padding: 84px max(24px, calc((100% - 1120px) / 2 + 24px));
+  background: var(--olive-deep);
+  color: var(--bg-light);
+}
+.lv-pricing-process-intro {
+  display: block;
+  max-width: 780px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.lv-pricing-process-intro .lv-pricing-section-kicker {
+  margin-bottom: 16px;
+  padding-top: 0;
+  color: var(--sage);
+}
+.lv-pricing-process-intro h2 {
+  max-width: none;
+  margin: 0 auto;
+  font-size: clamp(36px, 4.6vw, 56px);
+  line-height: 1.04;
+  color: var(--bg-light);
+}
+.lv-pricing-process-intro h2 span {
+  display: block;
+}
+.lv-pricing-process-intro h2 span:first-child {
+  white-space: nowrap;
+}
+.lv-pricing-process-intro .lv-pricing-section-description {
+  max-width: 620px;
+  margin: 16px auto 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 248, 236, 0.76);
+}
+
+.lv-pricing-faq {
+  padding: 128px 24px 144px;
+}
+.lv-pricing-faq-title {
+  max-width: 14ch;
+  margin: 24px 0 58px;
+  font-size: clamp(38px, 5vw, 58px);
+  line-height: 1;
+  color: var(--olive);
+}
+
+.lv-pricing-close {
+  padding: 112px 24px 118px;
+  text-align: center;
+  background: var(--bg-dark);
+  color: var(--bg-light);
+}
+.lv-pricing-close-eyebrow {
+  justify-content: center;
+  margin: 0 0 22px;
+}
+.lv-pricing-close-eyebrow > span:last-child {
+  color: var(--bg-light);
+}
+.lv-pricing-close-eyebrow .lv-eyebrow-dot {
+  background: var(--gold);
+}
+.lv-pricing-close h2 {
+  max-width: none;
+  margin: 0 auto 40px;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 0.98;
+  color: var(--bg-light);
+}
+.lv-pricing-close h2 span {
+  display: block;
+  white-space: nowrap;
+}
+.lv-pricing-close-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.lv-pricing-close-actions a {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 248, 236, 0.5);
+  border-radius: 100px;
+  color: var(--bg-light);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 180ms ease, color 180ms ease;
+}
+.lv-pricing-close-actions a:first-child {
+  border-color: var(--bg-light);
+  background: var(--bg-light);
+  color: var(--olive);
+}
+.lv-pricing-close-actions a:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #2b2a25;
+}
+
+@media (max-width: 900px) {
+  .lv-pricing-section-intro,
+  .lv-pricing-system-intro,
+  .lv-pricing-portability {
+    grid-template-columns: 1fr;
+  }
+  .lv-pricing-section-intro h2,
+  .lv-pricing-section-description,
+  .lv-pricing-system-intro > p:last-child {
+    grid-column: 1;
+  }
+  .lv-pricing-section-intro h2 {
+    grid-row: auto;
+  }
+  .lv-pricing-path {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+  .lv-pricing-path-purchase {
+    grid-column: 2;
+  }
+  .lv-pricing-portability ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .lv-pricing-process-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .lv-pricing-intro {
+    min-height: 680px;
+    padding: 142px 20px 76px;
+  }
+  .lv-pricing-headline {
+    font-size: clamp(46px, 15vw, 66px);
+  }
+  .lv-pricing-tiers-section {
+    padding: 0 20px 92px;
+  }
+  .lv-pricing-paths,
+  .lv-pricing-process {
+    padding: 88px 0;
+  }
+  .lv-pricing-section-intro {
+    gap: 20px;
+    margin-bottom: 44px;
+  }
+  .lv-pricing-section-kicker {
+    padding-top: 0;
+  }
+  .lv-pricing-section-intro h2 {
+    font-size: 44px;
+  }
+  .lv-pricing-path {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 40px 0 46px;
+  }
+  .lv-pricing-path-purchase {
+    grid-column: 1;
+    padding-top: 8px;
+  }
+  .lv-pricing-system {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    padding: 72px 20px;
+  }
+  .lv-pricing-system-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .lv-pricing-system-intro h2 {
+    font-size: 40px;
+  }
+  .lv-pricing-artifacts {
+    margin: 0;
+  }
+  .lv-pricing-artifacts article {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 22px 0 24px;
+  }
+  .lv-pricing-artifacts article + article {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .lv-pricing-process-intro {
+    margin-bottom: 40px;
+    text-align: left;
+  }
+  .lv-pricing-process {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    padding: 72px 20px;
+  }
+  .lv-pricing-process-list {
+    grid-template-columns: 1fr;
+  }
+  .lv-pricing-process-list li {
+    min-height: 0;
+    padding: 24px 20px;
+  }
+  .lv-pricing-process-list > li > span {
+    margin-bottom: 22px;
+  }
+  .lv-pricing-process-list h3 {
+    font-size: 18px;
+  }
+  .lv-pricing-process-list p {
+    font-size: 14px;
+  }
+  .lv-pricing-process-intro h2 span:first-child {
+    white-space: normal;
+  }
+  .lv-pricing-faq {
+    padding: 96px 20px 112px;
+  }
+  .lv-pricing-close {
+    padding: 92px 20px 98px;
+  }
+  .lv-pricing-close h2 {
+    font-size: clamp(32px, 9vw, 42px);
+  }
+  .lv-pricing-close-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-pricing-path-cta,
+  .lv-pricing-close-actions a {
     transition: none;
   }
 }
