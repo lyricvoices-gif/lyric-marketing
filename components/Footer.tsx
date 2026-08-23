@@ -95,7 +95,7 @@ export default function Footer() {
     {
       heading: "Locations",
       links: [
-        { label: "Los Angeles" },
+        { label: "San Francisco" },
         { label: "Atlanta" },
       ],
     },

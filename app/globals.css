@@ -6907,9 +6907,10 @@ svg.lv-about-locations-map {
   background: transparent;
   color: var(--gold);
   font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.1em;
 }
 .lv-pricing-process-list h3 {
   margin: 0 0 10px;
