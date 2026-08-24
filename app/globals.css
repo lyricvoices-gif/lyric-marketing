@@ -17196,7 +17196,14 @@ main.lv-agents {
 }
 
 .lv-agents-v3-experience .lv-agents-v2-tabs button {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
   color: rgba(255, 248, 236, 0.64);
+  cursor: pointer;
 }
 
 .lv-agents-v3-experience .lv-agents-v2-tabs button[aria-selected="true"],
