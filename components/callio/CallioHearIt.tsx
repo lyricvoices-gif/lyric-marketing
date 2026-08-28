@@ -1,72 +1,114 @@
 "use client"
 
-/* Section 2 — Before / after. The one audio-grade module on the page, and the
-   most differentiated asset: the same customer question answered two ways, so
-   voice drift is audible. This is for a risk, compliance, and operations buyer,
-   not only a brand-aware one.
+/* One flagship proof scenario, heard two ways. The caller clips are identical
+   in both generated tracks; the agent response is the only variable. */
 
-   Reuses the site's audio playback mechanics (a single shared <audio>, one clip
-   at a time, play/pause, real timeupdate progress, the gold accent) from the
-   voices and sounds player, and composes a large play affordance, a visible
-   waveform, and a duration readout on top — the serious listening treatment that
-   appears once on the page.
+import { useEffect, useRef, useState } from "react"
 
-   The persuasion lives in the annotations: "governed" is not an assertion, it
-   names the rule.
-
-   Wiring is verifiable: every Ungoverned control points at an *ungoverned* mp3,
-   every Governed control at a *governed* mp3. Snippets are teasers; the audio is
-   the payoff. */
-
-import { useEffect, useRef, useState, type CSSProperties } from "react"
-
-type Annotation = string
-
-type Side = { src: string; snippet: string; annotations: Annotation[] }
-
-type Scenario = {
-  id: string
-  question: string
-  ungoverned: Side
-  governed: Side
+type TrackId = "ungoverned" | "governed"
+type TranscriptLine = {
+  who: "caller" | "agent"
+  start: number
+  end: number
+  display: string
+}
+type Track = {
+  id: TrackId
+  label: string
+  src: string
+  duration: number
+  signal: string
+  transcript: TranscriptLine[]
 }
 
-const SCENARIOS: Scenario[] = [
+const SHARED_CALLER = {
+  first: {
+    who: "caller" as const,
+    start: 0,
+    end: 9.52,
+    display:
+      "Hi. I’m comparing the Cascade Rewards card, and I want to be clear about the purchase rate. What APR would apply if I carried a balance?",
+  },
+  second: {
+    who: "caller" as const,
+    display: "So the purchase APR is 24.99%?",
+  },
+  third: {
+    who: "caller" as const,
+    display: "And where would I find the full rate and fee details?",
+  },
+}
+
+const TRACKS: Track[] = [
   {
-    id: "ex1",
-    question: "A customer asks about a credit-card rate.",
-    ungoverned: {
-      src: "/VoiceAgent1ungoverned.mp3",
-      snippet: "Yeah, so your APR’s twenty-four ninety-nine, and the Cascade card’s a really popular one…",
-      annotations: ["filler, fails concision standard", "casual register, not approved"],
-    },
-    governed: {
-      src: "/VoiceAgent1governed.mp3",
-      snippet: "Your Annual Percentage Rate is 24.99%.",
-      annotations: ["exact disclosure language, required", "approved term, on brand"],
-    },
+    id: "ungoverned",
+    label: "Ungoverned",
+    src: "/audio/callio-proof-ungoverned.mp3",
+    duration: 38.094,
+    signal: "Drift: the exact rate becomes “roughly 25%.”",
+    transcript: [
+      SHARED_CALLER.first,
+      {
+        who: "agent",
+        start: 10.08,
+        end: 18.997,
+        display:
+          "Yeah, of course. It’s basically 24.99% right now. That’s pretty typical for a rewards card, and it may move around a little, so I’d just think of it as roughly 25%.",
+      },
+      { ...SHARED_CALLER.second, start: 19.557, end: 24.201 },
+      {
+        who: "agent",
+        start: 24.761,
+        end: 29.823,
+        display:
+          "Right, about that. If you pay the balance off quickly, the interest usually isn’t a big deal.",
+      },
+      { ...SHARED_CALLER.third, start: 30.383, end: 33.123 },
+      {
+        who: "agent",
+        start: 33.683,
+        end: 38.094,
+        display:
+          "It should all be in the card paperwork or somewhere in your account. I can point you in the right direction.",
+      },
+    ],
   },
   {
-    id: "ex2",
-    question: "A customer asks if a document was sent.",
-    ungoverned: {
-      src: "/VoiceAgent2ungoverned.mp3",
-      snippet:
-        "Um, okay, so let me just take a look here for you… it should’ve gone to the email we have on file, so maybe check your inbox…",
-      annotations: ["vague phrasing, not approved language", "hedging, fails clarity standard"],
-    },
-    governed: {
-      src: "/VoiceAgent2governed.mp3",
-      snippet: "Your disclosure was sent to the email on file.",
-      annotations: ["plain confirmation, approved", "approved closing"],
-    },
+    id: "governed",
+    label: "Governed by Callio",
+    src: "/audio/callio-proof-governed.mp3",
+    duration: 36.376,
+    signal: "Standard held: exact term, exact rate, clear source.",
+    transcript: [
+      SHARED_CALLER.first,
+      {
+        who: "agent",
+        start: 10.08,
+        end: 17.696,
+        display:
+          "The purchase Annual Percentage Rate is 24.99%. Please review the card’s pricing and terms for complete rate and fee information.",
+      },
+      { ...SHARED_CALLER.second, start: 18.256, end: 22.9 },
+      {
+        who: "agent",
+        start: 23.46,
+        end: 27.872,
+        display: "Yes. The purchase Annual Percentage Rate is 24.99%.",
+      },
+      { ...SHARED_CALLER.third, start: 28.432, end: 31.172 },
+      {
+        who: "agent",
+        start: 31.732,
+        end: 36.376,
+        display:
+          "Open the card’s pricing and terms. That document contains the complete rate and fee information.",
+      },
+    ],
   },
 ]
 
-/* Deterministic pseudo-waveform — same on server and client (no Math.random),
-   so it hydrates cleanly. Heights read like a voice envelope, not a bar chart. */
-const BARS = Array.from({ length: 56 }, (_, i) =>
-  Math.round(5 + 17 * Math.abs(Math.sin(i * 1.27) * Math.cos(i * 0.43 + 1))),
+const BARS = Array.from({ length: 72 }, (_, index) =>
+  Math.round(7 + 24 * Math.abs(Math.sin(index * 1.19) * Math.cos(index * 0.37 + 0.8))),
 )
 
 function PlayGlyph() {
@@ -86,190 +128,186 @@ function PauseGlyph() {
   )
 }
 
-function fmt(sec: number) {
-  if (!Number.isFinite(sec) || sec < 0) return "0:00"
-  const m = Math.floor(sec / 60)
-  const s = Math.floor(sec % 60)
-  return `${m}:${String(s).padStart(2, "0")}`
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "0:00"
+  const minutes = Math.floor(seconds / 60)
+  const remainder = Math.floor(seconds % 60)
+  return `${minutes}:${String(remainder).padStart(2, "0")}`
+}
+
+function activeLine(track: Track, elapsed: number, current: boolean) {
+  if (!current || elapsed <= 0) return track.transcript[1]
+  let line = track.transcript[0]
+  for (const candidate of track.transcript) {
+    if (candidate.start <= elapsed) line = candidate
+    else break
+  }
+  return line
 }
 
 function Waveform({ progress }: { progress: number }) {
   return (
-    <span className="lv-hear-wave" aria-hidden="true">
-      {BARS.map((h, i) => (
+    <span className="lv-proof-wave" aria-hidden="true">
+      {BARS.map((height, index) => (
         <span
-          key={i}
-          className={`lv-hear-wave-bar${i / BARS.length <= progress ? " is-played" : ""}`}
-          style={{ height: `${h}px` }}
+          key={index}
+          className={`lv-proof-wave-bar${index / BARS.length <= progress ? " is-played" : ""}`}
+          style={{ height }}
         />
       ))}
     </span>
   )
 }
 
-function Clip({
-  variant,
-  side,
-  isOn,
-  progress,
-  elapsed,
-  duration,
-  onToggle,
-  question,
-}: {
-  variant: "ungoverned" | "governed"
-  side: Side
-  isOn: boolean
-  progress: number
-  elapsed: number
-  duration: number
-  onToggle: () => void
-  question: string
-}) {
-  const title = variant === "ungoverned" ? "Ungoverned Agent" : "Governed by Callio"
-  return (
-    <div className={`lv-hear-clip lv-hear-${variant}${isOn ? " is-playing" : ""}`}>
-      <p className="lv-hear-clip-label">{title}</p>
-
-      <div className="lv-hear-player">
-        <button
-          type="button"
-          className="lv-hear-play"
-          onClick={onToggle}
-          aria-label={`${isOn ? "Pause" : "Play"} the ${variant} take. ${question}`}
-          aria-pressed={isOn}
-        >
-          <span className="lv-hear-play-glow" aria-hidden="true" />
-          <svg className="lv-hear-ring" viewBox="0 0 60 60" aria-hidden="true">
-            <circle className="lv-hear-ring-track" cx="30" cy="30" r="28" />
-          </svg>
-          <span className="lv-hear-glyph">{isOn ? <PauseGlyph /> : <PlayGlyph />}</span>
-        </button>
-        <Waveform progress={isOn ? progress : 0} />
-        <span className="lv-hear-time">
-          {isOn ? `${fmt(elapsed)} / ${fmt(duration)}` : fmt(duration)}
-        </span>
-      </div>
-
-      <p className="lv-hear-snippet">{side.snippet}</p>
-
-      <ul className="lv-hear-notes">
-        {side.annotations.map((a) => (
-          <li key={a} className="lv-hear-note">
-            {a}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
 export default function CallioHearIt() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [playing, setPlaying] = useState<string | null>(null)
-  const [progress, setProgress] = useState(0)
-  const [elapsed, setElapsed] = useState(0)
-  const [durations, setDurations] = useState<Record<string, number>>({})
+  const [current, setCurrent] = useState<TrackId | null>(null)
+  const [playing, setPlaying] = useState(false)
+  const [elapsed, setElapsed] = useState<Record<TrackId, number>>({
+    ungoverned: 0,
+    governed: 0,
+  })
 
   useEffect(() => {
-    const a = audioRef.current
-    if (!a) return
-    const onTime = () => {
-      setElapsed(a.currentTime)
-      if (a.duration > 0) setProgress(a.currentTime / a.duration)
-    }
-    const reset = () => {
-      setPlaying(null)
-      setProgress(0)
-      setElapsed(0)
-    }
-    a.addEventListener("timeupdate", onTime)
-    a.addEventListener("ended", reset)
-    a.addEventListener("error", reset)
-    return () => {
-      a.removeEventListener("timeupdate", onTime)
-      a.removeEventListener("ended", reset)
-      a.removeEventListener("error", reset)
-    }
-  }, [])
+    const audio = audioRef.current
+    if (!audio) return
 
-  const toggle = (key: string, src: string) => {
-    const a = audioRef.current
-    if (!a) return
-    if (playing === key) {
-      a.pause()
-      setPlaying(null)
-      setProgress(0)
-      setElapsed(0)
+    const onTime = () => {
+      if (!current) return
+      setElapsed((previous) => ({ ...previous, [current]: audio.currentTime }))
+    }
+    const onEnded = () => setPlaying(false)
+    const onError = () => setPlaying(false)
+
+    audio.addEventListener("timeupdate", onTime)
+    audio.addEventListener("ended", onEnded)
+    audio.addEventListener("error", onError)
+    return () => {
+      audio.removeEventListener("timeupdate", onTime)
+      audio.removeEventListener("ended", onEnded)
+      audio.removeEventListener("error", onError)
+    }
+  }, [current])
+
+  const toggle = (track: Track) => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (current !== track.id) {
+      audio.pause()
+      audio.src = track.src
+      audio.currentTime = 0
+      setCurrent(track.id)
+      setElapsed((previous) => ({ ...previous, [track.id]: 0 }))
+      setPlaying(true)
+      audio.play().catch(() => setPlaying(false))
       return
     }
-    a.src = src
-    setProgress(0)
-    setElapsed(0)
-    setPlaying(key)
-    a.play().catch(() => {
-      setPlaying(null)
-      setProgress(0)
-    })
+
+    if (playing) {
+      audio.pause()
+      setPlaying(false)
+    } else {
+      if (audio.currentTime >= track.duration - 0.1) {
+        audio.currentTime = 0
+        setElapsed((previous) => ({ ...previous, [track.id]: 0 }))
+      }
+      setPlaying(true)
+      audio.play().catch(() => setPlaying(false))
+    }
   }
 
-  const noteDuration = (key: string, d: number) => {
-    if (d > 0) setDurations((prev) => (prev[key] ? prev : { ...prev, [key]: d }))
+  const seek = (track: Track, nextTime: number) => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const applyTime = () => {
+      audio.currentTime = nextTime
+      setElapsed((previous) => ({ ...previous, [track.id]: nextTime }))
+    }
+
+    if (current !== track.id) {
+      audio.pause()
+      audio.src = track.src
+      audio.load()
+      setCurrent(track.id)
+      setPlaying(false)
+      if (audio.readyState >= 1) applyTime()
+      else audio.addEventListener("loadedmetadata", applyTime, { once: true })
+      return
+    }
+
+    applyTime()
   }
 
   return (
-    <div className="lv-hear">
-      {SCENARIOS.map((s) => {
-        const sides: Array<{ variant: "ungoverned" | "governed"; side: Side }> = [
-          { variant: "ungoverned", side: s.ungoverned },
-          { variant: "governed", side: s.governed },
-        ]
-        return (
-          <div className="lv-hear-scenario" key={s.id}>
-            <div className="lv-hear-scenario-head">
-              <p className="lv-hear-question">{s.question}</p>
-            </div>
+    <section className="lv-proof-pair" aria-label="Paired governed and ungoverned call recordings">
+      {TRACKS.map((track) => {
+        const isCurrent = current === track.id
+        const isPlaying = isCurrent && playing
+        const trackElapsed = elapsed[track.id]
+        const progress = trackElapsed / track.duration
+        const line = activeLine(track, trackElapsed, isCurrent)
 
-            <div className="lv-hear-ab">
-              {sides.map(({ variant, side }) => {
-                const key = `${s.id}-${variant}`
-                const isOn = playing === key
-                return (
-                  <Clip
-                    key={key}
-                    variant={variant}
-                    side={side}
-                    isOn={isOn}
-                    progress={isOn ? progress : 0}
-                    elapsed={isOn ? elapsed : 0}
-                    duration={durations[key] ?? 0}
-                    onToggle={() => toggle(key, side.src)}
-                    question={s.question}
+        return (
+          <article
+            className={`lv-proof-track is-${track.id}${isPlaying ? " is-playing" : ""}`}
+            key={track.id}
+          >
+            <header className="lv-proof-track-head">
+              <p className="lv-proof-track-label">{track.label}</p>
+              <p className="lv-proof-track-signal">{track.signal}</p>
+            </header>
+
+            <div className="lv-proof-listening">
+              <div className="lv-proof-player">
+                <button
+                  type="button"
+                  className="lv-proof-play"
+                  onClick={() => toggle(track)}
+                  aria-label={`${isPlaying ? "Pause" : "Play"} ${track.label} recording`}
+                  aria-pressed={isPlaying}
+                >
+                  {isPlaying ? <PauseGlyph /> : <PlayGlyph />}
+                </button>
+
+                <div className="lv-proof-wave-wrap">
+                  <Waveform progress={progress} />
+                  <input
+                    className="lv-proof-scrubber"
+                    type="range"
+                    min="0"
+                    max={track.duration}
+                    step="0.05"
+                    value={trackElapsed}
+                    onChange={(event) => seek(track, Number(event.currentTarget.value))}
+                    aria-label={`Seek ${track.label} recording`}
                   />
-                )
-              })}
+                </div>
+
+                <span className="lv-proof-time">
+                  {isCurrent && trackElapsed > 0
+                    ? `${formatTime(trackElapsed)} / ${formatTime(track.duration)}`
+                    : formatTime(track.duration)}
+                </span>
+              </div>
+
+              <div className="lv-proof-transcript" aria-live={isCurrent ? "polite" : "off"}>
+                <span>{line.who === "caller" ? "Caller" : "Agent"}</span>
+                <p>
+                  {track.id === "governed" && line.who === "agent" ? (
+                    <mark>{line.display}</mark>
+                  ) : (
+                    line.display
+                  )}
+                </p>
+              </div>
             </div>
-          </div>
+          </article>
         )
       })}
 
-      {/* Hidden metadata loaders give each clip an honest duration readout
-          without fetching full audio; playback runs through the shared element. */}
-      {SCENARIOS.flatMap((s) => [
-        { key: `${s.id}-ungoverned`, src: s.ungoverned.src },
-        { key: `${s.id}-governed`, src: s.governed.src },
-      ]).map((c) => (
-        <audio
-          key={c.key}
-          src={c.src}
-          preload="metadata"
-          aria-hidden="true"
-          onLoadedMetadata={(e) => noteDuration(c.key, e.currentTarget.duration)}
-        />
-      ))}
-
-      {/* One shared element for playback: starting any clip stops the previous. */}
-      <audio ref={audioRef} preload="none" />
-    </div>
+      <audio ref={audioRef} preload="metadata" />
+    </section>
   )
 }
