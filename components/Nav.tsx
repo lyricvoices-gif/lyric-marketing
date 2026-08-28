@@ -37,6 +37,7 @@ const PRIMARY_CTA_LABEL = "Explore ways to launch"
 export default function Nav() {
   const pathname = usePathname()
   const isHome = pathname === "/"
+  const isCallio = pathname === "/callio"
   const [loaded, setLoaded] = React.useState(false)
   const [menuOpen, setMenuOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
@@ -136,16 +137,17 @@ export default function Nav() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 48px",
-          background: scrolled
+          background: isCallio || scrolled
             ? "rgba(255, 248, 236, 1)"
             : "rgba(255, 248, 236, 0)",
           backdropFilter: "none",
           WebkitBackdropFilter: "none",
-          borderBottom: scrolled ? "1px solid rgba(90,94,67,0.1)" : "1px solid transparent",
-          opacity: loaded ? 1 : 0,
-          filter: loaded ? "blur(0px)" : "blur(4px)",
-          transition:
-            "opacity 0.6s ease-out, filter 0.6s ease-out, background-color 0.36s ease, border-color 0.28s ease",
+          borderBottom: isCallio || scrolled ? "1px solid rgba(90,94,67,0.1)" : "1px solid transparent",
+          opacity: isCallio || loaded ? 1 : 0,
+          filter: isCallio || loaded ? "blur(0px)" : "blur(4px)",
+          transition: isCallio
+            ? "none"
+            : "opacity 0.6s ease-out, filter 0.6s ease-out, background-color 0.36s ease, border-color 0.28s ease",
         }}
       >
         {/* Brand logo — official Lyric imagotype (icon + wordmark), links home */}
