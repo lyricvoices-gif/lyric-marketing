@@ -3,36 +3,30 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-/* Authentic captures from the shipped Callio intake. The sequence deliberately
-   stops at the early company-name question and returns to the landing screen,
-   before the intake or specification can resolve. */
-const CAPTURES = [
-  { src: "/images/callio/hero-01-landing.png", alt: "Callio intake opening screen with the Begin intake button." },
-  { src: "/images/callio/hero-02-industry.png", alt: "Callio asking the first intake question about industry." },
-  { src: "/images/callio/hero-03-company.png", alt: "Callio with Financial Services selected and the company-name question open." },
-  { src: "/images/callio/hero-04-company-entered.png", alt: "Callio with Georgia Credit Union entered in the company-name field." },
-] as const
+/* A REAL recording of the shipped Callio intake, captured from a production
+   build of the app and played at 1.15x. It opens on the industry question (no
+   splash screen) and stops at the channel selection, so it shows three steps:
+   industry -> company name -> channels. The preview-mode banner was hidden
+   for the recording (user-authorized staging); everything else is the
+   untouched app. Re-record with record-3step.js in the session scratchpad
+   when the intake changes.
+
+   Motion rules: autoplay, muted, loop, playsinline, poster; under
+   prefers-reduced-motion the video never mounts and the poster still renders
+   in its place. */
+
+const POSTER = "/images/callio/intake-poster.png"
 
 export default function CallioIntakeTeaser() {
-  const [active, setActive] = useState(0)
-  const [reducedMotion, setReducedMotion] = useState(false)
+  const [reduced, setReduced] = useState<boolean | null>(null)
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const update = () => setReducedMotion(media.matches)
-    update()
-    media.addEventListener("change", update)
-    return () => media.removeEventListener("change", update)
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setReduced(mq.matches)
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches)
+    mq.addEventListener("change", onChange)
+    return () => mq.removeEventListener("change", onChange)
   }, [])
-
-  useEffect(() => {
-    if (reducedMotion) return
-    const timer = window.setTimeout(
-      () => setActive((current) => (current + 1) % CAPTURES.length),
-      active === 0 ? 2400 : 3000,
-    )
-    return () => window.clearTimeout(timer)
-  }, [active, reducedMotion])
 
   return (
     <figure className="lv-intake-teaser">
@@ -42,18 +36,31 @@ export default function CallioIntakeTeaser() {
         <span />
       </div>
       <div className="lv-intake-teaser-captures">
-        {CAPTURES.map((capture, index) => (
+        {reduced === false ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={POSTER}
+            preload="metadata"
+            aria-label="The opening of a Callio intake session, recorded from the live product: the industry, company, and channel selections"
+          >
+            <source src="/videos/callio-intake.webm" type="video/webm" />
+            <source src="/videos/callio-intake.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          /* SSR default and reduced-motion: the still. */
           <Image
-            key={capture.src}
-            className={index === active ? "is-active" : ""}
-            src={capture.src}
-            alt={capture.alt}
-            width={3200}
-            height={2000}
+            className="is-active"
+            src={POSTER}
+            alt="The Callio intake: the industry question with the voice spec panel beside it"
+            width={1600}
+            height={900}
             sizes="(max-width: 768px) 100vw, 1072px"
-            priority={index === 0}
+            priority
           />
-        ))}
+        )}
       </div>
     </figure>
   )
