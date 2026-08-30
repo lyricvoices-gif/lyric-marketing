@@ -244,7 +244,7 @@ export default function CallioPage() {
                   src="/images/callio/intake-tone-step.png"
                   alt="The tone question in the live intake, with Trustworthy, Approachable, Authoritative, and Warm as choices"
                   width={1600}
-                  height={1000}
+                  height={900}
                   sizes="(max-width: 1180px) 94vw, 1132px"
                   loading="lazy"
                 />
