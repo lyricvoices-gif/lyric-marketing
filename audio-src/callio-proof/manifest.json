@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T10:44:32.969Z",
+  "generatedAt": "2026-08-31T13:39:29.472Z",
   "piece": "Callio Proof in practice pair (ungoverned / governed)",
   "outputs": [
     "callio-proof-ungoverned.mp3",
@@ -37,7 +37,7 @@
     "callerGainDb": 4.2,
     "agentGainDb": {
       "ungoverned": 2.7,
-      "governed": 4.1
+      "governed": 3.6
     },
     "limiterCeilingDb": -1.5,
     "stitched": {
@@ -48,8 +48,8 @@
       },
       "governed": {
         "lufs": -19.1,
-        "lra": 3.5,
-        "truePeakDb": -1.8
+        "lra": 2.9,
+        "truePeakDb": -1.7
       }
     }
   },
@@ -77,6 +77,18 @@
         "wpm": 184,
         "sylPerSec": 4.09,
         "speechSpanSec": 3.916,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "caller-3",
+        "who": "caller",
+        "medianF0Hz": 124,
+        "iqrHz": 30,
+        "voicedFrames": 79,
+        "wpm": 253,
+        "sylPerSec": 4.61,
+        "speechSpanSec": 2.604,
         "gatePassed": true,
         "reused": true
       },
@@ -143,37 +155,16 @@
       {
         "line": "governed-agent-3",
         "who": "agent",
-        "medianF0Hz": 184,
+        "medianF0Hz": 193,
         "iqrHz": 43,
-        "voicedFrames": 158,
-        "wpm": 177,
-        "sylPerSec": 4.72,
-        "speechSpanSec": 5.083,
-        "gatePassed": true,
-        "reused": true
-      },
-      {
-        "line": "caller-3",
-        "who": "caller",
-        "medianF0Hz": 124,
-        "iqrHz": 30,
-        "voicedFrames": 79,
-        "wpm": 253,
-        "sylPerSec": 4.61,
-        "speechSpanSec": 2.604,
+        "voicedFrames": 277,
+        "wpm": 217,
+        "sylPerSec": 4.83,
+        "speechSpanSec": 9.104,
         "gatePassed": true
       }
     ],
-    "retakenForSpread": [
-      {
-        "line": "caller-3",
-        "rejectedMedianF0Hz": 132
-      },
-      {
-        "line": "caller-3",
-        "rejectedMedianF0Hz": 127
-      }
-    ]
+    "retakenForSpread": []
   },
   "sttRoundTrip": {
     "model": "scribe_v1",
@@ -181,47 +172,47 @@
     "report": [
       {
         "line": "caller-1",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"1d4018cbad0cef7b7c3683e06fdaf518\"}}"
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f097d533e45cba36c3f0f8d9fe9bdd1f\"}}"
       },
       {
         "line": "caller-2",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"5da6fbbfcc5ee6ba7c3683e06fdaf65d\"}}"
-      },
-      {
-        "line": "ungoverned-agent-1",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"ea4d70ad88fda9c47c3683e06fdaf5a6\"}}"
-      },
-      {
-        "line": "ungoverned-agent-2",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f21f772806df3d057c3683e06fdafcb6\"}}"
-      },
-      {
-        "line": "ungoverned-agent-3",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f5127924a5278ddc7c3683e06fdafb55\"}}"
-      },
-      {
-        "line": "governed-agent-1",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"d06f9a21fa002ee1881daccf46fc13a2\"}}"
-      },
-      {
-        "line": "governed-agent-2",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"c77ab9a1bfe8ea0a881daccf46fc124e\"}}"
-      },
-      {
-        "line": "governed-agent-3",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f9252c15b3facaf8881daccf46fc1850\"}}"
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"06e46f7ee39ab6d4494732371c860e81\"}}"
       },
       {
         "line": "caller-3",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"18439b8933886d8d881daccf46fc18cc\"}}"
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"dc6c7b280e164ebb494732371c860ddd\"}}"
+      },
+      {
+        "line": "ungoverned-agent-1",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"4c3c435c563ae7aa494732371c860962\"}}"
+      },
+      {
+        "line": "ungoverned-agent-2",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"ac445dd6244f8524494732371c8601fa\"}}"
+      },
+      {
+        "line": "ungoverned-agent-3",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"bd15ee847b21f3f8494732371c8604b8\"}}"
+      },
+      {
+        "line": "governed-agent-1",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"c4058e3de6801f13494732371c860d50\"}}"
+      },
+      {
+        "line": "governed-agent-2",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"6327d7d2de625971494732371c860eaf\"}}"
+      },
+      {
+        "line": "governed-agent-3",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"e303b95eae951b1060997b0421fe46a1\"}}"
       },
       {
         "line": "stitched-ungoverned",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"b8d473e5b56c51db881daccf46fc13d5\"}}"
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"140417ea0d689238494732371c860960\"}}"
       },
       {
         "line": "stitched-governed",
-        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"18c736e7fa791f1a881daccf46fc1333\"}}"
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"38b9b3a9af360e89494732371c86085e\"}}"
       }
     ]
   },
@@ -288,9 +279,9 @@
       {
         "who": "agent",
         "start": 33.112,
-        "end": 38.355
+        "end": 42.376
       }
     ],
-    "governedDuration": 38.355
+    "governedDuration": 42.376
   }
 }

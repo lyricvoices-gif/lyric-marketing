@@ -123,9 +123,9 @@ const AGENT_LINES = {
     {
       id: "governed-agent-3",
       display:
-        "Open the card’s pricing and terms. That document contains the complete rate and fee information.",
+        "You can find the full rate and fee details in the card’s Pricing & Terms document. It’s available on the card’s page under Disclosures. Let me know what you’d like to review next.",
       tts:
-        "Open the card's pricing and terms. That document contains the complete rate and fee information.",
+        "You can find the full rate and fee details in the card's Pricing and Terms document. It's available on the card's page under Disclosures. Let me know what you'd like to review next.",
     },
   ],
 }

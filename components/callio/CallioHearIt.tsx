@@ -77,7 +77,7 @@ const TRACKS: Track[] = [
     id: "governed",
     label: "Governed by Callio",
     src: "/audio/callio-proof-governed.mp3",
-    duration: 38.355,
+    duration: 42.376,
     signal: "Standard held: exact term, exact rate, clear source.",
     transcript: [
       SHARED_CALLER.first,
@@ -99,9 +99,9 @@ const TRACKS: Track[] = [
       {
         who: "agent",
         start: 33.112,
-        end: 38.355,
+        end: 42.376,
         display:
-          "Open the card’s pricing and terms. That document contains the complete rate and fee information.",
+          "You can find the full rate and fee details in the card’s Pricing & Terms document. It’s available on the card’s page under Disclosures. Let me know what you’d like to review next.",
       },
     ],
   },
