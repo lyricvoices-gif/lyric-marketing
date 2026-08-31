@@ -76,6 +76,10 @@ const CALLER_LINES = [
     id: "caller-3",
     display: "And where would I find the full rate and fee details?",
     tts: "And where would I find the full rate and fee details?",
+    /* This short closing question renders consistently rushed (7+ syl/s
+       across many takes); a per-line speed pull-back is the realization
+       knob for it. Recorded in the manifest. */
+    settingsOverride: { ...({ stability: 0.45, similarity_boost: 0.75 }), speed: 0.85 },
   },
 ]
 
@@ -186,12 +190,108 @@ function f0Stats(file, minHz, maxHz) {
 const BAND = { agent: [120, 350], caller: [70, 350] }
 
 /* ── duration + loudness helpers ─────────────────────────────────────── */
-function durationSec(file) {
-  const raw = execSync(
+function decodePcm(file) {
+  return execSync(
     `${FFMPEG} -i ${file} -f s16le -acodec pcm_s16le -ac 1 -ar 44100 - 2>/dev/null`,
     { maxBuffer: 1 << 28 },
   )
-  return raw.length / 2 / 44100
+}
+function durationSec(file) {
+  return decodePcm(file).length / 2 / 44100
+}
+
+/* Acoustic speech extents via 5ms RMS windows over -45 dBFS, resolved to the
+   main speech CLUSTER: active windows merge into segments, the longest
+   segment anchors, and neighbors within 350ms join it. Isolated islands
+   outside the cluster (truncated breaths, clicks, orphaned onsets — the
+   defects found in verification) are excluded, so the trim cuts them away.
+   Also reports edge truncation — audible material running into the file's
+   very first/last samples, which no amount of trimming can repair. */
+function speechExtents(file) {
+  const raw = decodePcm(file)
+  const n = raw.length >> 1
+  const win = Math.floor(44100 * 0.005)
+  const thresh = Math.pow(10, -45 / 20)
+  const active = []
+  for (let start = 0; start + win <= n; start += win) {
+    let e = 0
+    for (let i = 0; i < win; i++) {
+      const v = raw.readInt16LE((start + i) << 1) / 32768
+      e += v * v
+    }
+    if (Math.sqrt(e / win) > thresh) active.push(start)
+  }
+  const dur = n / 44100
+  if (!active.length) return { start: 0, end: dur, dur, headTruncated: false, tailTruncated: false }
+  /* Merge windows into segments (<=100ms internal gaps). Keep every
+     substantial segment (>=120ms — real speech, including sentences after
+     long pauses); additionally keep short segments within 300ms of a kept
+     one (plosive onsets, clipped word tails). What remains excluded is the
+     defect class: tiny isolated islands (truncated breaths, clicks,
+     orphaned onsets) far from any speech. */
+  const segs = []
+  for (const a of active) {
+    const last = segs[segs.length - 1]
+    if (last && a - last.e <= Math.floor(44100 * 0.1)) last.e = a + win
+    else segs.push({ s: a, e: a + win })
+  }
+  const minKeep = Math.floor(44100 * 0.12)
+  const nearGap = Math.floor(44100 * 0.3)
+  const kept = segs.filter((sg) => sg.e - sg.s >= minKeep)
+  if (!kept.length) kept.push(segs.reduce((a, b) => (b.e - b.s > a.e - a.s ? b : a)))
+  for (const sg of segs) {
+    if (kept.includes(sg)) continue
+    if (kept.some((k) => Math.abs(sg.s - k.e) <= nearGap || Math.abs(k.s - sg.e) <= nearGap)) kept.push(sg)
+  }
+  const firstIdx = Math.min(...kept.map((k) => k.s))
+  const lastIdx = Math.max(...kept.map((k) => k.e))
+  const edgeRms = (from, len) => {
+    let e = 0
+    const m = Math.min(len, n - from)
+    for (let i = 0; i < m; i++) {
+      const v = raw.readInt16LE((from + i) << 1) / 32768
+      e += v * v
+    }
+    return 20 * Math.log10(Math.sqrt(e / Math.max(m, 1)) + 1e-9)
+  }
+  const headWin = Math.floor(44100 * 0.02)
+  return {
+    start: firstIdx / 44100,
+    end: lastIdx / 44100,
+    dur,
+    /* Speech in the first/last 25ms at conversational level = the render
+       itself is cut mid-sound; trimming cannot restore the missing onset
+       or decay. */
+    headTruncated: firstIdx / 44100 < 0.025 && edgeRms(0, headWin) > -35,
+    tailTruncated: (n - lastIdx) / 44100 < 0.025 && edgeRms(Math.max(0, n - headWin), headWin) > -35,
+  }
+}
+
+/* Materialize a trimmed take: acoustic extents with a 40ms head pad and
+   120ms tail pad, 12ms fade-in and 30ms fade-out, written as WAV so the
+   stitch encodes MP3 exactly once. */
+function trimTake(file, ext) {
+  const out = file.replace(/\.mp3$/, ".trim.wav")
+  const from = Math.max(0, ext.start - 0.04)
+  const to = Math.min(ext.dur, ext.end + 0.12)
+  const d = to - from
+  execSync(
+    [
+      FFMPEG,
+      "-y",
+      "-i",
+      file,
+      "-af",
+      `"atrim=${from.toFixed(4)}:${to.toFixed(4)},asetpts=PTS-STARTPTS,afade=t=in:st=0:d=0.012,afade=t=out:st=${Math.max(0, d - 0.03).toFixed(4)}:d=0.03"`,
+      "-ar",
+      "44100",
+      "-ac",
+      "1",
+      out,
+    ].join(" "),
+    { shell: "/bin/bash", stdio: "pipe" },
+  )
+  return out
 }
 
 function integratedLufs(files) {
@@ -301,107 +401,194 @@ const MAX_TAKES = 3
 const qaReport = []
 const sttReport = []
 
-async function renderLine(line, who, voiceId, settings, prevText, nextText) {
-  const file = path.join(OUT, `line-${line.id}.mp3`)
-  const ref = refMedian(who)
-  /* REUSE_TAKES=1: keep the existing rendered take (rule 5 discipline while
-     iterating on the stitch stage) — re-measure it, skip the TTS calls. */
-  if (process.env.REUSE_TAKES === "1" && existsSync(file)) {
-    const st = f0Stats(file, ...BAND[who])
-    const dev = ref ? Math.abs(st.median - ref) / ref : 0
-    refF0[who].push(st.median)
-    qaReport.push({
-      line: line.id,
-      who,
-      medianF0Hz: Math.round(st.median),
-      iqrHz: Math.round(st.iqr),
-      voicedFrames: st.frames,
-      gatePassed: st.iqr <= 65 && dev <= 0.12,
-      reused: true,
-    })
-    console.log(`reuse  ${line.id}: f0 ${st.median.toFixed(0)}Hz iqr ${st.iqr.toFixed(0)}Hz`)
-    try {
-      const transcript = await stt(file)
-      const dist = wordDistance(normalizeWords(transcript), normalizeWords(line.tts))
-      const distDisplay = wordDistance(normalizeWords(transcript), normalizeWords(line.display))
-      sttReport.push({ line: line.id, transcript, wordDistanceVsTts: dist, wordDistanceVsDisplay: distDisplay })
-      console.log(`stt    ${line.id}: dist ${dist} (vs tts) / ${distDisplay} (vs display)`)
-    } catch (e) {
-      sttReport.push({ line: line.id, error: String(e.message || e) })
-      console.warn(`WARN stt ${line.id} unavailable`)
-    }
-    return file
+/* Full take QA (2026-08-31 verification round additions): beyond the f0
+   gate, a take fails when its render is EDGE-TRUNCATED (audible material at
+   the file's first/last samples — an amputated onset or decay no trim can
+   repair) or when its speaking rate over the acoustic span is outside
+   100-215 wpm (the rushed-line defect). */
+/* Rough syllable estimate: vowel groups per word, minimum one. Rate gates
+   are syllable-based — a words-per-minute gate falsely flags short
+   monosyllabic lines, where a natural fluent read scores 300+ wpm while
+   sitting well under 6 syllables per second. The 2026-08-30 review flagged
+   rushed delivery at 6.15+ syl/s; healthy lines measured 4.8-5.2. */
+const syllables = (text) =>
+  text
+    .toLowerCase()
+    .split(/\s+/)
+    .reduce((sum, w) => {
+      let n = (w.match(/[aeiouy]+/g) || []).length
+      /* Silent trailing e ("where", "rate") overcounts by one. */
+      if (n > 1 && /[^aeiouy]e[^a-z]*$/.test(w)) n--
+      return sum + Math.max(1, n)
+    }, 0)
+
+function takeQa(file, line, who, ref) {
+  const st = f0Stats(file, ...BAND[who])
+  const ext = speechExtents(file)
+  const span = Math.max(ext.end - ext.start, 0.1)
+  const sylPerSec = syllables(line.tts) / span
+  const wpm = (line.tts.split(/\s+/).length / span) * 60
+  const dev = ref ? Math.abs(st.median - ref) / ref : 0
+  const reasons = []
+  if (st.iqr > 65) reasons.push(`iqr ${st.iqr.toFixed(0)}`)
+  if (dev > 0.12) reasons.push(`dev ${(dev * 100).toFixed(0)}%`)
+  if (ext.headTruncated) reasons.push("head-truncated")
+  if (ext.tailTruncated) reasons.push("tail-truncated")
+  if (sylPerSec > 5.9) reasons.push(`rushed ${sylPerSec.toFixed(1)}syl/s`)
+  if (sylPerSec < 2.0) reasons.push(`dragging ${sylPerSec.toFixed(1)}syl/s`)
+  return {
+    st,
+    ext,
+    wpm,
+    sylPerSec,
+    dev,
+    pass: reasons.length === 0,
+    reasons,
+    score:
+      st.iqr +
+      (ref ? Math.abs(st.median - ref) : 0) +
+      Math.max(0, sylPerSec - 5.9) * 60 +
+      (ext.headTruncated || ext.tailTruncated ? 500 : 0),
   }
-  let best = null
-  for (let take = 1; take <= MAX_TAKES; take++) {
-    const buf = await tts(line.tts, voiceId, settings, prevText, nextText)
-    writeFileSync(file, buf)
-    const st = f0Stats(file, ...BAND[who])
-    const dev = ref ? Math.abs(st.median - ref) / ref : 0
-    const pass = st.iqr <= 65 && dev <= 0.12
-    const score = st.iqr + (ref ? Math.abs(st.median - ref) : 0)
-    console.log(
-      `render ${line.id} take ${take}: f0 ${st.median.toFixed(0)}Hz iqr ${st.iqr.toFixed(0)}Hz frames ${st.frames}` +
-        (ref ? ` (ref ${ref.toFixed(0)}Hz, dev ${(dev * 100).toFixed(0)}%)` : "") +
-        (pass ? " PASS" : " RETRY"),
-    )
-    if (!best || (pass && !best.pass) || (pass === best.pass && score < best.score)) {
-      best = { buf, score, pass, st }
-    }
-    if (pass) break
-  }
-  if (!best.pass) console.warn(`WARN: ${line.id} best take still outside QA thresholds — human listen required`)
-  writeFileSync(file, best.buf)
-  refF0[who].push(best.st.median)
-  qaReport.push({
-    line: line.id,
-    who,
-    medianF0Hz: Math.round(best.st.median),
-    iqrHz: Math.round(best.st.iqr),
-    voicedFrames: best.st.frames,
-    gatePassed: best.pass,
-  })
+}
+
+async function sttCheck(file, line) {
   try {
     const transcript = await stt(file)
     const dist = wordDistance(normalizeWords(transcript), normalizeWords(line.tts))
     const distDisplay = wordDistance(normalizeWords(transcript), normalizeWords(line.display))
     sttReport.push({ line: line.id, transcript, wordDistanceVsTts: dist, wordDistanceVsDisplay: distDisplay })
-    console.log(`stt    ${line.id}: dist ${dist} (vs tts) / ${distDisplay} (vs display) — "${transcript.slice(0, 80)}..."`)
+    console.log(`stt    ${line.id}: dist ${dist} (vs tts) / ${distDisplay} (vs display)`)
   } catch (e) {
     /* Rule 6 still applies: an unavailable STT scope defers the round-trip,
-       it does not waive it. Run scripts/stt-verify-callio-proof.mjs (or
-       re-run with the scope enabled) before shipping. */
+       it does not waive it. Re-run with the scope enabled before shipping. */
     sttReport.push({ line: line.id, error: String(e.message || e) })
     console.warn(`WARN stt ${line.id} unavailable: ${String(e.message || e).slice(0, 120)}`)
   }
-  return file
+}
+
+function recordQa(line, who, qa, reused) {
+  refF0[who].push(qa.st.median)
+  qaReport.push({
+    line: line.id,
+    who,
+    medianF0Hz: Math.round(qa.st.median),
+    iqrHz: Math.round(qa.st.iqr),
+    voicedFrames: qa.st.frames,
+    wpm: Math.round(qa.wpm),
+    sylPerSec: +qa.sylPerSec.toFixed(2),
+    speechSpanSec: +(qa.ext.end - qa.ext.start).toFixed(3),
+    gatePassed: qa.pass,
+    ...(qa.pass ? {} : { failReasons: qa.reasons }),
+    ...(reused ? { reused: true } : {}),
+  })
+}
+
+async function renderLine(line, who, voiceId, settings, prevText, nextText) {
+  const file = path.join(OUT, `line-${line.id}.mp3`)
+  const ref = refMedian(who)
+  /* REUSE_TAKES=1: keep an existing take ONLY if it passes the full gate —
+     a reused take that fails falls through to a fresh render. */
+  if (process.env.REUSE_TAKES === "1" && existsSync(file)) {
+    const qa = takeQa(file, line, who, ref)
+    if (qa.pass) {
+      recordQa(line, who, qa, true)
+      console.log(`reuse  ${line.id}: f0 ${qa.st.median.toFixed(0)}Hz iqr ${qa.st.iqr.toFixed(0)}Hz ${qa.wpm.toFixed(0)}wpm`)
+      await sttCheck(file, line)
+      return { file, trimmed: trimTake(file, qa.ext) }
+    }
+    console.log(`reuse  ${line.id} REJECTED (${qa.reasons.join(", ")}) — re-rendering`)
+  }
+  let best = null
+  for (let take = 1; take <= MAX_TAKES; take++) {
+    const buf = await tts(line.tts, voiceId, line.settingsOverride ?? settings, prevText, nextText)
+    writeFileSync(file, buf)
+    const qa = takeQa(file, line, who, ref)
+    console.log(
+      `render ${line.id} take ${take}: f0 ${qa.st.median.toFixed(0)}Hz iqr ${qa.st.iqr.toFixed(0)}Hz ${qa.wpm.toFixed(0)}wpm` +
+        (ref ? ` (ref ${ref.toFixed(0)}Hz, dev ${(qa.dev * 100).toFixed(0)}%)` : "") +
+        (qa.pass ? " PASS" : ` RETRY [${qa.reasons.join(", ")}]`),
+    )
+    if (!best || (qa.pass && !best.qa.pass) || (qa.pass === best.qa.pass && qa.score < best.qa.score)) {
+      best = { buf, qa }
+    }
+    if (qa.pass) break
+  }
+  if (!best.qa.pass) console.warn(`WARN: ${line.id} best take still outside QA thresholds (${best.qa.reasons.join(", ")}) — human listen required`)
+  writeFileSync(file, best.buf)
+  const qa = takeQa(file, line, who, ref) /* re-measure the written winner */
+  recordQa(line, who, qa, false)
+  await sttCheck(file, line)
+  return { file, trimmed: trimTake(file, qa.ext) }
 }
 
 /* Caller: rendered ONCE, reused in both tracks (rule 5 analogue: the shared
    caller is the same takes byte-for-byte at the take level). */
-const callerFiles = []
-for (let i = 0; i < CALLER_LINES.length; i++) {
-  const prev = i > 0 ? CALLER_LINES[i - 1].tts : undefined
-  const next = i < CALLER_LINES.length - 1 ? CALLER_LINES[i + 1].tts : undefined
-  callerFiles.push(await renderLine(CALLER_LINES[i], "caller", CALLER_VOICE_ID, CALLER_SETTINGS, prev, next))
-}
-
-const agentFiles = { ungoverned: [], governed: [] }
+const jobs = []
+CALLER_LINES.forEach((line, i, arr) =>
+  jobs.push({
+    line,
+    who: "caller",
+    voiceId: CALLER_VOICE_ID,
+    settings: CALLER_SETTINGS,
+    prev: i > 0 ? arr[i - 1].tts : undefined,
+    next: i < arr.length - 1 ? arr[i + 1].tts : undefined,
+  }),
+)
 for (const track of ["ungoverned", "governed"]) {
-  const lines = AGENT_LINES[track]
-  for (let i = 0; i < lines.length; i++) {
-    const prev = i > 0 ? lines[i - 1].tts : undefined
-    const next = i < lines.length - 1 ? lines[i + 1].tts : undefined
-    agentFiles[track].push(await renderLine(lines[i], "agent", AGENT_VOICE_ID, AGENT_SETTINGS, prev, next))
-  }
+  AGENT_LINES[track].forEach((line, i, arr) =>
+    jobs.push({
+      line,
+      who: "agent",
+      voiceId: AGENT_VOICE_ID,
+      settings: AGENT_SETTINGS,
+      prev: i > 0 ? arr[i - 1].tts : undefined,
+      next: i < arr.length - 1 ? arr[i + 1].tts : undefined,
+    }),
+  )
 }
 
-/* ── Loudness matching (review fix 2) ────────────────────────────────── */
-const callerLoud = integratedLufs(callerFiles)
+const takes = {}
+for (const j of jobs) {
+  takes[j.line.id] = await renderLine(j.line, j.who, j.voiceId, j.settings, j.prev, j.next)
+}
+
+/* ── In-file pitch spread check (verification round): the per-take gate
+   compares each take to the reference, but takes can individually pass and
+   still spread >12% (max-min over min) as a GROUP. Re-render the take
+   farthest from the pooled median, up to twice. ── */
+for (let round = 0; round < 2; round++) {
+  let worst = null
+  for (const who of ["agent", "caller"]) {
+    const rows = qaReport.filter((r) => r.who === who && !r.stale)
+    const meds = rows.map((r) => r.medianF0Hz).sort((a, b) => a - b)
+    if ((meds[meds.length - 1] - meds[0]) / meds[0] <= 0.12) continue
+    const pooled = meds[Math.floor(meds.length / 2)]
+    for (const r of rows) {
+      const dev = Math.abs(r.medianF0Hz - pooled) / pooled
+      if (!worst || dev > worst.dev) worst = { r, dev }
+    }
+  }
+  if (!worst) break
+  const id = worst.r.line
+  console.log(`spread: ${id} (${worst.r.medianF0Hz} Hz) is the outlier of a >12% in-file spread — re-rendering`)
+  worst.r.stale = true
+  const sttIdx = sttReport.findIndex((s) => s.line === id)
+  if (sttIdx >= 0) sttReport.splice(sttIdx, 1)
+  execSync(`rm -f ${path.join(OUT, `line-${id}.mp3`)}`)
+  const j = jobs.find((x) => x.line.id === id)
+  takes[id] = await renderLine(j.line, j.who, j.voiceId, j.settings, j.prev, j.next)
+}
+const finalQa = qaReport.filter((r) => !r.stale)
+
+/* ── Loudness matching (review fix 2), measured over the TRIMMED takes —
+   the material that actually reaches the stitch. ── */
+const callerTrims = CALLER_LINES.map((l) => takes[l.id].trimmed)
+const callerLoud = integratedLufs(callerTrims)
 const callerGainDb = SPEAKER_TARGET_LUFS - callerLoud.lufs
 const agentGainDb = {}
 for (const track of ["ungoverned", "governed"]) {
-  const l = integratedLufs(agentFiles[track])
+  const l = integratedLufs(AGENT_LINES[track].map((x) => takes[x.id].trimmed))
   agentGainDb[track] = SPEAKER_TARGET_LUFS - l.lufs
   console.log(
     `loudness ${track}: caller ${callerLoud.lufs} LUFS (gain ${callerGainDb.toFixed(1)} dB), agent ${l.lufs} LUFS (gain ${agentGainDb[track].toFixed(1)} dB)`,
@@ -412,13 +599,14 @@ for (const track of ["ungoverned", "governed"]) {
 const timings = {}
 const stitchedLoudness = {}
 for (const track of ["ungoverned", "governed"]) {
+  const agentIds = AGENT_LINES[track].map((l) => l.id)
   const order = [
-    { file: callerFiles[0], who: "caller", gainDb: callerGainDb, gapMs: GAP_CALLER_TO_AGENT_MS },
-    { file: agentFiles[track][0], who: "agent", gainDb: agentGainDb[track], gapMs: GAP_AGENT_TO_CALLER_MS },
-    { file: callerFiles[1], who: "caller", gainDb: callerGainDb, gapMs: GAP_CALLER_TO_AGENT_MS },
-    { file: agentFiles[track][1], who: "agent", gainDb: agentGainDb[track], gapMs: GAP_AGENT_TO_CALLER_MS },
-    { file: callerFiles[2], who: "caller", gainDb: callerGainDb, gapMs: GAP_CALLER_TO_AGENT_MS },
-    { file: agentFiles[track][2], who: "agent", gainDb: agentGainDb[track], gapMs: 0 },
+    { file: takes[CALLER_LINES[0].id].trimmed, who: "caller", gainDb: callerGainDb, gapMs: GAP_CALLER_TO_AGENT_MS },
+    { file: takes[agentIds[0]].trimmed, who: "agent", gainDb: agentGainDb[track], gapMs: GAP_AGENT_TO_CALLER_MS },
+    { file: takes[CALLER_LINES[1].id].trimmed, who: "caller", gainDb: callerGainDb, gapMs: GAP_CALLER_TO_AGENT_MS },
+    { file: takes[agentIds[1]].trimmed, who: "agent", gainDb: agentGainDb[track], gapMs: GAP_AGENT_TO_CALLER_MS },
+    { file: takes[CALLER_LINES[2].id].trimmed, who: "caller", gainDb: callerGainDb, gapMs: GAP_CALLER_TO_AGENT_MS },
+    { file: takes[agentIds[2]].trimmed, who: "agent", gainDb: agentGainDb[track], gapMs: 0 },
   ]
   const parts = []
   const filters = []
@@ -427,9 +615,16 @@ for (const track of ["ungoverned", "governed"]) {
     const pad = i < order.length - 1 ? `,apad=pad_dur=${c.gapMs / 1000}` : ""
     filters.push(`[${i}:a]aresample=44100,volume=${c.gainDb.toFixed(2)}dB${pad}[a${i}]`)
   })
-  /* level=0: alimiter's default auto-leveling gains the whole program up to
-     the ceiling, defeating the loudness targets; disabled it only limits. */
-  const graph = `${filters.join(";")};${order.map((_, i) => `[a${i}]`).join("")}concat=n=${order.length}:v=0:a=1[cat];[cat]alimiter=limit=${LIMITER_LINEAR}:level=0[out]`
+  /* Noise bed: apad inserts digital-zero gaps while the takes carry an
+     ~-80 dBFS room-tone floor, so without a bed the floor audibly drops out
+     mid-gap (verification round). A pink bed near -88 dBFS RMS under the
+     whole program matches the approved reference's quiet-frame level.
+     level=0 on the limiter: its default auto-leveling gains the program up
+     to the ceiling, defeating the loudness targets. */
+  const graph =
+    `${filters.join(";")};${order.map((_, i) => `[a${i}]`).join("")}concat=n=${order.length}:v=0:a=1[cat];` +
+    `anoisesrc=colour=pink:sample_rate=44100:amplitude=0.00006[nz];` +
+    `[cat][nz]amix=inputs=2:duration=first:normalize=0[mx];[mx]alimiter=limit=${LIMITER_LINEAR}:level=0[out]`
   const stitched = path.join(OUT, `callio-proof-${track}.mp3`)
   execSync(
     [FFMPEG, "-y", ...parts, "-filter_complex", `"${graph}"`, "-map", '"[out]"', "-b:a", "128k", stitched].join(" "),
@@ -469,8 +664,9 @@ for (const track of ["ungoverned", "governed"]) {
   )
 }
 for (const who of ["agent", "caller"]) {
-  const meds = qaReport.filter((r) => r.who === who).map((r) => r.medianF0Hz)
-  console.log(`QA ${who}: medians ${meds.join("/")} Hz, spread ${Math.max(...meds) - Math.min(...meds)} Hz`)
+  const meds = finalQa.filter((r) => r.who === who).map((r) => r.medianF0Hz)
+  const spreadPct = ((Math.max(...meds) - Math.min(...meds)) / Math.min(...meds)) * 100
+  console.log(`QA ${who}: medians ${meds.join("/")} Hz, spread ${spreadPct.toFixed(1)}% (gate 12%)`)
 }
 
 /* ── Manifest (rule 7) ───────────────────────────────────────────────── */
@@ -492,6 +688,9 @@ const manifest = {
     name: "Chris (ElevenLabs premade; same caller voice as the approved demo call)",
     model: MODEL_ID,
     settings: CALLER_SETTINGS,
+    perLineOverrides: Object.fromEntries(
+      CALLER_LINES.filter((l) => l.settingsOverride).map((l) => [l.id, l.settingsOverride]),
+    ),
   },
   gapMapMs: { callerToAgent: GAP_CALLER_TO_AGENT_MS, agentToCaller: GAP_AGENT_TO_CALLER_MS },
   loudness: {
@@ -503,8 +702,9 @@ const manifest = {
   },
   acousticQa: {
     method:
-      "median f0 + IQR per take (autocorrelation, 40ms frames/20ms hop, corr gate 0.6; band 120-350 Hz agent, 70-350 Hz caller — widened for low-pitched callers per the 2026-08-30 review); fresh takes gated at IQR <= 65 Hz and <= 12% median deviation; reference seeded from the approved fs-demo-call takes of the same two voices (this piece's first generation has no own approved takes; docs/voice-output-acoustic-qa.md rule 3 notes recorded here)",
-    report: qaReport,
+      "median f0 + IQR per take (autocorrelation, 40ms frames/20ms hop, corr gate 0.6; band 120-350 Hz agent, 70-350 Hz caller — widened for low-pitched callers per the 2026-08-30 review); fresh takes gated at IQR <= 65 Hz, <= 12% median deviation vs the approved reference, no edge truncation, 100-215 wpm over the acoustic span; in-file per-speaker spread held <= 12% with outlier re-renders; takes trimmed to the main speech cluster (40ms/120ms pads, 12ms/30ms fades) before stitching; reference seeded from the approved fs-demo-call takes of the same two voices (this piece's first generation has no own approved takes; docs/voice-output-acoustic-qa.md rule 3 notes recorded here)",
+    report: finalQa,
+    retakenForSpread: qaReport.filter((r) => r.stale).map((r) => ({ line: r.line, rejectedMedianF0Hz: r.medianF0Hz })),
   },
   sttRoundTrip: {
     model: "scribe_v1",
