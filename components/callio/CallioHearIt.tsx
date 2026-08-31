@@ -25,7 +25,7 @@ const SHARED_CALLER = {
   first: {
     who: "caller" as const,
     start: 0,
-    end: 9.52,
+    end: 8.406,
     display:
       "Hi. I’m comparing the Cascade Rewards card, and I want to be clear about the purchase rate. What APR would apply if I carried a balance?",
   },
@@ -44,30 +44,30 @@ const TRACKS: Track[] = [
     id: "ungoverned",
     label: "Ungoverned",
     src: "/audio/callio-proof-ungoverned.mp3",
-    duration: 38.094,
+    duration: 41.578,
     signal: "Drift: the exact rate becomes “roughly 25%.”",
     transcript: [
       SHARED_CALLER.first,
       {
         who: "agent",
-        start: 10.08,
-        end: 18.997,
+        start: 9.156,
+        end: 20.627,
         display:
           "Yeah, of course. It’s basically 24.99% right now. That’s pretty typical for a rewards card, and it may move around a little, so I’d just think of it as roughly 25%.",
       },
-      { ...SHARED_CALLER.second, start: 19.557, end: 24.201 },
+      { ...SHARED_CALLER.second, start: 21.477, end: 25.553 },
       {
         who: "agent",
-        start: 24.761,
-        end: 29.823,
+        start: 26.303,
+        end: 31.706,
         display:
           "Right, about that. If you pay the balance off quickly, the interest usually isn’t a big deal.",
       },
-      { ...SHARED_CALLER.third, start: 30.383, end: 33.123 },
+      { ...SHARED_CALLER.third, start: 32.556, end: 35.32 },
       {
         who: "agent",
-        start: 33.683,
-        end: 38.094,
+        start: 36.07,
+        end: 41.578,
         display:
           "It should all be in the card paperwork or somewhere in your account. I can point you in the right direction.",
       },
@@ -77,29 +77,29 @@ const TRACKS: Track[] = [
     id: "governed",
     label: "Governed by Callio",
     src: "/audio/callio-proof-governed.mp3",
-    duration: 36.376,
+    duration: 38.355,
     signal: "Standard held: exact term, exact rate, clear source.",
     transcript: [
       SHARED_CALLER.first,
       {
         who: "agent",
-        start: 10.08,
-        end: 17.696,
+        start: 9.156,
+        end: 18.073,
         display:
           "The purchase Annual Percentage Rate is 24.99%. Please review the card’s pricing and terms for complete rate and fee information.",
       },
-      { ...SHARED_CALLER.second, start: 18.256, end: 22.9 },
+      { ...SHARED_CALLER.second, start: 18.923, end: 22.999 },
       {
         who: "agent",
-        start: 23.46,
-        end: 27.872,
+        start: 23.749,
+        end: 28.748,
         display: "Yes. The purchase Annual Percentage Rate is 24.99%.",
       },
-      { ...SHARED_CALLER.third, start: 28.432, end: 31.172 },
+      { ...SHARED_CALLER.third, start: 29.598, end: 32.362 },
       {
         who: "agent",
-        start: 31.732,
-        end: 36.376,
+        start: 33.112,
+        end: 38.355,
         display:
           "Open the card’s pricing and terms. That document contains the complete rate and fee information.",
       },

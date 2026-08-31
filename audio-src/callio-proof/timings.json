@@ -1,0 +1,68 @@
+{
+  "ungoverned": [
+    {
+      "who": "caller",
+      "start": 0,
+      "end": 8.406
+    },
+    {
+      "who": "agent",
+      "start": 9.156,
+      "end": 20.627
+    },
+    {
+      "who": "caller",
+      "start": 21.477,
+      "end": 25.553
+    },
+    {
+      "who": "agent",
+      "start": 26.303,
+      "end": 31.706
+    },
+    {
+      "who": "caller",
+      "start": 32.556,
+      "end": 35.32
+    },
+    {
+      "who": "agent",
+      "start": 36.07,
+      "end": 41.578
+    }
+  ],
+  "ungovernedDuration": 41.578,
+  "governed": [
+    {
+      "who": "caller",
+      "start": 0,
+      "end": 8.406
+    },
+    {
+      "who": "agent",
+      "start": 9.156,
+      "end": 18.073
+    },
+    {
+      "who": "caller",
+      "start": 18.923,
+      "end": 22.999
+    },
+    {
+      "who": "agent",
+      "start": 23.749,
+      "end": 28.748
+    },
+    {
+      "who": "caller",
+      "start": 29.598,
+      "end": 32.362
+    },
+    {
+      "who": "agent",
+      "start": 33.112,
+      "end": 38.355
+    }
+  ],
+  "governedDuration": 38.355
+}

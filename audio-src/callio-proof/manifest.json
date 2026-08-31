@@ -1,0 +1,296 @@
+{
+  "generatedAt": "2026-08-31T10:44:32.969Z",
+  "piece": "Callio Proof in practice pair (ungoverned / governed)",
+  "outputs": [
+    "callio-proof-ungoverned.mp3",
+    "callio-proof-governed.mp3"
+  ],
+  "sharedCaller": "caller takes rendered once and stitched into both tracks; the agent response is the only variable",
+  "agent": {
+    "voiceId": "g6xIsTj2HwM6VR4iXFCw",
+    "name": "Jessica Anne Bogart (same agent voice as the approved /agents demo call)",
+    "model": "eleven_flash_v2_5",
+    "settingsSource": "voice_settings omitted per request; the voice's SAVED tuned settings (stability 0.43, style 0.55, speed 0.98 per scripts/generate-fs-demo-call.mjs) applied server-side — this key has no voices_read scope to fetch and echo them"
+  },
+  "caller": {
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "name": "Chris (ElevenLabs premade; same caller voice as the approved demo call)",
+    "model": "eleven_flash_v2_5",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.75
+    },
+    "perLineOverrides": {
+      "caller-3": {
+        "stability": 0.45,
+        "similarity_boost": 0.75,
+        "speed": 0.85
+      }
+    }
+  },
+  "gapMapMs": {
+    "callerToAgent": 750,
+    "agentToCaller": 850
+  },
+  "loudness": {
+    "speakerTargetLufs": -18.5,
+    "callerGainDb": 4.2,
+    "agentGainDb": {
+      "ungoverned": 2.7,
+      "governed": 4.1
+    },
+    "limiterCeilingDb": -1.5,
+    "stitched": {
+      "ungoverned": {
+        "lufs": -19.1,
+        "lra": 2.9,
+        "truePeakDb": -1.8
+      },
+      "governed": {
+        "lufs": -19.1,
+        "lra": 3.5,
+        "truePeakDb": -1.8
+      }
+    }
+  },
+  "acousticQa": {
+    "method": "median f0 + IQR per take (autocorrelation, 40ms frames/20ms hop, corr gate 0.6; band 120-350 Hz agent, 70-350 Hz caller — widened for low-pitched callers per the 2026-08-30 review); fresh takes gated at IQR <= 65 Hz, <= 12% median deviation vs the approved reference, no edge truncation, 100-215 wpm over the acoustic span; in-file per-speaker spread held <= 12% with outlier re-renders; takes trimmed to the main speech cluster (40ms/120ms pads, 12ms/30ms fades) before stitching; reference seeded from the approved fs-demo-call takes of the same two voices (this piece's first generation has no own approved takes; docs/voice-output-acoustic-qa.md rule 3 notes recorded here)",
+    "report": [
+      {
+        "line": "caller-1",
+        "who": "caller",
+        "medianF0Hz": 119,
+        "iqrHz": 44,
+        "voicedFrames": 166,
+        "wpm": 204,
+        "sylPerSec": 4.49,
+        "speechSpanSec": 8.246,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "caller-2",
+        "who": "caller",
+        "medianF0Hz": 113,
+        "iqrHz": 19,
+        "voicedFrames": 102,
+        "wpm": 184,
+        "sylPerSec": 4.09,
+        "speechSpanSec": 3.916,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "ungoverned-agent-1",
+        "who": "agent",
+        "medianF0Hz": 176,
+        "iqrHz": 27,
+        "voicedFrames": 317,
+        "wpm": 189,
+        "sylPerSec": 4.45,
+        "speechSpanSec": 11.449,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "ungoverned-agent-2",
+        "who": "agent",
+        "medianF0Hz": 178,
+        "iqrHz": 50,
+        "voicedFrames": 147,
+        "wpm": 194,
+        "sylPerSec": 4.56,
+        "speechSpanSec": 5.258,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "ungoverned-agent-3",
+        "who": "agent",
+        "medianF0Hz": 184,
+        "iqrHz": 52,
+        "voicedFrames": 159,
+        "wpm": 234,
+        "sylPerSec": 5.2,
+        "speechSpanSec": 5.388,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "governed-agent-1",
+        "who": "agent",
+        "medianF0Hz": 176,
+        "iqrHz": 39,
+        "voicedFrames": 253,
+        "wpm": 162,
+        "sylPerSec": 4.17,
+        "speechSpanSec": 8.88,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "governed-agent-2",
+        "who": "agent",
+        "medianF0Hz": 188,
+        "iqrHz": 40,
+        "voicedFrames": 131,
+        "wpm": 149,
+        "sylPerSec": 3.93,
+        "speechSpanSec": 4.839,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "governed-agent-3",
+        "who": "agent",
+        "medianF0Hz": 184,
+        "iqrHz": 43,
+        "voicedFrames": 158,
+        "wpm": 177,
+        "sylPerSec": 4.72,
+        "speechSpanSec": 5.083,
+        "gatePassed": true,
+        "reused": true
+      },
+      {
+        "line": "caller-3",
+        "who": "caller",
+        "medianF0Hz": 124,
+        "iqrHz": 30,
+        "voicedFrames": 79,
+        "wpm": 253,
+        "sylPerSec": 4.61,
+        "speechSpanSec": 2.604,
+        "gatePassed": true
+      }
+    ],
+    "retakenForSpread": [
+      {
+        "line": "caller-3",
+        "rejectedMedianF0Hz": 132
+      },
+      {
+        "line": "caller-3",
+        "rejectedMedianF0Hz": 127
+      }
+    ]
+  },
+  "sttRoundTrip": {
+    "model": "scribe_v1",
+    "note": "wordDistance is Levenshtein over normalized word tokens vs the spoken-normalized text and vs the page display text; STT often inverse-normalizes numbers, so the MIN of the two distances is the meaningful one",
+    "report": [
+      {
+        "line": "caller-1",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"1d4018cbad0cef7b7c3683e06fdaf518\"}}"
+      },
+      {
+        "line": "caller-2",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"5da6fbbfcc5ee6ba7c3683e06fdaf65d\"}}"
+      },
+      {
+        "line": "ungoverned-agent-1",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"ea4d70ad88fda9c47c3683e06fdaf5a6\"}}"
+      },
+      {
+        "line": "ungoverned-agent-2",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f21f772806df3d057c3683e06fdafcb6\"}}"
+      },
+      {
+        "line": "ungoverned-agent-3",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f5127924a5278ddc7c3683e06fdafb55\"}}"
+      },
+      {
+        "line": "governed-agent-1",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"d06f9a21fa002ee1881daccf46fc13a2\"}}"
+      },
+      {
+        "line": "governed-agent-2",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"c77ab9a1bfe8ea0a881daccf46fc124e\"}}"
+      },
+      {
+        "line": "governed-agent-3",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"f9252c15b3facaf8881daccf46fc1850\"}}"
+      },
+      {
+        "line": "caller-3",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"18439b8933886d8d881daccf46fc18cc\"}}"
+      },
+      {
+        "line": "stitched-ungoverned",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"b8d473e5b56c51db881daccf46fc13d5\"}}"
+      },
+      {
+        "line": "stitched-governed",
+        "error": "STT 401: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"unauthorized\",\"message\":\"The API key you used is missing the permission speech_to_text to execute this operation.\",\"status\":\"missing_permissions\",\"request_id\":\"18c736e7fa791f1a881daccf46fc1333\"}}"
+      }
+    ]
+  },
+  "timings": {
+    "ungoverned": [
+      {
+        "who": "caller",
+        "start": 0,
+        "end": 8.406
+      },
+      {
+        "who": "agent",
+        "start": 9.156,
+        "end": 20.627
+      },
+      {
+        "who": "caller",
+        "start": 21.477,
+        "end": 25.553
+      },
+      {
+        "who": "agent",
+        "start": 26.303,
+        "end": 31.706
+      },
+      {
+        "who": "caller",
+        "start": 32.556,
+        "end": 35.32
+      },
+      {
+        "who": "agent",
+        "start": 36.07,
+        "end": 41.578
+      }
+    ],
+    "ungovernedDuration": 41.578,
+    "governed": [
+      {
+        "who": "caller",
+        "start": 0,
+        "end": 8.406
+      },
+      {
+        "who": "agent",
+        "start": 9.156,
+        "end": 18.073
+      },
+      {
+        "who": "caller",
+        "start": 18.923,
+        "end": 22.999
+      },
+      {
+        "who": "agent",
+        "start": 23.749,
+        "end": 28.748
+      },
+      {
+        "who": "caller",
+        "start": 29.598,
+        "end": 32.362
+      },
+      {
+        "who": "agent",
+        "start": 33.112,
+        "end": 38.355
+      }
+    ],
+    "governedDuration": 38.355
+  }
+}
