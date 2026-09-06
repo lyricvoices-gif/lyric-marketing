@@ -26,7 +26,7 @@ import LaunchPaths from "@/components/home/LaunchPaths"
    Callio is kept live: it is the Direction product, and "See how it works"
    points to /callio. */
 
-const DARK = "#2b2a25"
+const DARK = "var(--bg-dark)"
 
 function CTA({
   href,

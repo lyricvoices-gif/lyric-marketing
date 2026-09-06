@@ -8692,7 +8692,7 @@ svg.lv-about-locations-map {
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: var(--bg-card);
   border: 1px solid rgba(90, 94, 67, 0.14);
   border-radius: 16px;
   padding: 22px;
