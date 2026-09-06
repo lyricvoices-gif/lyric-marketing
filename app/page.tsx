@@ -186,8 +186,8 @@ export default function HomePage() {
           <>
             Callio is built for high‑stakes, regulated environments where behavior,
             terminology, escalation, and disclosures must not drift. Financial Services is
-            our first prebuilt foundation, and other industries begin through a custom Callio
-            intake.
+            our first prebuilt foundation, and additional industry foundations are already
+            in development.
           </>
         }
       />
