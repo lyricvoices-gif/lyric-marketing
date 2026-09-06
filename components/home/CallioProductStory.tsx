@@ -50,11 +50,6 @@ export default function CallioProductStory() {
                   Callio turns how your business expects AI agents to behave into a governed
                   specification they can follow across voice and text.
                 </p>
-                <div className="lv-cxp-intro-points" aria-label="Callio product outcomes">
-                  <span>Clear behavior</span>
-                  <span>Portable controls</span>
-                  <span>Observable adherence</span>
-                </div>
                 <Link href="/callio" className="lv-link-cta lv-cxp-intro-link">
                   Explore Callio <span aria-hidden="true">&rarr;</span>
                 </Link>

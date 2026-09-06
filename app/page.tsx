@@ -160,14 +160,6 @@ export default function HomePage() {
                 team can begin by adjusting a governed foundation rather than starting from
                 scratch.
               </p>
-              <div
-                className="lv-cxp-intro-points lv-agentstory-points"
-                aria-label="Governance demonstrated by Sol"
-              >
-                <span>Warm &amp; assured</span>
-                <span>Verify before access</span>
-                <span>Disclosure first</span>
-              </div>
               <Link href="/agents" className="lv-link-cta lv-agentstory-link">
                 Explore our pre-built agents <span aria-hidden="true">&rarr;</span>
               </Link>
