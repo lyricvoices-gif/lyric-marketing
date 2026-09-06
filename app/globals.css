@@ -15033,9 +15033,21 @@ main.lv-agents {
 /* Homepage product-story consolidation. The authentic Callio capture remains
    the visual anchor, with the four product layers reduced to concise context. */
 .lv-cxp-product-shell {
-  width: min(100%, 840px);
+  width: min(100%, 1060px);
   margin-right: auto;
   margin-left: auto;
+}
+
+/* The product shell hosts the 16:9 intake recording (1600x900), not the
+   old 1944x1304 splash still. */
+.lv-cxp-product-shell .lv-cxp-browser-screen {
+  aspect-ratio: 16 / 9;
+}
+.lv-cxp-product-shell .lv-cxp-browser-screen video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .lv-cxp-feature-register {

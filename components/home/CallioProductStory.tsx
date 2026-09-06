@@ -1,5 +1,4 @@
-import Image from "next/image"
-
+import CallioIntakeVideo from "@/components/home/CallioIntakeVideo"
 import ScrollReveal from "@/components/ScrollReveal"
 
 const CALLIO_FEATURES = [
@@ -67,15 +66,9 @@ export default function CallioProductStory() {
                 <div className="lv-cxp-browser-spacer" />
               </div>
               <div className="lv-cxp-browser-screen">
-                {/* Authentic Callio capture. Replace only this Image source when refreshed. */}
-                <Image
-                  src="/images/home/callio-product-splash.png"
-                  alt="Callio intake landing screen with a prompt to begin defining a cross-channel brand voice"
-                  width={1944}
-                  height={1304}
-                  sizes="(max-width: 820px) 92vw, 840px"
-                  priority={false}
-                />
+                {/* Authentic Callio capture: the live intake recording shared
+                    with /callio's hero. */}
+                <CallioIntakeVideo />
               </div>
             </div>
           </ScrollReveal>
