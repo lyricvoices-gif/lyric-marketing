@@ -17740,3 +17740,199 @@ main.lv-c5 { padding-top: 0; }
   .lv-c5-paths article { grid-template-columns: 36px 1fr; }
   .lv-c5-paths a { grid-column: 2; grid-row: auto; margin-top: 10px; justify-self: start; }
 }
+
+/* ══ Authority quote (institutional proof point) ══════════════════════════
+   components/AuthorityQuote.tsx. A full-width editorial pause between the
+   problem narrative and the first product chapter: the cited statement is
+   the dominant element (display face, controlled measure, hanging opening
+   mark); one hairline above the attribution row is the only structural
+   device. No card, no shadow, no entrance motion. */
+.lv-authq {
+  padding: 128px 20px 136px;
+  background: var(--bg-light);
+  color: var(--olive);
+}
+
+.lv-authq-inner {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.lv-authq-eyebrow {
+  margin-bottom: 56px;
+}
+
+.lv-authq-figure {
+  margin: 0;
+}
+
+.lv-authq-quote {
+  margin: 0;
+  padding: 0;
+}
+
+.lv-authq-quote p {
+  margin: 0;
+  max-width: 21ch;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.6vw, 62px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  color: inherit;
+  text-wrap: balance;
+}
+
+/* Hang the opening mark into the margin so the first letter sits on the
+   grid line; the closing mark stays in flow. */
+.lv-authq-mark-open {
+  margin-left: -0.42em;
+}
+
+.lv-authq-attribution {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 44px;
+  padding-top: 22px;
+  max-width: 640px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--ink-label);
+}
+
+.lv-authq-source {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--olive);
+}
+
+/* The thin vertical credit divider used by the site's mono credit rows. */
+.lv-authq-divider {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--border);
+}
+
+.lv-authq-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px; /* comfortable tap target without changing the row's optical height */
+  margin: -14px 0;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--ink-label) 45%, transparent);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.lv-authq-link:hover {
+  color: var(--olive);
+  text-decoration-color: var(--olive);
+}
+
+.lv-authq-link:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.lv-authq-arrow {
+  font-size: 11px;
+  transition: transform 0.18s ease;
+}
+
+.lv-authq-link:hover .lv-authq-arrow {
+  transform: translate(1px, -1px);
+}
+
+.lv-authq-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lv-authq-supporting {
+  margin: 40px 0 0;
+  max-width: 46ch;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--olive);
+}
+
+/* Olive variant: the About page's dark reference ground. */
+.lv-authq-olive {
+  background: var(--olive);
+  color: var(--bg-light);
+}
+.lv-authq-olive .lv-authq-eyebrow > span:last-child,
+.lv-authq-olive .lv-authq-source,
+.lv-authq-olive .lv-authq-link:hover {
+  color: var(--bg-light);
+}
+.lv-authq-olive .lv-authq-eyebrow .lv-eyebrow-dot {
+  background: var(--gold);
+}
+.lv-authq-olive .lv-authq-attribution {
+  color: var(--cream-body);
+  border-top-color: rgba(255, 248, 236, 0.18);
+}
+.lv-authq-olive .lv-authq-divider {
+  background: rgba(255, 248, 236, 0.18);
+}
+.lv-authq-olive .lv-authq-supporting {
+  color: var(--cream-body);
+}
+
+@media (max-width: 768px) {
+  .lv-authq {
+    padding: 80px 20px 88px;
+  }
+  .lv-authq-eyebrow {
+    margin-bottom: 36px;
+  }
+  .lv-authq-quote p {
+    font-size: clamp(28px, 7.7vw, 36px);
+    line-height: 1.16;
+    max-width: none;
+    /* pretty (not balance) on narrow widths: it specifically avoids a
+       one-word final line. */
+    text-wrap: pretty;
+  }
+  .lv-authq-mark-open {
+    margin-left: -0.36em;
+  }
+  .lv-authq-attribution {
+    margin-top: 32px;
+    gap: 10px 16px;
+  }
+  .lv-authq-supporting {
+    margin-top: 28px;
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv-authq-link,
+  .lv-authq-arrow {
+    transition: none;
+  }
+  .lv-authq-link:hover .lv-authq-arrow {
+    transform: none;
+  }
+}
