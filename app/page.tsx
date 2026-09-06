@@ -181,6 +181,9 @@ export default function HomePage() {
                 <span>Verify before access</span>
                 <span>Disclosure first</span>
               </div>
+              <Link href="/agents" className="lv-link-cta lv-agentstory-link">
+                Explore our pre-built agents <span aria-hidden="true">&rarr;</span>
+              </Link>
             </div>
           </ScrollReveal>
 

@@ -1,3 +1,4 @@
+import Link from "next/link"
 import CallioIntakeVideo from "@/components/home/CallioIntakeVideo"
 import ScrollReveal from "@/components/ScrollReveal"
 
@@ -54,6 +55,9 @@ export default function CallioProductStory() {
                   <span>Portable controls</span>
                   <span>Observable adherence</span>
                 </div>
+                <Link href="/callio" className="lv-link-cta lv-cxp-intro-link">
+                  Explore Callio <span aria-hidden="true">&rarr;</span>
+                </Link>
               </div>
             </div>
           </ScrollReveal>

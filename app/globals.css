@@ -11733,6 +11733,17 @@ main.lv-agents {
   background: rgba(255, 248, 236, 0.035);
 }
 
+.lv-cxp-intro-link {
+  margin-top: 28px;
+  color: var(--bg-light);
+}
+
+.lv-cxp-intro-link:focus-visible,
+.lv-agentstory-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
 .lv-cxp-browser-shell {
   position: relative;
   overflow: hidden;
@@ -15167,6 +15178,11 @@ main.lv-agents {
   border-color: rgba(90, 94, 67, 0.2);
   color: rgba(90, 94, 67, 0.78);
   background: rgba(90, 94, 67, 0.035);
+}
+
+.lv-agentstory-link {
+  margin-top: 28px;
+  color: var(--olive);
 }
 
 .lv-splitdemo-transcript::after {
