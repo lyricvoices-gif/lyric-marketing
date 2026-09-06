@@ -20,6 +20,13 @@ type Props = {
      spelled-out organization name. */
   logoSrc?: string
   logoAlt?: string
+  /* Render the org mark centered above the quote (in place of an eyebrow)
+     instead of inline in the attribution. */
+  logoTop?: boolean
+  /* Secondary attribution line under the name (e.g., a job title). */
+  role?: string
+  /* Hairline rule above the attribution (default true). */
+  rule?: boolean
   sourceUrl?: string
   eyebrow?: string
   supporting?: ReactNode
@@ -41,6 +48,9 @@ export default function AuthorityQuote({
   sourceLabel,
   logoSrc,
   logoAlt,
+  logoTop = false,
+  role,
+  rule = true,
   sourceUrl,
   eyebrow,
   supporting,
@@ -57,6 +67,10 @@ export default function AuthorityQuote({
 
   const figure = (
         <figure className={["lv-authq-figure", embedded ? modeClass : "", embedded ? className : ""].filter(Boolean).join(" ")}>
+          {logoTop && logoSrc ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img className="lv-authq-logo lv-authq-logo-top" src={logoSrc} alt={logoAlt ?? ""} />
+          ) : null}
           <blockquote className="lv-authq-quote" {...(sourceUrl ? { cite: sourceUrl } : {})} id={id ? `${id}-quote` : undefined}>
             {/* The typographic quotation marks are decorative: the blockquote
                 already conveys quotation, so they are hidden from AT. */}
@@ -67,12 +81,13 @@ export default function AuthorityQuote({
             </p>
           </blockquote>
 
-          <figcaption className="lv-authq-attribution">
-            {logoSrc ? (
+          <figcaption className={["lv-authq-attribution", rule ? "" : "is-norule", role ? "is-stacked" : ""].filter(Boolean).join(" ")}>
+            {logoSrc && !logoTop ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img className="lv-authq-logo" src={logoSrc} alt={logoAlt ?? ""} />
             ) : null}
             <cite className="lv-authq-source">{attribution}</cite>
+            {role ? <span className="lv-authq-role">{role}</span> : null}
             {sourceLabel && sourceUrl ? (
               <>
                 <span className="lv-authq-divider" aria-hidden="true" />

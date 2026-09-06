@@ -17997,3 +17997,38 @@ main.lv-c5 { padding-top: 0; }
 .lv-authq-center .lv-authq-attribution .lv-authq-logo {
   margin-bottom: 2px;
 }
+
+/* Reference-style composition: org mark on top, quote, name/title below. */
+.lv-authq-logo-top {
+  display: block;
+  height: 34px;
+  width: auto;
+  margin: 0 auto 46px;
+}
+.lv-authq-attribution.is-norule {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 34px;
+}
+.lv-authq-attribution.is-stacked {
+  flex-direction: column;
+  gap: 5px;
+}
+.lv-authq-center .lv-authq-attribution.is-stacked {
+  align-items: center;
+}
+.lv-authq-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--ink-label);
+}
+.lv-authq-olive .lv-authq-role {
+  color: var(--cream-body);
+}
+@media (max-width: 768px) {
+  .lv-authq-logo-top {
+    height: 30px;
+    margin-bottom: 34px;
+  }
+}
