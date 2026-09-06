@@ -18032,3 +18032,11 @@ main.lv-c5 { padding-top: 0; }
     margin-bottom: 34px;
   }
 }
+
+/* Gold accent on the quote's marks and the attributed name (--gold = #F3D171). */
+.lv-launch-quote .lv-authq-mark {
+  color: var(--gold);
+}
+.lv-authq-olive.lv-launch-quote .lv-authq-source {
+  color: var(--gold);
+}
