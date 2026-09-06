@@ -60,11 +60,17 @@ Sage is the workhorse. Gold is a guest — used sparingly for warmth or to swap 
 | `--bg-light` | `#FFF8EC` | Primary ground. Warm off-white, the "cream." |
 | `--bg-card` | `#FFFFFF` | Cards, raised surfaces. |
 | `--bg-dark` | `#2B2A25` | Legacy dark sections (avoid for new work — prefer studio set if going dark). |
-| `--olive` | `#5A5E43` | Primary text on cream. Headings, body. |
+| `--olive` | `#5A5E43` | Primary text on cream. Headings, body. The primary stop of the olive accent ramp. |
+| `--olive-deep` | `#484B36` | Dark stop of the olive ramp: primary CTA ground, pressed states. Cream text on it ≈8.5:1. |
+| `--surface-bright` | `#FFFDF7` | Warm-band ground: one deliberate tonal step lighter than `--bg-light`, never pure white. Hairline seam against cream. |
+| `--ink-label` | `#61644C` | Quiet meta tier on cream: mono eyebrows, tags, captions. ≈5.8:1 on `--bg-light`; the floor, nothing lighter. |
+| `--cream-body` | `rgba(255, 248, 236, 0.88)` | Body text on dark grounds (`--olive`, `--bg-dark`). ≈5.4:1 on olive; the floor, nothing dimmer. |
 | `--text-1` | `#1C1A17` | Body text where olive feels too soft. |
 | `--text-2` | `#6B6257` | Secondary text, captions. |
 | `--text-3` | `#9C958F` | Muted labels, eyebrow text fallback. |
 | `--border` | `#E5DFD5` | Hairlines, dividers. |
+
+The olive accent is a three-stop ramp: `--sage` (light stop, for dark grounds where olive would be invisible) / `--olive` (primary) / `--olive-deep` (dark: CTA fills, pressed states).
 
 **Hero gradient (vertical):** `#F4E8CE 0%` → `#FFF8EC 60%` → `#FFFEFA 100%`. Use on landing heroes only.
 
@@ -90,6 +96,18 @@ Sage is the workhorse. Gold is a guest — used sparingly for warmth or to swap 
 - Sage and gold are accents, not body color. Headlines are olive or parchment, never sage.
 - Daylight and studio do not mix on the same surface. A page is one or the other.
 
+### 3.5 Voice-identity colors
+
+Per-voice identity colors, distinct from the brand palette. They mark a voice (roster tiles, carousel accents, play rings), never a surface, and are tuned to sit on `--bg-light`.
+
+| Voice | Hex |
+|---|---|
+| Atlas | `#7A9B82` |
+| Hex | `#E0834A` |
+| Morgan | `#F3D171` (coincides with `--gold`) |
+| Nova | `#B5C19E` |
+| Riven | `#B5634D` |
+
 ---
 
 ## 4. Typography
@@ -100,11 +118,11 @@ The Lyric type system is **GT Super Display + GT America + GT America Mono**, li
 
 | Family | Weights | Role | CSS var |
 |---|---|---|---|
-| GT Super Display | 400, 500, 700 + italics | Display, editorial headlines, italic accents | `--font-display`, `--font-heading` |
-| GT America Standard | 400, 500, 700 + italics | Body, UI, paragraph | `--font-sans` |
-| GT America Mono | 400 | Eyebrow labels, role chips, footer credits, all-caps tracked text | `--font-mono` |
+| GT Super Display | 400, 500, 700 + italics | Display, editorial headlines, italic accents | `--font-display` |
+| GT America Standard | 400, 500, 700 + italics | Body, UI, paragraph, eyebrow labels (weight 700) | `--font-body` |
+| GT America Mono | 400 | Role chips, footer credits, all-caps tracked mono labels | `--font-mono` |
 | Pinyon Script | 400 | Signature accent (rare, ceremonial) | `--font-signature` |
-| Instrument Serif | 400 italic | Marketing pull quotes (next/font/google) | `--font-instrument-serif` |
+| Instrument Serif | 400 italic | Marketing pull quotes (next/font/google) | `--font-accent` (wraps the next/font var `--font-instrument-serif`) |
 
 Composer presently loads Geist Sans + Cormorant Garamond + Instrument Serif via `next/font/google`. **This is legacy and should migrate to the GT family** as Composer's marketing surfaces are reworked. New Composer marketing work should use the GT family from day one.
 
@@ -119,7 +137,7 @@ Type sizes are **fluid where they appear in heroes**, fixed elsewhere.
 | Section H3 | 22px | 500 | 1.3 | default |
 | Body | 16px | 400 | 1.55 | default |
 | Small body / caption | 14px | 400 | 1.5 | default |
-| Eyebrow label | 11px | 700 | 1 | uppercase, tracking 0.08em |
+| Eyebrow label (GT America, `--font-body`) | 11px | 700 | 1 | uppercase, no tracking (`letter-spacing: 0`) |
 | Mono label (Timbre) | 9.5px | 400 | 1 | uppercase, tracking 0.22em |
 | Atlas live message | `clamp(20px, 1.8vw, 24px)` | 400 italic | 1.32 | -0.005em |
 | Atlas past message | 15px | 400 italic | 1.45 | default |
@@ -231,7 +249,7 @@ The brand's most recognizable pattern. Above every section headline on marketing
 ```
 
 - Dot: 8px × 8px, `border-radius: 50%`, `background: var(--sage)`.
-- Label: 11px, weight 700, uppercase, color `var(--olive)` on cream, `var(--bg-light)` on dark.
+- Label: GT America (`--font-body`), 11px, weight 700, uppercase, `letter-spacing: 0`, color `var(--olive)` on cream, `var(--bg-light)` on dark. (Not mono: GT America Mono ships only at weight 400.)
 - On dark surfaces, swap the dot to `var(--gold)` for contrast.
 - Gap dot ↔ label: 10px. Margin to next element: 80px.
 
@@ -244,7 +262,7 @@ Three variants:
 | Variant | Surface | Background | Foreground | Hover |
 |---|---|---|---|---|
 | Primary dark | Light section | `#2B2A25` | `#F5F3EF` | `#1A1A18`, lift, shadow `0 6px 20px -8px rgba(0,0,0,0.35)` |
-| Primary light | Dark section | `#FFFFFF` | `#1C1A17` | unchanged bg, lift, shadow `0 6px 20px -8px rgba(0,0,0,0.4)` |
+| Primary light | Dark section | `var(--bg-light)` (#FFF8EC) | `var(--olive)` (#5A5E43) | bg `#f0e9d8`, `transform: scale(1.02)`, no shadow (transform removed under `prefers-reduced-motion`) |
 | Secondary ghost | Dark section | `rgba(245,243,239,0.10)` | `#F5F3EF` | bg `rgba(245,243,239,0.10)`, border `rgba(245,243,239,0.32)` |
 
 The "Listen now" audio button on the home page is a special case: gold gradient sweep on play state. Do not reuse outside that context.
@@ -280,7 +298,7 @@ Fixed top, 64px tall, full width. Site-wide behavior:
 
 ### 8.1 Lyric Marketing (daylight)
 
-- Ground: `--bg-light` (#FFF8EC).
+- Ground: `--bg-light` (#FFF8EC). Warm band: `--surface-bright` (#FFFDF7).
 - Type: olive headlines, `--text-1` body.
 - Heroes: full vertical gradient, 100svh min-height, centered content, nav bleeds over the top.
 - Recurring sections: Philosophy (long-form prose with sage-dot eyebrow), Editions (FLORET photography grid), Voices (audio sample players with the "Listen now" gold-sweep button), Pricing (three-card grid, Studio tier elevated).
@@ -390,8 +408,12 @@ These are mistakes that have come up, or that the brand register rules out. Trea
 
 ```css
 --bg-light: #FFF8EC;
+--surface-bright: #FFFDF7;
 --bg-card: #FFFFFF;
 --olive: #5A5E43;
+--olive-deep: #484B36;
+--ink-label: #61644C;
+--cream-body: rgba(255, 248, 236, 0.88);
 --text-1: #1C1A17;
 --text-2: #6B6257;
 --text-3: #9C958F;
