@@ -28,7 +28,7 @@ export default function LaunchPaths() {
             <div>
               <div className="lv-philosophy-eyebrow">
                 <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>Two ways to launch</span>
+                <span>Quote</span>
               </div>
             </div>
           </div>
