@@ -12391,12 +12391,6 @@ main.lv-agents {
    The product specification made practical. A full visual scenario with an
    atmospheric FLORET backdrop, persistent context, and live transcript UI. */
 
-.lv-agentstory-section {
-  padding: 120px 20px 132px;
-  background: var(--olive);
-  color: var(--bg-light);
-}
-
 .lv-agentstory-inner {
   width: 100%;
   max-width: 1240px;
@@ -13655,11 +13649,6 @@ main.lv-agents {
   object-fit: contain;
 }
 
-.lv-agentstory-section {
-  background: var(--surface-bright);
-  color: var(--olive);
-}
-
 .lv-agentstory-header .lv-philosophy-eyebrow,
 .lv-agentstory-header .lv-philosophy-eyebrow > span:last-child {
   color: var(--olive);
@@ -14181,8 +14170,6 @@ main.lv-agents {
 
 .lv-agentstory-section {
   padding: 132px 20px 140px;
-  background: var(--bg-dark);
-  color: var(--bg-light);
 }
 
 .lv-agentstory-header {
