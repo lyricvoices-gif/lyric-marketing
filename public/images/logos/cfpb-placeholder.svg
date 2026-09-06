@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 48" role="img" aria-label="CFPB">
+  <rect x="1.5" y="1.5" width="129" height="45" rx="8"
+        fill="none" stroke="#FFF8EC" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="66" y="31" text-anchor="middle"
+        font-family="'GT America','Helvetica Neue',Arial,sans-serif"
+        font-size="19" font-weight="700" letter-spacing="2.5" fill="#FFF8EC">CFPB</text>
+</svg>

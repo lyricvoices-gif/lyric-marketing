@@ -15,8 +15,12 @@ import type { ReactNode } from "react"
 type Props = {
   quote: string
   attribution: string
-  sourceLabel: string
-  sourceUrl: string
+  sourceLabel?: string
+  /* Optional org mark; when set it leads the credit row in place of a
+     spelled-out organization name. */
+  logoSrc?: string
+  logoAlt?: string
+  sourceUrl?: string
   eyebrow?: string
   supporting?: ReactNode
   /* "cream" (default) sits on --bg-light; "olive" inverts onto the dark
@@ -35,6 +39,8 @@ export default function AuthorityQuote({
   quote,
   attribution,
   sourceLabel,
+  logoSrc,
+  logoAlt,
   sourceUrl,
   eyebrow,
   supporting,
@@ -44,14 +50,14 @@ export default function AuthorityQuote({
   className,
   id,
 }: Props) {
-  const external = /^https?:\/\//.test(sourceUrl)
+  const external = !!sourceUrl && /^https?:\/\//.test(sourceUrl)
   const modeClass = [`lv-authq-${variant}`, align === "center" ? "lv-authq-center" : ""]
     .filter(Boolean)
     .join(" ")
 
   const figure = (
         <figure className={["lv-authq-figure", embedded ? modeClass : "", embedded ? className : ""].filter(Boolean).join(" ")}>
-          <blockquote className="lv-authq-quote" cite={sourceUrl} id={id ? `${id}-quote` : undefined}>
+          <blockquote className="lv-authq-quote" {...(sourceUrl ? { cite: sourceUrl } : {})} id={id ? `${id}-quote` : undefined}>
             {/* The typographic quotation marks are decorative: the blockquote
                 already conveys quotation, so they are hidden from AT. */}
             <p>
@@ -62,21 +68,29 @@ export default function AuthorityQuote({
           </blockquote>
 
           <figcaption className="lv-authq-attribution">
+            {logoSrc ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img className="lv-authq-logo" src={logoSrc} alt={logoAlt ?? ""} />
+            ) : null}
             <cite className="lv-authq-source">{attribution}</cite>
-            <span className="lv-authq-divider" aria-hidden="true" />
-            <a
-              className="lv-authq-link"
-              href={sourceUrl}
-              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            >
-              {sourceLabel}
-              {external ? (
-                <>
-                  <span className="lv-authq-sr"> (opens in a new tab)</span>
-                  <span className="lv-authq-arrow" aria-hidden="true">↗</span>
-                </>
-              ) : null}
-            </a>
+            {sourceLabel && sourceUrl ? (
+              <>
+                <span className="lv-authq-divider" aria-hidden="true" />
+                <a
+                  className="lv-authq-link"
+                  href={sourceUrl}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {sourceLabel}
+                  {external ? (
+                    <>
+                      <span className="lv-authq-sr"> (opens in a new tab)</span>
+                      <span className="lv-authq-arrow" aria-hidden="true">↗</span>
+                    </>
+                  ) : null}
+                </a>
+              </>
+            ) : null}
           </figcaption>
           {supporting ? <p className="lv-authq-supporting">{supporting}</p> : null}
         </figure>

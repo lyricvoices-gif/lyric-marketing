@@ -17987,3 +17987,13 @@ main.lv-c5 { padding-top: 0; }
     font-size: clamp(28px, 7.4vw, 34px);
   }
 }
+
+/* Org mark in the attribution row (placeholder until the real CFPB svg lands). */
+.lv-authq-logo {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+.lv-authq-center .lv-authq-attribution .lv-authq-logo {
+  margin-bottom: 2px;
+}
