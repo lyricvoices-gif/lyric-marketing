@@ -26,7 +26,7 @@ export default function LaunchPaths() {
           className="lv-launch-quote"
           quote="A poorly deployed chatbot can lead to customer frustration, reduced trust, and even violations of the law."
           attribution="Rohit Chopra, Director"
-          logoSrc="/images/logos/cfpb-placeholder.svg"
+          logoSrc="/images/logos/cfpb.svg"
           logoAlt="CFPB"
         />
       </div>
