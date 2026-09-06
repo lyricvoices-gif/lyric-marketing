@@ -17952,3 +17952,38 @@ main.lv-c5 { padding-top: 0; }
     transform: none;
   }
 }
+
+/* Centered composition + embedded use (Two ways to launch). */
+.lv-authq-center {
+  text-align: center;
+}
+.lv-authq-center .lv-authq-quote p {
+  margin: 0 auto;
+  max-width: 24ch;
+}
+.lv-authq-center .lv-authq-mark-open {
+  margin-left: 0;
+}
+.lv-authq-center .lv-authq-attribution {
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.lv-authq-center .lv-authq-supporting {
+  margin-left: auto;
+  margin-right: auto;
+}
+.lv-launch-quote .lv-authq-quote p {
+  font-size: clamp(32px, 4.2vw, 54px);
+}
+.lv-launch-quote .lv-authq-attribution {
+  margin-top: 36px;
+}
+.lv-launch-quote + .lv-launch-paths {
+  margin-top: 48px;
+}
+@media (max-width: 768px) {
+  .lv-launch-quote .lv-authq-quote p {
+    font-size: clamp(28px, 7.4vw, 34px);
+  }
+}

@@ -22,6 +22,11 @@ type Props = {
   /* "cream" (default) sits on --bg-light; "olive" inverts onto the dark
      olive ground used by the About page's reference section. */
   variant?: "cream" | "olive"
+  /* Centered composition (default is left-aligned on the grid). */
+  align?: "left" | "center"
+  /* embedded: render only the figure (no section, container, or eyebrow) so
+     the quote can sit inside an existing section. */
+  embedded?: boolean
   className?: string
   id?: string
 }
@@ -34,23 +39,18 @@ export default function AuthorityQuote({
   eyebrow,
   supporting,
   variant = "cream",
+  align = "left",
+  embedded = false,
   className,
   id,
 }: Props) {
   const external = /^https?:\/\//.test(sourceUrl)
-  const sectionClass = ["lv-authq", `lv-authq-${variant}`, className].filter(Boolean).join(" ")
+  const modeClass = [`lv-authq-${variant}`, align === "center" ? "lv-authq-center" : ""]
+    .filter(Boolean)
+    .join(" ")
 
-  return (
-    <section className={sectionClass} id={id} aria-labelledby={id ? `${id}-quote` : undefined}>
-      <div className="lv-authq-inner">
-        {eyebrow ? (
-          <div className="lv-philosophy-eyebrow lv-authq-eyebrow">
-            <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>{eyebrow}</span>
-          </div>
-        ) : null}
-
-        <figure className="lv-authq-figure">
+  const figure = (
+        <figure className={["lv-authq-figure", embedded ? modeClass : "", embedded ? className : ""].filter(Boolean).join(" ")}>
           <blockquote className="lv-authq-quote" cite={sourceUrl} id={id ? `${id}-quote` : undefined}>
             {/* The typographic quotation marks are decorative: the blockquote
                 already conveys quotation, so they are hidden from AT. */}
@@ -78,9 +78,23 @@ export default function AuthorityQuote({
               ) : null}
             </a>
           </figcaption>
+          {supporting ? <p className="lv-authq-supporting">{supporting}</p> : null}
         </figure>
+  )
 
-        {supporting ? <p className="lv-authq-supporting">{supporting}</p> : null}
+  if (embedded) return figure
+
+  const sectionClass = ["lv-authq", modeClass, className].filter(Boolean).join(" ")
+  return (
+    <section className={sectionClass} id={id} aria-labelledby={id ? `${id}-quote` : undefined}>
+      <div className="lv-authq-inner">
+        {eyebrow ? (
+          <div className="lv-philosophy-eyebrow lv-authq-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>{eyebrow}</span>
+          </div>
+        ) : null}
+        {figure}
       </div>
     </section>
   )
