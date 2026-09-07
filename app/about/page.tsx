@@ -67,15 +67,16 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <h1 className="lv-about-hook">
-                Three seconds of silence on a call, and the caller assumes the
-                worst. The system&apos;s broken. The agent is gone. They say{" "}
-                <em>&ldquo;hello?&rdquo;</em> into the quiet.
+                A few seconds of silence, and callers say{" "}
+                <em>&ldquo;hello?&rdquo;</em> into the void
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={200}>
               <p className="lv-about-hero-supporting">
                 The engine was working fine. What was missing was anyone paying
-                attention to how the brand actually showed up in the voice.
+                attention to how the brand actually showed up in the voice. To a
+                caller, a quiet line feels less like a pause and more like something
+                breaking.
               </p>
             </ScrollReveal>
           </div>

@@ -105,6 +105,76 @@
   font-display: swap;
 }
 
+/* Söhne (body) + Söhne Mono (eyebrows/labels) — Klim Type.
+   NOTE: the supplied files are a limited 68-glyph subset (A–Z a–z 0–9 and
+   , - . only); apostrophes, em dashes, quotes, ?, :, & etc. are NOT in the
+   font. Wherever those appear, the stack falls through to GT America / GT
+   America Mono — the closest grotesque already loaded — so the substitution
+   stays visually quiet. Replace with full licensed files before launch. */
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne/Sohne-Buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne/Sohne-BuchKursiv.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne/Sohne-Kraftig.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne/Sohne-KraftigKursiv.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne/Sohne-Dreiviertelfett.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne/Sohne-DreiviertelfettKursiv.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne Mono";
+  src: url("/fonts/soehne/SohneMono-Buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne Mono";
+  src: url("/fonts/soehne/SohneMono-Kraftig.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Söhne Mono";
+  src: url("/fonts/soehne/SohneMono-Dreiviertelfett.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand palette — updated 2026-05.
      Use --olive for primary text on the cream ground. Sage and gold are
@@ -4499,6 +4569,20 @@ main.lv-pricing { padding-top: 0; }
 .lv-about {
   background: var(--bg-light);
   color: var(--olive);
+
+  /* Type migration (About first): body → Söhne, eyebrows/labels → Söhne
+     Mono. Headlines keep the deployed GT Super Display for now. Scoped to
+     the About subtree so the rest of the site is unaffected. GT America /
+     GT America Mono stay in the stack as the closest-match fallback for the
+     glyphs the Söhne subset lacks (apostrophes, dashes, quotes, ? : & …). */
+  --font-body: "Söhne", "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Söhne Mono", "GT America Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Eyebrow label uses --font-body site-wide (GT America Bold); on About it
+   should read in Söhne Mono. */
+.lv-about .lv-philosophy-eyebrow > span:last-child {
+  font-family: var(--font-mono);
 }
 
 /* Inner frame matches the home page section pattern (Work With Us,
