@@ -96,9 +96,15 @@ export default function AgentsPage() {
           <ScrollReveal>
             <div className="lv-agents-v3-system-intro">
               <Eyebrow>Inside the foundation</Eyebrow>
-              <h2>Six decisions, already governed.</h2>
+              <h2>
+                Built for the domain.
+                <br />
+                Governed from the start.
+              </h2>
               <p>
-                Your team begins with an operating standard, not an empty prompt.
+                Financial-services knowledge is built in, along with the operating
+                standard for how the agent behaves, responds, escalates, and stays
+                within bounds.
               </p>
             </div>
           </ScrollReveal>
@@ -107,7 +113,6 @@ export default function AgentsPage() {
             {FOUNDATION_SYSTEM.map(([title, body], index) => (
               <ScrollReveal key={title} delay={index * 45}>
                 <article>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
                   <h3>{title}</h3>
                   <p>{body}</p>
                 </article>

@@ -15620,18 +15620,11 @@ main.lv-agents {
 
 .lv-agents-v3-system-list article {
   display: grid;
-  grid-template-columns: 44px minmax(140px, 0.45fr) minmax(0, 1fr);
+  grid-template-columns: minmax(140px, 0.45fr) minmax(0, 1fr);
   gap: 22px;
   align-items: baseline;
   padding: 25px 0 27px;
   border-bottom: 1px solid var(--border);
-}
-
-.lv-agents-v3-system-list article > span {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  color: var(--ink-label);
 }
 
 .lv-agents-v3-system-list h3 {
@@ -16016,12 +16009,8 @@ main.lv-agents {
   }
 
   .lv-agents-v3-system-list article {
-    grid-template-columns: 34px minmax(0, 1fr);
-    gap: 10px 16px;
-  }
-
-  .lv-agents-v3-system-list p {
-    grid-column: 2;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px 16px;
   }
 
   .lv-agents-v3-layer-visual {
