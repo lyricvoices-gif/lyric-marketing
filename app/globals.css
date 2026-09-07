@@ -4902,7 +4902,7 @@ main.lv-pricing { padding-top: 0; }
   background: var(--surface-bright);
   /* Soft inset shadow at the top edge: a depth break into the section
      (replaces the old hairline). Warm near-black tint, never pure black. */
-  box-shadow: inset 0 16px 26px -14px rgba(43, 42, 37, 0.4);
+  box-shadow: inset 0 6px 9px -7px rgba(43, 42, 37, 0.22);
 }
 
 /* Two-column layout — dotted USA map on the left, eyebrow/headline/cards
