@@ -15364,7 +15364,7 @@ main.lv-agents {
   background-image:
     radial-gradient(72% 68% at 78% 18%, rgba(243, 209, 113, 0.2) 0%, rgba(243, 209, 113, 0) 72%),
     radial-gradient(76% 72% at 12% 76%, rgba(193, 193, 126, 0.13) 0%, rgba(193, 193, 126, 0) 76%),
-    linear-gradient(180deg, #e4e9e5 0%, #f2ead8 48%, #fbf4e2 78%, #fffdf7 100%);
+    linear-gradient(180deg, #F4E8CE 0%, #FFF8EC 60%, #FFFEFA 100%);
   background-repeat: no-repeat;
   background-position: top;
   background-size: 100% 100%;
