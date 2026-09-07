@@ -67,8 +67,9 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <h1 className="lv-about-hook">
-                A few seconds of silence, and callers say{" "}
-                <em>&ldquo;hello?&rdquo;</em> into the void
+                A few seconds of silence,
+                <br />
+                and callers say <em>&ldquo;hello?&rdquo;</em> into the void
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={200}>
@@ -226,7 +227,7 @@ export default function AboutPage() {
               <ScrollReveal delay={160}>
                 <p className="lv-about-section-supporting">
                   Founded in 2026 and self-funded, Lyric is built by a team
-                  working from San Francisco and Atlanta.
+                  working from <br />San Francisco and Atlanta.
                 </p>
               </ScrollReveal>
               <div className="lv-about-locations">

@@ -5200,7 +5200,16 @@ main.lv-pricing { padding-top: 0; }
   letter-spacing: -0.005em;
   color: var(--olive);
   margin: 0 auto 28px;
-  max-width: 22ch;
+  /* Wide enough for the two-line hook (break after "silence,") to keep
+     "void" on the second line rather than orphaning it on a third. */
+  max-width: 28ch;
+}
+
+/* The About hero measure is wider than the shared hero statement cap so the
+   headline can hold its two intended lines; scoped so other heroes are
+   unaffected. */
+.lv-about-hero .lv-hero-statement {
+  max-width: 820px;
 }
 
 .lv-about-hero .lv-about-hook em {
