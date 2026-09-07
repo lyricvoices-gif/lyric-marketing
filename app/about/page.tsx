@@ -95,7 +95,7 @@ export default function AboutPage() {
               <ScrollReveal distance={28}>
                 <div className="lv-about-origin-image">
                   <img
-                    src="/images/about/origin-single.jpg"
+                    src="/images/about/origin-single.webp"
                     alt=""
                     loading="lazy"
                   />
@@ -113,7 +113,7 @@ export default function AboutPage() {
               <ScrollReveal delay={180} distance={28}>
                 <div className="lv-about-origin-image">
                   <img
-                    src="/images/about/origin-team.jpg"
+                    src="/images/about/origin-team.webp"
                     alt=""
                     loading="lazy"
                   />
