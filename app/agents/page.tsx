@@ -48,32 +48,19 @@ export default function AgentsPage() {
             </ScrollReveal>
             <ScrollReveal delay={140}>
               <p>
-                Financial Services is Lyric&apos;s first pre-built foundation: governed
-                behavior, workflows, guardrails, and evaluation criteria ready to
-                tailor to your institution.
+                Our Financial Services foundation comes with domain knowledge,
+                governed behavior, workflows, guardrails, and evaluation criteria
+                built in&mdash;ready to use as-is or tailor to your institution.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={200}>
               <div className="lv-agents-v3-actions">
                 <Link href="#experience" className="lv-agents-v3-primary-link">
-                  Experience the foundation
+                  Experience Financial Services
                 </Link>
               </div>
             </ScrollReveal>
           </div>
-
-          <ScrollReveal delay={180} distance={24}>
-            <div className="lv-agents-v3-foundation-line" aria-label="What the Financial Services foundation includes">
-              <span>Financial Services foundation</span>
-              <ul>
-                <li>Behavior</li>
-                <li>Workflows</li>
-                <li>Guardrails</li>
-                <li>Evaluation</li>
-              </ul>
-              <strong>Ready to tailor</strong>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
