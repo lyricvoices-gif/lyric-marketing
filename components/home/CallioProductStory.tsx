@@ -4,22 +4,18 @@ import ScrollReveal from "@/components/ScrollReveal"
 
 const CALLIO_FEATURES = [
   {
-    number: "01",
     title: "Author",
     body: "Turn real workflows into an implementation-ready specification.",
   },
   {
-    number: "02",
     title: "Govern",
     body: "Hold voice and text to approved behavior before they reach a customer.",
   },
   {
-    number: "03",
     title: "Evaluate",
     body: "Measure adherence over time and surface the moments that drift.",
   },
   {
-    number: "04",
     title: "Implement",
     body: "Carry the standard into the models, providers, and infrastructure you use.",
   },
@@ -74,8 +70,7 @@ export default function CallioProductStory() {
           <ScrollReveal delay={200} className="lv-cxp-reveal-full">
             <div className="lv-cxp-feature-register" aria-label="Inside Callio">
               {CALLIO_FEATURES.map((feature) => (
-                <article key={feature.number} className="lv-cxp-feature-anchor">
-                  <p className="lv-cxp-feature-anchor-meta">{feature.number}</p>
+                <article key={feature.title} className="lv-cxp-feature-anchor">
                   <h3>{feature.title}</h3>
                   <p>{feature.body}</p>
                 </article>
