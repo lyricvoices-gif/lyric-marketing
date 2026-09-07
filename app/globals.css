@@ -16339,12 +16339,25 @@ main.lv-agents {
 }
 
 .lv-agents-v3-lifecycle-groups li {
-  padding: 13px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 15px 0;
   font-family: var(--font-body);
+}
+
+.lv-agents-v3-lifecycle-groups li strong {
   font-size: 16px;
   font-weight: 500;
   line-height: 1.45;
   color: var(--olive);
+}
+
+.lv-agents-v3-lifecycle-groups li span {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--olive) 70%, transparent);
 }
 
 .lv-agents-v3-lifecycle-groups li:first-child {

@@ -20,9 +20,9 @@ const FOUNDATION_SYSTEM = [
 ] as const
 
 const TAILOR_ITEMS = [
-  "Your brand voice",
-  "Your policies and terminology",
-  "Your systems and escalation paths",
+  ["Your brand voice", "How the agent sounds and communicates on behalf of your institution."],
+  ["Your policies and terminology", "The language, requirements, and rules specific to your business."],
+  ["Your systems and escalation paths", "How the agent connects to your stack and when a person should take over."],
 ] as const
 
 function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {
@@ -126,17 +126,22 @@ export default function AgentsPage() {
         <div className="lv-agents-v3-wrap lv-agents-v3-lifecycle-layout">
           <ScrollReveal>
             <div className="lv-agents-v3-lifecycle-intro">
-              <Eyebrow>Governed from the start</Eyebrow>
+              <Eyebrow>Tailored to your institution</Eyebrow>
               <h2>Make it yours. Keep it governed.</h2>
               <p>
-                Start with the Financial Services foundation, then adapt it to your
-                institution. Behavior, workflows, and evaluation remain governed by that
-                same standard in every conversation after launch.
+                Start with the Financial Services foundation as-is, or tailor it to
+                your institution. Your changes become part of the governed
+                standard&mdash;and are evaluated against that standard after launch.
               </p>
               <div className="lv-agents-v3-lifecycle-groups">
-                <h3>What you tailor</h3>
+                <h3>What you can tailor</h3>
                 <ul>
-                  {TAILOR_ITEMS.map((item) => <li key={item}>{item}</li>)}
+                  {TAILOR_ITEMS.map(([item, description]) => (
+                    <li key={item}>
+                      <strong>{item}</strong>
+                      <span>{description}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
