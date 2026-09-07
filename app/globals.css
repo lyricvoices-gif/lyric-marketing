@@ -4900,7 +4900,6 @@ main.lv-pricing { padding-top: 0; }
    list pattern above. */
 .lv-about-locations-section {
   background: var(--surface-bright);
-  border-top: 1px solid var(--border);
 }
 
 /* Two-column layout — dotted USA map on the left, eyebrow/headline/cards
