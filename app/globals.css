@@ -5354,19 +5354,8 @@ svg.lv-about-locations-map {
    the cool hero blooms into ivory and ochre, then fades through the supplied
    photo row and opening story before settling into the site's warm cream. */
 .lv-about > .lv-floret-ground {
-  background-color: #fbf4e2;
-  background-image:
-    radial-gradient(82% 60% at 50% 38%, rgba(255, 252, 244, 0.96) 0%, rgba(247, 238, 220, 0.72) 38%, rgba(247, 238, 220, 0) 69%),
-    radial-gradient(38% 34% at 57% 47%, rgba(204, 170, 105, 0.28) 0%, rgba(204, 170, 105, 0) 73%),
-    radial-gradient(30% 30% at 66% 57%, rgba(89, 96, 72, 0.2) 0%, rgba(89, 96, 72, 0) 75%),
-    linear-gradient(158deg, #b8c4c6 0%, #d6ddda 18%, #f2ece1 44%, #f7efdf 72%, #fbf4e2 100%);
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size:
-    100% 1700px,
-    100% 1700px,
-    100% 1700px,
-    100% 100%;
+  /* design.md §3.2 hero gradient (vertical), warm and on-palette. */
+  background: linear-gradient(180deg, #F4E8CE 0%, #FFF8EC 60%, #FFFEFA 100%);
 }
 
 .lv-about .lv-about-hero {
@@ -5381,18 +5370,6 @@ svg.lv-about-locations-map {
 }
 
 @media (max-width: 768px) {
-  .lv-about > .lv-floret-ground {
-    background-image:
-      radial-gradient(112% 54% at 48% 38%, rgba(255, 252, 244, 0.96) 0%, rgba(247, 238, 220, 0.72) 40%, rgba(247, 238, 220, 0) 72%),
-      radial-gradient(54% 30% at 57% 49%, rgba(204, 170, 105, 0.25) 0%, rgba(204, 170, 105, 0) 76%),
-      radial-gradient(44% 28% at 68% 58%, rgba(89, 96, 72, 0.18) 0%, rgba(89, 96, 72, 0) 78%),
-      linear-gradient(164deg, #bcc7c8 0%, #d8dedb 18%, #f2ece1 44%, #f7efdf 72%, #fbf4e2 100%);
-    background-size:
-      100% 1500px,
-      100% 1500px,
-      100% 1500px,
-      100% 100%;
-  }
 }
 
 
