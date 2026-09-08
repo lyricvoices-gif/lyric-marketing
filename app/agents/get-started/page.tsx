@@ -1,9 +1,10 @@
 /* Get-started stub (/agents/get-started) — DELIBERATE PLACEHOLDER.
 
-   The adopt path from the FS Agents page lands here. Pricing and checkout
-   mechanics are not yet decided; this stub keeps the CTA a real route (not
-   a dead link) and tells the visitor exactly where things stand, with the
-   human escape hatch. The real get-started flow replaces this page. */
+   The checkout path from /pricing lands here. The price is settled ($40,000
+   one time, stated on /pricing); only self-serve checkout mechanics are
+   unfinished. This stub keeps the CTA a real route (not a dead link) and
+   tells the visitor exactly where things stand, with the human escape
+   hatch. The real checkout flow replaces this page. */
 
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -34,8 +35,9 @@ export default function AgentsGetStartedPage() {
           </ScrollReveal>
           <ScrollReveal delay={180}>
             <p className="lv-agents-sub">
-              Adoption for the prebuilt FS agent is being finished, pricing
-              and setup included. Until it ships, we will set you up
+              Self-serve checkout for the prebuilt FS agent is being
+              finished. The price is on the pricing page: $40,000, one time,
+              nothing recurring. Until checkout ships, the purchase happens
               directly: write to us and we will get your agent running.
             </p>
           </ScrollReveal>

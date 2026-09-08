@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import AgentChannelDemo from "@/components/agents/AgentChannelDemo"
+import AgentsFaq from "@/components/agents/AgentsFaq"
 import ScrollReveal from "@/components/ScrollReveal"
 
 export const metadata: Metadata = {
@@ -24,6 +25,35 @@ const TAILOR_ITEMS = [
   "Your policies and terminology",
   "Your systems and escalation paths",
 ] as const
+
+/* Every pricing answer here must match /pricing: a one-time purchase, no
+   recurring license, no agent-count billing, the eval layer included. */
+const FAQ = [
+  {
+    q: "What does the agent include out of the box?",
+    a: "The governed Financial Services build: the verify-before-disclose call flow, dispute and hold handling, disclosure delivery, and FS pronunciation and voice-output standards. You choose one of three produced voices, Sol, Sam, or James, each delivering the same governed agent, all governed by the full Callio Financial Services spec.",
+  },
+  {
+    q: "How is it priced?",
+    a: "It is $40,000, one time. There is no recurring license, no activation fee, no platform fee, and no tiers by company size. The eval layer is included. The pricing page states the price and what the purchase delivers.",
+  },
+  {
+    q: "What do you provide, and what does your team approve?",
+    a: "The agent arrives fully governed by Callio. What your team approves is the exact language it is legally required to say: your disclosure lines, your identity-verification requirements, and your brand name and terms. Callio governs how the agent behaves; your legal and compliance team approves the specific words behind that behavior.",
+  },
+  {
+    q: "How does it connect to our systems?",
+    a: "The agent sits on top of your existing telephony and account systems rather than replacing them. Verification checks and account lookups call your endpoints at call time, so your systems of record stay where they are. And because the governance layer is vendor-agnostic across models and speech engines, you are not locked into a single provider either.",
+  },
+  {
+    q: "What about data and compliance?",
+    a: "Callio governs what the agent is allowed to say and keeps a record of how it said it. That is brand and behavior governance, not a security or compliance certification, and it does not replace your own controls. Your account systems and customer data stay in your stack. The agent reads from them at call time through your integration, so Callio is not a store or a processor of your customer data.",
+  },
+  {
+    q: "Can we change the voice or the wording?",
+    a: "Both. Choose Sol, Sam, or James for delivery, and your own disclosure and verification wording is what the agent uses. The governance holds either way, whichever voice you pick and whatever your legal and compliance team approves.",
+  },
+]
 
 function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {
   return (
@@ -148,6 +178,27 @@ export default function AgentsPage() {
                 </ul>
               </div>
             </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Self-service FAQ: accordion, first item open. Pricing answers stay
+          in lockstep with /pricing. */}
+      <section className="lv-agents-faq">
+        <div className="lv-agents-inner-narrow">
+          <ScrollReveal>
+            <div className="lv-philosophy-eyebrow">
+              <span className="lv-eyebrow-dot" aria-hidden="true" />
+              <span>FAQs</span>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <h2 className="lv-agents-section-head">
+              The answers, <em>self-served</em>.
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={160}>
+            <AgentsFaq items={FAQ} />
           </ScrollReveal>
         </div>
       </section>
