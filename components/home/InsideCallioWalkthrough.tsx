@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image"
+import React from "react"
 
 import ScrollReveal from "@/components/ScrollReveal"
 import GovernConversationVisual from "@/components/home/GovernConversationVisual"
@@ -45,58 +48,137 @@ function VerifyVisual() {
   )
 }
 
+const PORTABILITY_GROUPS = [
+  {
+    label: "Models",
+    providers: [
+      { name: "Anthropic", src: "/images/logos/anthropic.svg", className: "is-anthropic", width: 24 },
+      { name: "Kimi K3", src: "/images/logos/kimi.svg", className: "is-kimi", width: 24 },
+    ],
+  },
+  {
+    label: "Voice / TTS",
+    providers: [
+      { name: "ElevenLabs", src: "/images/logos/elevenlabs.svg", className: "is-elevenlabs", width: 24 },
+      { name: "Cartesia", src: "/images/logos/cartesia.svg", className: "is-cartesia", width: 26 },
+      { name: "OpenAI", src: "/images/logos/openai.svg", className: "is-openai", width: 24 },
+    ],
+  },
+  {
+    label: "Infrastructure",
+    providers: [
+      { name: "Twilio", src: "/images/logos/twilio.svg", className: "is-twilio", width: 72 },
+      { name: "Vonage", src: "/images/logos/vonage.svg", className: "is-vonage", width: 28 },
+    ],
+  },
+] as const
+
+const PORTABILITY_ROTATION_MS = 3200
+
 function PortabilityVisual() {
+  const rootRef = React.useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = React.useState(0)
+  const [inView, setInView] = React.useState(false)
+  const [pointerPaused, setPointerPaused] = React.useState(false)
+  const [focusPaused, setFocusPaused] = React.useState(false)
+  const [reducedMotion, setReducedMotion] = React.useState(false)
+
+  React.useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const syncPreference = () => setReducedMotion(media.matches)
+    syncPreference()
+    media.addEventListener("change", syncPreference)
+    return () => media.removeEventListener("change", syncPreference)
+  }, [])
+
+  React.useEffect(() => {
+    const root = rootRef.current
+    if (!root || !("IntersectionObserver" in window)) {
+      setInView(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.34 },
+    )
+    observer.observe(root)
+    return () => observer.disconnect()
+  }, [])
+
+  React.useEffect(() => {
+    if (reducedMotion || !inView || pointerPaused || focusPaused) return
+    const timer = window.setInterval(
+      () => setActiveIndex((current) => (current + 1) % PORTABILITY_GROUPS.length),
+      PORTABILITY_ROTATION_MS,
+    )
+    return () => window.clearInterval(timer)
+  }, [focusPaused, inView, pointerPaused, reducedMotion])
+
   return (
-    <div className="lv-cxp-port-ui" aria-label="Illustration of Callio working across an existing technology stack">
-      <p className="lv-cxp-port-lead">Your stack remains yours.</p>
+    <div
+      ref={rootRef}
+      className={`lv-cxp-port-ui${reducedMotion ? " is-reduced" : ""}`}
+      role="group"
+      aria-label="Callio works across your stack"
+      aria-describedby="lv-cxp-port-summary"
+      onMouseEnter={() => setPointerPaused(true)}
+      onMouseLeave={() => setPointerPaused(false)}
+      onFocusCapture={() => setFocusPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setFocusPaused(false)
+        }
+      }}
+    >
+      <p className="lv-cxp-port-lead">
+        <span>Your stack remains yours. One standard across</span>{" "}
+        {reducedMotion ? (
+          <strong className="lv-cxp-port-cycle-static">Models, Voice / TTS, and Infrastructure.</strong>
+        ) : (
+          <span className="lv-cxp-port-cycle-label" aria-hidden="true">
+            {PORTABILITY_GROUPS.map((group, index) => (
+              <strong className={index === activeIndex ? "is-active" : ""} key={group.label}>
+                {group.label}
+              </strong>
+            ))}
+          </span>
+        )}
+      </p>
+
+      <p className="lv-cxp-port-sr" id="lv-cxp-port-summary">
+        Compatible provider examples by category. Models: Anthropic and Kimi K3. Voice and text to speech: ElevenLabs, Cartesia, and OpenAI. Infrastructure: Twilio and Vonage.
+      </p>
 
       <div className="lv-cxp-port-examples">
         <div className="lv-cxp-port-groups" aria-label="Example compatible providers by category">
-          <div className="lv-cxp-port-group">
-            <div className="lv-cxp-port-group-marks">
-              <span className="lv-cxp-port-mark is-logo is-anthropic" role="img" aria-label="Anthropic" tabIndex={0}>
-                <Image src="/images/logos/anthropic.svg" alt="" aria-hidden="true" width={24} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">Anthropic</span>
-              </span>
-              <span className="lv-cxp-port-mark is-logo is-kimi" role="img" aria-label="Kimi K3" tabIndex={0}>
-                <Image src="/images/logos/kimi.svg" alt="" aria-hidden="true" width={24} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">Kimi K3</span>
-              </span>
-            </div>
-            <span className="lv-cxp-port-group-label">Models</span>
-          </div>
-
-          <div className="lv-cxp-port-group">
-            <div className="lv-cxp-port-group-marks">
-              <span className="lv-cxp-port-mark is-logo is-elevenlabs" role="img" aria-label="ElevenLabs" tabIndex={0}>
-                <Image src="/images/logos/elevenlabs.svg" alt="" aria-hidden="true" width={24} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">ElevenLabs</span>
-              </span>
-              <span className="lv-cxp-port-mark is-logo is-cartesia" role="img" aria-label="Cartesia" tabIndex={0}>
-                <Image src="/images/logos/cartesia.svg" alt="" aria-hidden="true" width={26} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">Cartesia</span>
-              </span>
-              <span className="lv-cxp-port-mark is-logo is-openai" role="img" aria-label="OpenAI" tabIndex={0}>
-                <Image src="/images/logos/openai.svg" alt="" aria-hidden="true" width={24} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">OpenAI</span>
-              </span>
-            </div>
-            <span className="lv-cxp-port-group-label">Voice / TTS</span>
-          </div>
-
-          <div className="lv-cxp-port-group">
-            <div className="lv-cxp-port-group-marks">
-              <span className="lv-cxp-port-mark is-logo is-twilio" role="img" aria-label="Twilio" tabIndex={0}>
-                <Image src="/images/logos/twilio.svg" alt="" aria-hidden="true" width={72} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">Twilio</span>
-              </span>
-              <span className="lv-cxp-port-mark is-logo is-vonage" role="img" aria-label="Vonage" tabIndex={0}>
-                <Image src="/images/logos/vonage.svg" alt="" aria-hidden="true" width={28} height={24} />
-                <span className="lv-cxp-port-tooltip" aria-hidden="true">Vonage</span>
-              </span>
-            </div>
-            <span className="lv-cxp-port-group-label">Infrastructure</span>
-          </div>
+          {PORTABILITY_GROUPS.map((group, index) => {
+            const isActive = index === activeIndex
+            const isAvailable = reducedMotion || isActive
+            return (
+              <div
+                className={`lv-cxp-port-group${isActive ? " is-active" : ""}`}
+                aria-hidden={isAvailable ? undefined : true}
+                key={group.label}
+              >
+                <div className="lv-cxp-port-group-marks">
+                  {group.providers.map((provider) => (
+                    <span
+                      className={`lv-cxp-port-mark is-logo ${provider.className}`}
+                      role="img"
+                      aria-label={provider.name}
+                      tabIndex={isAvailable ? 0 : -1}
+                      key={provider.name}
+                    >
+                      <Image src={provider.src} alt="" aria-hidden="true" width={provider.width} height={24} />
+                      <span className="lv-cxp-port-tooltip" aria-hidden="true">{provider.name}</span>
+                    </span>
+                  ))}
+                </div>
+                <span className="lv-cxp-port-group-label">{group.label}</span>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>

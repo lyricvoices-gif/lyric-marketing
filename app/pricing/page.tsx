@@ -33,7 +33,7 @@ const FAQ = [
   },
   {
     q: "What does it cost to generate a spec?",
-    a: "Nothing. You can complete the intake and see the governance specification it produces at no charge. The $25,000 applies when you commission the build.",
+    a: "Nothing. You can complete the intake and see the governance specification it produces at no charge. The $25,000 applies when you move forward with a custom build.",
   },
   {
     q: "Which path is right for us?",
@@ -175,8 +175,8 @@ export default function PricingPage() {
             <span className="lv-final-line">The <em>brand</em> is not.</span>
           </h2>
           <div className="lv-cta-row lv-cta-row-center">
-            <CTA href="mailto:info@lyricvoices.ai?subject=Lyric%20access" variant="light">
-              Request access
+            <CTA href="/start" variant="light">
+              Generate your governed spec
             </CTA>
             <CTA href="/callio" variant="outline">
               See how it works

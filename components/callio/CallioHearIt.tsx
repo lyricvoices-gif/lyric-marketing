@@ -226,9 +226,11 @@ export default function CallioHearIt() {
         ]
         return (
           <div className="lv-hear-scenario" key={s.id}>
-            <div className="lv-hear-scenario-head">
-              <p className="lv-hear-question">{s.question}</p>
-            </div>
+            {s.id === "ex1" ? null : (
+              <div className="lv-hear-scenario-head">
+                <p className="lv-hear-question">{s.question}</p>
+              </div>
+            )}
 
             <div className="lv-hear-ab">
               {sides.map(({ variant, side }) => {

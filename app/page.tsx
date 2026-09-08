@@ -8,6 +8,7 @@ import ScrollHighlightText from "@/components/ScrollHighlightText"
 import ScrollReveal from "@/components/ScrollReveal"
 import AgentsScenario from "@/components/home/AgentsScenario"
 import CallioProductStory from "@/components/home/CallioProductStory"
+import LaunchPaths from "@/components/home/LaunchPaths"
 
 /* Homepage — Lyric as a brand-governance layer for AI agents.
 
@@ -150,19 +151,19 @@ export default function HomePage() {
             <div className="lv-agentstory-header">
               <div className="lv-philosophy-eyebrow">
                 <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>Pre-built agents</span>
+                <span>Pre-built agent</span>
               </div>
-              <h2 className="lv-agentstory-headline">Our Governed Agent, Sol.</h2>
+              <h2 className="lv-agentstory-headline">The foundation is already built.</h2>
               <p className="lv-agentstory-supporting">
-                Listen to our pre-built agent Sol navigate a real financial services scenario.
+                Financial Services is our first pre-built agent foundation. Your agents have
+                set behaviors, guardrails, workflows, and evaluation criteria. This means your
+                team can begin by adjusting a governed foundation rather than starting from
+                scratch.
               </p>
-              <div
-                className="lv-cxp-intro-points lv-agentstory-points"
-                aria-label="Governance demonstrated by Sol"
-              >
-                <span>Warm &amp; assured</span>
-                <span>Verify before access</span>
-                <span>Disclosure first</span>
+              <div className="lv-cxp-intro-points lv-agentstory-points">
+                <Link href="/agents" className="lv-link-cta">
+                  Explore pre-built agents &rarr;
+                </Link>
               </div>
             </div>
           </ScrollReveal>
@@ -171,17 +172,26 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* After both paths have been introduced, this compact decision point
+          clarifies how a team can begin with Lyric. */}
+      <LaunchPaths />
+
       {/* Homepage industry framing; shared section layout and cards stay intact. */}
       <VerticalsSection
         eyebrow="Industries"
         headline={
           <>
-            Industry-ready governance
-            <br />
-            for every agent
+            Built for interactions where<br />the standard has to hold.
           </>
         }
-        supporting="Callio’s governance is authored one industry at a time, not adapted from a generic template. Each industry foundation defines the workflows, controls, and language that industry requires, and it produces both a prebuilt agent ready to deploy and the starting point for a custom build."
+        supporting={
+          <>
+            Lyric is designed for high-stakes, regulated environments where behavior,
+            terminology, escalation, and disclosures cannot drift. Financial Services is
+            our first pre-built foundation. Other industries can begin through a custom
+            Callio intake.
+          </>
+        }
       />
 
       <section className="lv-final" style={{ background: DARK }}>
@@ -198,11 +208,14 @@ export default function HomePage() {
             <span className="lv-final-line">The <em>brand</em> is not.</span>
           </h2>
           <div className="lv-cta-row lv-cta-row-center">
-            <CTA href="/start" variant="light">
-              Build your AI comms spec
+            <CTA href="/pricing" variant="light">
+              Explore ways to launch
             </CTA>
-            <CTA href="/contact" variant="outline">
-              Book a call
+            <CTA
+              href="mailto:hi@lyricvoices.ai?subject=Lyric%20launch%20options&amp;body=Hi%20Lyric%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20the%20right%20launch%20path%20for%20our%20AI%20agent.%0A%0ACompany%3A%20%0AUse%20case%3A%20%0AChannel%28s%29%3A%20%0A%0AThank%20you."
+              variant="outline"
+            >
+              Contact us
             </CTA>
           </div>
         </ScrollReveal>

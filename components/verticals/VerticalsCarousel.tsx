@@ -33,24 +33,14 @@ type Vertical = {
   comingSoon?: boolean
 }
 
-/* Three live industries plus Healthcare as a coming-soon fourth (its content
-   comes from future-verticals.ts). Insurance stays in future-verticals.ts for
-   a later industries page. */
+/* Financial Services is the current industry; the remaining homepage
+   industries are visibly forthcoming. Insurance stays in future-verticals.ts
+   for a later industries page. */
 const VERTICALS: Vertical[] = [
-  {
-    label: "Consistency at Every Touchpoint",
-    headline: "Property Management",
-    body: "Residents hear from you across leasing, maintenance, and collections, and those are three different emotional jobs. The leasing voice that wins a lease sounds wrong chasing late rent. Lyric lets each context have its own register while a resident still recognizes one company, and keeps lease and fee terminology right on every channel.",
-    accent: "#7A9B82",
-    contexts: ["Leasing", "Maintenance", "Collections"],
-    term: "CAM charges",
-    disclosure: "collection disclosure",
-    tone: "warm to firm",
-  },
   {
     label: "Cohesion in Every Account Moment",
     headline: "Financial Services",
-    body: "In a dispute or a fraud call, the customer is already stressed, and the wrong tone makes it worse. The voice has to stay firm and calm under pressure, get financial terms exactly right, and deliver compliance disclosures the same way every time. There is little room for an agent that drifts.",
+    body: "In a dispute or fraud call, the customer is already under stress, and the wrong tone makes it worse. Your agent needs to stay calm and firm under pressure. They must use financial terms correctly and ensure that compliance disclosures meet the required standards. There is no room for an agent who drifts.",
     accent: "#F3D171",
     contexts: ["Support", "Disputes", "Servicing"],
     term: "APR",
@@ -58,19 +48,31 @@ const VERTICALS: Vertical[] = [
     tone: "firm, calm",
   },
   {
+    label: "Consistency at Every Touchpoint",
+    headline: "Property Management",
+    body: "Residents engage with your agent for leasing, maintenance, and collections. Each interaction needs a unique emotional tone. The voice that wins a lease should not be the voice that handles late rent. Callio gives each context a unique register for your agent to follow. This maintains a strong brand voice and ensures that your agent uses the same lease and fee terms.",
+    accent: "#7A9B82",
+    contexts: ["Leasing", "Maintenance", "Collections"],
+    term: "CAM charges",
+    disclosure: "collection disclosure",
+    tone: "warm to firm",
+    comingSoon: true,
+  },
+  {
     label: "Harmony in Every Guest Moment",
     headline: "Travel & Hospitality",
-    body: "A guest's first impression and their loyalty both run through the same voice. Reservations, concierge, and loyalty each carry a different promise, and a clipped or off-brand moment undercuts the experience you sell. Lyric keeps the voice warm and gracious across all of them, and handles rate and policy disclosures consistently.",
+    body: "A guest's first impression and their loyalty both run through the same voice. Reservations, concierge, and loyalty each offer a unique promise. A missed detail or off-brand moment can hurt the experience you provide. Callio helps your agents keep a friendly tone. It also ensures they handle rate and policy disclosures with composure.",
     accent: "#E0834A",
     contexts: ["Reservations", "Concierge", "Loyalty"],
     term: "folio",
     disclosure: "rate disclosure",
     tone: "warm, gracious",
+    comingSoon: true,
   },
   {
     label: "Alignment in Every Patient Moment",
     headline: "Healthcare",
-    body: "Scheduling, billing, and nurse lines are different jobs with different stakes. Lyric keeps one brand across them, stays warm and clear, says clinical and benefits terms correctly, and holds privacy disclosures to the spec on every channel.",
+    body: "Scheduling, billing, and nurse lines are different jobs with different stakes. Callio helps your agents maintain a consistent brand voice across all platforms. Your agents remain warm and clear. They use clinical and benefits terms with precision. Plus, they ensure privacy disclosures meet specifications on every channel.",
     accent: "#B5C19E",
     contexts: ["Scheduling", "Billing", "Nurse line"],
     term: "formulary",

@@ -1,368 +1,279 @@
-/* Callio product page — restructured for an enterprise buyer (CX, Compliance,
-   Ops, Brand, procurement) while keeping the premium editorial mood. Nine
-   sections, inspectable top to bottom:
-
-     1) Hero            — the problem in one screen
-     2) Before / after  — same question, governed vs ungoverned (the one audio module)
-     3) What Callio is  — the governance layer, plus the one voice it yields (CX / Compliance / Ops / Brand)
-     4) How it works    — Codify / Govern / Port / Monitor (dark)
-     5) Build the spec  — Sonic intake, the real spec dimensions
-     6) Across channels — one voice, adapted per channel (text; voice links to §2)
-     7) Architecture    — Callio sits above the model and the engine (dark)
-     8) Founders        — the trust beat (a decade of doing it by hand)
-     9) Final CTA       — Sonic is the demo
-
-   Guardrails: flat declarative voice, no em dashes, no exclamation points.
-   Callio codifies and governs, it never builds the agent. Monitor is brand-voice
-   governance monitoring, not security. No fabricated proof. Live Lyric tokens
-   only; scoped styles under .lv-opus-* / .lv-callio-* / .lv-arch-* in globals.css. */
-
 import type { Metadata } from "next"
-import type { CSSProperties, ReactNode } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
 import CallioHearIt from "@/components/callio/CallioHearIt"
-import GovernedCallVisual from "@/components/hero/GovernedCallVisual"
-import CallioFlow from "@/components/callio/CallioFlow"
-import CallioArchitecture from "@/components/callio/CallioArchitecture"
-import SonicPreview from "@/components/callio/SonicPreview"
-import InTextProof from "@/components/callio/InTextProof"
 
 export const metadata: Metadata = {
   title: "Callio",
   description:
-    "Callio keeps every AI agent aligned to one approved voice, policy, and communication standard. A vendor-agnostic governance layer above your models and speech engines.",
+    "Callio turns how your business should communicate into a governed specification your AI agents can follow across voice and text.",
 }
 
-const DARK = "#2b2a25"
-const START = "/start"
-const CONTACT = "/contact"
+const STEPS = [
+  {
+    number: "02",
+    label: "Standards",
+    title: "Author the standards every agent must follow.",
+    body: "Callio brings in the relevant industry foundation, then shapes it around your company and channels. Pronunciation, required disclosures, output standards, and pacing become explicit parts of the specification.",
+    image: "/images/callio/02-foundation-and-context.png",
+    alt: "Callio intake showing a financial-services foundation, enterprise context, channel choices, and the developing voice specification.",
+    framed: false,
+  },
+  {
+    number: "03",
+    label: "Behavior",
+    title: "Select the voice. Tune how every answer behaves.",
+    body: "Choose a voice fit for the deployment, then define warmth, pacing, energy, vocabulary, and text behavior. Voice and text decisions live in one governed standard.",
+    image: "/images/callio/03-voice-selection.png",
+    alt: "Callio voice selection screen with Sam, James, and Sol alongside the developing financial-services voice specification.",
+    framed: false,
+  },
+  {
+    number: "04",
+    label: "Review and build",
+    title: "Review the specification before implementation.",
+    body: "The completed intake makes each decision inspectable. Review and refine it before purchase, then move forward with the governed specification and implementation adapter for your setup.",
+    image: "/images/callio/04-completed-spec.png",
+    alt: "Completed Callio intake showing the selected Sam voice, delivery settings, playback, editing, download, and the finished voice specification.",
+    framed: true,
+  },
+] as const
 
-/* Pill CTA, mirroring the homepage / pricing Final CTA buttons. */
-function CTA({
-  href,
-  children,
-  variant = "dark",
-}: {
-  href: string
-  children: ReactNode
-  variant?: "dark" | "light" | "outline"
-}) {
-  const isExternal = href.startsWith("http") || href.startsWith("mailto:")
-  const style: CSSProperties = {
-    minHeight: "54px",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 24px",
-    borderRadius: "100px",
-    fontSize: "15px",
-    fontWeight: 500,
-    letterSpacing: "0",
-    background:
-      variant === "light"
-        ? "var(--bg-light)"
-        : variant === "dark"
-          ? "var(--olive)"
-          : "transparent",
-    color:
-      variant === "light"
-        ? "var(--olive)"
-        : variant === "dark"
-          ? "var(--bg-light)"
-          : "inherit",
-    border: variant === "outline" ? "1px solid currentColor" : "1px solid transparent",
-    transition: "background 0.22s ease, color 0.22s ease, transform 0.22s ease",
-  }
-  const className = `lv-cta lv-cta-${variant}`
-  if (isExternal) {
-    return (
-      <a href={href} className={className} style={style}>
-        {children}
-      </a>
-    )
-  }
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <Link href={href} className={className} style={style}>
-      {children}
-    </Link>
-  )
-}
-
-/* Mono small-caps eyebrow, dot + label. */
-function Eyebrow({ label, onDark = false }: { label: string; onDark?: boolean }) {
-  return (
-    <div className={`lv-philosophy-eyebrow lv-opus-eyebrow${onDark ? " is-dark" : ""}`}>
+    <div className={`lv-philosophy-eyebrow lv-callio-v2-eyebrow${dark ? " is-dark" : ""}`}>
       <span className="lv-eyebrow-dot" aria-hidden="true" />
-      <span>{label}</span>
+      <span>{children}</span>
     </div>
   )
 }
 
-/* The one institutional voice, across the functions it serves. Shown in the
-   "What it is" section (Section 3). */
-const VOICE_ACROSS = [
-  { area: "CX", line: "A consistent customer experience across every agent and channel" },
-  { area: "Compliance", line: "Approved language and auditable, consistent disclosures" },
-  { area: "Ops", line: "Fewer escalations and less drift" },
-  {
-    area: "Brand",
-    line: "A consistent institutional voice across channels and across all of your agents",
-  },
-]
+function ProductCapture({
+  src,
+  alt,
+  framed,
+  priority = false,
+}: {
+  src: string
+  alt: string
+  framed: boolean
+  priority?: boolean
+}) {
+  const image = (
+    <Image
+      src={src}
+      alt={alt}
+      width={3200}
+      height={2000}
+      sizes="(max-width: 768px) 100vw, 62vw"
+      priority={priority}
+    />
+  )
+
+  if (!framed) {
+    return <div className="lv-callio-v2-capture">{image}</div>
+  }
+
+  return (
+    <div className="lv-callio-v2-browser">
+      <div className="lv-callio-v2-browser-bar" aria-hidden="true">
+        <span className="lv-callio-v2-browser-dots">
+          <i />
+          <i />
+          <i />
+        </span>
+        <span className="lv-callio-v2-browser-address">callio.lyricvoices.ai</span>
+        <span className="lv-callio-v2-browser-spacer" />
+      </div>
+      <div className="lv-callio-v2-browser-screen">{image}</div>
+    </div>
+  )
+}
 
 export default function CallioPage() {
   return (
-    <main className="lv-opus">
-      {/* ── Section 1 — Hero. The depth proof beside the depth claim: one
-            governed conversation (the Caldera Bank example call) showing what
-            governance actually does — disclosure added by spec, terminology
-            pronounced on brand, tone held. ── */}
-      <section className="lv-opus-hero">
-        <div className="lv-opus-wrap lv-opus-hero-grid">
-          <div className="lv-opus-hero-copy">
+    <main className="lv-callio-page">
+      <section className="lv-callio-v2-hero">
+        <div className="lv-callio-v2-wrap lv-callio-v2-hero-grid">
+          <div className="lv-callio-v2-hero-copy">
             <ScrollReveal>
-              <Eyebrow label="Callio" />
+              <Eyebrow>Callio</Eyebrow>
             </ScrollReveal>
-            <ScrollReveal delay={120}>
-              <h1 className="lv-opus-hero-head">
-                Your agents are multiplying, and they no longer sound like{" "}
-                <em>one company</em>.
-              </h1>
+            <ScrollReveal delay={100}>
+              <h1>The governed specification behind every AI agent.</h1>
             </ScrollReveal>
-            <ScrollReveal delay={220}>
-              <p className="lv-opus-hero-sub">
-                Callio keeps every AI agent aligned to one approved voice, policy,
-                and communication standard.
+            <ScrollReveal delay={180}>
+              <p>
+                Callio turns how your business should communicate into a governed
+                specification your AI agents can follow across voice and text.
               </p>
             </ScrollReveal>
-            <ScrollReveal delay={320}>
-              <div className="lv-cta-row">
-                <CTA href={START} variant="dark">
-                  Build your voice spec
-                </CTA>
-                <CTA href={CONTACT} variant="outline">
-                  Talk to us
-                </CTA>
+            <ScrollReveal delay={240}>
+              <div className="lv-callio-v2-actions">
+                <Link href="/start" className="lv-callio-v2-primary-link">
+                  Generate your governed spec
+                </Link>
+                <Link href="/pricing" className="lv-callio-v2-text-link">
+                  View pricing <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={300}>
+              <div className="lv-callio-v2-pills" aria-label="Callio outcomes">
+                <span>Enterprise context</span>
+                <span>Voice + text behavior</span>
+                <span>Implementation-ready</span>
               </div>
             </ScrollReveal>
           </div>
 
-          <div className="lv-opus-hero-demo">
-            <GovernedCallVisual />
-          </div>
+          <ScrollReveal delay={120} className="lv-callio-v2-hero-visual">
+            <ProductCapture
+              src="/images/callio/01-begin-intake.png"
+              alt="Callio guided intake landing screen."
+              framed
+              priority
+            />
+            <p className="lv-callio-v2-hero-caption">
+              <span>01</span>
+              Begin with a guided intake that captures your industry, enterprise
+              context, use case, and channels.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Section 2 — Before / after. The one audio-grade module on the page:
-            same question, ungoverned vs governed by Callio. ── */}
-      <section className="lv-opus-hear" id="hear">
-        <div className="lv-opus-wrap">
+      <section className="lv-callio-v2-intro">
+        <div className="lv-callio-v2-wrap lv-callio-v2-intro-inner">
           <ScrollReveal>
-            <Eyebrow label="Hear it" />
+            <Eyebrow>How Callio works</Eyebrow>
           </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <p className="lv-opus-hear-framing">
-              Your customers ask the same questions. Your agents shouldn&rsquo;t
-              sound like different companies.
+          <ScrollReveal delay={100}>
+            <h2>From enterprise context to an implementation-ready specification.</h2>
+          </ScrollReveal>
+          <ScrollReveal delay={180}>
+            <p>
+              A guided intake captures the decisions behind your communication
+              standard. Each step makes the specification more concrete, without
+              asking your team to translate brand and governance requirements into
+              technical configuration on its own.
             </p>
           </ScrollReveal>
-          <ScrollReveal delay={220}>
+        </div>
+      </section>
+
+      <section className="lv-callio-v2-walkthrough" aria-label="How Callio works">
+        <div className="lv-callio-v2-wrap">
+          {STEPS.map((step, index) => (
+            <article
+              className={`lv-callio-v2-step${index % 2 === 1 ? " is-reverse" : ""}`}
+              key={step.number}
+            >
+              <ScrollReveal className="lv-callio-v2-step-copy">
+                <p className="lv-callio-v2-step-index">
+                  <span>{step.number}</span>
+                  {step.label}
+                </p>
+                <h3>{step.title}</h3>
+                <p className="lv-callio-v2-step-body">{step.body}</p>
+              </ScrollReveal>
+              <ScrollReveal delay={100} className="lv-callio-v2-step-visual">
+                <ProductCapture
+                  src={step.image}
+                  alt={step.alt}
+                  framed={step.framed}
+                  priority={step.number === "02"}
+                />
+              </ScrollReveal>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="lv-callio-v2-proof" id="proof">
+        <div className="lv-callio-v2-wrap">
+          <div className="lv-callio-v2-proof-head">
+            <ScrollReveal>
+              <Eyebrow dark>Proof in practice</Eyebrow>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <h2>Hear the standard hold.</h2>
+            </ScrollReveal>
+            <ScrollReveal delay={180}>
+              <p>
+                A customer asks about a credit‑card rate. One response stays
+                within the specification. The other drifts. The contrast makes
+                the standard clear.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={240}>
             <CallioHearIt />
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Section 3 — What Callio is. Plain explanation, no metaphor. ── */}
-      <section className="lv-callio-what">
-        <div className="lv-opus-wrap lv-callio-what-inner">
-          <ScrollReveal>
-            <Eyebrow label="What it is" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2 className="lv-callio-what-head">
-              Callio is the <em>governance layer</em> for AI communication.
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={200}>
-            <p className="lv-callio-what-body">
-              It sits above your models, voice engines, and agent channels. It
-              translates your brand, compliance, and CX rules into a portable
-              communication spec that every agent follows, whether you adopt a
-              governed agent from Callio or bring one your team built.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={280}>
-            <p className="lv-callio-what-lead">
-              With Callio, you get one institutional voice across:
-            </p>
-          </ScrollReveal>
-          <div className="lv-callio-what-grid">
-            {VOICE_ACROSS.map((v, i) => (
-              <ScrollReveal key={v.area} delay={340 + i * 70}>
-                <div className="lv-callio-what-item">
-                  <span className="lv-callio-what-area">{v.area}</span>
-                  <p className="lv-callio-what-line">{v.line}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+      <section className="lv-callio-v2-adapter">
+        <div className="lv-callio-v2-wrap">
+          <div className="lv-callio-v2-adapter-copy">
+            <ScrollReveal>
+              <Eyebrow dark>Implementation adapter</Eyebrow>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <h2>Concrete instructions for the stack you already use.</h2>
+            </ScrollReveal>
+            <ScrollReveal delay={180}>
+              <p>
+                Complete the intake at no charge. When you purchase a custom build,
+                the adapter maps the governed specification into the system prompt,
+                skills, and APIs required for your setup. Your team can implement it
+                in its existing stack, or add optional implementation consulting at
+                checkout.
+              </p>
+            </ScrollReveal>
           </div>
-        </div>
-      </section>
 
-      {/* ── Section 4 — How it works. Four steps on a dark chapter ground; the
-            left column frames the lifecycle, the right is the numbered list with
-            the Monitor mechanism. ── */}
-      <section className="lv-opus-how" style={{ background: DARK }}>
-        <div className="lv-opus-wrap">
-          <div className="lv-opus-how-grid">
-            <div className="lv-opus-how-copy">
-              <ScrollReveal>
-                <Eyebrow label="How it works" onDark />
-              </ScrollReveal>
-              <ScrollReveal delay={120}>
-                <h2 className="lv-opus-how-head">One spec. Every agent held to it.</h2>
-              </ScrollReveal>
-              <ScrollReveal delay={200}>
-                <p className="lv-opus-how-body">
-                  One lifecycle. Codify the spec, govern every response, port it
-                  across your stack, and monitor for drift over time.
-                </p>
-              </ScrollReveal>
+          <ScrollReveal delay={160} className="lv-callio-v2-adapter-flow" display="grid">
+            <div>
+              <span>01</span>
+              <strong>Governed specification</strong>
+              <p>Approved language, behavior, scenarios, and evaluation standard.</p>
             </div>
-
-            <div className="lv-opus-how-list">
-              <CallioFlow />
+            <i aria-hidden="true" />
+            <div>
+              <span>02</span>
+              <strong>Implementation adapter</strong>
+              <p>System prompt, skills, APIs, and concrete integration instructions.</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 5 — Build the voice spec (Sonic). Shows the real spec
-            dimensions a brand configures, not agent-build machinery. ── */}
-      <section className="lv-opus-sonic">
-        <div className="lv-opus-wrap">
-          <ScrollReveal>
-            <Eyebrow label="Callio · Intake" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2 className="lv-opus-sonic-head">
-              Tell Callio about your brand. <em>It does the rest.</em>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={200}>
-            <p className="lv-opus-sonic-body">
-              Callio guides you through a short intake. It gathers the facts,
-              shows you clear options, and you choose the ones that match your
-              institution&rsquo;s voice. You never have to describe your tone in
-              adjectives. Your selections become the spec.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={280}>
-            <SonicPreview />
+            <i aria-hidden="true" />
+            <div>
+              <span>03</span>
+              <strong>Your existing stack</strong>
+              <p>Your model, speech provider, channels, and infrastructure.</p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Section 6 — Governance across channels. One voice, adapted to each
-            channel. Text comparisons; the voice channel links back to §2. ── */}
-      <section className="lv-opus-proof">
-        <div className="lv-opus-wrap">
-          <ScrollReveal>
-            <Eyebrow label="Across channels" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <p className="lv-opus-proof-framing">
-              Same brand. Every channel. One question:{" "}
-              <em>&ldquo;Did my payment go through?&rdquo;</em>
-            </p>
-          </ScrollReveal>
-
-          <InTextProof />
-
-          <ScrollReveal delay={380}>
-            <p className="lv-opus-proof-caption">
-              Callio does not make every answer identical. It keeps the voice
-              consistent while adapting to each channel. Text drift is read. Voice
-              drift is heard, in the before and after above.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Section 7 — Deployment and architecture. Callio sits above the model
-            and the speech engine and directs them. Dark ground, diagram. ── */}
-      <section className="lv-callio-arch" style={{ background: DARK }}>
-        <div className="lv-opus-wrap">
-          <ScrollReveal>
-            <Eyebrow label="Architecture" onDark />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <h2 className="lv-callio-arch-head">
-              We direct the engines. <em>We are not one of them.</em>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p className="lv-callio-arch-takeaway">
-              Vendor-agnostic. Swap any engine and the brand voice holds. No stack
-              lock-in.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={320}>
-            <CallioArchitecture />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Section 9 — Founders. The trust beat. A decade of doing this work by
-            hand, built into a system. Structural slot for logos / posture is left
-            unpopulated on purpose, no placeholder logos or invented badges. ── */}
-      <section className="lv-callio-founders">
-        <div className="lv-opus-wrap lv-callio-founders-inner">
-          <ScrollReveal>
-            <Eyebrow label="Founders" />
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <blockquote className="lv-callio-founders-quote">
-              For more than a decade, we did this by hand. Tuned how brands sound
-              across their comms stack, caught drift by ear, and wrote the
-              disclosure lines that had to be exact. <em>Callio is that craft,
-              made repeatable.</em>
-            </blockquote>
-          </ScrollReveal>
-          {/* Structural slot for customer references and security posture, left
-              unpopulated until they are real. Do not add placeholder logos or
-              certification badges here. */}
-          <div className="lv-callio-trust-slot" aria-hidden="true" />
-        </div>
-      </section>
-
-      {/* ── Section 10 — Final CTA. Sonic is the demo. Build the spec, or talk to
-            us. No self-serve "try for free" for a governance buyer. ── */}
-      <section className="lv-final lv-opus-close" style={{ background: DARK }}>
+      <section className="lv-final lv-callio-v2-close">
         <ScrollReveal>
-          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
-            <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>One brand voice, everywhere</span>
-          </div>
+          <Eyebrow dark>One standard. Every agent.</Eyebrow>
           <h2>
             <span className="lv-final-line">All your agents,</span>
             <br />
-            <span className="lv-final-line">one <em>brand voice</em>.</span>
+            <span className="lv-final-line">
+              one <em>brand voice</em>.
+            </span>
           </h2>
-          <p className="lv-callio-final-sub">
-            Start with Sonic. Tell it about your brand and hear your voice take
-            shape.
-          </p>
-          <div className="lv-cta-row lv-cta-row-center">
-            <CTA href={START} variant="light">
-              Build your AI comms spec
-            </CTA>
-            <CTA href={CONTACT} variant="outline">
-              Book a call
-            </CTA>
+          <div className="lv-callio-v2-close-actions">
+            <Link href="/start" className="lv-callio-v2-primary-link is-light">
+              Generate your governed spec
+            </Link>
+            <Link href="/pricing" className="lv-callio-v2-text-link is-light">
+              View pricing <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </ScrollReveal>
       </section>

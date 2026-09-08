@@ -45,7 +45,7 @@ export default function MobileStickyCTA() {
       }}
     >
       <Link
-        href="/start"
+        href="/pricing"
         style={{
           flex: 1.45,
           minHeight: "48px",
@@ -62,7 +62,7 @@ export default function MobileStickyCTA() {
           whiteSpace: "nowrap",
         }}
       >
-        Generate your governed spec
+        Explore ways to launch
       </Link>
       <Link
         href="/callio"
