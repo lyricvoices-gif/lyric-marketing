@@ -100,11 +100,7 @@ export default function AgentsPage() {
           <ScrollReveal>
             <div className="lv-agents-v3-system-intro">
               <Eyebrow>Inside the foundation</Eyebrow>
-              <h2>
-                Domain&#8209;built.
-                <br />
-                Governed from&nbsp;day&nbsp;one.
-              </h2>
+              <h2>Governed by domain, from day one</h2>
               <p>
                 Financial-services knowledge is built in, along with the operating
                 standard for how the agent behaves, responds, escalates, and stays

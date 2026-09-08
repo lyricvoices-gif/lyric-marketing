@@ -15712,11 +15712,7 @@ main.lv-agents {
 }
 
 .lv-agents-v3-system h2 {
-  /* Sized down from the shared 72px so "Domain-built." fits the narrow
-     sticky column on one line (with a non-breaking hyphen it never splits)
-     and the headline stacks cleanly. */
-  max-width: 100%;
-  font-size: clamp(32px, 3vw, 42px);
+  max-width: 8.5ch;
 }
 
 .lv-agents-v3-system-intro > p {
