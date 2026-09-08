@@ -127,7 +127,11 @@ export default function AgentsPage() {
           <ScrollReveal>
             <div className="lv-agents-v3-lifecycle-intro">
               <Eyebrow>Tailored to your institution</Eyebrow>
-              <h2>Make it yours. Keep it governed.</h2>
+              <h2>
+                Make it yours.
+                <br />
+                Keep it governed.
+              </h2>
               <p>
                 Start with the Financial Services foundation as-is, or tailor it to
                 your institution. Your changes become part of the governed

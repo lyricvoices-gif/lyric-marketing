@@ -15431,6 +15431,19 @@ main.lv-agents {
   margin: 0 auto;
 }
 
+/* Type migration (agents page): body → Söhne, eyebrows/labels → Söhne
+   Mono. Headlines keep the deployed GT Super Display. Scoped to the agents
+   subtree; GT America / GT America Mono remain the closest-match fallback
+   for the glyphs the Söhne subset lacks. Mirrors the About page. */
+.lv-agents-v3 {
+  --font-body: "Söhne", "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Söhne Mono", "GT America Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.lv-agents-v3 .lv-philosophy-eyebrow > span:last-child {
+  font-family: var(--font-mono);
+}
+
 .lv-agents-v3-section {
   padding: clamp(108px, 10vw, 152px) 0;
 }
@@ -16386,7 +16399,7 @@ main.lv-agents {
 }
 
 .lv-agents-v3-lifecycle-intro h2 {
-  max-width: 12ch;
+  max-width: 18ch;
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(44px, 5.3vw, 72px);
@@ -16413,7 +16426,7 @@ main.lv-agents {
 }
 
 .lv-agents-v3-lifecycle-groups h3 {
-  margin: 0 0 12px;
+  margin: 0 0 26px;
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 600;
