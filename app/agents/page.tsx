@@ -69,7 +69,11 @@ export default function AgentsPage() {
           <ScrollReveal>
             <div className="lv-agentstory-header lv-agents-v3-experience-head">
               <Eyebrow>Financial Services</Eyebrow>
-              <h2 className="lv-agentstory-headline">See the standard in action.</h2>
+              <h2 className="lv-agentstory-headline">
+                See the standard
+                <br />
+                in action.
+              </h2>
               <p className="lv-agentstory-supporting">
                 A dispute makes the foundation visible: the agent verifies access,
                 uses approved terminology, and explains the resolution path.
@@ -97,9 +101,9 @@ export default function AgentsPage() {
             <div className="lv-agents-v3-system-intro">
               <Eyebrow>Inside the foundation</Eyebrow>
               <h2>
-                Built for the domain.
+                Domain&#8209;built.
                 <br />
-                Governed from the start.
+                Governed from&nbsp;day&nbsp;one.
               </h2>
               <p>
                 Financial-services knowledge is built in, along with the operating
