@@ -67,9 +67,9 @@ export default function AboutPage() {
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <h1 className="lv-about-hook">
-                A few seconds of silence,
+                A few seconds of silence, and
                 <br />
-                and callers say <em>&ldquo;hello?&rdquo;</em> into the void
+                callers say <em>&ldquo;hello?&rdquo;</em> into the void
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={200}>
