@@ -31,6 +31,12 @@ export const metadata: Metadata = {
 const CONSULTING_INQUIRY =
   "mailto:info@lyricvoices.ai?subject=Callio%20consulting"
 
+const CONTACT_INQUIRY =
+  "mailto:hi@lyricvoices.ai?subject=Lyric%20AI%20agent%20governance"
+
+/* Dark ground for the closing bookend, matching the home page final CTA. */
+const DARK = "#2b2a25"
+
 const PREBUILT_RECEIVES = [
   "The finished financial services governance spec.",
   "The authored FS domain rules: register, disclosure, escalation, closing manner, lexicon and pronunciation.",
@@ -288,7 +294,10 @@ export default function PricingPage() {
         <ScrollReveal>
           <div className="lv-pr2-inner lv-pr2-consulting-row">
             <div>
-              <Eyebrow dark>Consulting</Eyebrow>
+              <Eyebrow dark>Services</Eyebrow>
+              <h2 className="lv-pr2-consulting-head">
+                Hands-on help, when you want it.
+              </h2>
               <p className="lv-pr2-consulting-copy">
                 Optional on either path: implementation, integration,
                 configuration, and ongoing monitoring using the eval layer.
@@ -310,6 +319,29 @@ export default function PricingPage() {
             <div className="lv-pricing-faq-list">
               <PricingFaq items={FAQ} />
             </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* Closing bookend above the global footer, matching the home page
+          final CTA pattern. */}
+      <section className="lv-final" style={{ background: DARK }}>
+        <ScrollReveal>
+          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
+            <span className="lv-eyebrow-dot" aria-hidden="true" />
+            <span>The brand-governance layer for AI agents</span>
+          </div>
+          <h2>
+            <span className="lv-final-line">All your agents,</span>
+            <br />
+            <span className="lv-final-line">
+              one <em>brand voice</em>.
+            </span>
+          </h2>
+          <div className="lv-cta-row lv-cta-row-center">
+            <CTA href={CONTACT_INQUIRY} variant="light">
+              Contact us
+            </CTA>
           </div>
         </ScrollReveal>
       </section>

@@ -18259,6 +18259,18 @@ main.lv-c5 { padding-top: 0; }
 .lv-pr2-eyebrow-dark > span:last-child {
   color: var(--bg-light);
 }
+/* Consulting-band headline, sitting between the eyebrow and the body copy on
+   the dark ground (full cream per the dark contrast regime). */
+.lv-pr2-consulting-head {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+  margin: 0 0 14px;
+  max-width: 24ch;
+}
 .lv-pr2-consulting-copy {
   font-family: var(--font-body);
   font-size: 15px;
