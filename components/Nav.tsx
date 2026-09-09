@@ -26,7 +26,7 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { type: "link", href: "/pricing", label: "Pricing" },
-  { type: "link", href: "/notes", label: "Notes" },
+  { type: "link", href: "https://thelyricbriefing.substack.com/", label: "Voiceprint", external: true },
 ]
 
 /* Global navigation stays neutral between Lyric's two launch paths. Product-
