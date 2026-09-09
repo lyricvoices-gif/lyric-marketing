@@ -27,8 +27,8 @@ import { Room } from "livekit-client"
 import {
   RoomAudioRenderer,
   RoomContext,
-  useAgent,
   useTrackVolume,
+  useVoiceAssistant,
   type AgentState as LiveAgentState,
 } from "@livekit/components-react"
 
@@ -309,12 +309,11 @@ function LiveSurface({
   reducedMotion: boolean
   onEnd: () => void
 }) {
-  /* useAgent reads agent state and the agent's audio track from the room
-     context. Pinned to @livekit/components-react 2.9.21, the version the
-     callio app validated end to end; later 2.9.x made useAgent require a
-     separate Session context and throw "No session provided" here. */
-  const { state, microphoneTrack } = useAgent()
-  const volume = useTrackVolume(microphoneTrack)
+  /* useVoiceAssistant reads agent state and the agent's audio track from the
+     room context. (The beta useAgent hook requires a separate Session context
+     and throws "No session provided" inside a plain RoomContext.) */
+  const { state, audioTrack } = useVoiceAssistant()
+  const volume = useTrackVolume(audioTrack)
   const auraReady = useAuraReady()
 
   return (
