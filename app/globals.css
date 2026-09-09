@@ -18068,3 +18068,250 @@ main.lv-c5 { padding-top: 0; }
 .lv-launch-quote .lv-authq-attribution.is-stacked {
   gap: 8px;
 }
+
+/* ═══ Pricing v2 (/pricing) — full-width stacked sections ═══════════════════
+   One public price per path, so no card grid: the page reads top to bottom
+   as live demo -> prebuilt -> custom -> consulting band -> FAQ. Grounds
+   alternate cream / bright / dark per the site's band grammar; type reuses
+   the pricing headline and supporting classes. */
+
+/* Type migration (pricing page): body -> Söhne, eyebrows/labels -> Söhne
+   Mono, scoped to the pricing subtree exactly like the About and Agents v3
+   pages. Headlines keep the deployed GT Super Display. GT America / GT
+   America Mono remain in the stack as the closest-match fallback for the
+   glyphs the Söhne subset lacks (apostrophes, dashes, quotes, ? : & ...). */
+.lv-pr2 {
+  --font-body: "Söhne", "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Söhne Mono", "GT America Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.lv-pr2-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* Eyebrows on this redesigned page are Söhne Mono, matching the same
+   page-scoped override the About and Agents v3 pages use (the sitewide
+   .lv-philosophy-eyebrow default is Söhne/body). */
+.lv-pr2 .lv-philosophy-eyebrow > span:last-child {
+  font-family: var(--font-mono);
+}
+
+/* ── 1 · Live demo hero: copy left, dark call stage right ── */
+.lv-pr2-hero {
+  padding: 148px 24px 88px;
+}
+.lv-pr2-hero-grid {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  gap: 64px;
+  align-items: center;
+}
+.lv-pr2-hero-try {
+  margin-top: 18px;
+}
+/* The dark call surface — the same stage family as the agents-page demo
+   column, so the aura and pill grammar carry over unchanged. */
+.lv-pr2-stage {
+  background: var(--bg-dark);
+  border-radius: 24px;
+  padding: 44px 28px 40px;
+}
+.lv-livecall-note {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cream-body);
+  text-align: center;
+  max-width: 34ch;
+  margin: 18px 0 0;
+}
+.lv-livecall-endpill {
+  background: transparent;
+  border: 1px solid rgba(255, 248, 236, 0.4);
+  color: var(--bg-light);
+}
+.lv-livecall-endpill:hover {
+  background: rgba(255, 248, 236, 0.12);
+}
+
+/* ── Shared band shell ── */
+.lv-pr2-band {
+  padding: 104px 24px 112px;
+  border-top: 1px solid rgba(90, 94, 67, 0.14);
+}
+.lv-pr2-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 72px;
+  align-items: start;
+}
+.lv-pr2-head {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.8vw, 46px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--olive);
+  margin: 0 0 34px;
+  max-width: 18ch;
+}
+.lv-pr2-head em {
+  font-style: italic;
+  color: inherit;
+}
+.lv-pr2-body {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.6;
+  color: rgba(90, 94, 67, 0.86);
+  margin: 0 0 30px;
+  max-width: 54ch;
+}
+
+/* The price, stated once, large. */
+.lv-pr2-amount {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 92px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--olive);
+  margin: 0 0 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.lv-pr2-amount-period {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(90, 94, 67, 0.6);
+}
+.lv-pr2-intake-line {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+  margin: 0 0 14px;
+}
+.lv-pr2-quiet {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(90, 94, 67, 0.86);
+  margin: 0 0 14px;
+  max-width: 46ch;
+}
+.lv-pr2-cta-row {
+  margin-top: 26px;
+}
+
+/* What-you-receive rail: mono kicker + hairline rows, the price-decisions
+   grammar carried out of the retired cards. */
+.lv-pr2-receives-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-label);
+  margin: 0 0 6px;
+}
+.lv-pr2-receives-list {
+  counter-reset: pr2-receive;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lv-pr2-receives-list li {
+  counter-increment: pr2-receive;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(90, 94, 67, 0.14);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(90, 94, 67, 0.9);
+}
+.lv-pr2-receives-list li::before {
+  content: counter(pr2-receive, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink-label);
+  padding-top: 4px;
+}
+
+/* Custom band sits one tonal step brighter, hairline seam against cream. */
+.lv-pr2-custom {
+  background: var(--surface-bright);
+}
+
+/* ── 4 · Consulting: one short dark band, not a card ── */
+.lv-pr2-consulting {
+  background: var(--bg-dark);
+  padding: 64px 24px;
+}
+.lv-pr2-consulting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+.lv-pr2-consulting .lv-philosophy-eyebrow {
+  margin: 0 0 16px;
+}
+.lv-pr2-eyebrow-dark > span:last-child {
+  color: var(--bg-light);
+}
+/* Consulting-band headline, sitting between the eyebrow and the body copy on
+   the dark ground (full cream per the dark contrast regime). */
+.lv-pr2-consulting-head {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--bg-light);
+  margin: 0 0 14px;
+  max-width: 24ch;
+}
+.lv-pr2-consulting-copy {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cream-body);
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .lv-pr2-hero {
+    padding: 120px 24px 64px;
+  }
+  .lv-pr2-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .lv-pr2-split {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .lv-pr2-band {
+    padding: 72px 24px 80px;
+  }
+  .lv-pr2-consulting-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+}
