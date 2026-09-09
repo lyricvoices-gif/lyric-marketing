@@ -15,7 +15,14 @@
    useTrackVolume. Under reduced motion the shader is replaced with the
    still sage disc. */
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import {
+  Component,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react"
 import { Room } from "livekit-client"
 import {
   RoomAudioRenderer,
@@ -30,6 +37,61 @@ import { type AgentState as AuraState } from "@/components/agents-ui/use-agent-a
 
 /* The page accent (sage) carries the aura, as on the agents page. */
 const AURA_COLOR = "#C1C17E" as const
+
+/* The static sage disc that stands in for the WebGL aura — used under reduced
+   motion, before mount, when WebGL is unavailable, and as the error-boundary
+   fallback. */
+const STATIC_DISC = (
+  <div className="lv-agdemo-aura lv-agdemo-aura-static" aria-hidden="true" />
+)
+
+/* Render the aura only once we've confirmed, on the client, that WebGL can
+   actually create a context. Starting false means the server and the first
+   client render both emit the static disc (no hydration mismatch); the effect
+   then upgrades to the live aura only where WebGL works. Browsers with WebGL
+   disabled or blocked never attempt the shader, so they can't crash on it. */
+function useAuraReady(): boolean {
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    try {
+      const canvas = document.createElement("canvas")
+      const gl =
+        canvas.getContext("webgl") || canvas.getContext("experimental-webgl")
+      setReady(Boolean(gl))
+    } catch {
+      setReady(false)
+    }
+  }, [])
+  return ready
+}
+
+/* Last-resort guard: if the shader throws during render despite the WebGL
+   check, degrade to the static disc instead of taking the page down. */
+class AuraBoundary extends Component<
+  { fallback: ReactNode; children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  componentDidCatch(error: unknown) {
+    console.error("aura visualizer failed; using static fallback:", error)
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children
+  }
+}
+
+/* The aura wrapped in its fallback boundary. */
+function Aura(props: Parameters<typeof AgentAudioVisualizerAura>[0]) {
+  return (
+    <AuraBoundary fallback={STATIC_DISC}>
+      <AgentAudioVisualizerAura {...props} />
+    </AuraBoundary>
+  )
+}
 
 const ATTRACT_STATES: readonly AuraState[] = [
   "connecting",
@@ -102,6 +164,7 @@ export default function LiveCallDemo() {
   const roomRef = useRef<Room | null>(null)
   const [attractIndex, setAttractIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const auraReady = useAuraReady()
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -186,13 +249,10 @@ export default function LiveCallDemo() {
         ) : (
           <>
             <div className="lv-agdemo-wave-wrap">
-              {reducedMotion ? (
-                <div
-                  className="lv-agdemo-aura lv-agdemo-aura-static"
-                  aria-hidden="true"
-                />
+              {reducedMotion || !auraReady ? (
+                STATIC_DISC
               ) : (
-                <AgentAudioVisualizerAura
+                <Aura
                   className="lv-agdemo-aura"
                   state={idleAuraState}
                   color={AURA_COLOR}
@@ -251,14 +311,15 @@ function LiveSurface({
 }) {
   const { state, microphoneTrack } = useAgent()
   const volume = useTrackVolume(microphoneTrack)
+  const auraReady = useAuraReady()
 
   return (
     <>
       <div className="lv-agdemo-wave-wrap">
-        {reducedMotion ? (
-          <div className="lv-agdemo-aura lv-agdemo-aura-static" aria-hidden="true" />
+        {reducedMotion || !auraReady ? (
+          STATIC_DISC
         ) : (
-          <AgentAudioVisualizerAura
+          <Aura
             className="lv-agdemo-aura"
             state={toAuraState(state)}
             color={AURA_COLOR}
