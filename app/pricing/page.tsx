@@ -296,7 +296,9 @@ export default function PricingPage() {
             <div>
               <Eyebrow dark>Services</Eyebrow>
               <h2 className="lv-pr2-consulting-head">
-                Hands-on help, when you want it.
+                Hands-on help, when you
+                <br />
+                want it.
               </h2>
               <p className="lv-pr2-consulting-copy">
                 Optional on either path: implementation, integration,
