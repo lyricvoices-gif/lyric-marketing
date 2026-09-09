@@ -4566,6 +4566,19 @@ main.lv-pricing { padding-top: 0; }
    bookends, sage tint for Locations), and typographic scale (page-cover
    hero, smaller spread headlines, large pull-quote italic). The variation
    is the composition. */
+/* Type migration (home page): body → Söhne, eyebrows/labels → Söhne Mono.
+   Headlines keep GT Super Display. Scoped to .lv-home; GT America / GT
+   America Mono stay the closest-match fallback for glyphs the Söhne subset
+   lacks. Mirrors the About and agents pages. */
+.lv-home {
+  --font-body: "Söhne", "GT America", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Söhne Mono", "GT America Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.lv-home .lv-philosophy-eyebrow > span:last-child {
+  font-family: var(--font-mono);
+}
+
 .lv-about {
   background: var(--bg-light);
   color: var(--olive);
@@ -11883,7 +11896,7 @@ main.lv-agents {
   position: relative;
   aspect-ratio: 1944 / 1304;
   overflow: hidden;
-  background: #f5f6f7;
+  background: var(--surface-bright);
 }
 
 .lv-cxp-browser-screen img {
@@ -13714,7 +13727,7 @@ main.lv-agents {
 
 .lv-cxp-browser-screen {
   aspect-ratio: 16 / 10;
-  background: #f5f6f7;
+  background: var(--surface-bright);
 }
 
 .lv-cxp-browser-screen img {

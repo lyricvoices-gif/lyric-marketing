@@ -93,7 +93,7 @@ function CTA({
 
 export default function HomePage() {
   return (
-    <>
+    <main className="lv-home">
       {/* One continuous floret gradient spans the hero, the problem section,
           and the founders strip: the wrapper paints the gradient once and the
           sections sit transparent on top, so there are no per-section seams
@@ -220,6 +220,6 @@ export default function HomePage() {
       </section>
 
       <MobileStickyCTA />
-    </>
+    </main>
   )
 }

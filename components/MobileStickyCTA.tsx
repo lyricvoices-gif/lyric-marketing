@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 
 const DARK  = "#2b2a25"
-const LIGHT = "#f5f3ef"
+const LIGHT = "#FFF8EC"
 
 export default function MobileStickyCTA() {
   const [visible, setVisible] = useState(false)
