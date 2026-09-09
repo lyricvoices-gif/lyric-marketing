@@ -1,114 +1,315 @@
+/* Pricing — full-width stacked sections, top to bottom: the live phone demo
+   (the actual governed agent on the hosted worker, unscripted), the prebuilt
+   agent at one stated price, the custom governed agent (free intake, one-time
+   spec), a short consulting band, and the FAQ. No card grid anywhere: there
+   is one public price per path, so there is nothing to compare.
+
+   Commercial model, settled 2026-07-31 and unchanged here: both paths are a
+   single one-time purchase. No subscription, recurring license, annual fee,
+   activation fee, platform fee, or agent-count billing. The eval layer is
+   included on both paths, never an upsell. Consulting is optional, per
+   engagement, with no printed rate.
+
+   Copy rules for this page: no em dashes, no exclamation points, no hype, no
+   reference to Callio's cost structure. Bullets describe what the customer
+   receives. Amounts live in components/pricing/pricing-data.ts. */
+
 import type { Metadata } from "next"
+import type { CSSProperties, ReactNode } from "react"
 import Link from "next/link"
 import ScrollReveal from "@/components/ScrollReveal"
-import PricingTiers from "@/components/pricing/PricingTiers"
+import LiveCallDemo from "@/components/pricing/LiveCallDemo"
 import PricingFaq from "@/components/agents/AgentsFaq"
+import { PRICING } from "@/components/pricing/pricing-data"
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Two one-time paths to an owned, portable governance standard for AI agents across voice and text.",
+    "Call the governed Financial Services agent live, then buy it once. One prebuilt agent at one price, or a custom governed agent authored for your vertical. Nothing recurring.",
 }
+
+const CONSULTING_INQUIRY =
+  "mailto:info@lyricvoices.ai?subject=Callio%20consulting"
+
+const PREBUILT_RECEIVES = [
+  "The finished financial services governance spec.",
+  "The authored FS domain rules: register, disclosure, escalation, closing manner, lexicon and pronunciation.",
+  "The produced phone voices.",
+  "The eval layer, built in. Your team switches it on and runs it.",
+  "Delivery by email or download after purchase.",
+] as const
 
 const FAQ = [
   {
-    q: "Is there anything recurring?",
-    a: "No. Both paths are a one-time purchase. There is no subscription, annual platform fee, or agent-count billing. Optional professional services are scoped separately only when you choose them.",
+    q: "Is anything recurring?",
+    a: "No. Both paths are a single one-time purchase. There is no subscription, no annual fee, and no license to renew. What you buy is yours, and there is no charge to keep using it. Consulting is the only ongoing option, and only if you choose it.",
   },
   {
-    q: "What do we receive?",
-    a: "You receive the approved GovernSpec and an implementation adapter. The GovernSpec defines the standard for behavior, terminology, disclosures, workflows, escalation, and evaluation. The adapter maps that standard into the prompts, orchestration, skills, APIs, channels, and evaluation tooling in your environment.",
+    q: "Is the agent on this page the product?",
+    a: "Yes. The call at the top of this page runs the prebuilt financial services agent, built from the same spec you receive. It is live and unscripted, which is the point.",
   },
   {
-    q: "What makes the deliverable architecture-agnostic?",
-    a: "The governed standard is separate from the runtime that executes it. It can be implemented across models, speech providers, orchestration layers, channels, and infrastructure without re-authoring the standard. Architecture-agnostic does not mean implementation-free: your team still integrates the adapter into its environment.",
+    q: "What do we receive after purchase?",
+    a: "The governance spec, the authored domain rules, the produced phone voices, and the eval layer. Delivery is by email or download after purchase. You deploy it on your own model and speech provider. Callio does not sit in the call path.",
   },
   {
-    q: "Does the same standard apply to voice and text?",
-    a: "Yes. Brand behavior, terminology, policies, disclosures, workflows, escalation, and evaluation remain shared. The adapter then expresses that standard appropriately for voice, chat, SMS, email, and in-app experiences.",
+    q: "What does the custom intake cost?",
+    a: "Nothing. Complete the intake and see what the spec will cover at no charge. The $25,000 applies when you commission the custom spec.",
   },
   {
-    q: "Does Lyric sit in the runtime path?",
-    a: "No. Your models, speech providers, orchestration, channels, and infrastructure remain yours. You own the GovernSpec and adapter and deploy them in your own architecture.",
+    q: "Why is there only one price?",
+    a: "Because it is one finished product. The agent is complete when you buy it, so there is nothing to meter and nothing to tier. Larger institutions negotiate scope in contract.",
   },
   {
-    q: "What does it cost to use Callio?",
-    a: "You can complete the guided intake and review what it captures at no charge. The $25,000 one-time price applies when you commission the GovernSpec and implementation adapter.",
-  },
-  {
-    q: "Can our team implement this without Lyric?",
-    a: "Yes. The adapter is delivered with the implementation mapping your team needs. If you want hands-on help with implementation, integration, or evaluation, Lyric professional services are available as an optional engagement.",
+    q: "Is consulting required?",
+    a: "No. Both paths are complete on their own, and the eval layer is included in each. Consulting is optional help with implementation, integration, configuration, or monitoring, added at purchase or at any point after.",
   },
 ]
 
+/* Pill CTA mirroring the homepage Final CTA buttons. */
+function CTA({
+  href,
+  children,
+  variant = "dark",
+}: {
+  href: string
+  children: ReactNode
+  variant?: "dark" | "light" | "outline"
+}) {
+  const isMail = href.startsWith("mailto:")
+  const isExternal = href.startsWith("http")
+  const style: CSSProperties = {
+    minHeight: "54px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 24px",
+    borderRadius: "100px",
+    fontSize: "15px",
+    fontWeight: 500,
+    letterSpacing: "0",
+    background:
+      variant === "light"
+        ? "var(--bg-light)"
+        : variant === "dark"
+          ? "var(--olive)"
+          : "transparent",
+    color:
+      variant === "light"
+        ? "var(--olive)"
+        : variant === "dark"
+          ? "var(--bg-light)"
+          : "inherit",
+    border: variant === "outline" ? "1px solid currentColor" : "1px solid transparent",
+    transition: "background 0.22s ease, color 0.22s ease, transform 0.22s ease",
+  }
+  const className = `lv-cta lv-cta-${variant}`
+
+  if (isMail || isExternal) {
+    return (
+      <a
+        href={href}
+        className={className}
+        style={style}
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} className={className} style={style}>
+      {children}
+    </Link>
+  )
+}
+
+function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+  return (
+    <div className={`lv-philosophy-eyebrow${dark ? " lv-pr2-eyebrow-dark" : ""}`}>
+      <span className="lv-eyebrow-dot" aria-hidden="true" />
+      <span>{children}</span>
+    </div>
+  )
+}
+
 export default function PricingPage() {
   return (
-    <main className="lv-pricing">
-      <section className="lv-pricing-intro">
-        <div className="lv-pricing-inner">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Pricing</span>
+    <main className="lv-pricing lv-pr2">
+      {/* 1 · Live phone demo. The hosted production agent on an unscripted
+          call, distinct from the produced scenario players elsewhere on the
+          site. No gate: the call starts from the page. */}
+      <section className="lv-pr2-hero lv-floret-ground">
+        <div className="lv-pr2-hero-grid">
+          <div className="lv-pr2-hero-copy">
+            <ScrollReveal>
+              <Eyebrow>Pricing</Eyebrow>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <h1 className="lv-pricing-headline">
+                Talk to it <em>first</em>.
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={180}>
+              <p className="lv-pricing-supporting">
+                Callio built this agent from its financial services spec for a
+                fictional institution. The call is live and unscripted, not a
+                recording. You are hearing what a spec sounds like once it is
+                running.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={240}>
+              <p className="lv-pricing-supporting lv-pr2-hero-try">
+                Try to get past it. Ask it to confirm whether an account
+                exists. It will decline until identity is verified, on every
+                call, because the spec says so.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={160} className="lv-pr2-stage-reveal">
+            <div className="lv-pr2-stage">
+              <LiveCallDemo />
             </div>
-          </ScrollReveal>
-          <ScrollReveal delay={90}>
-            <h1 className="lv-pricing-headline">
-              Choose the path. <em>Own the standard.</em>
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={160}>
-            <p className="lv-pricing-supporting">
-              Start with an industry foundation or author a GovernSpec through
-              Callio. Either way, you receive a portable standard for how AI
-              agents behave across voice and text, with no ongoing Lyric fee.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={220}>
-            <p className="lv-pricing-hero-proof">
-              One-time purchase <span aria-hidden="true">·</span> Permanent
-              ownership <span aria-hidden="true">·</span> Your architecture
-            </p>
           </ScrollReveal>
         </div>
       </section>
 
-      <section className="lv-pricing-tiers-section">
-        <div className="lv-pricing-inner">
-          <PricingTiers />
+      {/* 2 · Prebuilt agent. One price, stated once, large. */}
+      <section className="lv-pr2-band lv-pr2-prebuilt">
+        <div className="lv-pr2-inner lv-pr2-split">
+          <div className="lv-pr2-lead">
+            <ScrollReveal>
+              <Eyebrow>Prebuilt agent</Eyebrow>
+            </ScrollReveal>
+            <ScrollReveal delay={80}>
+              <h2 className="lv-pr2-head">
+                The financial services agent, <em>finished</em>.
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={140}>
+              <p className="lv-pr2-amount">
+                {PRICING.prebuilt.amount}
+                <span className="lv-pr2-amount-period">one time</span>
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <p className="lv-pr2-quiet">
+                Nothing recurring. No license to renew, no platform fee, no
+                tiers by company size.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={260}>
+              <p className="lv-pr2-quiet">
+                One price, because it is one finished product. Larger
+                institutions negotiate scope in contract.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={320}>
+              <div className="lv-pr2-cta-row">
+                <CTA href="/agents/get-started">Get started with this agent</CTA>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={180} className="lv-pr2-receives-reveal">
+            <div className="lv-pr2-receives">
+              <p className="lv-pr2-receives-kicker">What you receive</p>
+              <ul className="lv-pr2-receives-list">
+                {PREBUILT_RECEIVES.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      <section className="lv-pricing-faq">
-        <ScrollReveal distance={28}>
-          <div className="lv-pricing-inner-narrow">
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>Buying questions</span>
+      {/* 3 · Custom governed agent. A commission, not a wrapper: the same
+          mechanism heard above, authored for the buyer's vertical. */}
+      <section className="lv-pr2-band lv-pr2-custom">
+        <div className="lv-pr2-inner lv-pr2-split">
+          <div className="lv-pr2-lead">
+            <ScrollReveal>
+              <Eyebrow>Custom governed agent</Eyebrow>
+            </ScrollReveal>
+            <ScrollReveal delay={80}>
+              <h2 className="lv-pr2-head">
+                The same mechanism, pointed at <em>your vertical</em>.
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={140}>
+              <p className="lv-pr2-body">
+                The agent you just heard was built from a financial services
+                spec. A custom governed agent is authored the same way for
+                your business: your domain rules, your scenarios, your
+                vocabulary, your voices.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <p className="lv-pr2-intake-line">The intake is free.</p>
+            </ScrollReveal>
+            <ScrollReveal delay={240}>
+              <p className="lv-pr2-amount">
+                {PRICING.custom.amount}
+                <span className="lv-pr2-amount-period">one time, for the spec</span>
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={300}>
+              <p className="lv-pr2-quiet">
+                Nothing recurring here either. The eval layer is included,
+                same as the prebuilt agent.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={360}>
+              <div className="lv-pr2-cta-row">
+                <CTA href="/start">Generate your governed spec</CTA>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={180} className="lv-pr2-receives-reveal">
+            <div className="lv-pr2-receives">
+              <p className="lv-pr2-receives-kicker">How it runs</p>
+              <ul className="lv-pr2-receives-list">
+                <li>A guided intake captures your industry, context, use case, and channels, at no charge.</li>
+                <li>Callio authors the governed spec: rules, scenarios, escalation, lexicon.</li>
+                <li>You review every decision before you commission the build.</li>
+                <li>The spec arrives with the eval layer built in, ready for your stack.</li>
+              </ul>
             </div>
-            <h2 className="lv-pricing-faq-title">What enterprise teams ask before they begin.</h2>
-            <div className="lv-pricing-faq-list">
-              <PricingFaq items={FAQ} />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* 4 · Consulting. A short band, not a card and not a third path. */}
+      <section className="lv-pr2-consulting">
+        <ScrollReveal>
+          <div className="lv-pr2-inner lv-pr2-consulting-row">
+            <div>
+              <Eyebrow dark>Consulting</Eyebrow>
+              <p className="lv-pr2-consulting-copy">
+                Optional on either path: implementation, integration,
+                configuration, and ongoing monitoring using the eval layer.
+                Add it at purchase or at any time after.
+              </p>
             </div>
+            <CTA href={CONSULTING_INQUIRY} variant="light">
+              Schedule a call
+            </CTA>
           </div>
         </ScrollReveal>
       </section>
 
-      <section className="lv-pricing-close">
-        <ScrollReveal>
-          <div className="lv-philosophy-eyebrow lv-pricing-close-eyebrow">
-            <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>Choose how you begin</span>
-          </div>
-          <h2>
-            <span>One governed standard.</span>
-            <span>Two ways to get there.</span>
-          </h2>
-          <div className="lv-pricing-close-actions">
-            <a href="mailto:info@lyricvoices.ai?subject=Financial%20Services%20foundation&body=We%20would%20like%20to%20start%20with%20the%20Financial%20Services%20foundation.">
-              Start with Financial Services
-            </a>
-            <Link href="/callio">Build through Callio</Link>
+      {/* 5 · FAQ. Every answer matches the one-time model above. */}
+      <section className="lv-pricing-faq">
+        <ScrollReveal distance={28}>
+          <div className="lv-pricing-inner-narrow">
+            <Eyebrow>Questions</Eyebrow>
+            <div className="lv-pricing-faq-list">
+              <PricingFaq items={FAQ} />
+            </div>
           </div>
         </ScrollReveal>
       </section>
