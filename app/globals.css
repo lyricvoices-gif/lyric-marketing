@@ -18084,27 +18084,51 @@ main.lv-c5 { padding-top: 0; }
   font-family: var(--font-mono);
 }
 
-/* ── 1 · Live demo hero: copy left, dark call stage right ── */
-.lv-pr2-hero {
-  padding: 148px 24px 88px;
+/* ── 1 · Live demo hero: full-bleed 50/50 split (the callio build's layout).
+   Copy panel on cream left, the live-call stage on charcoal right. Full-bleed
+   sets the hero apart from the centered stacked sections below; on mobile the
+   panels stack with the charcoal stage running edge to edge. ── */
+.lv-pr2-hero-left {
+  padding: 120px 24px 56px;
 }
-.lv-pr2-hero-grid {
-  max-width: 1120px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
-  gap: 64px;
-  align-items: center;
+.lv-pr2-hero-copy {
+  max-width: 560px;
+}
+.lv-pr2-hero-right {
+  background: var(--bg-dark);
+  padding: 40px 24px 56px;
+}
+/* The reveal wrapper between panel and demo must span the panel so the
+   demo (max-width 560px, auto-centered) sits on the panel's own axis. */
+.lv-pr2-hero-right > div {
+  width: 100%;
 }
 .lv-pr2-hero-try {
   margin-top: 18px;
 }
-/* The dark call surface — the same stage family as the agents-page demo
-   column, so the aura and pill grammar carry over unchanged. */
-.lv-pr2-stage {
-  background: var(--bg-dark);
-  border-radius: 24px;
-  padding: 44px 28px 40px;
+
+@media (min-width: 1000px) {
+  /* Full split: both panels center their content; the copy aligns to the
+     shared 1280px inner edge while the panels themselves stay full-bleed. */
+  .lv-pr2-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: min(82vh, 760px);
+  }
+  .lv-pr2-hero-left {
+    display: flex;
+    align-items: center;
+    padding: 96px 64px 64px max(calc((100vw - 1280px) / 2), 32px);
+  }
+  .lv-pr2-hero-copy {
+    max-width: 520px;
+  }
+  .lv-pr2-hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
 }
 .lv-livecall-note {
   font-family: var(--font-body);
@@ -18282,13 +18306,6 @@ main.lv-c5 { padding-top: 0; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .lv-pr2-hero {
-    padding: 120px 24px 64px;
-  }
-  .lv-pr2-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
   .lv-pr2-split {
     grid-template-columns: 1fr;
     gap: 44px;

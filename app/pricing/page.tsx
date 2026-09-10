@@ -146,8 +146,8 @@ export default function PricingPage() {
       {/* 1 · Live phone demo. The hosted production agent on an unscripted
           call, distinct from the produced scenario players elsewhere on the
           site. No gate: the call starts from the page. */}
-      <section className="lv-pr2-hero lv-floret-ground">
-        <div className="lv-pr2-hero-grid">
+      <section className="lv-pr2-hero">
+        <div className="lv-pr2-hero-left lv-floret-ground">
           <div className="lv-pr2-hero-copy">
             <ScrollReveal>
               <Eyebrow>Pricing</Eyebrow>
@@ -173,11 +173,11 @@ export default function PricingPage() {
               </p>
             </ScrollReveal>
           </div>
+        </div>
 
+        <div className="lv-pr2-hero-right">
           <ScrollReveal delay={160} className="lv-pr2-stage-reveal">
-            <div className="lv-pr2-stage">
-              <LiveCallDemo />
-            </div>
+            <LiveCallDemo />
           </ScrollReveal>
         </div>
       </section>
