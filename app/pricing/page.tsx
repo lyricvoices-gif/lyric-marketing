@@ -152,6 +152,20 @@ function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boole
   )
 }
 
+/* Price figure with the currency symbol optically reduced and lifted, so the
+   numerals read as the anchor. The whole figure is one span so the flex gap in
+   .lv-pr2-amount falls only between it and the "one time" label. */
+function Amount({ value }: { value: string }) {
+  const cur = value.match(/^\D+/)?.[0] ?? ""
+  const num = value.slice(cur.length)
+  return (
+    <span className="lv-pr2-amount-figure">
+      <span className="lv-pr2-amount-cur">{cur}</span>
+      {num}
+    </span>
+  )
+}
+
 export default function PricingPage() {
   return (
     <main className="lv-pricing lv-pr2">
@@ -207,7 +221,7 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={140}>
               <p className="lv-pr2-amount">
-                {PRICING.prebuilt.amount}
+                <Amount value={PRICING.prebuilt.amount} />
                 <span className="lv-pr2-amount-period">one time</span>
               </p>
             </ScrollReveal>
@@ -272,7 +286,7 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={240}>
               <p className="lv-pr2-amount">
-                {PRICING.custom.amount}
+                <Amount value={PRICING.custom.amount} />
                 <span className="lv-pr2-amount-period">one time, for the spec</span>
               </p>
             </ScrollReveal>

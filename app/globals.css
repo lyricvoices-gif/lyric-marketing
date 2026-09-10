@@ -18222,6 +18222,13 @@ main.lv-c5 { padding-top: 0; }
   font-weight: 400;
   color: rgba(90, 94, 67, 0.6);
 }
+/* Currency symbol optically reduced and lifted so the numerals dominate. */
+.lv-pr2-amount-cur {
+  font-size: 0.62em;
+  vertical-align: 0.2em;
+  letter-spacing: 0.01em;
+  margin-right: 0.02em;
+}
 .lv-pr2-intake-line {
   font-family: var(--font-mono);
   font-size: 11px;
