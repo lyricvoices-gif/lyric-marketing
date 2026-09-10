@@ -15482,6 +15482,7 @@ main.lv-agents {
 }
 
 .lv-agents-v3-hero {
+  position: relative;
   min-height: min(880px, calc(100svh - 12px));
   padding: clamp(118px, 13vh, 164px) 0 54px;
 }

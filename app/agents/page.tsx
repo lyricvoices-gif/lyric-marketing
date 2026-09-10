@@ -62,6 +62,14 @@ export default function AgentsPage() {
             </ScrollReveal>
           </div>
         </div>
+
+        {/* Scroll cue — animated mouse glyph, shared with the home and About
+            heroes (motion gated by prefers-reduced-motion in globals.css). */}
+        <div className="lv-scroll-cue" aria-hidden="true">
+          <span className="lv-scroll-cue-mouse">
+            <span className="lv-scroll-cue-wheel" />
+          </span>
+        </div>
       </section>
 
       <section id="experience" className="lv-agents-v3-section lv-agents-v3-experience">
