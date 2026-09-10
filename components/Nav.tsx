@@ -38,6 +38,7 @@ export default function Nav() {
   const pathname = usePathname()
   const isHome = pathname === "/"
   const isCallio = pathname === "/callio"
+  const isPricing = pathname === "/pricing"
   const [loaded, setLoaded] = React.useState(false)
   const [menuOpen, setMenuOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
@@ -125,7 +126,7 @@ export default function Nav() {
   return (
     <>
       <nav
-        className="lyric-nav"
+        className={`lyric-nav${isPricing && !scrolled ? " lyric-nav-dark-hero" : ""}`}
         style={{
           position: "fixed",
           top: 0,

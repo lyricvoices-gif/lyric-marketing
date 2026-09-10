@@ -261,6 +261,27 @@ main.lv-pricing { padding-top: 0; }
 /* Active nav link — subtle dot indicator instead of a pill background. */
 .lyric-nav-link {
   position: relative;
+  transition: color 0.28s ease;
+}
+
+/* Split-hero pages (pricing): at the top the transparent nav sits over the
+   charcoal right panel, so its links and CTA go light for contrast. Scoped
+   to >=1000px, where the hero is actually side-by-side; below that the hero
+   stacks under a cream panel (or the nav collapses to a hamburger) and the
+   base dark treatment is correct. The class drops on scroll, when the nav
+   gains its cream background and the links return to dark. */
+@media (min-width: 1000px) {
+  .lyric-nav-dark-hero .lyric-nav-link {
+    color: var(--cream-body) !important;
+  }
+  .lyric-nav-dark-hero .lyric-nav-link-active {
+    color: var(--bg-light) !important;
+  }
+  .lyric-nav-dark-hero .lyric-nav-cta {
+    background: var(--bg-light) !important;
+    color: var(--olive-deep) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) !important;
+  }
 }
 
 /* Primary self-service CTA in the nav ("Try for free"). Base treatment is set
