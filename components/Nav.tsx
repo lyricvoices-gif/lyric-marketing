@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import React from "react"
 
 /* Nav items — primary structure for both desktop bar and mobile overlay.
-   Products is the only dropdown; About and Notes are simple links.
+   Products is the only dropdown; About and Voiceprint are simple links.
    The mobile overlay flattens the dropdown into an indented sub-group
    so visitors see every destination without an extra tap. */
 
@@ -26,7 +26,7 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { type: "link", href: "/pricing", label: "Pricing" },
-  { type: "link", href: "/notes", label: "Notes" },
+  { type: "link", href: "/notes", label: "Voiceprint" },
 ]
 
 /* Global navigation stays neutral between Lyric's two launch paths. Product-

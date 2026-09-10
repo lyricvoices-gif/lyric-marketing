@@ -89,7 +89,7 @@ export default function Footer() {
       heading: "Company",
       links: [
         { label: "About",    href: "/about" },
-        { label: "Notes",    href: "/notes" },
+        { label: "Voiceprint", href: "/notes" },
       ],
     },
     {
