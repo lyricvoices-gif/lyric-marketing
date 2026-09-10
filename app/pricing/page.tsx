@@ -79,7 +79,7 @@ const CUSTOM_RUNS = [
 const FAQ = [
   {
     q: "Is anything recurring?",
-    a: "No. Both paths are a single one-time purchase. There is no subscription, no annual fee, and no license to renew. What you buy is yours, and there is no charge to keep using it. Consulting is the only ongoing option, and only if you choose it.",
+    a: "No. Both paths are a single one-time purchase. There is no subscription, no annual fee, and no license to renew. What you buy is yours, and you won't be charged to keep using it. Consulting is the only ongoing option, and only if you choose it.",
   },
   {
     q: "Is the agent on this page the product?",
@@ -87,15 +87,15 @@ const FAQ = [
   },
   {
     q: "What do we receive after purchase?",
-    a: "The governance spec, the authored domain rules, the produced phone voices, and the eval layer. Delivery is by email or download after purchase. You deploy it on your own model and speech provider. Callio does not sit in the call path.",
+    a: "You receive the governance spec, the authored domain rules, the produced phone voices, and the eval layer. Delivery is by email or download after purchase. You deploy it on your own model and speech provider. Callio does not sit in the call path.",
   },
   {
     q: "What does the custom intake cost?",
-    a: "Nothing. Complete the intake and see what the spec will cover at no charge. The $25,000 applies when you commission the custom spec.",
+    a: "The intake is free. Complete the intake and see what the spec will cover at no charge. The $25,000 applies when you commission the custom spec.",
   },
   {
-    q: "Why is there only one price?",
-    a: "Because it is one finished product. The agent is complete when you buy it, so there is nothing to meter and nothing to tier. Larger institutions negotiate scope in contract.",
+    q: "Why is the prebuilt agent a single fixed price?",
+    a: "Because it is one finished product. The agent is complete when you buy it, so there is nothing to meter and nothing to tier. Larger institutions negotiate scope in the contract.",
   },
   {
     q: "Is consulting required?",
@@ -391,7 +391,7 @@ export default function PricingPage() {
           </h2>
           <div className="lv-cta-row lv-cta-row-center">
             <CTA href={CONTACT_INQUIRY} variant="light">
-              Contact us
+              Schedule a call
             </CTA>
           </div>
         </ScrollReveal>
