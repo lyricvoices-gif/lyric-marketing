@@ -154,22 +154,21 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <h1 className="lv-pricing-headline">
-                Talk to it <em>first</em>.
+                Talk to the <em>agent</em>.
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={180}>
               <p className="lv-pricing-supporting">
-                Callio built this agent from its financial services spec for a
-                fictional institution. The call is live and unscripted, not a
-                recording. You are hearing what a spec sounds like once it is
-                running.
+                Callio built this agent from its governed financial services
+                spec. The call is live and unscripted, and it runs the same
+                behaviors your institution would receive.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={240}>
               <p className="lv-pricing-supporting lv-pr2-hero-try">
-                Try to get past it. Ask it to confirm whether an account
-                exists. It will decline until identity is verified, on every
-                call, because the spec says so.
+                Ask it to confirm an account. It will decline until identity is
+                verified on every call and in every text interaction because
+                the spec requires it.
               </p>
             </ScrollReveal>
           </div>
