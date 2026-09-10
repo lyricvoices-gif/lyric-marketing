@@ -37,11 +37,6 @@ const CONTACT_INQUIRY =
 /* Dark ground for the closing bookend, matching the home page final CTA. */
 const DARK = "#2b2a25"
 
-/* Split the prebuilt price into currency symbol and figure so the "$" can be
-   optically reduced in the lockup, without changing the value in pricing-data. */
-const PREBUILT_CUR = PRICING.prebuilt.amount.match(/^\D+/)?.[0] ?? ""
-const PREBUILT_NUM = PRICING.prebuilt.amount.slice(PREBUILT_CUR.length)
-
 const PREBUILT_RECEIVES = [
   "The finished financial services governance spec.",
   "The authored FS domain rules: register, disclosure, escalation, closing manner, lexicon and pronunciation.",
@@ -186,56 +181,54 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* 2 · Prebuilt agent — one authored offer module: the product narrative
-          and price on the left, the deliverables ledger on the right, held in a
-          single paper-toned editorial frame divided by a fine vertical rule. */}
+      {/* 2 · Prebuilt agent. One price, stated once, large. */}
       <section className="lv-pr2-band lv-pr2-prebuilt">
-        <ScrollReveal distance={20}>
-          <div className="lv-offer">
-            <div className="lv-offer-grid">
-              <div className="lv-offer-lead">
-                <div className="lv-philosophy-eyebrow">
-                  <span className="lv-eyebrow-dot" aria-hidden="true" />
-                  <span>Prebuilt agent</span>
-                </div>
-                <h2 className="lv-offer-head">
-                  The financial services agent, <em>finished</em>.
-                </h2>
-                <p className="lv-offer-price">
-                  <span className="lv-offer-figure">
-                    <span className="lv-offer-cur">{PREBUILT_CUR}</span>
-                    {PREBUILT_NUM}
-                  </span>
-                  <span className="lv-offer-term">one time</span>
-                </p>
-                <div className="lv-offer-note">
-                  <p>
-                    Nothing recurring. No license to renew, no platform fee, no
-                    tiers by company size.
-                  </p>
-                  <p>
-                    One price, because it is one finished product. Larger
-                    institutions negotiate scope in contract.
-                  </p>
-                </div>
-                <div className="lv-offer-cta">
-                  <CTA href="/agents/get-started">Get started with this agent</CTA>
-                </div>
+        <div className="lv-pr2-inner lv-pr2-split">
+          <div className="lv-pr2-lead">
+            <ScrollReveal>
+              <Eyebrow>Prebuilt agent</Eyebrow>
+            </ScrollReveal>
+            <ScrollReveal delay={80}>
+              <h2 className="lv-pr2-head">
+                The financial services agent, <em>finished</em>.
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={140}>
+              <p className="lv-pr2-amount">
+                {PRICING.prebuilt.amount}
+                <span className="lv-pr2-amount-period">one time</span>
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <p className="lv-pr2-quiet">
+                Nothing recurring. No license to renew, no platform fee, no
+                tiers by company size.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={260}>
+              <p className="lv-pr2-quiet">
+                One price, because it is one finished product. Larger
+                institutions negotiate scope in contract.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={320}>
+              <div className="lv-pr2-cta-row">
+                <CTA href="/agents/get-started">Get started with this agent</CTA>
               </div>
-
-              <div className="lv-offer-ledger">
-                <p className="lv-offer-ledger-kicker">What you receive</p>
-                <ol className="lv-offer-ledger-list">
-                  {PREBUILT_RECEIVES.map((item) => (
-                    <li key={item}>
-                      <span className="lv-offer-ledger-desc">{item}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
-        </ScrollReveal>
+
+          <ScrollReveal delay={180} className="lv-pr2-receives-reveal">
+            <div className="lv-pr2-receives">
+              <p className="lv-pr2-receives-kicker">What you receive</p>
+              <ul className="lv-pr2-receives-list">
+                {PREBUILT_RECEIVES.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </ScrollReveal>
+        </div>
       </section>
 
       {/* 3 · Custom governed agent. A commission, not a wrapper: the same
