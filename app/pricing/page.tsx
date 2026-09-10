@@ -38,11 +38,23 @@ const CONTACT_INQUIRY =
 const DARK = "#2b2a25"
 
 const PREBUILT_RECEIVES = [
-  "The finished financial services governance spec.",
-  "The authored FS domain rules: register, disclosure, escalation, closing manner, lexicon and pronunciation.",
-  "The produced phone voices.",
-  "The eval layer, built in. Your team switches it on and runs it.",
-  "Delivery by email or download after purchase.",
+  {
+    label: "Governance spec",
+    desc: "The finished financial services governance spec.",
+  },
+  {
+    label: "Domain rules",
+    desc: "Register, disclosure, escalation, closing manner, lexicon, and pronunciation.",
+  },
+  { label: "Produced voices", desc: "The phone voices produced for the agent." },
+  {
+    label: "Eval layer",
+    desc: "Built in. Your team switches it on and runs it.",
+  },
+  {
+    label: "Delivery",
+    desc: "Delivered by email or download after purchase.",
+  },
 ] as const
 
 const FAQ = [
@@ -190,7 +202,7 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={80}>
               <h2 className="lv-pr2-head">
-                The financial services agent, <em>finished</em>.
+                A governed financial services agent, <em>finished</em>.
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={140}>
@@ -201,14 +213,14 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={200}>
               <p className="lv-pr2-quiet">
-                Nothing recurring. No license to renew, no platform fee, no
-                tiers by company size.
+                Nothing recurs. There is no license to renew, no platform fee,
+                and no tiers by company size.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={260}>
               <p className="lv-pr2-quiet">
-                One price, because it is one finished product. Larger
-                institutions negotiate scope in contract.
+                It is a single finished product. Larger institutions can expand
+                implementation scope through contract terms.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={320}>
@@ -221,9 +233,12 @@ export default function PricingPage() {
           <ScrollReveal delay={180} className="lv-pr2-receives-reveal">
             <div className="lv-pr2-receives">
               <p className="lv-pr2-receives-kicker">What you receive</p>
-              <ul className="lv-pr2-receives-list">
+              <ul className="lv-pr2-receives-list lv-pr2-deliv">
                 {PREBUILT_RECEIVES.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item.label}>
+                    <span className="lv-pr2-deliv-label">{item.label}</span>
+                    <span className="lv-pr2-deliv-desc">{item.desc}</span>
+                  </li>
                 ))}
               </ul>
             </div>

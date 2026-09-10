@@ -18282,6 +18282,28 @@ main.lv-c5 { padding-top: 0; }
   padding-top: 4px;
 }
 
+/* Prebuilt "What you receive" is a labeled deliverables ledger — no numbers,
+   a bold olive label leading a quiet description — on the shared hairline
+   rows. Scoped so the custom band's numbered "How it runs" list is unchanged. */
+.lv-pr2-deliv li {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.lv-pr2-deliv li::before {
+  content: none;
+}
+.lv-pr2-deliv-label {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--olive);
+  margin-bottom: 3px;
+}
+.lv-pr2-deliv-desc {
+  display: block;
+  color: rgba(90, 94, 67, 0.82);
+}
+
 /* Custom band sits one tonal step brighter, hairline seam against cream. */
 .lv-pr2-custom {
   background: var(--surface-bright);

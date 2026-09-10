@@ -237,7 +237,6 @@ export default function LiveCallDemo() {
     <div className="lv-agdemo lv-livecall" data-state={callState}>
       <div className="lv-agdemo-voice">
         <div className="lv-agdemo-eyebrow">
-          <span className="lv-eyebrow-dot" aria-hidden="true" />
           <span>Live call &middot; FS agent</span>
         </div>
 
