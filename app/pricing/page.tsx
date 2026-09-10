@@ -239,21 +239,21 @@ export default function PricingPage() {
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={140}>
+              <p className="lv-pr2-body">
+                It is a single finished product. Larger institutions can expand
+                implementation scope through contract terms.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
               <p className="lv-pr2-amount">
                 <Amount value={PRICING.prebuilt.amount} />
                 <span className="lv-pr2-amount-period">one time</span>
               </p>
             </ScrollReveal>
-            <ScrollReveal delay={200}>
+            <ScrollReveal delay={260}>
               <p className="lv-pr2-quiet">
                 Nothing recurs. There is no license to renew, no platform fee,
                 and no tiers by company size.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={260}>
-              <p className="lv-pr2-quiet">
-                It is a single finished product. Larger institutions can expand
-                implementation scope through contract terms.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={320}>
@@ -301,18 +301,16 @@ export default function PricingPage() {
               </p>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <p className="lv-pr2-intake-line">The intake is free.</p>
-            </ScrollReveal>
-            <ScrollReveal delay={240}>
               <p className="lv-pr2-amount">
                 <Amount value={PRICING.custom.amount} />
                 <span className="lv-pr2-amount-period">one time, for the spec</span>
               </p>
             </ScrollReveal>
-            <ScrollReveal delay={300}>
+            <ScrollReveal delay={260}>
               <p className="lv-pr2-quiet">
-                Nothing recurs. There is no license to renew, and the eval
-                layer is included, just like the prebuilt agent.
+                The intake is free. Nothing recurs. There is no license to
+                renew, and the eval layer is included, just like the prebuilt
+                agent.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={360}>
