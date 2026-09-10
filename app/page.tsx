@@ -213,7 +213,7 @@ export default function HomePage() {
               href="mailto:hi@lyricvoices.ai?subject=Lyric%20launch%20options&amp;body=Hi%20Lyric%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20the%20right%20launch%20path%20for%20our%20AI%20agent.%0A%0ACompany%3A%20%0AUse%20case%3A%20%0AChannel%28s%29%3A%20%0A%0AThank%20you."
               variant="outline"
             >
-              Contact us
+              Schedule a call
             </CTA>
           </div>
         </ScrollReveal>
