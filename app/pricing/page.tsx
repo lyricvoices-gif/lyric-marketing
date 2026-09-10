@@ -57,6 +57,25 @@ const PREBUILT_RECEIVES = [
   },
 ] as const
 
+const CUSTOM_RUNS = [
+  {
+    label: "Guided intake",
+    desc: "Captures your industry, context, use case, and channels at no charge.",
+  },
+  {
+    label: "Spec authoring",
+    desc: "Callio authors the governed spec: rules, scenarios, escalation, lexicon.",
+  },
+  {
+    label: "Decision review",
+    desc: "You review every decision before commissioning the build.",
+  },
+  {
+    label: "Delivery",
+    desc: "The spec arrives with the eval layer built in, ready for your stack.",
+  },
+] as const
+
 const FAQ = [
   {
     q: "Is anything recurring?",
@@ -270,15 +289,15 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={80}>
               <h2 className="lv-pr2-head">
-                The same mechanism, pointed at <em>your vertical</em>.
+                The same mechanism, authored for <em>your vertical</em>.
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={140}>
               <p className="lv-pr2-body">
-                The agent you just heard was built from a financial services
-                spec. A custom governed agent is authored the same way for
-                your business: your domain rules, your scenarios, your
-                vocabulary, your voices.
+                The agent you heard was built from a financial services spec. A
+                custom governed agent is authored the same way for your
+                business: your domain rules, your scenarios, your vocabulary,
+                your voices.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={200}>
@@ -292,8 +311,8 @@ export default function PricingPage() {
             </ScrollReveal>
             <ScrollReveal delay={300}>
               <p className="lv-pr2-quiet">
-                Nothing recurring here either. The eval layer is included,
-                same as the prebuilt agent.
+                Nothing recurs. There is no license to renew, and the eval
+                layer is included, just like the prebuilt agent.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={360}>
@@ -307,10 +326,14 @@ export default function PricingPage() {
             <div className="lv-pr2-receives">
               <p className="lv-pr2-receives-kicker">How it runs</p>
               <ul className="lv-pr2-receives-list">
-                <li>A guided intake captures your industry, context, use case, and channels, at no charge.</li>
-                <li>Callio authors the governed spec: rules, scenarios, escalation, lexicon.</li>
-                <li>You review every decision before you commission the build.</li>
-                <li>The spec arrives with the eval layer built in, ready for your stack.</li>
+                {CUSTOM_RUNS.map((item) => (
+                  <li key={item.label}>
+                    <div className="lv-pr2-deliv-body">
+                      <span className="lv-pr2-deliv-label">{item.label}</span>
+                      <span className="lv-pr2-deliv-desc">{item.desc}</span>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
           </ScrollReveal>
