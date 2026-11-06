@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation"
 import type { ReactNode } from "react"
+import EditorialShell from "@/components/home/editorial/EditorialShell"
+import "@/app/editorial.css"
 
 /* Wraps the global chrome (nav, footer, persistent playback bar) so it can be
    suppressed on standalone routes. Case studies read as self-contained editorial
@@ -27,6 +29,10 @@ export default function SiteChrome({
 
   if (standalone) {
     return <main style={{ paddingTop: 0 }}>{children}</main>
+  }
+
+  if (pathname === "/") {
+    return <EditorialShell playbackBar={playbackBar}>{children}</EditorialShell>
   }
 
   return (

@@ -38,3 +38,10 @@ public/isotype-preview.html
 **/.DS_Store
 tsconfig.tsbuildinfo
 /out/
+
+# Timeless permits web embedding, but prohibits public font redistribution.
+# Install locally from the supplied archive; keep binaries out of Git.
+public/fonts/timeless/
+
+# Local visual review captures, not production site assets.
+review-assets/

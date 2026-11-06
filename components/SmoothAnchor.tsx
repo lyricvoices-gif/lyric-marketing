@@ -1,6 +1,7 @@
 "use client"
 
 import type { CSSProperties, ReactNode } from "react"
+import { useLenis } from "lenis/react"
 
 /* Editorial-pace smooth scroll. The browser's native scroll-behavior:smooth
    completes long-distance scrolls in a fixed time (~300-500ms), which lands
@@ -63,6 +64,7 @@ export default function SmoothAnchor({
   className?: string
   children: ReactNode
 }) {
+  const lenis = useLenis()
   return (
     <a
       href={`#${targetId}`}
@@ -72,7 +74,14 @@ export default function SmoothAnchor({
         const el = document.getElementById(targetId)
         if (!el) return
         const top = el.getBoundingClientRect().top + window.scrollY - offset
-        smoothScrollTo(top, duration)
+        if (lenis)
+          lenis.scrollTo(top, {
+            duration: duration / 1000,
+            easing: easeInOutCubic,
+            immediate: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches,
+          })
+        else smoothScrollTo(top, duration)
         if (typeof history !== "undefined") {
           history.replaceState(null, "", `#${targetId}`)
         }

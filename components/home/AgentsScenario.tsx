@@ -10,124 +10,15 @@ import {
 } from "react"
 import ScrollReveal from "@/components/ScrollReveal"
 
-type TranscriptRole = "Agent" | "Customer"
-
-type GovernanceAnnotation = {
-  label: string
-  delay: number
-}
-
-export type DemoTranscriptTurn = {
-  id: string
-  start: number
-  role: TranscriptRole
-  text: string
-  annotations?: readonly GovernanceAnnotation[]
-}
-
-export type GovernedExperienceDemo = {
-  id: string
-  channel: "voice" | "text"
-  audio?: {
-    src: string
-    fallbackDuration: number
-    firstTurnAt: number
-  }
-  transcript: readonly DemoTranscriptTurn[]
-}
-
-/* This is the exact script currently paired with the /agents hero audio.
-   Starts are calculated from the checked-in line durations and stitch gaps in
-   scripts/generate-fs-demo-call.mjs, so the transcript follows the real
-   recording rather than a generic caption track. The current agent take uses
-   Jessica Anne Bogart (ElevenLabs voice g6xIsTj2HwM6VR4iXFCw); annotations
-   appear only where the spoken turn directly demonstrates the named behavior. */
-const FS_HERO_TRANSCRIPT: readonly DemoTranscriptTurn[] = [
-  {
-    id: "opening",
-    start: 2.9,
-    role: "Agent",
-    text: "For quality and training purposes, calls may be recorded. Thank you for calling Oakhaven Capital. I'm your banking concierge. How can I help?",
-    annotations: [{ label: "Disclosure present", delay: 3.1 }],
-  },
-  {
-    id: "charge",
-    start: 11.676984,
-    role: "Customer",
-    text: "Hi, um, I'm looking at my account and there's a charge for three hundred and twelve dollars that I definitely didn't make.",
-  },
-  {
-    id: "verify-request",
-    start: 18.131973,
-    role: "Agent",
-    text: "I'm sorry to hear that. I'll do my best to help. Before I can access your account, I'll need to verify your identity. Can you confirm the last four digits of the account number you're calling about?",
-    annotations: [{ label: "Verify before access", delay: 6.4 }],
-  },
-  {
-    id: "account-digits",
-    start: 29.370272,
-    role: "Customer",
-    text: "It's the account ending in two, two, four, five.",
-  },
-  {
-    id: "two-factor-request",
-    start: 33.271066,
-    role: "Agent",
-    text: "Thank you. For added security, I've just sent a one-time verification code to the mobile number ending in four two. Could you read that code back to me?",
-    annotations: [{ label: "Two-factor verification", delay: 2.8 }],
-  },
-  {
-    id: "verification-code",
-    start: 43.64449,
-    role: "Customer",
-    text: "Sure, one sec... okay, got it. It's four seven one two... nine five.",
-  },
-  {
-    id: "verify-code",
-    start: 48.427642,
-    role: "Agent",
-    text: "Thank you. One moment while I verify that.",
-  },
-  {
-    id: "lookup",
-    start: 53.992676,
-    role: "Agent",
-    text: "Thanks for verifying your identity. One moment while I look into that charge.",
-  },
-  {
-    id: "merchant",
-    start: 63.368866,
-    role: "Agent",
-    text: "Thank you for holding. I can see the three hundred twelve dollar charge you mentioned. Do you recognize the merchant listed on the transaction?",
-  },
-  {
-    id: "unfamiliar",
-    start: 72.05297,
-    role: "Customer",
-    text: "No, I've never heard of them.",
-  },
-  {
-    id: "outcome",
-    start: 73.910408,
-    role: "Agent",
-    text: "Understood. I've opened a dispute for the three hundred twelve dollar charge and applied a temporary credit to your account while we investigate. If we determine the charge was unauthorized, you won't be responsible for it. I'll walk you through what happens next.",
-    annotations: [
-      { label: "Required behavior met", delay: 6.2 },
-      { label: "Resolution path explained", delay: 11.2 },
-    ],
-  },
-] as const
-
-export const FS_HERO_DEMO: GovernedExperienceDemo = {
-  id: "financial-services-hero-call",
-  channel: "voice",
-  audio: {
-    src: "/audio/fs-demo-call.mp3",
-    fallbackDuration: 87.981701,
-    firstTurnAt: 2.9,
-  },
-  transcript: FS_HERO_TRANSCRIPT,
-}
+import {
+  FS_HERO_DEMO,
+  type GovernedExperienceDemo,
+} from "@/components/home/governed-demo"
+export { FS_HERO_DEMO } from "@/components/home/governed-demo"
+export type {
+  DemoTranscriptTurn,
+  GovernedExperienceDemo,
+} from "@/components/home/governed-demo"
 
 function formatTime(value: number) {
   const safe = Number.isFinite(value) ? Math.max(0, value) : 0
@@ -160,13 +51,11 @@ function DemoControls({
   const progress = Math.min(100, (currentTime / Math.max(duration, 0.01)) * 100)
   const primaryLabel = ended
     ? "Replay"
-    : playing && !muted
+    : playing
       ? "Pause"
-      : playing && muted
-        ? "Listen in"
-        : currentTime > 0.1
-          ? "Continue"
-          : "Listen in"
+      : currentTime > 0.1
+        ? "Continue"
+        : "Listen in"
 
   return (
     <div className="lv-splitdemo-controls">
@@ -176,9 +65,9 @@ function DemoControls({
           className="lv-splitdemo-listen"
           onClick={onListen}
           aria-label={`${primaryLabel} the governed financial services conversation`}
-          aria-pressed={playing && !muted}
+          aria-pressed={playing}
         >
-          {playing && !muted ? (
+          {playing ? (
             <Pause aria-hidden="true" />
           ) : ended ? (
             <RotateCcw aria-hidden="true" />
@@ -195,13 +84,19 @@ function DemoControls({
           aria-label={muted ? "Unmute conversation" : "Mute conversation"}
           aria-pressed={muted}
         >
-          {muted ? <VolumeX aria-hidden="true" /> : <Volume2 aria-hidden="true" />}
+          {muted ? (
+            <VolumeX aria-hidden="true" />
+          ) : (
+            <Volume2 aria-hidden="true" />
+          )}
           <span>{muted ? "Unmute" : "Mute"}</span>
         </button>
       </div>
 
       <label className="lv-splitdemo-timeline">
-        <span className="lv-splitdemo-sr">Seek through the governed financial services conversation</span>
+        <span className="lv-splitdemo-sr">
+          Seek through the governed financial services conversation
+        </span>
         <input
           type="range"
           min={0}
@@ -220,14 +115,23 @@ function DemoControls({
 
       {hasError ? (
         <p className="lv-splitdemo-error" role="status">
-          Audio could not start. The synchronized transcript is continuing silently.
+          Audio could not start. The synchronized transcript is continuing
+          silently.
         </p>
       ) : null}
     </div>
   )
 }
 
-export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
+export function LyricGovernedDemo({
+  demo,
+  autoPlay = true,
+  chapters,
+}: {
+  demo: GovernedExperienceDemo
+  autoPlay?: boolean
+  chapters?: readonly { label: string; time: number }[]
+}) {
   const rootRef = useRef<HTMLElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const transcriptRef = useRef<HTMLDivElement>(null)
@@ -242,7 +146,7 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
   const [muted, setMuted] = useState(true)
   const [ended, setEnded] = useState(false)
   const [hasError, setHasError] = useState(false)
-  const [hasStarted, setHasStarted] = useState(false)
+  const [hasStarted, setHasStarted] = useState(!autoPlay)
   const [usingFallback, setUsingFallback] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const firstTurnAt = demo.audio?.firstTurnAt ?? 0
@@ -259,7 +163,8 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
         -1,
       )
     : -1
-  const visibleTurns = activeTurnIndex >= 0 ? demo.transcript.slice(0, activeTurnIndex + 1) : []
+  const visibleTurns =
+    activeTurnIndex >= 0 ? demo.transcript.slice(0, activeTurnIndex + 1) : []
 
   const stopFallback = useCallback(() => {
     if (fallbackTimerRef.current !== null) {
@@ -271,7 +176,8 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
 
   const startFallback = useCallback(
     (from: number) => {
-      if (fallbackTimerRef.current !== null) window.clearInterval(fallbackTimerRef.current)
+      if (fallbackTimerRef.current !== null)
+        window.clearInterval(fallbackTimerRef.current)
       fallbackBaseRef.current = Math.max(firstTurnAt, from)
       fallbackStartedRef.current = performance.now()
       setHasStarted(true)
@@ -281,10 +187,14 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
 
       fallbackTimerRef.current = window.setInterval(() => {
         const elapsed = (performance.now() - fallbackStartedRef.current) / 1000
-        const next = Math.min(absoluteDuration, fallbackBaseRef.current + elapsed)
+        const next = Math.min(
+          absoluteDuration,
+          fallbackBaseRef.current + elapsed,
+        )
         setAbsoluteTime(next)
         if (next >= absoluteDuration) {
-          if (fallbackTimerRef.current !== null) window.clearInterval(fallbackTimerRef.current)
+          if (fallbackTimerRef.current !== null)
+            window.clearInterval(fallbackTimerRef.current)
           fallbackTimerRef.current = null
           setUsingFallback(false)
           setPlaying(false)
@@ -308,7 +218,8 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
     if (!audio) return
 
     const syncTime = () => {
-      if (!usingFallback) setAbsoluteTime(Math.max(firstTurnAt, audio.currentTime))
+      if (!usingFallback)
+        setAbsoluteTime(Math.max(firstTurnAt, audio.currentTime))
     }
     const syncDuration = () => {
       if (Number.isFinite(audio.duration)) setAbsoluteDuration(audio.duration)
@@ -324,18 +235,28 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
     audio.addEventListener("loadedmetadata", syncDuration)
     audio.addEventListener("durationchange", syncDuration)
     audio.addEventListener("ended", finish)
+    const syncPaused = () => setPlaying(false)
+    audio.addEventListener("pause", syncPaused)
     return () => {
       audio.removeEventListener("timeupdate", syncTime)
       audio.removeEventListener("loadedmetadata", syncDuration)
       audio.removeEventListener("durationchange", syncDuration)
       audio.removeEventListener("ended", finish)
+      audio.removeEventListener("pause", syncPaused)
     }
   }, [firstTurnAt, usingFallback])
 
   useEffect(() => {
     const root = rootRef.current
     const audio = audioRef.current
-    if (!root || !audio || !demo.audio) return
+    if (
+      !root ||
+      !audio ||
+      !demo.audio ||
+      !autoPlay ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return
 
     const beginMutedDemo = () => {
       if (autoplayAttemptedRef.current) return
@@ -377,11 +298,12 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
 
     observer.observe(root)
     return () => observer.disconnect()
-  }, [demo.audio, firstTurnAt, startFallback])
+  }, [autoPlay, demo.audio, firstTurnAt, startFallback])
 
   useEffect(
     () => () => {
-      if (fallbackTimerRef.current !== null) window.clearInterval(fallbackTimerRef.current)
+      if (fallbackTimerRef.current !== null)
+        window.clearInterval(fallbackTimerRef.current)
       if (scrollAnimationFrameRef.current !== null) {
         window.cancelAnimationFrame(scrollAnimationFrameRef.current)
       }
@@ -391,7 +313,8 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
 
   useEffect(() => {
     const pane = transcriptRef.current
-    const currentTurn = activeTurnIndex >= 0 ? demo.transcript[activeTurnIndex] : null
+    const currentTurn =
+      activeTurnIndex >= 0 ? demo.transcript[activeTurnIndex] : null
     const node = currentTurn ? turnRefs.current[currentTurn.id] : null
     if (!pane || !node || Date.now() < manualReadingUntilRef.current) return
 
@@ -469,8 +392,9 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
     const audio = audioRef.current
     if (!audio || !demo.audio) return
 
-    if (playing && !muted && !usingFallback) {
+    if (playing) {
       audio.pause()
+      stopFallback()
       setPlaying(false)
       return
     }
@@ -502,19 +426,62 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
   const seek = (time: number) => {
     const audio = audioRef.current
     if (!audio) return
-    const next = Math.min(absoluteDuration, Math.max(firstTurnAt, time + firstTurnAt))
+    const next = Math.min(
+      absoluteDuration,
+      Math.max(firstTurnAt, time + firstTurnAt),
+    )
     audio.currentTime = next
     setAbsoluteTime(next)
     setHasStarted(true)
-    setEnded(next >= absoluteDuration - 0.1)
-    if (usingFallback) startFallback(next)
+    const atEnd = next >= absoluteDuration - 0.1
+    setEnded(atEnd)
+    if (atEnd) {
+      audio.pause()
+      stopFallback()
+      setPlaying(false)
+    } else if (usingFallback) startFallback(next)
   }
 
   return (
-    <article ref={rootRef} className="lv-splitdemo" data-demo-channel={demo.channel}>
+    <article
+      ref={rootRef}
+      className="lv-splitdemo"
+      data-demo-channel={demo.channel}
+    >
+      {chapters ? (
+        <div
+          className="le-conversation-chapters"
+          aria-label="Play a conversation chapter"
+        >
+          {chapters.map((chapter, index) => (
+            <button
+              key={chapter.label}
+              type="button"
+              aria-label={`Play ${chapter.label.toLowerCase()} chapter`}
+              aria-current={
+                absoluteTime >= chapter.time &&
+                absoluteTime < (chapters[index + 1]?.time ?? Infinity)
+                  ? "true"
+                  : undefined
+              }
+              onClick={() => {
+                manualReadingUntilRef.current = 0
+                void startAudiblePlayback(chapter.time)
+              }}
+            >
+              <span>
+                {formatTime(chapter.time - firstTurnAt)}{" "}
+                <span aria-hidden="true">↗</span>
+              </span>
+              {chapter.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div
         ref={transcriptRef}
         className="lv-splitdemo-transcript"
+        data-lenis-prevent
         onWheel={markManualReading}
         onTouchStart={markManualReading}
         onPointerDown={markManualReading}
@@ -538,13 +505,18 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
               </div>
               <p>{turn.text}</p>
               {turn.annotations?.map((annotation) => {
-                const annotationVisible = absoluteTime >= turn.start + annotation.delay
+                const annotationVisible =
+                  absoluteTime >= turn.start + annotation.delay
                 return (
                   <span
                     key={annotation.label}
                     className={`lv-splitdemo-proof${annotationVisible ? " is-shown" : ""}`}
+                    aria-hidden={!annotationVisible}
                   >
-                    <span className="lv-splitdemo-proof-dot" aria-hidden="true" />
+                    <span
+                      className="lv-splitdemo-proof-dot"
+                      aria-hidden="true"
+                    />
                     {annotation.label}
                   </span>
                 )
@@ -568,7 +540,14 @@ export function LyricGovernedDemo({ demo }: { demo: GovernedExperienceDemo }) {
         />
       ) : null}
 
-      {demo.audio ? <audio ref={audioRef} src={demo.audio.src} preload="metadata" playsInline /> : null}
+      {demo.audio ? (
+        <audio
+          ref={audioRef}
+          src={demo.audio.src}
+          preload="metadata"
+          playsInline
+        />
+      ) : null}
     </article>
   )
 }

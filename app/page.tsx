@@ -1,227 +1,284 @@
 import Link from "next/link"
-import type React from "react"
-import HomeHero from "@/components/HomeHero"
-import LogoCycler from "@/components/LogoCycler"
-import MobileStickyCTA from "@/components/MobileStickyCTA"
-import VerticalsSection from "@/components/VerticalsSection"
-import ScrollHighlightText from "@/components/ScrollHighlightText"
-import ScrollReveal from "@/components/ScrollReveal"
-import AgentsScenario from "@/components/home/AgentsScenario"
-import CallioProductStory from "@/components/home/CallioProductStory"
-import LaunchPaths from "@/components/home/LaunchPaths"
+import type { Metadata } from "next"
+import AudioCompare from "@/components/home/editorial/AudioCompare"
+import CallioTour from "@/components/home/editorial/CallioTour"
+import { LyricGovernedDemo } from "@/components/home/AgentsScenario"
+import { FS_HERO_DEMO } from "@/components/home/governed-demo"
 
-/* Homepage — Lyric as a brand-governance layer for AI agents.
+export const metadata: Metadata = {
+  title: { absolute: "Lyric — One brand voice. Every agent." },
+  description:
+    "The brand-governance layer for AI agents. Callio turns your business standards into governed behavior across voice, text, models, and speech engines.",
+}
 
-   Voice and TTS generation have commoditized; governing brand personality
-   across an enterprise's agents has not. The page makes that argument in
-   order: the drift problem, where Lyric sits (the control plane), how it
-   works, and what it governs.
-
-   The previous voice-artist-platform sections are preserved, not deleted:
-     - the original hero / manifesto / audiences / final CTA copy lives in
-       components/home-archive/HomeVoiceArtistSections.tsx
-     - the Imprint / Score / Callio scrollytelling (ProductsSection), the
-       artist index (ListenSection), and the editorial teaser (NotesSection)
-       remain as their own component files, simply no longer imported here.
-   Callio is kept live: it is the Direction product, and "See how it works"
-   points to /callio. */
-
-const DARK = "#2b2a25"
-
-function CTA({
-  href,
+function SectionLabel({
+  number,
   children,
-  variant = "dark",
 }: {
-  href: string
+  number: string
   children: React.ReactNode
-  variant?: "dark" | "light" | "outline"
 }) {
-  const isMail = href.startsWith("mailto:")
-  const isExternal = href.startsWith("http")
-  /* Light-variant pills sit on dark grounds (final CTA). Filled with warm
-     off-white and set in dark olive — the brand-palette equivalent of an
-     olive-on-cream pill, inverted for dark backgrounds where olive-on-dark
-     lands too low-contrast. */
-  const style = {
-    minHeight: "54px",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 24px",
-    borderRadius: "100px",
-    fontSize: "15px",
-    fontWeight: 500,
-    letterSpacing: "0",
-    background:
-      variant === "light"
-        ? "var(--bg-light)"
-        : variant === "dark"
-          ? "var(--olive)"
-          : "transparent",
-    color:
-      variant === "light"
-        ? "var(--olive)"
-        : variant === "dark"
-          ? "var(--bg-light)"
-          : "inherit",
-    border: variant === "outline" ? "1px solid currentColor" : "1px solid transparent",
-    transition: "background 0.22s ease, color 0.22s ease, transform 0.22s ease",
-  }
-
-  const className = `lv-cta lv-cta-${variant}`
-
-  if (isMail || isExternal) {
-    return (
-      <a
-        href={href}
-        className={className}
-        style={style}
-        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      >
-        {children}
-      </a>
-    )
-  }
-
   return (
-    <Link href={href} className={className} style={style}>
+    <p className="le-section-label">
+      <span>{number}</span>
       {children}
-    </Link>
+    </p>
   )
+}
+function Arrow({ diagonal = false }: { diagonal?: boolean }) {
+  return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>
 }
 
 export default function HomePage() {
   return (
     <>
-      {/* One continuous floret gradient spans the hero, the problem section,
-          and the founders strip: the wrapper paints the gradient once and the
-          sections sit transparent on top, so there are no per-section seams
-          before the olive chapter break. */}
-      <div className="lv-floret-ground">
-        <HomeHero />
-
-        {/* The problem: brand voice drift. Per-line ScrollHighlightText lifts
-            each line word-by-word as the reader scrolls past it — the same
-            editorial pacing the manifesto used, now carrying the thesis. */}
-        <section id="thesis" className="lv-philosophy lv-on-floret">
-          <ScrollReveal>
-            <div className="lv-philosophy-eyebrow">
-              <span className="lv-eyebrow-dot" aria-hidden="true" />
-              <span>The problem</span>
-            </div>
-          </ScrollReveal>
-
-          <div className="lv-philosophy-flow">
-            <div className="lv-philosophy-movement">
-              <ScrollHighlightText>Enterprises are deploying AI agents faster than they can govern them.</ScrollHighlightText>
-              <ScrollHighlightText>They answer billing questions. They qualify new leads. They take the after-hours calls.</ScrollHighlightText>
-              <ScrollHighlightText>But each one was built by a different team, on a different model, with a different voice.</ScrollHighlightText>
-              <ScrollHighlightText>To customers, it feels like talking to <em>different companies</em>.</ScrollHighlightText>
-            </div>
-
-            <div className="lv-philosophy-movement">
-              <ScrollHighlightText>Generating speech has become cheap and good.</ScrollHighlightText>
-              <ScrollHighlightText>Any team can ship a fluent voice in an afternoon.</ScrollHighlightText>
-              <ScrollHighlightText>What has not been solved is <em>consistency</em>.</ScrollHighlightText>
-              <ScrollHighlightText>Brand voice drift is now the default state of an enterprise&apos;s agents.</ScrollHighlightText>
-            </div>
-
-            <div className="lv-philosophy-movement">
-              <ScrollHighlightText>A brand is a promise about how it will behave.</ScrollHighlightText>
-              <ScrollHighlightText>When every agent keeps that promise differently, the promise erodes.</ScrollHighlightText>
-              <ScrollHighlightText>Governance is the part that did not get easier.</ScrollHighlightText>
-              <ScrollHighlightText><em>So we built for it.</em></ScrollHighlightText>
+      <link
+        rel="preload"
+        href="/fonts/timeless/TimelessSerif-Regular.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/fonts/timeless/TimelessSans-GroteskRegular.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <section className="le-hero le-wrap" aria-labelledby="home-title">
+        <p className="le-hero-kicker le-label" data-reveal>
+          AI communication governance for the enterprise
+        </p>
+        <h1 id="home-title" data-reveal data-reveal-delay="90">
+          One brand voice.
+          <br />
+          <em>Every agent.</em>
+        </h1>
+        <div className="le-hero-bottom" data-reveal data-reveal-delay="180">
+          <div className="le-hero-copy">
+            <p>
+              Turn your brand, policy, and service standards into behavior every
+              AI agent can follow. That’s Callio.
+            </p>
+            <div className="le-actions">
+              <a className="le-button" href="#system">
+                Explore Callio <Arrow />
+              </a>
+              <a
+                className="le-text-link"
+                href="mailto:info@lyricvoices.ai?subject=Enterprise%20AI%20agents"
+              >
+                Talk to our team <Arrow diagonal />
+              </a>
             </div>
           </div>
-        </section>
-
-        <LogoCycler className="lv-on-floret" />
-      </div>
-
-      {/* A distinct product chapter: high-impact Callio introduction followed
-          by four purpose-built feature interfaces. */}
-      <CallioProductStory />
-
-      {/* Governed agents are the product story made practical: an open,
-          transcript-first demonstration of the standard holding in action. */}
-      <section className="lv-agentstory-section">
-        <div className="lv-agentstory-inner">
-          <ScrollReveal>
-            <div className="lv-agentstory-header">
-              <div className="lv-philosophy-eyebrow">
-                <span className="lv-eyebrow-dot" aria-hidden="true" />
-                <span>Pre-built agent</span>
-              </div>
-              <h2 className="lv-agentstory-headline">The foundation is already built.</h2>
-              <p className="lv-agentstory-supporting">
-                Financial Services is our first pre-built agent foundation. Your agents have
-                set behaviors, guardrails, workflows, and evaluation criteria. This means your
-                team can begin by adjusting a governed foundation rather than starting from
-                scratch.
-              </p>
-              <div className="lv-cxp-intro-points lv-agentstory-points">
-                <Link href="/agents" className="lv-link-cta">
-                  Explore pre-built agents &rarr;
-                </Link>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <AgentsScenario />
+        </div>
+        <div
+          className="le-buyer-path"
+          aria-label="Explore Lyric"
+          data-reveal
+          data-reveal-delay="270"
+        >
+          <a href="#evidence">
+            <span>01</span> Hear the difference <Arrow />
+          </a>
+          <a href="#system">
+            <span>02</span> Build your standard <Arrow />
+          </a>
+          <a href="#conversation">
+            <span>03</span> See it in action <Arrow />
+          </a>
         </div>
       </section>
 
-      {/* After both paths have been introduced, this compact decision point
-          clarifies how a team can begin with Lyric. */}
-      <LaunchPaths />
-
-      {/* Homepage industry framing; shared section layout and cards stay intact. */}
-      <VerticalsSection
-        eyebrow="Industries"
-        headline={
-          <>
-            Built for interactions where<br />the standard has to hold.
-          </>
-        }
-        supporting={
-          <>
-            Lyric is designed for high-stakes, regulated environments where behavior,
-            terminology, escalation, and disclosures cannot drift. Financial Services is
-            our first pre-built foundation. Other industries can begin through a custom
-            Callio intake.
-          </>
-        }
-      />
-
-      <section className="lv-final" style={{ background: DARK }}>
-        <ScrollReveal>
-          <div className="lv-philosophy-eyebrow lv-final-eyebrow">
-            <span className="lv-eyebrow-dot" aria-hidden="true" />
-            <span>The brand-governance layer for AI agents</span>
-          </div>
-          <h2>
-            <span className="lv-final-line">The engines</span>
-            <br />
-            <span className="lv-final-line">are commoditized.</span>
-            <br />
-            <span className="lv-final-line">The <em>brand</em> is not.</span>
-          </h2>
-          <div className="lv-cta-row lv-cta-row-center">
-            <CTA href="/pricing" variant="light">
-              Explore ways to launch
-            </CTA>
-            <CTA
-              href="mailto:hi@lyricvoices.ai?subject=Lyric%20launch%20options&amp;body=Hi%20Lyric%20team%2C%0A%0AI%27d%20like%20to%20learn%20more%20about%20the%20right%20launch%20path%20for%20our%20AI%20agent.%0A%0ACompany%3A%20%0AUse%20case%3A%20%0AChannel%28s%29%3A%20%0A%0AThank%20you."
-              variant="outline"
-            >
-              Contact us
-            </CTA>
-          </div>
-        </ScrollReveal>
+      <section
+        id="evidence"
+        tabIndex={-1}
+        className="le-wrap le-section le-proof-section"
+        aria-labelledby="evidence-title"
+      >
+        <AudioCompare
+          introduction={
+            <>
+              <SectionLabel number="01">Hear the difference</SectionLabel>
+              <h2 id="evidence-title">
+                Same question.
+                <br />
+                <em>A different standard.</em>
+              </h2>
+              <p>
+                One question. Two ways to answer. Play each response and follow
+                the words.
+              </p>
+            </>
+          }
+        />
       </section>
 
-      <MobileStickyCTA />
+      <section
+        id="system"
+        tabIndex={-1}
+        className="le-system"
+        aria-labelledby="system-title"
+      >
+        <div className="le-wrap le-section">
+          <div className="le-compact-heading" data-reveal>
+            <div>
+              <SectionLabel number="02">Build your standard</SectionLabel>
+              <h2 id="system-title">
+                Your standards.
+                <br />
+                <em>Ready for your agents.</em>
+              </h2>
+            </div>
+            <p>
+              From guided intake to an implementation-ready specification with
+              Callio, our intake agent. Explore the actual workflow.
+            </p>
+            <Link href="/callio" className="le-text-link le-system-link">
+              Explore Callio <Arrow diagonal />
+            </Link>
+          </div>
+          <CallioTour />
+        </div>
+      </section>
+
+      <section
+        id="conversation"
+        tabIndex={-1}
+        className="le-conversation le-wrap le-section"
+        aria-labelledby="conversation-title"
+      >
+        <div className="le-conversation-intro" data-reveal>
+          <SectionLabel number="03">See it in action</SectionLabel>
+          <h2 id="conversation-title">
+            The foundation
+            <br />
+            <em>is already built.</em>
+          </h2>
+          <p>
+            Start with a governed Financial Services foundation. Hear it handle
+            a disputed charge, from disclosure to resolution.
+          </p>
+          <Link href="/agents" className="le-text-link">
+            Explore pre-built agents <Arrow />
+          </Link>
+        </div>
+        <div className="le-demo" data-reveal data-reveal-delay="90">
+          <LyricGovernedDemo demo={FS_HERO_DEMO} autoPlay={false} />
+          <p className="le-demo-caption">
+            Recorded demonstration · Oakhaven Capital scenario
+          </p>
+          <details className="le-full-transcript">
+            <summary>
+              Read the full transcript <span aria-hidden="true">+</span>
+            </summary>
+            <ol>
+              {FS_HERO_DEMO.transcript.map((turn) => (
+                <li key={turn.id}>
+                  <span className="le-label">{turn.role}</span>
+                  <p>{turn.text}</p>
+                  {turn.annotations?.map((note) => (
+                    <span className="le-transcript-note" key={note.label}>
+                      ↳ {note.label}
+                    </span>
+                  ))}
+                </li>
+              ))}
+            </ol>
+          </details>
+        </div>
+      </section>
+      <section
+        className="le-quote-section le-wrap"
+        data-reveal
+        aria-label="Regulatory context"
+      >
+        <span className="le-label">Why the standard matters</span>
+        <figure>
+          <blockquote>
+            “A poorly deployed chatbot can lead to customer frustration, reduced
+            trust, and even <em>violations of the law.</em>”
+          </blockquote>
+          <figcaption>
+            <span>Rohit Chopra</span>
+            <span>Then Director, Consumer Financial Protection Bureau</span>
+            <a
+              className="le-text-link"
+              href="https://www.consumerfinance.gov/archive/newsroom/cfpb-issue-spotlight-analyzes-artificial-intelligence-chatbots-in-banking/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              June 6, 2023 · Read the source <Arrow diagonal />
+            </a>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section
+        className="le-credibility le-wrap"
+        data-reveal
+        aria-label="Founder experience"
+      >
+        <p className="le-label">
+          Our founders shaped <br />
+          agentic communications at
+        </p>
+        <p>
+          Google <span>·</span> JBL <span>·</span> United Airlines{" "}
+          <span>·</span> Virgin Atlantic <span>·</span> Verizon <span>·</span>{" "}
+          BMW Group <span>·</span> AppFolio <span>·</span> Meta
+        </p>
+      </section>
+
+      <section
+        id="get-started"
+        className="le-launch le-wrap le-section"
+        aria-labelledby="launch-title"
+      >
+        <div className="le-compact-heading" data-reveal>
+          <div>
+            <SectionLabel number="04">Your next step</SectionLabel>
+            <h2 id="launch-title">
+              Start with one workflow.
+              <br />
+              <em>Make the standard yours.</em>
+            </h2>
+          </div>
+          <a
+            className="le-button"
+            href="mailto:info@lyricvoices.ai?subject=Enterprise%20AI%20agents"
+          >
+            Talk to our team <Arrow diagonal />
+          </a>
+        </div>
+        <div className="le-launch-paths" data-reveal data-reveal-delay="90">
+          <Link href="/start">
+            <span className="le-label">For your existing agents</span>
+            <span className="le-launch-name">
+              Build with Callio <Arrow diagonal />
+            </span>
+            <span>Define your brand’s governed specification.</span>
+          </Link>
+          <Link href="/agents">
+            <span className="le-label">For a new deployment</span>
+            <span className="le-launch-name">
+              Start with a pre-built agent <Arrow diagonal />
+            </span>
+            <span>Adapt the Financial Services foundation.</span>
+          </Link>
+        </div>
+        <div className="le-launch-bottom" data-reveal>
+          <p className="le-caption">
+            Property Management, Travel & Hospitality, and Healthcare
+            foundations are in development. Custom Callio intakes are available.
+          </p>
+          <Link href="/pricing" className="le-text-link">
+            Explore pricing <Arrow />
+          </Link>
+        </div>
+      </section>
     </>
   )
 }
